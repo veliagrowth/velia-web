@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Háblanos de tu proyecto — VELIA</title>
+<meta name="description" content="Cuéntanos tu situación y evaluamos si podemos ayudarte a crecer con estrategia e IA."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+*{cursor:none!important}
+#cur{position:fixed;top:0;left:0;width:7px;height:7px;background:#C9A96E;border-radius:50%;pointer-events:none!important;opacity:0;z-index:2147483647;will-change:transform;transition:width .2s,height .2s,background .2s,border .2s,opacity .2s}
+:root{--void:#0A0A0F;--deep:#1C1C28;--gold:#C9A96E;--cream:#EDE9E1;--teal:#4ECDC4;--muted:rgba(237,233,225,.45);--border:rgba(201,169,110,.12);--display:'Cormorant Garamond',serif;--body:'DM Sans',sans-serif}
+body{font-family:var(--body);background:var(--void);color:var(--cream);overflow-x:hidden;font-weight:300;min-height:100vh}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;background:rgba(10,10,15,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--display);font-size:22px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.08em;display:flex;flex-direction:column;line-height:1}
+.nav-logo-sub{font-family:var(--body);font-size:7px;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-top:3px}
+.nav-back{font-size:11px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--cream)}
+.page-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.page-left{padding:100px 5vw 60px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;background:var(--deep);border-right:1px solid var(--border);overflow:hidden}
+.page-left-glow{position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(ellipse,rgba(201,169,110,.06) 0%,transparent 70%);pointer-events:none}
+.page-left-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,169,110,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,169,110,.03) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 30% 70%,black 0%,transparent 70%)}
+.page-label{font-size:10px;font-weight:300;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px;display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.page-label::before{content:'';display:block;width:24px;height:1px;background:var(--teal)}
+.page-title{font-family:var(--display);font-size:clamp(44px,5vw,80px);font-weight:300;line-height:.92;margin-bottom:24px;position:relative;z-index:1}
+.page-title em{font-style:italic;color:var(--gold)}
+.page-sub{font-size:14px;font-weight:300;line-height:1.8;color:var(--muted);max-width:360px;position:relative;z-index:1;margin-bottom:40px}
+.page-sub strong{color:var(--cream);font-weight:400}
+.info-pills{display:flex;flex-direction:column;gap:14px;position:relative;z-index:1}
+.info-pill{display:flex;align-items:center;gap:16px;padding:14px 18px;border:1px solid var(--border);background:rgba(10,10,15,.5);transition:border-color .2s}
+.info-pill:hover{border-color:rgba(201,169,110,.3)}
+.info-pill-icon{width:34px;height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.info-pill-icon svg{width:15px;height:15px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.info-pill-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.info-pill-val{font-size:12px;font-weight:300;color:var(--cream)}
+.page-right{padding:100px 5vw 80px;background:var(--void)}
+.form-block{margin-bottom:32px;padding-top:28px;border-top:1px solid var(--border)}
+.form-block-title{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;font-weight:300}
+.fg input,.fg select,.fg textarea{width:100%;background:var(--deep);border:1px solid var(--border);color:var(--cream);font-family:var(--body);font-size:13px;font-weight:300;padding:12px 15px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(237,233,225,.2)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(201,169,110,.4)}
+.fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A96E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:38px}
+.fg select option{background:var(--deep);color:var(--cream)}
+.fg textarea{resize:vertical;min-height:96px}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn-submit{width:100%;margin-top:6px;background:var(--gold);color:var(--void);border:none;font-family:var(--body);font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;padding:15px;transition:opacity .2s;display:block}
+.btn-submit:hover{opacity:.85}
+.btn-submit:disabled{opacity:.5}
+.success-state{display:none;text-align:center;padding:80px 20px}
+.success-state.show{display:block}
+.success-sep{width:1px;height:56px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);margin:0 auto 32px;opacity:.6}
+.success-title{font-family:var(--display);font-size:clamp(40px,5vw,72px);font-weight:300;line-height:.9;margin-bottom:16px}
+.success-title em{font-style:italic;color:var(--gold)}
+.success-sub{font-size:14px;font-weight:300;color:var(--muted);line-height:1.8}
+@media(max-width:900px){.page-wrap{grid-template-columns:1fr}.page-left{position:relative;height:auto;padding:100px 5vw 50px}.page-right{padding:50px 5vw 80px}#cur{display:none}*{cursor:auto!important}}
+@media(max-width:600px){.fg2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<nav>
+  <a href="index.html" class="nav-logo">VELIA<span class="nav-logo-sub">AI-Powered Marketing</span></a>
+  <a href="index.html" class="nav-back">← Volver</a>
+</nav>
+<div class="page-wrap">
+  <div class="page-left">
+    <div class="page-left-grid"></div>
+    <div class="page-left-glow"></div>
+    <p class="page-label">Proceso de selección</p>
+    <h1 class="page-title">HÁBLANOS<br>DE TU<br><em>PROYECTO.</em></h1>
+    <p class="page-sub">Antes de empezar queremos entender bien tu negocio.<br><br><strong>Si hay encaje real, te contactamos en menos de 24h.</strong></p>
+    <div class="info-pills">
+      <div class="info-pill">
+        <div class="info-pill-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div><p class="info-pill-label">Tiempo de respuesta</p><p class="info-pill-val">Menos de 24 horas</p></div>
+      </div>
+      <div class="info-pill">
+        <div class="info-pill-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></div>
+        <div><p class="info-pill-label">Primera sesión</p><p class="info-pill-val">45 min · Sin compromiso</p></div>
+      </div>
+
+    </div>
+  </div>
+  <div class="page-right">
+    <div id="form-wrap">
+      <form id="contact-form" onsubmit="submitForm(event)" novalidate>
+        <div class="form-block">
+          <p class="form-block-title">Sobre ti</p>
+          <div class="fg2">
+            <div class="fg"><label>Nombre *</label><input type="text" name="nombre" placeholder="Tu nombre" required/></div>
+            <div class="fg"><label>Empresa *</label><input type="text" name="empresa" placeholder="Tu empresa" required/></div>
+          </div>
+          <div class="fg2">
+            <div class="fg"><label>Email *</label><input type="email" name="email" placeholder="tu@empresa.com" required/></div>
+            <div class="fg"><label>Teléfono</label><input type="tel" name="telefono" placeholder="+34 600 000 000"/></div>
+          </div>
+          <div class="fg"><label>Web / Tienda Online</label><input type="url" name="web" placeholder="https://tuempresa.com"/></div>
+        </div>
+        <div class="form-block">
+          <p class="form-block-title">Tu negocio</p>
+          <div class="fg"><label>Facturación mensual actual</label>
+            <select name="facturacion"><option value="">Selecciona un rango</option><option>Menos de 20.000€</option><option>20.000€ — 50.000€</option><option>50.000€ — 100.000€</option><option>100.000€ — 300.000€</option><option>+300.000€</option></select>
+          </div>
+          <div class="fg"><label>Inversión mensual en publicidad</label>
+            <select name="inversion"><option value="">Selecciona un rango</option><option>Menos de 2.000€</option><option>2.000€ — 5.000€</option><option>5.000€ — 15.000€</option><option>15.000€ — 50.000€</option><option>+50.000€</option></select>
+          </div>
+          <div class="fg2">
+            <div class="fg"><label>Objetivo principal</label>
+              <select name="objetivo"><option value="">Selecciona</option><option>Escalar facturación</option><option>Mejorar rentabilidad</option><option>Reducir CPA</option><option>Aumentar LTV / retención</option><option>Profesionalizar el marketing</option></select>
+            </div>
+            <div class="fg"><label>¿Qué limita tu crecimiento?</label>
+              <select name="limitante"><option value="">Selecciona</option><option>Falta de estrategia clara</option><option>Publicidad que no rentabiliza</option><option>Contenido sin impacto</option><option>Falta de automatización</option><option>Sin presencia digital</option><option>Otros</option></select>
+            </div>
+          </div>
+        </div>
+        <div class="form-block">
+          <p class="form-block-title">Planificación</p>
+          <div class="fg2">
+            <div class="fg"><label>¿Cuándo quieres empezar?</label>
+              <select name="timing"><option value="">Selecciona</option><option>Inmediatamente</option><option>En el próximo mes</option><option>En 1-3 meses</option><option>Solo investigando</option></select>
+            </div>
+            <div class="fg"><label>¿Quién toma la decisión?</label>
+              <select name="decision"><option value="">Selecciona</option><option>Yo</option><option>Socios / dirección</option><option>Equipo</option></select>
+            </div>
+          </div>
+          <div class="fg"><label>¿Cuál es tu principal reto ahora mismo?</label><textarea name="mensaje" placeholder="Cuéntanos dónde estás y qué quieres conseguir..."></textarea></div>
+        </div>
+        <button type="submit" class="btn-submit" id="submit-btn">Enviar solicitud</button>
+      </form>
+    </div>
+    <div class="success-state" id="success">
+      <div class="success-sep"></div>
+      <h2 class="success-title">SOLICITUD<br><em>RECIBIDA.</em></h2>
+      <p class="success-sub">Hemos recibido tu solicitud.<br>Si hay encaje, nos pondremos en contacto en menos de 24h.</p>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var cur=document.getElementById('cur'),x=-100,y=-100;
+  document.addEventListener('mousemove',function(e){
+    x=e.clientX;y=e.clientY;
+    cur.style.opacity='1';
+    cur.style.transform='translate3d('+(x-3.5)+'px,'+(y-3.5)+'px,0)';
+    cur.style.width='7px';cur.style.height='7px';
+    cur.style.background='#C9A96E';cur.style.border='none';cur.style.borderRadius='50%';
+  });
+  document.addEventListener('mouseleave',function(){cur.style.opacity='0';});
+  document.addEventListener('mouseover',function(e){
+    if(e.target.closest('a,button,select,input,textarea,label')){
+      cur.style.width='28px';cur.style.height='28px';
+      cur.style.background='transparent';cur.style.border='1px solid #C9A96E';
+      cur.style.borderRadius='50%';
+      cur.style.transform='translate3d('+(x-14)+'px,'+(y-14)+'px,0)';
+    }
+  });
+  document.addEventListener('mouseout',function(e){
+    if(e.target.closest('a,button,select,input,textarea,label')){
+      cur.style.width='7px';cur.style.height='7px';
+      cur.style.background='#C9A96E';cur.style.border='none';
+      cur.style.transform='translate3d('+(x-3.5)+'px,'+(y-3.5)+'px,0)';
+    }
+  });
+  var GHL='TU_WEBHOOK_URL_AQUI';
+  function submitForm(e){
+    e.preventDefault();
+    var f=e.target,btn=document.getElementById('submit-btn');
+    var p={nombre:f.querySelector('[name="nombre"]').value,empresa:f.querySelector('[name="empresa"]').value,email:f.querySelector('[name="email"]').value,telefono:f.querySelector('[name="telefono"]').value,web:f.querySelector('[name="web"]').value,facturacion:f.querySelector('[name="facturacion"]').value,inversion:f.querySelector('[name="inversion"]').value,objetivo:f.querySelector('[name="objetivo"]').value,limitante:f.querySelector('[name="limitante"]').value,timing:f.querySelector('[name="timing"]').value,decision:f.querySelector('[name="decision"]').value,mensaje:f.querySelector('[name="mensaje"]').value,fecha:new Date().toISOString(),origen:'Formulario VELIA'};
+    btn.textContent='Enviando...';btn.disabled=true;
+    if(!GHL||GHL==='TU_WEBHOOK_URL_AQUI'){
+      setTimeout(function(){document.getElementById('form-wrap').style.display='none';document.getElementById('success').classList.add('show');},800);
+      return;
+    }
+    fetch(GHL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)}).then(function(){document.getElementById('form-wrap').style.display='none';document.getElementById('success').classList.add('show');}).catch(function(){btn.textContent='Error — inténtalo de nuevo';btn.disabled=false;});
+  }
+  window.submitForm=submitForm;
+})();
+</script>
+</body>
+</html>
