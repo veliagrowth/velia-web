@@ -15,7 +15,6 @@ html{scroll-behavior:smooth}
 #cur{position:fixed;top:0;left:0;width:7px;height:7px;background:#C9A96E;border-radius:50%;pointer-events:none!important;opacity:0;z-index:2147483647;will-change:transform;transition:width .2s,height .2s,background .2s,border .2s,opacity .2s}
 :root{--void:#0A0A0F;--deep:#1C1C28;--gold:#C9A96E;--cream:#EDE9E1;--teal:#4ECDC4;--muted:rgba(237,233,225,.45);--border:rgba(201,169,110,.12);--display:'Cormorant Garamond',serif;--body:'DM Sans',sans-serif}
 body{font-family:var(--body);background:var(--void);color:var(--cream);overflow-x:hidden;font-weight:300}
-
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;transition:background .4s,border .4s}
 nav.scrolled{background:rgba(10,10,15,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .nav-logo{font-family:var(--display);font-size:22px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.08em;display:flex;flex-direction:column;line-height:1}
@@ -25,13 +24,7 @@ nav.scrolled{background:rgba(10,10,15,.92);backdrop-filter:blur(20px);border-bot
 .nav-link:hover{color:var(--cream)}
 .btn-nav{font-family:var(--body);font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--void);background:var(--gold);padding:10px 24px;text-decoration:none;transition:opacity .2s;display:inline-block}
 .btn-nav:hover{opacity:.85}
-
-#hero{
-  min-height:100vh;
-  display:flex;flex-direction:column;justify-content:center;
-  padding:120px 5vw 80px;
-  position:relative;overflow:hidden;
-}
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 5vw 80px;position:relative;overflow:hidden}
 .hero-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(201,169,110,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,169,110,.04) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 70%)}
 .hero-glow{position:absolute;top:-20%;right:-10%;width:60vw;height:60vw;background:radial-gradient(ellipse,rgba(78,205,196,.06) 0%,transparent 65%);z-index:0;pointer-events:none;animation:pulse 6s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
@@ -48,20 +41,17 @@ nav.scrolled{background:rgba(10,10,15,.92);backdrop-filter:blur(20px);border-bot
 .btn-ghost{color:var(--muted);font-size:11px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:color .2s;white-space:nowrap}
 .btn-ghost:hover{color:var(--cream)}
 .hero-sep{position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.2}
-
 #ticker{padding:16px 0;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--deep)}
 .ticker-track{display:flex;width:max-content;animation:ticker 35s linear infinite}
 .ticker-item{display:flex;align-items:center;gap:16px;padding:0 40px;font-size:10px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .ticker-item::before{content:'◆';color:var(--gold);font-size:6px}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
 section{position:relative;z-index:1}
 .inner{max-width:1200px;margin:0 auto;padding:0 5vw}
 .s-eyebrow{font-size:10px;font-weight:300;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;display:flex;align-items:center;gap:12px}
 .s-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--teal)}
 .s-title{font-family:var(--display);font-size:clamp(44px,6.5vw,88px);font-weight:300;line-height:.92;letter-spacing:-.01em;margin-bottom:24px}
 .s-title em{font-style:italic;color:var(--gold)}
-
 #services{padding:110px 0;background:var(--deep)}
 .srv-header{margin-bottom:64px;max-width:600px}
 .srv-header p{font-size:15px;font-weight:300;color:var(--muted);line-height:1.8;margin-top:20px}
@@ -76,7 +66,6 @@ section{position:relative;z-index:1}
 .srv-name{font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:.02em;margin-bottom:12px;color:var(--cream)}
 .srv-desc{font-size:13px;font-weight:300;line-height:1.75;color:var(--muted)}
 .srv-tag{display:inline-block;margin-top:20px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(78,205,196,.2);padding:4px 10px}
-
 #problems{padding:110px 0}
 .prob-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:64px}
 .prob-copy{font-size:15px;font-weight:300;line-height:1.8;color:var(--muted);max-width:420px}
@@ -88,16 +77,25 @@ section{position:relative;z-index:1}
 .pain-item:hover::after{transform:scaleX(1)}
 .pain-n{font-family:var(--body);font-size:10px;font-weight:300;letter-spacing:.2em;color:var(--gold);margin-bottom:10px;opacity:.7}
 .pain-t{font-size:14px;font-weight:300;line-height:1.6;color:var(--muted)}
-
+/* CASOS ACORDEÓN */
 #results{padding:110px 0;background:var(--deep)}
 .res-header{margin-bottom:64px}
 .res-header p{font-size:15px;font-weight:300;color:var(--muted);max-width:520px;line-height:1.8;margin-top:20px}
 .cases{display:grid;gap:1px;background:var(--border)}
-.case{background:var(--deep);padding:48px;display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:48px;align-items:start;transition:background .2s}
-.case:hover{background:rgba(28,28,40,.5)}
-.case-tag{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
-.case-hl{font-family:var(--display);font-size:clamp(22px,3vw,36px);font-weight:300;line-height:1;color:var(--cream);margin-bottom:6px}
+.case{background:var(--deep);overflow:hidden}
+.case-header{display:flex;align-items:center;justify-content:space-between;padding:36px 48px;gap:24px;transition:background .2s}
+.case-header:hover{background:rgba(28,28,40,.5)}
+.case-header-left{display:flex;flex-direction:column;gap:8px}
+.case-tag{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal)}
+.case-hl{font-family:var(--display);font-size:clamp(28px,3.5vw,52px);font-weight:300;line-height:1;color:var(--cream)}
 .case-sub{font-size:11px;color:var(--muted);font-weight:300;letter-spacing:.08em}
+.case-arrow{width:40px;height:40px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color .3s}
+.case-arrow svg{width:14px;height:14px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .4s}
+.case.open .case-arrow{border-color:rgba(201,169,110,.4)}
+.case.open .case-arrow svg{transform:rotate(180deg)}
+.case-body{max-height:0;overflow:hidden;transition:max-height .5s ease}
+.case.open .case-body{max-height:600px}
+.case-inner{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;padding:0 48px 48px;align-items:start}
 .case-list{font-size:13px;font-weight:300;color:var(--muted);line-height:1.75}
 .case-list li{list-style:none;padding-left:16px;position:relative;margin-bottom:8px}
 .case-list li::before{content:'—';position:absolute;left:0;color:var(--gold);font-size:11px}
@@ -105,7 +103,6 @@ section{position:relative;z-index:1}
 .metric{background:var(--void);padding:16px 20px}
 .metric-v{font-family:var(--display);font-size:32px;font-weight:300;color:var(--gold);line-height:1}
 .metric-l{font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:4px}
-
 #how{padding:110px 0}
 .how-header{margin-bottom:64px}
 .how-header p{font-size:15px;font-weight:300;color:var(--muted);max-width:520px;line-height:1.8;margin-top:20px}
@@ -127,7 +124,6 @@ section{position:relative;z-index:1}
 .btn-tier.p:hover{opacity:.85}
 .btn-tier.s{background:transparent;color:var(--cream);border:1px solid var(--border)}
 .btn-tier.s:hover{border-color:rgba(201,169,110,.4)}
-
 #faqs{padding:110px 0;background:var(--deep)}
 .faq-list{max-width:760px}
 .faq-item{border-bottom:1px solid var(--border)}
@@ -137,7 +133,6 @@ section{position:relative;z-index:1}
 .faq-item.open .faq-icon{transform:rotate(45deg)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;font-size:13px;font-weight:300;line-height:1.8;color:var(--muted)}
 .faq-item.open .faq-a{max-height:300px;padding-bottom:22px}
-
 #cta{padding:140px 5vw;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--border)}
 .cta-glow{position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(201,169,110,.07) 0%,transparent 70%);pointer-events:none}
 .cta-eyebrow{font-size:10px;font-weight:300;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:12px}
@@ -147,17 +142,14 @@ section{position:relative;z-index:1}
 .cta-sep{width:1px;height:48px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);margin:0 auto 28px;opacity:.5}
 .cta-sub{font-size:15px;font-weight:300;color:var(--muted);max-width:480px;margin:0 auto 40px;line-height:1.8;position:relative;z-index:1}
 .cta-sub strong{color:var(--cream);font-weight:400}
-
 footer{padding:40px 5vw;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
 .footer-logo{font-family:var(--display);font-size:20px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.08em}
 .footer-logo-sub{display:block;font-size:7px;letter-spacing:.22em;color:var(--gold);font-family:var(--body);font-weight:300;text-transform:uppercase;margin-top:2px}
 .footer-links{font-size:11px;color:var(--muted);display:flex;gap:24px;flex-wrap:wrap;align-items:center}
 .footer-links a{color:var(--muted);text-decoration:none;transition:color .2s}
 .footer-links a:hover{color:var(--gold)}
-
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-
-@media(max-width:900px){.prob-intro{grid-template-columns:1fr;gap:32px}.tiers{grid-template-columns:1fr}.case{grid-template-columns:1fr}.nav-right .nav-link{display:none}#cur{display:none}*{cursor:auto!important}}
+@media(max-width:900px){.prob-intro{grid-template-columns:1fr;gap:32px}.tiers{grid-template-columns:1fr}.case-inner{grid-template-columns:1fr}.nav-right .nav-link{display:none}.case-header{padding:24px}.case-inner{padding:0 24px 32px}#cur{display:none}*{cursor:auto!important}}
 @media(max-width:600px){.hero-h1{font-size:clamp(52px,16vw,80px)}.srv-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -279,6 +271,7 @@ footer{padding:40px 5vw;border-top:1px solid var(--border);display:flex;align-it
       <div class="pain-item"><p class="pain-n">06</p><p class="pain-t">Falta una visión global que conecte marketing con negocio.</p></div>
       <div class="pain-item"><p class="pain-n">07</p><p class="pain-t">Clientes que compran una vez y no vuelven.</p></div>
       <div class="pain-item"><p class="pain-n">08</p><p class="pain-t">Mucho movimiento operativo, pero sin crecimiento sostenible.</p></div>
+      <div class="pain-item" style="border-left:2px solid var(--gold)"><p class="pain-n" style="color:var(--teal);opacity:1">09</p><p class="pain-t" style="color:var(--cream);font-style:italic">Nunca has trabajado con un equipo tan resolutivo y con las soluciones a medida para tu negocio.</p></div>
     </div>
   </div>
 </section>
@@ -291,40 +284,54 @@ footer{padding:40px 5vw;border-top:1px solid var(--border);display:flex;align-it
       <p>Estrategia, ejecución y foco en rentabilidad. No vendemos promesas — mostramos lo que hacemos y lo que conseguimos.</p>
     </div>
     <div class="cases">
-      <div class="case">
-        <div>
-          <p class="case-tag">KREA HOGAR</p>
-          <p class="case-hl">De 0 a referente<br>en Lleida</p>
-          <p class="case-sub">E-commerce · Sector Hogar · 6 meses</p>
+      <div class="case" id="case1">
+        <div class="case-header" onclick="toggleCase('case1')">
+          <div class="case-header-left">
+            <p class="case-tag">KREA HOGAR</p>
+            <p class="case-hl">De 0 a referente en Lleida</p>
+            <p class="case-sub">E-commerce · Sector Hogar · 6 meses</p>
+          </div>
+          <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
-        <ul class="case-list">
-          <li>Estrategia de contenidos desde cero en Instagram y TikTok.</li>
-          <li>Campañas Meta Ads con foco en ROAS desde el mes 2.</li>
-          <li>Email marketing y flujos de recuperación de carrito.</li>
-          <li>Dashboard de métricas para decisiones semanales.</li>
-        </ul>
-        <div class="metrics">
-          <div class="metric"><div class="metric-v">+340%</div><div class="metric-l">Facturación en 6 meses</div></div>
-          <div class="metric"><div class="metric-v">6.2x</div><div class="metric-l">ROAS en Meta Ads</div></div>
-          <div class="metric"><div class="metric-v">-42%</div><div class="metric-l">Coste de adquisición</div></div>
+        <div class="case-body">
+          <div class="case-inner">
+            <ul class="case-list">
+              <li>Estrategia de contenidos desde cero en Instagram y TikTok.</li>
+              <li>Campañas Meta Ads con foco en ROAS desde el mes 2.</li>
+              <li>Email marketing y flujos de recuperación de carrito.</li>
+              <li>Dashboard de métricas para decisiones semanales.</li>
+            </ul>
+            <div class="metrics">
+              <div class="metric"><div class="metric-v">+340%</div><div class="metric-l">Facturación en 6 meses</div></div>
+              <div class="metric"><div class="metric-v">6.2x</div><div class="metric-l">ROAS en Meta Ads</div></div>
+              <div class="metric"><div class="metric-v">-42%</div><div class="metric-l">Coste de adquisición</div></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="case">
-        <div>
-          <p class="case-tag">THE DROP AGENCY</p>
-          <p class="case-hl">Visibilidad B2B<br>que convierte</p>
-          <p class="case-sub">Servicios profesionales · Cataluña · 4 meses</p>
+      <div class="case" id="case2">
+        <div class="case-header" onclick="toggleCase('case2')">
+          <div class="case-header-left">
+            <p class="case-tag">THE DROP AGENCY</p>
+            <p class="case-hl">Visibilidad B2B que convierte</p>
+            <p class="case-sub">Servicios profesionales · Cataluña · 4 meses</p>
+          </div>
+          <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
-        <ul class="case-list">
-          <li>Auditoría estratégica completa de posicionamiento.</li>
-          <li>Web personalizada con todas las integraciones para optimizar el flujo de trabajo.</li>
-          <li>Automatización con IA y n8n para mejorar la infraestructura de la agencia.</li>
-          <li>Optimización de funnel de contacto y seguimiento de leads.</li>
-        </ul>
-        <div class="metrics">
-          <div class="metric"><div class="metric-v">+280%</div><div class="metric-l">Leads calificados/mes</div></div>
-          <div class="metric"><div class="metric-v">-65%</div><div class="metric-l">Tiempo operativo</div></div>
-          <div class="metric"><div class="metric-v">×3</div><div class="metric-l">Contratos firmados</div></div>
+        <div class="case-body">
+          <div class="case-inner">
+            <ul class="case-list">
+              <li>Auditoría estratégica completa de posicionamiento.</li>
+              <li>Web personalizada con todas las integraciones para optimizar el flujo de trabajo.</li>
+              <li>Automatización con IA y n8n para mejorar la infraestructura de la agencia.</li>
+              <li>Optimización de funnel de contacto y seguimiento de leads.</li>
+            </ul>
+            <div class="metrics">
+              <div class="metric"><div class="metric-v">+280%</div><div class="metric-l">Leads calificados/mes</div></div>
+              <div class="metric"><div class="metric-v">-65%</div><div class="metric-l">Tiempo operativo</div></div>
+              <div class="metric"><div class="metric-v">×3</div><div class="metric-l">Contratos firmados</div></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -438,7 +445,7 @@ footer{padding:40px 5vw;border-top:1px solid var(--border);display:flex;align-it
   });
   document.addEventListener('mouseleave',function(){cur.style.opacity='0';});
   document.addEventListener('mouseover',function(e){
-    if(e.target.closest('a,button')){
+    if(e.target.closest('a,button,.case-header')){
       cur.style.width='28px';cur.style.height='28px';
       cur.style.background='transparent';cur.style.border='1px solid #C9A96E';
       cur.style.borderRadius='50%';
@@ -446,7 +453,7 @@ footer{padding:40px 5vw;border-top:1px solid var(--border);display:flex;align-it
     }
   });
   document.addEventListener('mouseout',function(e){
-    if(e.target.closest('a,button')){
+    if(e.target.closest('a,button,.case-header')){
       cur.style.width='7px';cur.style.height='7px';
       cur.style.background='#C9A96E';cur.style.border='none';
       cur.style.transform='translate3d('+(x-3.5)+'px,'+(y-3.5)+'px,0)';
@@ -460,6 +467,12 @@ footer{padding:40px 5vw;border-top:1px solid var(--border);display:flex;align-it
     if(!isOpen)item.classList.add('open');
   }
   window.toggleFaq=toggleFaq;
+  function toggleCase(id){
+    var el=document.getElementById(id),isOpen=el.classList.contains('open');
+    document.querySelectorAll('.case.open').forEach(function(c){c.classList.remove('open');});
+    if(!isOpen)el.classList.add('open');
+  }
+  window.toggleCase=toggleCase;
 })();
 </script>
 </body>
