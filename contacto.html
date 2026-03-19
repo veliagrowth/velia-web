@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Háblanos de tu proyecto — VELIA</title>
 <meta name="description" content="Cuéntanos tu situación y evaluamos si podemos ayudarte a crecer con estrategia e IA."/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<!-- Start cookieyes banner -->
+<script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/63223cf19d93a52b5bc026c3686f0a6a/script.js"></script>
+<!-- End cookieyes banner -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet"/>
@@ -61,10 +65,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 @media(max-width:900px){.page-wrap{grid-template-columns:1fr}.page-left{position:relative;height:auto;padding:100px 5vw 50px}.page-right{padding:50px 5vw 80px}#cur{display:none}*{cursor:auto!important}}
 @media(max-width:600px){.fg2{grid-template-columns:1fr}}
 </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
-  <link rel="alternate icon" href="favicon.svg"/>
-  <!-- COOKIEYES: sustituye TU_ID por el ID de tu cuenta en cookieyes.com -->
-  <!-- <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/TU_ID/script.js"></script> -->
 </head>
 <body>
 <div id="cur"></div>
@@ -88,7 +88,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
         <div class="info-pill-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></div>
         <div><p class="info-pill-label">Primera sesión</p><p class="info-pill-val">45 min · Sin compromiso</p></div>
       </div>
-
     </div>
   </div>
   <div class="page-right">
@@ -148,39 +147,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 <script>
 (function(){
   var cur=document.getElementById('cur'),x=-100,y=-100;
-  document.addEventListener('mousemove',function(e){
-    x=e.clientX;y=e.clientY;
-    cur.style.opacity='1';
-    cur.style.transform='translate3d('+(x-3.5)+'px,'+(y-3.5)+'px,0)';
-    cur.style.width='7px';cur.style.height='7px';
-    cur.style.background='#C9A96E';cur.style.border='none';cur.style.borderRadius='50%';
-  });
+  document.addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;cur.style.opacity='1';cur.style.transform='translate3d('+(x-3.5)+'px,'+(y-3.5)+'px,0)';cur.style.width='7px';cur.style.height='7px';cur.style.background='#C9A96E';cur.style.border='none';cur.style.borderRadius='50%';});
   document.addEventListener('mouseleave',function(){cur.style.opacity='0';});
-  document.addEventListener('mouseover',function(e){
-    if(e.target.closest('a,button,select,input,textarea,label')){
-      cur.style.width='28px';cur.style.height='28px';
-      cur.style.background='transparent';cur.style.border='1px solid #C9A96E';
-      cur.style.borderRadius='50%';
-      cur.style.transform='translate3d('+(x-14)+'px,'+(y-14)+'px,0)';
-    }
-  });
-  document.addEventListener('mouseout',function(e){
-    if(e.target.closest('a,button,select,input,textarea,label')){
-      cur.style.width='7px';cur.style.height='7px';
-      cur.style.background='#C9A96E';cur.style.border='none';
-      cur.style.transform='translate3d('+(x-3.5)+'px,'+(y-3.5)+'px,0)';
-    }
-  });
+  document.addEventListener('mouseover',function(e){if(e.target.closest('a,button,select,input,textarea,label')){cur.style.width='28px';cur.style.height='28px';cur.style.background='transparent';cur.style.border='1px solid #C9A96E';cur.style.borderRadius='50%';cur.style.transform='translate3d('+(x-14)+'px,'+(y-14)+'px,0)';}});
+  document.addEventListener('mouseout',function(e){if(e.target.closest('a,button,select,input,textarea,label')){cur.style.width='7px';cur.style.height='7px';cur.style.background='#C9A96E';cur.style.border='none';cur.style.transform='translate3d('+(x-3.5)+'px,'+(y-3.5)+'px,0)';}});
   var GHL='TU_WEBHOOK_URL_AQUI';
   function submitForm(e){
     e.preventDefault();
     var f=e.target,btn=document.getElementById('submit-btn');
     var p={nombre:f.querySelector('[name="nombre"]').value,empresa:f.querySelector('[name="empresa"]').value,email:f.querySelector('[name="email"]').value,telefono:f.querySelector('[name="telefono"]').value,web:f.querySelector('[name="web"]').value,facturacion:f.querySelector('[name="facturacion"]').value,inversion:f.querySelector('[name="inversion"]').value,objetivo:f.querySelector('[name="objetivo"]').value,limitante:f.querySelector('[name="limitante"]').value,timing:f.querySelector('[name="timing"]').value,decision:f.querySelector('[name="decision"]').value,mensaje:f.querySelector('[name="mensaje"]').value,fecha:new Date().toISOString(),origen:'Formulario VELIA'};
     btn.textContent='Enviando...';btn.disabled=true;
-    if(!GHL||GHL==='TU_WEBHOOK_URL_AQUI'){
-      setTimeout(function(){document.getElementById('form-wrap').style.display='none';document.getElementById('success').classList.add('show');},800);
-      return;
-    }
+    if(!GHL||GHL==='TU_WEBHOOK_URL_AQUI'){setTimeout(function(){document.getElementById('form-wrap').style.display='none';document.getElementById('success').classList.add('show');},800);return;}
     fetch(GHL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)}).then(function(){document.getElementById('form-wrap').style.display='none';document.getElementById('success').classList.add('show');}).catch(function(){btn.textContent='Error — inténtalo de nuevo';btn.disabled=false;});
   }
   window.submitForm=submitForm;
