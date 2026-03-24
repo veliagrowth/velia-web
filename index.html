@@ -12,11 +12,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;background:var(--void)}
+html{scroll-behavior:smooth;background:var(--void);overflow-x:hidden}
 *{cursor:none!important}
 #cur{position:fixed;top:0;left:0;width:7px;height:7px;background:#C9A96E;border-radius:50%;pointer-events:none!important;opacity:0;z-index:2147483647;will-change:transform;transition:width .2s,height .2s,background .2s,border .2s,opacity .2s}
 :root{--void:#0A0A0F;--deep:#1C1C28;--gold:#C9A96E;--cream:#EDE9E1;--teal:#4ECDC4;--muted:rgba(237,233,225,.45);--border:rgba(201,169,110,.12);--display:'Cormorant Garamond',serif;--body:'DM Sans',sans-serif}
-body{font-family:var(--body);background:var(--void);color:var(--cream);overflow-x:clip;font-weight:300}
+body{font-family:var(--body);background:var(--void);color:var(--cream);font-weight:300}
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;background:var(--void);transition:border .4s}
 nav.scrolled{border-bottom:1px solid var(--border)}
 .nav-logo{font-family:var(--display);font-size:22px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.08em;display:flex;flex-direction:row;align-items:center;gap:12px;line-height:1}
@@ -152,7 +152,7 @@ footer{padding:40px 5vw;border-top:1px solid var(--border);display:flex;align-it
 .footer-links a:hover{color:var(--gold)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 /* grain texture */
-body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:9999}
+#grain{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:9999}
 /* hero isotipo — V cortada por borde derecho en todos los breakpoints */
 .hero-isotipo{position:absolute;width:75vw;right:-28vw;top:50%;transform:translateY(-50%);opacity:.07;pointer-events:none;z-index:0}
 /* metric gold gradient */
@@ -210,6 +210,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 </style>
 </head>
 <body>
+<div id="grain"></div>
 <div id="cur"></div>
 <nav id="nav">
   <a href="index.html" class="nav-logo">VELIA<span class="nav-logo-sub">AI-Powered Marketing</span></a>
