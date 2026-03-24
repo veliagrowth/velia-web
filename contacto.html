@@ -105,6 +105,17 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
             <div class="fg"><label>Teléfono</label><input type="tel" name="telefono" placeholder="+34 600 000 000"/></div>
           </div>
           <div class="fg"><label>Web / Tienda Online</label><input type="url" name="web" placeholder="https://tuempresa.com"/></div>
+          <div class="fg2">
+            <div class="fg"><label>Sector *</label>
+              <select name="sector" required><option value="">Selecciona tu sector</option><option>Legal / Asesoría</option><option>Salud / Clínicas</option><option>Inmobiliario</option><option>E-commerce / Retail</option><option>Hostelería / Restauración</option><option>Formación / Educación</option><option>Tecnología / SaaS</option><option>Construcción / Reformas</option><option>Belleza / Estética</option><option>Deporte / Wellness</option><option>Finanzas / Inversión</option><option>Otro</option></select>
+            </div>
+            <div class="fg"><label>¿Cómo nos has encontrado?</label>
+              <select name="fuente"><option value="">Selecciona</option><option>Instagram</option><option>LinkedIn</option><option>Google</option><option>Me lo recomendó alguien</option><option>TikTok</option><option>Otro</option></select>
+            </div>
+          </div>
+          <div class="fg"><label>Presencia en redes sociales</label>
+            <select name="redes"><option value="">Selecciona</option><option>Sin presencia activa</option><option>Presencia básica (poca actividad)</option><option>Activa pero sin estrategia</option><option>Activa y con comunidad consolidada</option></select>
+          </div>
         </div>
         <div class="form-block">
           <p class="form-block-title">Tu negocio</p>
@@ -156,7 +167,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   function submitForm(e){
     e.preventDefault();
     var f=e.target,btn=document.getElementById('submit-btn');
-    var p={nombre:f.querySelector('[name="nombre"]').value,empresa:f.querySelector('[name="empresa"]').value,email:f.querySelector('[name="email"]').value,telefono:f.querySelector('[name="telefono"]').value,web:f.querySelector('[name="web"]').value,facturacion:f.querySelector('[name="facturacion"]').value,inversion:f.querySelector('[name="inversion"]').value,objetivo:f.querySelector('[name="objetivo"]').value,limitante:f.querySelector('[name="limitante"]').value,timing:f.querySelector('[name="timing"]').value,decision:f.querySelector('[name="decision"]').value,mensaje:f.querySelector('[name="mensaje"]').value,fecha:new Date().toISOString(),origen:'Formulario VELIA'};
+    var p={nombre:f.querySelector('[name="nombre"]').value,empresa:f.querySelector('[name="empresa"]').value,email:f.querySelector('[name="email"]').value,telefono:f.querySelector('[name="telefono"]').value,web:f.querySelector('[name="web"]').value,sector:f.querySelector('[name="sector"]').value,fuente:f.querySelector('[name="fuente"]').value,redes:f.querySelector('[name="redes"]').value,facturacion:f.querySelector('[name="facturacion"]').value,inversion:f.querySelector('[name="inversion"]').value,objetivo:f.querySelector('[name="objetivo"]').value,limitante:f.querySelector('[name="limitante"]').value,timing:f.querySelector('[name="timing"]').value,decision:f.querySelector('[name="decision"]').value,mensaje:f.querySelector('[name="mensaje"]').value,fecha:new Date().toISOString(),origen:'Formulario VELIA'};
     btn.textContent='Enviando...';btn.disabled=true;
     if(!GHL||GHL==='TU_WEBHOOK_URL_AQUI'){setTimeout(function(){document.getElementById('form-wrap').style.display='none';document.getElementById('success').classList.add('show');},800);return;}
     fetch(GHL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)}).then(function(){document.getElementById('form-wrap').style.display='none';document.getElementById('success').classList.add('show');}).catch(function(){btn.textContent='Error — inténtalo de nuevo';btn.disabled=false;});
