@@ -18,6 +18,7 @@ html{scroll-behavior:smooth;background:var(--void)}
 :root{--void:#0A0A0F;--deep:#1C1C28;--gold:#C9A96E;--cream:#EDE9E1;--teal:#4ECDC4;--muted:rgba(237,233,225,.45);--border:rgba(201,169,110,.12);--display:'Cormorant Garamond',serif;--body:'DM Sans',sans-serif}
 body{font-family:var(--body);background:var(--void);color:var(--cream);overflow-x:clip;font-weight:300}
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;background:rgba(10,10,15,.92);transition:background .4s,border .4s,transform .3s}
+nav::before{content:'';position:absolute;top:-80px;left:0;right:0;height:80px;background:inherit}
 nav.scrolled{background:rgba(10,10,15,.98);border-bottom:1px solid var(--border)}
 .nav-logo{font-family:var(--display);font-size:22px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.08em;display:flex;flex-direction:row;align-items:center;gap:12px;line-height:1}
 .nav-isotipo{width:40px;height:40px;object-fit:contain;flex-shrink:0;filter:brightness(1.15)}
@@ -453,6 +454,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <span>© 2026 VELIA. Todos los derechos reservados.</span>
     <a href="#">Política de privacidad</a>
     <a href="#">Aviso legal</a>
+    <a href="https://instagram.com/veliacorp" target="_blank" rel="noopener" aria-label="Instagram VELIA" style="display:flex;align-items:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg></a>
   </div>
 </footer>
 <script>
