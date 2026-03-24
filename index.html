@@ -20,7 +20,7 @@ body{font-family:var(--body);background:var(--void);color:var(--cream);overflow-
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;transition:background .4s,border .4s}
 nav.scrolled{background:rgba(10,10,15,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .nav-logo{font-family:var(--display);font-size:22px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.08em;display:flex;flex-direction:row;align-items:center;gap:12px;line-height:1}
-.nav-isotipo{width:32px;height:32px;object-fit:contain;flex-shrink:0}
+.nav-isotipo{width:40px;height:40px;object-fit:contain;flex-shrink:0;filter:brightness(1.15)}
 .nav-logo-sub{font-family:var(--body);font-size:7px;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-top:3px}
 .nav-right{display:flex;align-items:center;gap:32px}
 .nav-link{font-size:11px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
@@ -69,7 +69,7 @@ section{position:relative;z-index:1}
 .srv-name{font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:.02em;margin-bottom:12px;color:var(--cream)}
 .srv-desc{font-size:13px;font-weight:300;line-height:1.75;color:var(--muted)}
 .srv-tag{display:inline-block;margin-top:20px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(78,205,196,.2);padding:4px 10px}
-#problems{padding:110px 0}
+#problems{padding:110px 0;background:linear-gradient(160deg,#0f0d0a 0%,var(--void) 55%)}
 .prob-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:64px}
 .prob-copy{font-size:15px;font-weight:300;line-height:1.8;color:var(--muted);max-width:420px}
 .prob-copy strong{color:var(--cream);font-weight:400}
@@ -105,7 +105,7 @@ section{position:relative;z-index:1}
 .metric{background:var(--void);padding:16px 20px}
 .metric-v{font-family:var(--display);font-size:32px;font-weight:300;color:var(--gold);line-height:1}
 .metric-l{font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:4px}
-#how{padding:110px 0}
+#how{padding:110px 0;background:var(--deep)}
 .how-header{margin-bottom:64px}
 .how-header p{font-size:15px;font-weight:300;color:var(--muted);max-width:520px;line-height:1.8;margin-top:20px}
 .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
@@ -154,7 +154,7 @@ footer{padding:40px 5vw;border-top:1px solid var(--border);display:flex;align-it
 /* grain texture */
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:9999}
 /* hero isotipo */
-.hero-isotipo{position:absolute;right:5vw;top:50%;transform:translateY(-50%);width:min(420px,40vw);opacity:.09;pointer-events:none;z-index:0;filter:brightness(3) saturate(.5)}
+.hero-isotipo{position:absolute;right:6vw;bottom:8%;width:min(180px,15vw);opacity:.07;pointer-events:none;z-index:0;filter:brightness(2) saturate(0)}
 /* metric gold gradient */
 .metric-v{background:linear-gradient(135deg,var(--gold) 0%,#e8c98a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 /* card glow */
@@ -386,7 +386,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <span>© 2026 VELIA. Todos los derechos reservados.</span>
     <a href="#">Política de privacidad</a>
     <a href="#">Aviso legal</a>
-    <a href="mailto:hola@veliacorp.com">hola@veliacorp.com</a>
+    <a href="contacto.html" class="btn-nav" style="font-size:10px;padding:8px 18px">Contacto</a>
   </div>
 </footer>
 <script>
