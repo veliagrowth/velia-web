@@ -16,7 +16,7 @@ html{scroll-behavior:smooth;background:var(--void)}
 *{cursor:none!important}
 #cur{position:fixed;top:0;left:0;width:7px;height:7px;background:#C9A96E;border-radius:50%;pointer-events:none!important;opacity:0;z-index:2147483647;will-change:transform;transition:width .2s,height .2s,background .2s,border .2s,opacity .2s}
 :root{--void:#0A0A0F;--deep:#1C1C28;--gold:#C9A96E;--cream:#EDE9E1;--teal:#4ECDC4;--muted:rgba(237,233,225,.45);--border:rgba(201,169,110,.12);--display:'Cormorant Garamond',serif;--body:'DM Sans',sans-serif}
-body{font-family:var(--body);background:var(--void);color:var(--cream);overflow-x:hidden;font-weight:300}
+body{font-family:var(--body);background:var(--void);color:var(--cream);overflow-x:clip;font-weight:300}
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;background:rgba(10,10,15,.92);transition:background .4s,border .4s,transform .3s}
 nav.scrolled{background:rgba(10,10,15,.98);border-bottom:1px solid var(--border)}
 .nav-logo{font-family:var(--display);font-size:22px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.08em;display:flex;flex-direction:row;align-items:center;gap:12px;line-height:1}
@@ -212,7 +212,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 <body>
 <div id="cur"></div>
 <nav id="nav">
-  <a href="index.html" class="nav-logo"><img src="./VELIA_isotipo_claro_transparente.png" alt="VELIA" class="nav-isotipo"><span>VELIA<span class="nav-logo-sub">AI-Powered Marketing</span></span></a>
+  <a href="index.html" class="nav-logo">VELIA<span class="nav-logo-sub">AI-Powered Marketing</span></a>
   <div class="nav-right">
     <a href="#services" class="nav-link">Servicios</a>
     <a href="#results" class="nav-link">Casos</a>
