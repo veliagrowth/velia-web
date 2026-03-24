@@ -17,7 +17,7 @@ html{scroll-behavior:smooth;background:var(--void)}
 #cur{position:fixed;top:0;left:0;width:7px;height:7px;background:#C9A96E;border-radius:50%;pointer-events:none!important;opacity:0;z-index:2147483647;will-change:transform;transition:width .2s,height .2s,background .2s,border .2s,opacity .2s}
 :root{--void:#0A0A0F;--deep:#1C1C28;--gold:#C9A96E;--cream:#EDE9E1;--teal:#4ECDC4;--muted:rgba(237,233,225,.45);--border:rgba(201,169,110,.12);--display:'Cormorant Garamond',serif;--body:'DM Sans',sans-serif}
 body{font-family:var(--body);background:var(--void);color:var(--cream);overflow-x:hidden;font-weight:300}
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;background:rgba(10,10,15,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:background .4s,border .4s}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;background:rgba(10,10,15,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transform:translateZ(0);-webkit-transform:translateZ(0);transition:background .4s,border .4s,transform .3s}
 nav.scrolled{background:rgba(10,10,15,.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
 .nav-logo{font-family:var(--display);font-size:22px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.08em;display:flex;flex-direction:row;align-items:center;gap:12px;line-height:1}
 .nav-isotipo{width:40px;height:40px;object-fit:contain;flex-shrink:0;filter:brightness(1.15)}
@@ -463,7 +463,18 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   document.addEventListener('mouseover',function(e){if(e.target.closest('a,button,.case-header')){cur.style.width='28px';cur.style.height='28px';cur.style.background='transparent';cur.style.border='1px solid #C9A96E';cur.style.borderRadius='50%';cur.style.transform='translate3d('+(x-14)+'px,'+(y-14)+'px,0)';}});
   document.addEventListener('mouseout',function(e){if(e.target.closest('a,button,.case-header')){cur.style.width='7px';cur.style.height='7px';cur.style.background='#C9A96E';cur.style.border='none';cur.style.transform='translate3d('+(x-3.5)+'px,'+(y-3.5)+'px,0)';}});
   var nav=document.getElementById('nav');
-  window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>10);});
+  var lastY=0;
+  window.addEventListener('scroll',function(){
+    var y=window.scrollY;
+    nav.classList.toggle('scrolled',y>10);
+    if(y>80){
+      if(y>lastY){nav.style.transform='translateY(-100%)';}
+      else{nav.style.transform='translateZ(0)';}
+    } else {
+      nav.style.transform='translateZ(0)';
+    }
+    lastY=y;
+  },{ passive:true });
   function toggleFaq(btn){var item=btn.parentElement,isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item.open').forEach(function(i){i.classList.remove('open');});if(!isOpen)item.classList.add('open');}
   window.toggleFaq=toggleFaq;
   function toggleCase(id){var el=document.getElementById(id),isOpen=el.classList.contains('open');document.querySelectorAll('.case.open').forEach(function(c){c.classList.remove('open');});if(!isOpen)el.classList.add('open');}
