@@ -165,7 +165,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* — TABLET (≤900px) — */
 @media(max-width:900px){
   #cur{display:none}*{cursor:auto!important}
-  .hero-isotipo{display:none}
+  .hero-isotipo{width:min(260px,52vw);right:-8vw;top:auto;bottom:10%;transform:none;opacity:.06}
   nav{padding:20px 5vw}
   .nav-isotipo{width:34px;height:34px}
   .nav-right .nav-link{display:none}
@@ -187,6 +187,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   .nav-logo-sub{display:none}
   .btn-nav{padding:9px 16px;font-size:10px}
   #hero{padding:88px 5vw 56px}
+  .hero-isotipo{width:72vw;right:-18vw;bottom:6%;opacity:.055}
   .hero-h1{font-size:clamp(48px,15vw,72px)}
   .hero-sub{font-size:14px}
   .hero-btns{flex-direction:column;align-items:flex-start;gap:16px}
