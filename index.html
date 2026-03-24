@@ -162,9 +162,48 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .tier.feat{box-shadow:0 0 80px rgba(201,169,110,.06)}
 /* cta enhanced glow */
 .cta-glow{width:900px;height:600px;background:radial-gradient(ellipse,rgba(201,169,110,.09) 0%,transparent 65%)}
-@media(max-width:900px){.hero-isotipo,.hero-isotipo-halo{display:none}}
-@media(max-width:900px){.prob-intro{grid-template-columns:1fr;gap:32px}.tiers{grid-template-columns:1fr}.case-inner{grid-template-columns:1fr}.nav-right .nav-link{display:none}.case-header{padding:24px}.case-inner{padding:0 24px 32px}#cur{display:none}*{cursor:auto!important}}
-@media(max-width:600px){.hero-h1{font-size:clamp(52px,16vw,80px)}.srv-grid{grid-template-columns:1fr}}
+/* — TABLET (≤900px) — */
+@media(max-width:900px){
+  #cur{display:none}*{cursor:auto!important}
+  .hero-isotipo{display:none}
+  nav{padding:20px 5vw}
+  .nav-isotipo{width:34px;height:34px}
+  .nav-right .nav-link{display:none}
+  #hero{padding:100px 6vw 64px}
+  #services,#problems,#results,#how,#faqs{padding:80px 0}
+  #cta{padding:100px 5vw}
+  .prob-intro{grid-template-columns:1fr;gap:32px}
+  .tiers{grid-template-columns:1fr}
+  .case-header{padding:24px 28px}
+  .case-inner{grid-template-columns:1fr;padding:0 28px 32px;gap:32px}
+  .metrics{flex-direction:row;flex-wrap:wrap}
+  .metric{flex:1;min-width:120px}
+  footer{flex-direction:column;align-items:flex-start;gap:20px}
+}
+/* — MÓVIL (≤600px) — */
+@media(max-width:600px){
+  .nav-isotipo{width:30px;height:30px}
+  .nav-logo{font-size:18px}
+  .nav-logo-sub{display:none}
+  .btn-nav{padding:9px 16px;font-size:10px}
+  #hero{padding:88px 5vw 56px}
+  .hero-h1{font-size:clamp(48px,15vw,72px)}
+  .hero-sub{font-size:14px}
+  .hero-btns{flex-direction:column;align-items:flex-start;gap:16px}
+  #services,#problems,#results,#how,#faqs{padding:64px 0}
+  #cta{padding:80px 5vw}
+  .s-title{font-size:clamp(38px,11vw,64px)}
+  .srv-grid{grid-template-columns:1fr}
+  .pain-grid{grid-template-columns:1fr}
+  .srv-card{padding:28px 24px}
+  .tier{padding:28px 24px}
+  .case-header{padding:20px}
+  .case-inner{padding:0 20px 28px}
+  .metrics{flex-direction:column}
+  .cta-title{font-size:clamp(42px,13vw,80px)}
+  footer{padding:32px 5vw;gap:16px}
+  .footer-links{flex-direction:column;gap:12px;align-items:flex-start}
+}
 </style>
 </head>
 <body>
