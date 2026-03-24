@@ -5,9 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Háblanos de tu proyecto — VELIA</title>
 <meta name="description" content="Cuéntanos tu situación y evaluamos si podemos ayudarte a crecer con estrategia e IA."/>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-<link rel="shortcut icon" href="/favicon.svg"/>
-<link rel="shortcut icon" href="favicon.svg"/>
+<link rel="icon" type="image/png" href="./VELIA_isotipo_oscuro.png"/>
+<link rel="shortcut icon" href="./VELIA_isotipo_oscuro.png"/>
 <meta name="msapplication-TileColor" content="#0A0A0F"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -20,7 +19,8 @@ html{scroll-behavior:smooth}
 :root{--void:#0A0A0F;--deep:#1C1C28;--gold:#C9A96E;--cream:#EDE9E1;--teal:#4ECDC4;--muted:rgba(237,233,225,.45);--border:rgba(201,169,110,.12);--display:'Cormorant Garamond',serif;--body:'DM Sans',sans-serif}
 body{font-family:var(--body);background:var(--void);color:var(--cream);overflow-x:hidden;font-weight:300;min-height:100vh}
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;background:rgba(10,10,15,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.nav-logo{font-family:var(--display);font-size:22px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.08em;display:flex;flex-direction:column;line-height:1}
+.nav-logo{font-family:var(--display);font-size:22px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.08em;display:flex;flex-direction:row;align-items:center;gap:12px;line-height:1}
+.nav-isotipo{width:32px;height:32px;object-fit:contain;flex-shrink:0}
 .nav-logo-sub{font-family:var(--body);font-size:7px;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-top:3px}
 .nav-back{font-size:11px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
 .nav-back:hover{color:var(--cream)}
@@ -62,6 +62,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 .success-title{font-family:var(--display);font-size:clamp(40px,5vw,72px);font-weight:300;line-height:.9;margin-bottom:16px}
 .success-title em{font-style:italic;color:var(--gold)}
 .success-sub{font-size:14px;font-weight:300;color:var(--muted);line-height:1.8}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:9999}
 @media(max-width:900px){.page-wrap{grid-template-columns:1fr}.page-left{position:relative;height:auto;padding:100px 5vw 50px}.page-right{padding:50px 5vw 80px}#cur{display:none}*{cursor:auto!important}}
 @media(max-width:600px){.fg2{grid-template-columns:1fr}}
 </style>
@@ -69,7 +70,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:ce
 <body>
 <div id="cur"></div>
 <nav>
-  <a href="index.html" class="nav-logo">VELIA<span class="nav-logo-sub">AI-Powered Marketing</span></a>
+  <a href="index.html" class="nav-logo"><img src="./VELIA_isotipo_claro_transparente.png" alt="VELIA" class="nav-isotipo"><span>VELIA<span class="nav-logo-sub">AI-Powered Marketing</span></span></a>
   <a href="index.html" class="nav-back">← Volver</a>
 </nav>
 <div class="page-wrap">

@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>VELIA — AI-Powered Marketing</title>
 <meta name="description" content="Estrategia con alma. Combinamos creatividad humana con la precisión de la IA para escalar tu negocio."/>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-<link rel="shortcut icon" href="/favicon.svg"/>
+<link rel="icon" type="image/png" href="./VELIA_isotipo_oscuro.png"/>
+<link rel="shortcut icon" href="./VELIA_isotipo_oscuro.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
@@ -19,7 +19,8 @@ html{scroll-behavior:smooth}
 body{font-family:var(--body);background:var(--void);color:var(--cream);overflow-x:hidden;font-weight:300}
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;transition:background .4s,border .4s}
 nav.scrolled{background:rgba(10,10,15,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.nav-logo{font-family:var(--display);font-size:22px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.08em;display:flex;flex-direction:column;line-height:1}
+.nav-logo{font-family:var(--display);font-size:22px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.08em;display:flex;flex-direction:row;align-items:center;gap:12px;line-height:1}
+.nav-isotipo{width:32px;height:32px;object-fit:contain;flex-shrink:0}
 .nav-logo-sub{font-family:var(--body);font-size:7px;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-top:3px}
 .nav-right{display:flex;align-items:center;gap:32px}
 .nav-link{font-size:11px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
@@ -150,6 +151,18 @@ footer{padding:40px 5vw;border-top:1px solid var(--border);display:flex;align-it
 .footer-links a{color:var(--muted);text-decoration:none;transition:color .2s}
 .footer-links a:hover{color:var(--gold)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+/* grain texture */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:9999}
+/* hero isotipo */
+.hero-isotipo{position:absolute;right:5vw;top:50%;transform:translateY(-50%);width:min(420px,40vw);opacity:.09;pointer-events:none;z-index:0;filter:brightness(3) saturate(.5)}
+/* metric gold gradient */
+.metric-v{background:linear-gradient(135deg,var(--gold) 0%,#e8c98a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+/* card glow */
+.srv-card:hover{box-shadow:0 8px 48px rgba(201,169,110,.05)}
+.tier.feat{box-shadow:0 0 80px rgba(201,169,110,.06)}
+/* cta enhanced glow */
+.cta-glow{width:900px;height:600px;background:radial-gradient(ellipse,rgba(201,169,110,.09) 0%,transparent 65%)}
+@media(max-width:900px){.hero-isotipo,.hero-isotipo-halo{display:none}}
 @media(max-width:900px){.prob-intro{grid-template-columns:1fr;gap:32px}.tiers{grid-template-columns:1fr}.case-inner{grid-template-columns:1fr}.nav-right .nav-link{display:none}.case-header{padding:24px}.case-inner{padding:0 24px 32px}#cur{display:none}*{cursor:auto!important}}
 @media(max-width:600px){.hero-h1{font-size:clamp(52px,16vw,80px)}.srv-grid{grid-template-columns:1fr}}
 </style>
@@ -157,7 +170,7 @@ footer{padding:40px 5vw;border-top:1px solid var(--border);display:flex;align-it
 <body>
 <div id="cur"></div>
 <nav id="nav">
-  <a href="index.html" class="nav-logo">VELIA<span class="nav-logo-sub">AI-Powered Marketing</span></a>
+  <a href="index.html" class="nav-logo"><img src="./VELIA_isotipo_claro_transparente.png" alt="VELIA" class="nav-isotipo"><span>VELIA<span class="nav-logo-sub">AI-Powered Marketing</span></span></a>
   <div class="nav-right">
     <a href="#services" class="nav-link">Servicios</a>
     <a href="#results" class="nav-link">Casos</a>
@@ -168,6 +181,7 @@ footer{padding:40px 5vw;border-top:1px solid var(--border);display:flex;align-it
 <section id="hero">
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
+  <img src="./VELIA_isotipo_claro_transparente.png" alt="" class="hero-isotipo">
   <p class="hero-eyebrow">AI-Powered Marketing Agency</p>
   <h1 class="hero-h1">ESTRATEGIA<br>CON <em>ALMA.</em></h1>
   <div class="hero-row">
