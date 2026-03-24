@@ -154,7 +154,7 @@ footer{padding:40px 5vw;border-top:1px solid var(--border);display:flex;align-it
 /* grain texture */
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:9999}
 /* hero isotipo */
-.hero-isotipo{position:absolute;right:6vw;bottom:8%;width:min(180px,15vw);opacity:.07;pointer-events:none;z-index:0;filter:brightness(2) saturate(0)}
+.hero-isotipo{position:absolute;right:5vw;top:50%;transform:translateY(-50%);width:min(380px,34vw);opacity:.08;pointer-events:none;z-index:0}
 /* metric gold gradient */
 .metric-v{background:linear-gradient(135deg,var(--gold) 0%,#e8c98a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 /* card glow */
@@ -181,6 +181,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 <section id="hero">
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
+  <img src="./VELIA_isotipo_claro_transparente.svg" alt="" class="hero-isotipo">
   <p class="hero-eyebrow">AI-Powered Marketing Agency</p>
   <h1 class="hero-h1">ESTRATEGIA<br>CON <em>ALMA.</em></h1>
   <div class="hero-row">
