@@ -33,6 +33,7 @@ body{font-family:var(--f);background:var(--void);color:var(--cream);font-weight:
 #cur{position:fixed;top:0;left:0;width:7px;height:7px;background:var(--gold);border-radius:50%;pointer-events:none;opacity:0;z-index:9999999;will-change:transform;transform:translate(-50%,-50%);transition:width .18s,height .18s,background .2s,opacity .2s}
 #cur-ring{position:fixed;top:0;left:0;width:30px;height:30px;border:1px solid rgba(201,169,110,.35);border-radius:50%;pointer-events:none;opacity:0;z-index:9999998;will-change:transform;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s}
 body:hover #cur,body:hover #cur-ring{opacity:1}
+@media(hover:none){#cur,#cur-ring{display:none}}
 
 /* ═══ GRAIN ═══ */
 #grain{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:99999}
@@ -143,6 +144,14 @@ section{position:relative;z-index:1}
 
 /* Agent grid */
 .agents-wrap{margin-top:52px;position:relative}
+.agents-wrap.eco-collapsed{max-height:318px;overflow:hidden}
+.agents-fade{position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,transparent,var(--void) 85%);pointer-events:none;z-index:2;transition:opacity .35s}
+.agents-wrap:not(.eco-collapsed) .agents-fade{opacity:0}
+.eco-toggle-wrap{text-align:center;margin-top:36px}
+.eco-toggle-btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--f);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cream);background:rgba(10,10,15,.9);border:1px solid rgba(201,169,110,.28);border-radius:100px;padding:14px 32px;cursor:pointer;transition:border-color .3s,background .3s}
+.eco-toggle-btn:hover{border-color:rgba(201,169,110,.55);background:rgba(20,16,30,.95)}
+.eco-toggle-arrow{display:inline-block;transition:transform .4s;font-style:normal}
+.eco-expanded .eco-toggle-arrow{transform:rotate(180deg)}
 .agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:0;background:transparent}
 .agent-card{background:var(--void);padding:22px 20px;position:relative;overflow:hidden;min-height:155px;display:flex;flex-direction:column;gap:8px;transition:background .3s;border-right:1px solid rgba(201,169,110,.06);border-bottom:1px solid rgba(201,169,110,.06)}
 /* Exclusive VELIA-only agents */
@@ -568,8 +577,15 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
       <div class="cat-pill cp-analytics" data-cat="analytics" onclick="filterAgents('analytics',this)"><div class="cat-pill-dot"></div>Analytics</div>
       <div class="cat-pill cp-meta" data-cat="meta" onclick="filterAgents('meta',this)"><div class="cat-pill-dot"></div>Meta-Skills</div>
     </div>
-    <div class="agents-wrap">
+    <div class="agents-wrap eco-collapsed" id="agents-wrap">
       <div class="agents-grid" id="agents-grid"></div>
+      <div class="agents-fade" id="agents-fade"></div>
+    </div>
+    <div class="eco-toggle-wrap" id="eco-toggle-wrap">
+      <button class="eco-toggle-btn" id="eco-toggle-btn" onclick="toggleEco()">
+        <span id="eco-toggle-label">Ver los 50 agentes</span>
+        <i class="eco-toggle-arrow">↓</i>
+      </button>
     </div>
   </div>
 </section>
@@ -1108,14 +1124,43 @@ window.addEventListener('scroll', () => {
 }, {passive:true});
 
 /* ══════════════════════════════════════
-   AGENT FILTER
+   AGENT FILTER + ECO TOGGLE
 ══════════════════════════════════════ */
+let ecoExpanded = false;
+
+function toggleEco() {
+  ecoExpanded = !ecoExpanded;
+  const wrap = document.getElementById('agents-wrap');
+  const btn  = document.getElementById('eco-toggle-btn');
+  const lbl  = document.getElementById('eco-toggle-label');
+  wrap.classList.toggle('eco-collapsed', !ecoExpanded);
+  btn.classList.toggle('eco-expanded', ecoExpanded);
+  lbl.textContent = ecoExpanded ? 'Cerrar sistema' : 'Ver los 50 agentes';
+  if (ecoExpanded) {
+    gsap.from('#agents-grid .agent-card', {opacity:0, y:12, duration:.32, stagger:.008, ease:'power2.out'});
+  }
+}
+
 function filterAgents(cat, pillEl) {
   document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('cat-active'));
   pillEl.classList.add('cat-active');
   const filtered = cat === 'all' ? AGENTS : AGENTS.filter(a => a.cat === cat);
   renderAgents(filtered);
   gsap.from('#agents-grid .agent-card', { opacity:0, y:16, duration:.32, stagger:.025, ease:'power2.out' });
+  // si la categoría muestra pocos agentes (< 12) expandir automáticamente
+  const wrap = document.getElementById('agents-wrap');
+  const toggleWrap = document.getElementById('eco-toggle-wrap');
+  if (cat !== 'all' && filtered.length <= 12) {
+    wrap.classList.remove('eco-collapsed');
+    toggleWrap.style.display = 'none';
+    ecoExpanded = true;
+  } else {
+    wrap.classList.add('eco-collapsed');
+    toggleWrap.style.display = 'block';
+    ecoExpanded = false;
+    document.getElementById('eco-toggle-label').textContent = 'Ver los 50 agentes';
+    document.getElementById('eco-toggle-btn').classList.remove('eco-expanded');
+  }
 }
 
 /* ══════════════════════════════════════
