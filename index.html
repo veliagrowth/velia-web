@@ -41,7 +41,8 @@ body:hover #cur,body:hover #cur-ring{opacity:1}
 nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:20px 5vw;background:rgba(10,10,15,.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid transparent;transition:border-color .4s,background .4s}
 nav.scrolled{border-color:var(--border);background:rgba(10,10,15,.8)}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
-.nav-isotipo{width:36px;height:36px;object-fit:contain;filter:brightness(1.1)}
+.nav-isotipo{width:36px;height:36px;object-fit:contain;filter:brightness(1.1);animation:isotipoGlow 4s ease-in-out infinite}
+@keyframes isotipoGlow{0%,100%{filter:brightness(1.1)}50%{filter:brightness(1.28) drop-shadow(0 0 9px rgba(201,169,110,.38))}}
 .nav-logo-text{display:flex;flex-direction:column;line-height:1}
 .nav-logo-name{font-size:12px;font-weight:700;color:var(--cream);letter-spacing:.22em;text-transform:uppercase}
 .nav-logo-sub{font-size:7px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:3px}
@@ -145,7 +146,7 @@ section{position:relative;z-index:1}
 
 /* Agent grid */
 .agents-wrap{margin-top:52px;position:relative}
-.agents-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:rgba(201,169,110,.055)}
+.agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:1px;background:rgba(201,169,110,.055)}
 .agent-card{background:var(--void);padding:22px 20px;position:relative;overflow:hidden;min-height:155px;display:flex;flex-direction:column;gap:8px;transition:background .3s}
 .agent-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;opacity:.35;transition:opacity .3s}
 .cat-core.agent-card::before{background:var(--gold)}
@@ -196,15 +197,24 @@ section{position:relative;z-index:1}
 
 /* ═══ PROCESS ═══ */
 #process{padding:140px 0;background:var(--void)}
-.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:80px;position:relative}
-.process-line{position:absolute;top:40px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,transparent,var(--border),var(--border),var(--border),transparent)}
-.proc-step{padding:0 20px;position:relative;z-index:1;text-align:center}
-.proc-num{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;border:1px solid var(--border);background:var(--void);font-family:var(--f);font-size:22px;font-weight:800;letter-spacing:-.02em;position:relative;z-index:1;transition:border-color .3s,background .3s,box-shadow .3s}
-.proc-step:hover .proc-num{border-color:rgba(201,169,110,.45);background:rgba(201,169,110,.06);box-shadow:0 0 40px rgba(201,169,110,.08)}
-.proc-num-inner{background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.proc-tag{font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--signal);margin-bottom:12px;display:block}
-.proc-title{font-family:var(--f);font-size:14px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px;color:var(--cream)}
-.proc-desc{font-size:12px;font-weight:300;color:var(--muted);line-height:1.72}
+.proc-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:72px}
+.proc-card{background:var(--deep);padding:40px 32px 36px;border:1px solid var(--border);position:relative;overflow:hidden;transition:border-color .3s,background .3s}
+.proc-card:hover{border-color:rgba(201,169,110,.28);background:rgba(22,20,36,.92)}
+.proc-card-bg-n{position:absolute;top:-12px;right:12px;font-size:96px;font-weight:800;letter-spacing:-.04em;line-height:1;background:linear-gradient(180deg,rgba(201,169,110,.07) 0%,transparent 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;pointer-events:none;user-select:none}
+.proc-card-icon{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:rgba(201,169,110,.04);margin-bottom:28px;transition:border-color .3s,background .3s}
+.proc-card:hover .proc-card-icon{border-color:rgba(201,169,110,.3);background:rgba(201,169,110,.08)}
+.proc-card-icon svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.proc-card-tag{font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--signal);margin-bottom:10px;display:block}
+.proc-card-title{font-family:var(--f);font-size:17px;font-weight:700;letter-spacing:-.01em;margin-bottom:12px;color:var(--cream);line-height:1.2}
+.proc-card-desc{font-size:12px;font-weight:300;color:var(--muted);line-height:1.75}
+.proc-card-line{position:absolute;bottom:0;left:0;right:0;height:2px;background:transparent;transition:background .4s}
+.proc-card:hover .proc-card-line{background:linear-gradient(90deg,transparent,rgba(201,169,110,.35),transparent)}
+@media(max-width:900px){.proc-cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){
+  .proc-cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 5vw 28px;margin:48px -5vw 0;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:12px}
+  .proc-cards::-webkit-scrollbar{display:none}
+  .proc-card{flex:0 0 260px;scroll-snap-align:start}
+}
 
 /* ═══ RESULTS ═══ */
 #results{padding:140px 0;background:var(--deep)}
@@ -312,18 +322,12 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 
 /* ═══ RESPONSIVE ═══ */
 @media(max-width:1100px){
-  .agents-grid{grid-template-columns:repeat(5,1fr)}
-  .process-grid{grid-template-columns:repeat(2,1fr);gap:44px}
-  .process-line{display:none}
   .res-stats{grid-template-columns:repeat(2,1fr)}
   .faq-layout{grid-template-columns:1fr;gap:48px}
   .faq-aside{position:static}
-}
-@media(max-width:1100px){
   .tiers{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:900px){
-  .agents-grid{grid-template-columns:repeat(4,1fr)}
   .tiers{grid-template-columns:1fr}
   .case-inner{grid-template-columns:1fr;padding:0 28px 32px;gap:28px}
   .case-header{padding:24px 28px}
@@ -336,14 +340,11 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   #hero{padding:92px 5vw 72px}
   .hero-stats{gap:20px}
   .hero-stat-divider{display:none}
-  .agents-grid{grid-template-columns:repeat(3,1fr)}
   .srv-grid{grid-template-columns:1fr}
   .res-stats{grid-template-columns:1fr 1fr}
 }
 @media(max-width:520px){
-  .agents-grid{grid-template-columns:repeat(2,1fr)}
   .hero-h1{font-size:clamp(48px,14vw,80px)}
-  .process-grid{grid-template-columns:1fr}
   .eco-divider{display:none}
 }
 </style>
@@ -555,31 +556,46 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
       <h2 class="s-title">SISTEMA EN<br><em>4 PASOS.</em></h2>
       <p>Desde el primer diagnóstico hasta el crecimiento sostenible. Un proceso probado que elimina la incertidumbre.</p>
     </div>
-    <div class="process-grid">
-      <div class="process-line"></div>
-      <div class="proc-step">
-        <div class="proc-num"><span class="proc-num-inner">01</span></div>
-        <span class="proc-tag">Semana 1</span>
-        <p class="proc-title">Diagnóstico</p>
-        <p class="proc-desc">Analizamos tu negocio, competencia y audiencia con IA para identificar oportunidades reales de crecimiento.</p>
+    <div class="proc-cards">
+      <div class="proc-card">
+        <div class="proc-card-bg-n">01</div>
+        <div class="proc-card-icon">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <span class="proc-card-tag">Semana 1</span>
+        <p class="proc-card-title">Diagnóstico</p>
+        <p class="proc-card-desc">Analizamos tu negocio, competencia y audiencia con IA para identificar oportunidades reales de crecimiento.</p>
+        <div class="proc-card-line"></div>
       </div>
-      <div class="proc-step">
-        <div class="proc-num"><span class="proc-num-inner">02</span></div>
-        <span class="proc-tag">Semanas 2-3</span>
-        <p class="proc-title">Sistema</p>
-        <p class="proc-desc">Construimos la infraestructura completa: web, automatizaciones, agentes de IA y estrategia integrada.</p>
+      <div class="proc-card">
+        <div class="proc-card-bg-n">02</div>
+        <div class="proc-card-icon">
+          <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+        </div>
+        <span class="proc-card-tag">Semanas 2–3</span>
+        <p class="proc-card-title">Sistema</p>
+        <p class="proc-card-desc">Construimos la infraestructura completa: web, automatizaciones, agentes de IA y estrategia integrada.</p>
+        <div class="proc-card-line"></div>
       </div>
-      <div class="proc-step">
-        <div class="proc-num"><span class="proc-num-inner">03</span></div>
-        <span class="proc-tag">Semana 4</span>
-        <p class="proc-title">Activación</p>
-        <p class="proc-desc">Encendemos todos los agentes. Tu negocio empieza a operar de forma autónoma y a generar resultados.</p>
+      <div class="proc-card">
+        <div class="proc-card-bg-n">03</div>
+        <div class="proc-card-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        </div>
+        <span class="proc-card-tag">Semana 4</span>
+        <p class="proc-card-title">Activación</p>
+        <p class="proc-card-desc">Encendemos todos los agentes. Tu negocio empieza a operar de forma autónoma y a generar resultados.</p>
+        <div class="proc-card-line"></div>
       </div>
-      <div class="proc-step">
-        <div class="proc-num"><span class="proc-num-inner">04</span></div>
-        <span class="proc-tag">Mes a mes</span>
-        <p class="proc-title">Escala</p>
-        <p class="proc-desc">Optimización continua basada en datos reales. Cada mes el sistema aprende y mejora su rendimiento.</p>
+      <div class="proc-card">
+        <div class="proc-card-bg-n">04</div>
+        <div class="proc-card-icon">
+          <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <span class="proc-card-tag">Mes a mes</span>
+        <p class="proc-card-title">Escala</p>
+        <p class="proc-card-desc">Optimización continua basada en datos reales. Cada mes el sistema aprende y mejora su rendimiento.</p>
+        <div class="proc-card-line"></div>
       </div>
     </div>
   </div>
@@ -893,42 +909,62 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
    AGENTS DATA
 ══════════════════════════════════════ */
 const AGENTS = [
-  // NÚCLEO
+  // NÚCLEO (8)
   {name:'System Monitor',desc:'Monitoriza errores y salud del sistema 24/7',cat:'core',status:'building',icon:'activity'},
   {name:'Email Agent',desc:'Emails transaccionales via Resend + Claude AI',cat:'core',status:'building',icon:'mail'},
   {name:'Meeting Transcriber',desc:'Transcripción automática con Whisper AI',cat:'core',status:'planned',icon:'mic'},
   {name:'Database Health',desc:'Auditoría y rendimiento de Supabase',cat:'core',status:'planned',icon:'database'},
   {name:'Backup Agent',desc:'Copias automáticas de datos críticos',cat:'core',status:'planned',icon:'archive'},
-  // COMUNICACIÓN
+  {name:'Project Manager',desc:'Gestión de proyectos y deadlines del cliente',cat:'core',status:'planned',icon:'layers'},
+  {name:'Drive Agent',desc:'Organización automática en Google Drive',cat:'core',status:'planned',icon:'folder'},
+  {name:'Document Manager',desc:'Generación y archivo de documentos con IA',cat:'core',status:'planned',icon:'file-text'},
+  // COMUNICACIÓN (9)
   {name:'WhatsApp Agent',desc:'Mensajes automáticos via Meta Business API',cat:'comms',status:'planned',icon:'message'},
   {name:'Onboarding Agent',desc:'Activa nuevos clientes automáticamente',cat:'comms',status:'building',icon:'user-check'},
   {name:'Calendar Agent',desc:'Gestión de citas y agenda del cliente',cat:'comms',status:'planned',icon:'calendar'},
   {name:'Lead Nurturing',desc:'Secuencias de activación automáticas',cat:'comms',status:'planned',icon:'heart'},
   {name:'Client Portal',desc:'Dashboard del cliente en tiempo real',cat:'comms',status:'planned',icon:'layout'},
-  // MARKETING
+  {name:'Reputation Monitor',desc:'Monitoriza reseñas y menciones online',cat:'comms',status:'planned',icon:'bell'},
+  {name:'Offboarding Agent',desc:'Cierre de clientes con entrega ordenada',cat:'comms',status:'planned',icon:'log-out'},
+  {name:'Web Chatbot',desc:'Chat inteligente integrado en la web del cliente',cat:'comms',status:'planned',icon:'zap'},
+  {name:'Client Chat',desc:'Canal de comunicación directa con el cliente',cat:'comms',status:'planned',icon:'message-square'},
+  // MARKETING (11)
   {name:'Meta Ads Agent',desc:'Campañas Meta Ads optimizadas con IA',cat:'marketing',status:'planned',icon:'target'},
   {name:'Google Ads Agent',desc:'Google Ads con optimización automática',cat:'marketing',status:'planned',icon:'search'},
   {name:'SEO Agent',desc:'SEO técnico, local y Google My Business',cat:'marketing',status:'planned',icon:'trending'},
   {name:'Content Generator',desc:'Contenido multicanal generado con IA',cat:'marketing',status:'planned',icon:'edit'},
   {name:'Social Scheduler',desc:'Publicación automática en todas las redes',cat:'marketing',status:'planned',icon:'share'},
-  // VENTAS
+  {name:'Content Approval',desc:'Flujo de revisión y aprobación de contenidos',cat:'marketing',status:'planned',icon:'check'},
+  {name:'Trend Analyzer',desc:'Detecta tendencias y oportunidades de contenido',cat:'marketing',status:'planned',icon:'bar-chart-2'},
+  {name:'Ads Library Scout',desc:'Analiza creatividades de competidores en Meta',cat:'marketing',status:'planned',icon:'eye'},
+  {name:'YouTube Agent',desc:'Optimización de canal y vídeos en YouTube',cat:'marketing',status:'planned',icon:'play'},
+  {name:'SEO Claude',desc:'Auditoría SEO profunda con análisis semántico IA',cat:'marketing',status:'planned',icon:'globe'},
+  {name:'Social Analytics',desc:'Métricas consolidadas de todas las redes',cat:'marketing',status:'planned',icon:'pie-chart'},
+  // VENTAS (7)
   {name:'Pipeline Agent',desc:'CRM y ciclo de ventas completo',cat:'sales',status:'planned',icon:'filter'},
   {name:'Lead Qualifier',desc:'Calificación automática de leads',cat:'sales',status:'planned',icon:'star'},
   {name:'Proposal Analyst',desc:'Análisis y generación de propuestas',cat:'sales',status:'planned',icon:'file'},
   {name:'Legal Agent',desc:'Contratos automáticos + Stripe Payments',cat:'sales',status:'planned',icon:'shield'},
   {name:'Upsell Agent',desc:'Detecta oportunidades de venta adicional',cat:'sales',status:'planned',icon:'arrow-up'},
-  // ANALYTICS
+  {name:'Invoice Agent',desc:'Facturación automática y gestión de cobros',cat:'sales',status:'planned',icon:'credit'},
+  {name:'Admin Agent',desc:'Tareas administrativas y backoffice automatizados',cat:'sales',status:'planned',icon:'briefcase'},
+  // ANALYTICS (5)
   {name:'Report Generator',desc:'Informes mensuales con datos reales',cat:'analytics',status:'planned',icon:'bar-chart'},
   {name:'Client Health',desc:'NPS y satisfacción del cliente',cat:'analytics',status:'planned',icon:'pulse'},
   {name:'Web Analyzer',desc:'Auditoría web + CRO + conversión',cat:'analytics',status:'planned',icon:'monitor'},
   {name:'Finance Monitor',desc:'Control financiero y rentabilidad',cat:'analytics',status:'planned',icon:'dollar'},
   {name:'Web Deploy Agent',desc:'Construye y despliega webs de clientes',cat:'analytics',status:'planned',icon:'cloud'},
-  // META-SKILLS
+  // META-SKILLS (10)
   {name:'Vision Global',desc:'Cerebro estratégico: conecta todos los agentes',cat:'meta',status:'planned',icon:'eye'},
   {name:'Admin Cerebro',desc:'Panel de control total del ecosistema',cat:'meta',status:'planned',icon:'cpu'},
   {name:'Brand Guardian',desc:'Protege y aplica la identidad de marca',cat:'meta',status:'planned',icon:'lock'},
   {name:'GDPR Agent',desc:'Cumplimiento automático de datos',cat:'meta',status:'planned',icon:'check-shield'},
-  {name:'Billing Agent',desc:'Facturación automática y cobros',cat:'meta',status:'planned',icon:'credit'},
+  {name:'Billing Agent',desc:'Orquestación de pagos y suscripciones',cat:'meta',status:'planned',icon:'dollar'},
+  {name:'VELIA Architect',desc:'Diseña y evoluciona la arquitectura del sistema',cat:'meta',status:'planned',icon:'layers'},
+  {name:'CRM Feature Agent',desc:'Añade funcionalidades al CRM dinámicamente',cat:'meta',status:'planned',icon:'plus'},
+  {name:'Agent Health Monitor',desc:'Supervisa el rendimiento de todos los agentes',cat:'meta',status:'planned',icon:'activity'},
+  {name:'Automation Builder',desc:'Crea nuevas automatizaciones bajo demanda',cat:'meta',status:'planned',icon:'zap'},
+  {name:'Client Context',desc:'Construye y actualiza la memoria de cada cliente',cat:'meta',status:'planned',icon:'database'},
 ];
 
 const ICONS = {
@@ -962,14 +998,28 @@ const ICONS = {
   lock:`<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>`,
   'check-shield':`<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>`,
   credit:`<rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>`,
+  layers:`<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>`,
+  folder:`<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>`,
+  'file-text':`<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>`,
+  bell:`<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>`,
+  'log-out':`<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>`,
+  zap:`<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>`,
+  'message-square':`<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>`,
+  check:`<polyline points="20 6 9 17 4 12"/>`,
+  'bar-chart-2':`<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>`,
+  play:`<circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>`,
+  globe:`<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>`,
+  'pie-chart':`<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>`,
+  briefcase:`<rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>`,
+  plus:`<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>`,
 };
 
 const STATUS = {active:'s-active',building:'s-building',planned:'s-planned'};
 const STATUS_LABEL = {active:'Activo',building:'En desarrollo',planned:'Planificado'};
 
-function renderAgents() {
+function renderAgents(list) {
   const grid = document.getElementById('agents-grid');
-  grid.innerHTML = AGENTS.map(a => `
+  grid.innerHTML = (list||AGENTS).map(a => `
     <div class="agent-card cat-${a.cat}">
       <div class="agent-icon-wrap">
         <svg viewBox="0 0 24 24">${ICONS[a.icon]||''}</svg>
@@ -1022,22 +1072,11 @@ window.addEventListener('scroll', () => {
    AGENT FILTER
 ══════════════════════════════════════ */
 function filterAgents(cat, pillEl) {
-  // Update active pill
   document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('cat-active'));
   pillEl.classList.add('cat-active');
-
-  const cards = Array.from(document.querySelectorAll('.agent-card'));
-
-  if (cat === 'all') {
-    cards.forEach(c => { c.style.display = ''; });
-    gsap.from(cards, { opacity:0, y:18, duration:.35, stagger:.025, ease:'power2.out' });
-  } else {
-    const show = cards.filter(c => c.classList.contains('cat-' + cat));
-    const hide = cards.filter(c => !c.classList.contains('cat-' + cat));
-    hide.forEach(c => { c.style.display = 'none'; });
-    show.forEach(c => { c.style.display = ''; });
-    gsap.from(show, { opacity:0, y:18, duration:.35, stagger:.04, ease:'power2.out' });
-  }
+  const filtered = cat === 'all' ? AGENTS : AGENTS.filter(a => a.cat === cat);
+  renderAgents(filtered);
+  gsap.from('#agents-grid .agent-card', { opacity:0, y:16, duration:.32, stagger:.025, ease:'power2.out' });
 }
 
 /* ══════════════════════════════════════
@@ -1058,6 +1097,12 @@ function toggleCase(header) {
    GSAP ANIMATIONS
 ══════════════════════════════════════ */
 gsap.registerPlugin(ScrollTrigger);
+
+// Hero isotipo parallax
+gsap.to('.hero-isotipo', {
+  rotation:10, scale:1.06, opacity:.01,
+  scrollTrigger:{trigger:'#hero',start:'top top',end:'+=480',scrub:2}
+});
 
 // Hero title — clip reveal
 gsap.from('.hero-h1 span i', {
@@ -1099,12 +1144,12 @@ gsap.from('.srv-card', {
 
 // Process
 gsap.from('#process .section-header', {
-  scrollTrigger:{trigger:'#process',start:'top 80%',once:true},
+  scrollTrigger:{trigger:'#process .section-header',start:'top 85%',once:true},
   y:36, opacity:0, duration:.9, ease:'power3.out'
 });
-gsap.from('.proc-step', {
-  scrollTrigger:{trigger:'.process-grid',start:'top 78%',once:true},
-  y:40, opacity:0, duration:.8, stagger:.16, ease:'power2.out'
+gsap.from('.proc-card', {
+  scrollTrigger:{trigger:'.proc-cards',start:'top 78%',once:true},
+  y:40, opacity:0, duration:.8, stagger:.14, ease:'power2.out'
 });
 
 // Results
