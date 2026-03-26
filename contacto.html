@@ -6,78 +6,118 @@
 <title>Háblanos de tu proyecto — VELIA</title>
 <meta name="description" content="Cuéntanos tu situación y evaluamos si podemos ayudarte a crecer con estrategia e IA."/>
 <link rel="icon" type="image/png" href="./VELIA_isotipo_oscuro.png"/>
-<link rel="shortcut icon" href="./VELIA_isotipo_oscuro.png"/>
-<meta name="msapplication-TileColor" content="#0A0A0F"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;background:#0A0A0F;overflow-x:hidden}
 *{cursor:none!important}
-#cur{position:fixed;top:0;left:0;width:7px;height:7px;background:#C9A96E;border-radius:50%;pointer-events:none!important;opacity:0;z-index:2147483647;will-change:transform;transition:width .2s,height .2s,background .2s,border .2s,opacity .2s}
-:root{--void:#0A0A0F;--deep:#1C1C28;--gold:#C9A96E;--cream:#EDE9E1;--teal:#4ECDC4;--muted:rgba(237,233,225,.45);--border:rgba(201,169,110,.12);--display:'Cormorant Garamond',serif;--body:'DM Sans',sans-serif}
-body{font-family:var(--body);background:var(--void);color:var(--cream);overflow-x:hidden;font-weight:300;min-height:100vh}
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;background:rgba(10,10,15,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.nav-logo{font-family:var(--display);font-size:22px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.08em;display:flex;flex-direction:row;align-items:center;gap:12px;line-height:1}
-.nav-isotipo{width:32px;height:32px;object-fit:contain;flex-shrink:0}
-.nav-logo-sub{font-family:var(--body);font-size:7px;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-top:3px}
-.nav-back{font-size:11px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+:root{
+  --void:#0A0A0F;
+  --deep:#1C1C28;
+  --gold:#C9A96E;
+  --gold-l:#E8D5B0;
+  --gold-d:#9A7840;
+  --cream:#EDE9E1;
+  --signal:#4ECDC4;
+  --pulse:#6C5CE7;
+  --muted:rgba(237,233,225,.42);
+  --border:rgba(201,169,110,.1);
+  --f:'Montserrat',sans-serif;
+}
+body{font-family:var(--f);background:var(--void);color:var(--cream);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+
+/* ═══ CURSOR ═══ */
+#cur{position:fixed;top:0;left:0;width:7px;height:7px;background:var(--gold);border-radius:50%;pointer-events:none;opacity:0;z-index:9999999;will-change:transform;transform:translate(-50%,-50%);transition:width .18s,height .18s,background .2s,opacity .2s}
+#cur-ring{position:fixed;top:0;left:0;width:30px;height:30px;border:1px solid rgba(201,169,110,.35);border-radius:50%;pointer-events:none;opacity:0;z-index:9999998;will-change:transform;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s}
+body:hover #cur,body:hover #cur-ring{opacity:1}
+@media(hover:none){#cur,#cur-ring{display:none}*{cursor:auto!important}}
+
+/* ═══ GRAIN ═══ */
+#grain{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:99999}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:20px 5vw;background:rgba(10,10,15,.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.nav-wordmark{height:22px;width:auto;display:block}
+.nav-back{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:8px}
+.nav-back::before{content:'←';font-size:12px}
 .nav-back:hover{color:var(--cream)}
-.page-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
-.page-left{padding:100px 5vw 60px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;background:var(--deep);border-right:1px solid var(--border);overflow:hidden}
+
+/* ═══ LAYOUT ═══ */
+.page-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding-top:64px}
+.page-left{padding:80px 5vw 60px;position:sticky;top:64px;height:calc(100vh - 64px);display:flex;flex-direction:column;justify-content:center;background:var(--deep);border-right:1px solid var(--border);overflow:hidden}
 .page-left-glow{position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(ellipse,rgba(201,169,110,.06) 0%,transparent 70%);pointer-events:none}
-.page-left-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,169,110,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,169,110,.03) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 30% 70%,black 0%,transparent 70%)}
-.page-label{font-size:10px;font-weight:300;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px;display:flex;align-items:center;gap:12px;position:relative;z-index:1}
-.page-label::before{content:'';display:block;width:24px;height:1px;background:var(--teal)}
-.page-title{font-family:var(--display);font-size:clamp(44px,5vw,80px);font-weight:300;line-height:.92;margin-bottom:24px;position:relative;z-index:1}
-.page-title em{font-style:italic;color:var(--gold)}
-.page-sub{font-size:14px;font-weight:300;line-height:1.8;color:var(--muted);max-width:360px;position:relative;z-index:1;margin-bottom:40px}
+.page-left-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,169,110,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(201,169,110,.032) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 30% 70%,black 0%,transparent 70%)}
+
+/* ═══ LEFT CONTENT ═══ */
+.page-eyebrow{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--signal);margin-bottom:24px;display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.page-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--signal);flex-shrink:0}
+.page-title{font-family:var(--f);font-size:clamp(42px,4.5vw,76px);font-weight:800;line-height:.92;letter-spacing:-.03em;margin-bottom:24px;position:relative;z-index:1}
+.page-title em{font-style:normal;color:var(--gold)}
+.page-sub{font-size:14px;font-weight:300;line-height:1.85;color:var(--muted);max-width:360px;position:relative;z-index:1;margin-bottom:40px}
 .page-sub strong{color:var(--cream);font-weight:400}
-.info-pills{display:flex;flex-direction:column;gap:14px;position:relative;z-index:1}
+.info-pills{display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
 .info-pill{display:flex;align-items:center;gap:16px;padding:14px 18px;border:1px solid var(--border);background:rgba(10,10,15,.5);transition:border-color .2s}
 .info-pill:hover{border-color:rgba(201,169,110,.3)}
 .info-pill-icon{width:34px;height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .info-pill-icon svg{width:15px;height:15px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.info-pill-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.info-pill-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;font-weight:600}
 .info-pill-val{font-size:12px;font-weight:300;color:var(--cream)}
-.page-right{padding:100px 5vw 80px;background:var(--void)}
-.form-block{margin-bottom:32px;padding-top:28px;border-top:1px solid var(--border)}
-.form-block-title{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
-.fg{margin-bottom:14px}
-.fg label{display:block;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;font-weight:300}
-.fg input,.fg select,.fg textarea{width:100%;background:var(--deep);border:1px solid var(--border);color:var(--cream);font-family:var(--body);font-size:13px;font-weight:300;padding:12px 15px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+
+/* ═══ FORM ═══ */
+.page-right{padding:80px 5vw 80px;background:var(--void)}
+.form-block{margin-bottom:28px;padding-top:28px;border-top:1px solid var(--border)}
+.form-block-title{font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.fg{margin-bottom:12px}
+.fg label{display:block;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.fg input,.fg select,.fg textarea{width:100%;background:var(--deep);border:1px solid var(--border);color:var(--cream);font-family:var(--f);font-size:13px;font-weight:300;padding:12px 15px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
 .fg input::placeholder,.fg textarea::placeholder{color:rgba(237,233,225,.2)}
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(201,169,110,.4)}
 .fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A96E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:38px}
 .fg select option{background:var(--deep);color:var(--cream)}
 .fg textarea{resize:vertical;min-height:96px}
 .fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.btn-submit{width:100%;margin-top:6px;background:var(--gold);color:var(--void);border:none;font-family:var(--body);font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;padding:15px;transition:opacity .2s;display:block}
-.btn-submit:hover{opacity:.85}
-.btn-submit:disabled{opacity:.5}
+.btn-submit{width:100%;margin-top:8px;background:linear-gradient(135deg,var(--gold) 0%,var(--gold-d) 100%);color:var(--void);border:none;font-family:var(--f);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:15px 32px;border-radius:100px;transition:opacity .2s,transform .15s,box-shadow .2s;box-shadow:0 4px 24px rgba(201,169,110,.28);display:block}
+.btn-submit:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 8px 36px rgba(201,169,110,.38)}
+.btn-submit:disabled{opacity:.5;transform:none;box-shadow:none}
+
+/* ═══ SUCCESS ═══ */
 .success-state{display:none;text-align:center;padding:80px 20px}
 .success-state.show{display:block}
-.success-sep{width:1px;height:56px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);margin:0 auto 32px;opacity:.6}
-.success-title{font-family:var(--display);font-size:clamp(40px,5vw,72px);font-weight:300;line-height:.9;margin-bottom:16px}
-.success-title em{font-style:italic;color:var(--gold)}
-.success-sub{font-size:14px;font-weight:300;color:var(--muted);line-height:1.8}
-body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.035;pointer-events:none;z-index:9999}
-@media(max-width:900px){.page-wrap{grid-template-columns:1fr}.page-left{position:relative;height:auto;padding:100px 5vw 50px}.page-right{padding:50px 5vw 80px}#cur{display:none}*{cursor:auto!important}}
+.success-sep{width:1px;height:56px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);margin:0 auto 32px;opacity:.5}
+.success-title{font-family:var(--f);font-size:clamp(40px,5vw,72px);font-weight:800;line-height:.9;letter-spacing:-.03em;margin-bottom:16px}
+.success-title em{font-style:normal;color:var(--gold)}
+.success-sub{font-size:14px;font-weight:300;color:var(--muted);line-height:1.85}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  .page-wrap{grid-template-columns:1fr}
+  .page-left{position:relative;top:0;height:auto;padding:80px 5vw 50px}
+  .page-right{padding:50px 5vw 80px}
+}
 @media(max-width:600px){.fg2{grid-template-columns:1fr}}
+@media(max-width:720px){nav{padding:16px 5vw}}
 </style>
 </head>
 <body>
+<div id="grain"></div>
 <div id="cur"></div>
+<div id="cur-ring"></div>
+
 <nav>
-  <a href="index.html" class="nav-logo"><img src="./VELIA_isotipo_claro_transparente.png" alt="VELIA" class="nav-isotipo"><span>VELIA<span class="nav-logo-sub">AI-Powered Marketing</span></span></a>
-  <a href="index.html" class="nav-back">← Volver</a>
+  <a href="index.html" class="nav-logo">
+    <img src="./VELIA_logotipo_claro.svg" alt="VELIA" class="nav-wordmark"/>
+  </a>
+  <a href="index.html" class="nav-back">Volver</a>
 </nav>
+
 <div class="page-wrap">
   <div class="page-left">
     <div class="page-left-grid"></div>
     <div class="page-left-glow"></div>
-    <p class="page-label">Proceso de selección</p>
+    <p class="page-eyebrow">Proceso de selección</p>
     <h1 class="page-title">HÁBLANOS<br>DE TU<br><em>PROYECTO.</em></h1>
     <p class="page-sub">Antes de empezar queremos entender bien tu negocio.<br><br><strong>Si hay encaje real, te contactamos en menos de 24h.</strong></p>
     <div class="info-pills">
@@ -91,6 +131,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       </div>
     </div>
   </div>
+
   <div class="page-right">
     <div id="form-wrap">
       <form id="contact-form" onsubmit="submitForm(event)" novalidate>
@@ -107,45 +148,116 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
           <div class="fg"><label>Web / Tienda Online</label><input type="url" name="web" placeholder="https://tuempresa.com"/></div>
           <div class="fg2">
             <div class="fg"><label>Sector *</label>
-              <select name="sector" required><option value="">Selecciona tu sector</option><option>Legal / Asesoría</option><option>Salud / Clínicas</option><option>Inmobiliario</option><option>E-commerce / Retail</option><option>Hostelería / Restauración</option><option>Formación / Educación</option><option>Tecnología / SaaS</option><option>Construcción / Reformas</option><option>Belleza / Estética</option><option>Deporte / Wellness</option><option>Finanzas / Inversión</option><option>Otro</option></select>
+              <select name="sector" required>
+                <option value="">Selecciona tu sector</option>
+                <option>Legal / Asesoría</option>
+                <option>Salud / Clínicas</option>
+                <option>Inmobiliario</option>
+                <option>E-commerce / Retail</option>
+                <option>Hostelería / Restauración</option>
+                <option>Formación / Educación</option>
+                <option>Tecnología / SaaS</option>
+                <option>Construcción / Reformas</option>
+                <option>Belleza / Estética</option>
+                <option>Deporte / Wellness</option>
+                <option>Finanzas / Inversión</option>
+                <option>Otro</option>
+              </select>
             </div>
             <div class="fg"><label>¿Cómo nos has encontrado?</label>
-              <select name="fuente"><option value="">Selecciona</option><option>Instagram</option><option>LinkedIn</option><option>Google</option><option>Me lo recomendó alguien</option><option>TikTok</option><option>Otro</option></select>
+              <select name="fuente">
+                <option value="">Selecciona</option>
+                <option>Instagram</option>
+                <option>LinkedIn</option>
+                <option>Google</option>
+                <option>Me lo recomendó alguien</option>
+                <option>TikTok</option>
+                <option>Otro</option>
+              </select>
             </div>
           </div>
           <div class="fg"><label>Presencia en redes sociales</label>
-            <select name="redes"><option value="">Selecciona</option><option>Sin presencia activa</option><option>Presencia básica (poca actividad)</option><option>Activa pero sin estrategia</option><option>Activa y con comunidad consolidada</option></select>
+            <select name="redes">
+              <option value="">Selecciona</option>
+              <option>Sin presencia activa</option>
+              <option>Presencia básica (poca actividad)</option>
+              <option>Activa pero sin estrategia</option>
+              <option>Activa y con comunidad consolidada</option>
+            </select>
           </div>
         </div>
+
         <div class="form-block">
           <p class="form-block-title">Tu negocio</p>
           <div class="fg"><label>Facturación mensual actual</label>
-            <select name="facturacion"><option value="">Selecciona un rango</option><option>Menos de 20.000€</option><option>20.000€ — 50.000€</option><option>50.000€ — 100.000€</option><option>100.000€ — 300.000€</option><option>+300.000€</option></select>
+            <select name="facturacion">
+              <option value="">Selecciona un rango</option>
+              <option>Menos de 20.000€</option>
+              <option>20.000€ — 50.000€</option>
+              <option>50.000€ — 100.000€</option>
+              <option>100.000€ — 300.000€</option>
+              <option>+300.000€</option>
+            </select>
           </div>
           <div class="fg"><label>Inversión mensual en publicidad</label>
-            <select name="inversion"><option value="">Selecciona un rango</option><option>Menos de 2.000€</option><option>2.000€ — 5.000€</option><option>5.000€ — 15.000€</option><option>15.000€ — 50.000€</option><option>+50.000€</option></select>
+            <select name="inversion">
+              <option value="">Selecciona un rango</option>
+              <option>Menos de 2.000€</option>
+              <option>2.000€ — 5.000€</option>
+              <option>5.000€ — 15.000€</option>
+              <option>15.000€ — 50.000€</option>
+              <option>+50.000€</option>
+            </select>
           </div>
           <div class="fg2">
             <div class="fg"><label>Objetivo principal</label>
-              <select name="objetivo"><option value="">Selecciona</option><option>Escalar facturación</option><option>Mejorar rentabilidad</option><option>Reducir CPA</option><option>Aumentar LTV / retención</option><option>Profesionalizar el marketing</option></select>
+              <select name="objetivo">
+                <option value="">Selecciona</option>
+                <option>Escalar facturación</option>
+                <option>Mejorar rentabilidad</option>
+                <option>Reducir CPA</option>
+                <option>Aumentar LTV / retención</option>
+                <option>Profesionalizar el marketing</option>
+              </select>
             </div>
             <div class="fg"><label>¿Qué limita tu crecimiento?</label>
-              <select name="limitante"><option value="">Selecciona</option><option>Falta de estrategia clara</option><option>Publicidad que no rentabiliza</option><option>Contenido sin impacto</option><option>Falta de automatización</option><option>Sin presencia digital</option><option>Otros</option></select>
+              <select name="limitante">
+                <option value="">Selecciona</option>
+                <option>Falta de estrategia clara</option>
+                <option>Publicidad que no rentabiliza</option>
+                <option>Contenido sin impacto</option>
+                <option>Falta de automatización</option>
+                <option>Sin presencia digital</option>
+                <option>Otros</option>
+              </select>
             </div>
           </div>
         </div>
+
         <div class="form-block">
           <p class="form-block-title">Planificación</p>
           <div class="fg2">
             <div class="fg"><label>¿Cuándo quieres empezar?</label>
-              <select name="timing"><option value="">Selecciona</option><option>Inmediatamente</option><option>En el próximo mes</option><option>En 1-3 meses</option><option>Solo investigando</option></select>
+              <select name="timing">
+                <option value="">Selecciona</option>
+                <option>Inmediatamente</option>
+                <option>En el próximo mes</option>
+                <option>En 1-3 meses</option>
+                <option>Solo investigando</option>
+              </select>
             </div>
             <div class="fg"><label>¿Quién toma la decisión?</label>
-              <select name="decision"><option value="">Selecciona</option><option>Yo</option><option>Socios / dirección</option><option>Equipo</option></select>
+              <select name="decision">
+                <option value="">Selecciona</option>
+                <option>Yo</option>
+                <option>Socios / dirección</option>
+                <option>Equipo</option>
+              </select>
             </div>
           </div>
           <div class="fg"><label>¿Cuál es tu principal reto ahora mismo?</label><textarea name="mensaje" placeholder="Cuéntanos dónde estás y qué quieres conseguir..."></textarea></div>
         </div>
+
         <button type="submit" class="btn-submit" id="submit-btn">Enviar solicitud</button>
       </form>
     </div>
@@ -156,21 +268,53 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     </div>
   </div>
 </div>
+
 <script>
 (function(){
-  var cur=document.getElementById('cur'),x=-100,y=-100;
-  document.addEventListener('mousemove',function(e){x=e.clientX;y=e.clientY;cur.style.opacity='1';cur.style.transform='translate3d('+(x-3.5)+'px,'+(y-3.5)+'px,0)';cur.style.width='7px';cur.style.height='7px';cur.style.background='#C9A96E';cur.style.border='none';cur.style.borderRadius='50%';});
-  document.addEventListener('mouseleave',function(){cur.style.opacity='0';});
-  document.addEventListener('mouseover',function(e){if(e.target.closest('a,button,select,input,textarea,label')){cur.style.width='28px';cur.style.height='28px';cur.style.background='transparent';cur.style.border='1px solid #C9A96E';cur.style.borderRadius='50%';cur.style.transform='translate3d('+(x-14)+'px,'+(y-14)+'px,0)';}});
-  document.addEventListener('mouseout',function(e){if(e.target.closest('a,button,select,input,textarea,label')){cur.style.width='7px';cur.style.height='7px';cur.style.background='#C9A96E';cur.style.border='none';cur.style.transform='translate3d('+(x-3.5)+'px,'+(y-3.5)+'px,0)';}});
+  var cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+  var x=0,y=0;
+  document.addEventListener('mousemove',function(e){
+    x=e.clientX;y=e.clientY;
+    cur.style.transform='translate('+x+'px,'+y+'px)';
+    ring.style.transform='translate('+x+'px,'+y+'px)';
+  });
+  document.addEventListener('mouseleave',function(){cur.style.opacity='0';ring.style.opacity='0';});
+  document.addEventListener('mouseenter',function(){cur.style.opacity='1';ring.style.opacity='1';});
+
   var GHL='TU_WEBHOOK_URL_AQUI';
   function submitForm(e){
     e.preventDefault();
     var f=e.target,btn=document.getElementById('submit-btn');
-    var p={nombre:f.querySelector('[name="nombre"]').value,empresa:f.querySelector('[name="empresa"]').value,email:f.querySelector('[name="email"]').value,telefono:f.querySelector('[name="telefono"]').value,web:f.querySelector('[name="web"]').value,sector:f.querySelector('[name="sector"]').value,fuente:f.querySelector('[name="fuente"]').value,redes:f.querySelector('[name="redes"]').value,facturacion:f.querySelector('[name="facturacion"]').value,inversion:f.querySelector('[name="inversion"]').value,objetivo:f.querySelector('[name="objetivo"]').value,limitante:f.querySelector('[name="limitante"]').value,timing:f.querySelector('[name="timing"]').value,decision:f.querySelector('[name="decision"]').value,mensaje:f.querySelector('[name="mensaje"]').value,fecha:new Date().toISOString(),origen:'Formulario VELIA'};
+    var p={
+      nombre:f.querySelector('[name="nombre"]').value,
+      empresa:f.querySelector('[name="empresa"]').value,
+      email:f.querySelector('[name="email"]').value,
+      telefono:f.querySelector('[name="telefono"]').value,
+      web:f.querySelector('[name="web"]').value,
+      sector:f.querySelector('[name="sector"]').value,
+      fuente:f.querySelector('[name="fuente"]').value,
+      redes:f.querySelector('[name="redes"]').value,
+      facturacion:f.querySelector('[name="facturacion"]').value,
+      inversion:f.querySelector('[name="inversion"]').value,
+      objetivo:f.querySelector('[name="objetivo"]').value,
+      limitante:f.querySelector('[name="limitante"]').value,
+      timing:f.querySelector('[name="timing"]').value,
+      decision:f.querySelector('[name="decision"]').value,
+      mensaje:f.querySelector('[name="mensaje"]').value,
+      fecha:new Date().toISOString(),
+      origen:'Formulario VELIA'
+    };
     btn.textContent='Enviando...';btn.disabled=true;
-    if(!GHL||GHL==='TU_WEBHOOK_URL_AQUI'){setTimeout(function(){document.getElementById('form-wrap').style.display='none';document.getElementById('success').classList.add('show');},800);return;}
-    fetch(GHL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)}).then(function(){document.getElementById('form-wrap').style.display='none';document.getElementById('success').classList.add('show');}).catch(function(){btn.textContent='Error — inténtalo de nuevo';btn.disabled=false;});
+    if(!GHL||GHL==='TU_WEBHOOK_URL_AQUI'){
+      setTimeout(function(){
+        document.getElementById('form-wrap').style.display='none';
+        document.getElementById('success').classList.add('show');
+      },800);
+      return;
+    }
+    fetch(GHL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
+      .then(function(){document.getElementById('form-wrap').style.display='none';document.getElementById('success').classList.add('show');})
+      .catch(function(){btn.textContent='Error — inténtalo de nuevo';btn.disabled=false;});
   }
   window.submitForm=submitForm;
 })();
