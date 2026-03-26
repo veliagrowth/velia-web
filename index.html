@@ -9,40 +9,40 @@
 <link rel="shortcut icon" href="./VELIA_isotipo_oscuro.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;background:var(--void);overflow-x:hidden}
 *{cursor:none!important}
 #cur{position:fixed;top:0;left:0;width:7px;height:7px;background:#C9A96E;border-radius:50%;pointer-events:none!important;opacity:0;z-index:2147483647;will-change:transform;transition:width .2s,height .2s,background .2s,border .2s,opacity .2s}
-:root{--void:#0A0A0F;--deep:#1C1C28;--gold:#C9A96E;--cream:#EDE9E1;--teal:#4ECDC4;--muted:rgba(237,233,225,.45);--border:rgba(201,169,110,.12);--display:'Cormorant Garamond',serif;--body:'DM Sans',sans-serif}
+:root{--void:#0A0A0F;--deep:#1C1C28;--gold:#C9A96E;--cream:#EDE9E1;--teal:#4ECDC4;--pulse:#6C5CE7;--muted:rgba(237,233,225,.45);--border:rgba(201,169,110,.12);--display:'Montserrat',sans-serif;--body:'Montserrat',sans-serif}
 body{font-family:var(--body);background:var(--void);color:var(--cream);font-weight:300}
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;background:var(--void);transition:border .4s}
 nav.scrolled{border-bottom:1px solid var(--border)}
-.nav-logo{font-family:var(--display);font-size:22px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.08em;display:flex;flex-direction:row;align-items:center;gap:12px;line-height:1}
+.nav-logo{font-family:var(--display);font-size:13px;font-weight:700;color:var(--cream);text-decoration:none;letter-spacing:.22em;text-transform:uppercase;display:flex;flex-direction:row;align-items:center;gap:10px;line-height:1}
 .nav-isotipo{width:40px;height:40px;object-fit:contain;flex-shrink:0;filter:brightness(1.15)}
 .nav-logo-sub{font-family:var(--body);font-size:7px;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-top:3px}
 .nav-right{display:flex;align-items:center;gap:32px}
 .nav-link{font-size:11px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
 .nav-link:hover{color:var(--cream)}
-.btn-nav{font-family:var(--body);font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--void);background:var(--gold);padding:10px 24px;text-decoration:none;transition:opacity .2s;display:inline-block}
-.btn-nav:hover{opacity:.85}
+.btn-nav{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--void);background:var(--gold);padding:10px 24px;border-radius:100px;text-decoration:none;transition:opacity .2s,transform .15s;display:inline-block}
+.btn-nav:hover{opacity:.88;transform:translateY(-1px)}
 #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 5vw 80px;position:relative;overflow:hidden}
 .hero-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(201,169,110,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,169,110,.04) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 70%)}
-.hero-glow{position:absolute;top:-20%;right:-10%;width:60vw;height:60vw;background:radial-gradient(ellipse,rgba(78,205,196,.06) 0%,transparent 65%);z-index:0;pointer-events:none;animation:pulse 6s ease-in-out infinite}
+.hero-glow{position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 55% 60% at 12% 50%,rgba(108,92,231,.07) 0%,transparent 60%),radial-gradient(ellipse 55% 60% at 88% 30%,rgba(78,205,196,.05) 0%,transparent 65%),radial-gradient(ellipse 40% 40% at 50% 90%,rgba(201,169,110,.04) 0%,transparent 60%);animation:pulse 7s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
 .hero-eyebrow{font-family:var(--body);font-size:10px;font-weight:300;letter-spacing:.3em;text-transform:uppercase;color:var(--teal);margin-bottom:24px;position:relative;z-index:1;display:flex;align-items:center;gap:12px;opacity:0;animation:fadeUp .8s .2s forwards}
 .hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--teal)}
-.hero-h1{font-family:var(--display);font-size:clamp(56px,9vw,148px);font-weight:300;line-height:.92;letter-spacing:-.02em;color:var(--cream);position:relative;z-index:1;max-width:900px;opacity:0;animation:fadeUp .9s .35s forwards}
-.hero-h1 em{font-style:italic;color:var(--gold)}
+.hero-h1{font-family:var(--display);font-size:clamp(48px,8vw,120px);font-weight:800;line-height:.92;letter-spacing:-.03em;color:var(--cream);position:relative;z-index:1;max-width:900px;opacity:0;animation:fadeUp .9s .35s forwards}
+.hero-h1 em{font-style:normal;color:var(--gold);font-weight:800}
 .hero-row{display:flex;align-items:flex-end;justify-content:space-between;margin-top:40px;flex-wrap:wrap;gap:28px;position:relative;z-index:1;opacity:0;animation:fadeUp .8s .55s forwards}
 .hero-sub{max-width:420px;font-size:15px;font-weight:300;line-height:1.8;color:var(--muted)}
 .hero-sub strong{color:var(--cream);font-weight:400}
 .hero-btns{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-.btn-primary{background:var(--gold);color:var(--void);font-family:var(--body);font-weight:400;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:14px 32px;text-decoration:none;transition:opacity .2s;display:inline-block;white-space:nowrap}
-.btn-primary:hover{opacity:.85}
-.btn-ghost{color:var(--muted);font-size:11px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:color .2s;white-space:nowrap}
-.btn-ghost:hover{color:var(--cream)}
+.btn-primary{background:linear-gradient(135deg,var(--gold) 0%,#9A7840 100%);color:var(--void);font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:14px 32px;border-radius:100px;text-decoration:none;transition:opacity .2s,transform .15s;display:inline-block;white-space:nowrap}
+.btn-primary:hover{opacity:.88;transform:translateY(-1px)}
+.btn-ghost{color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:color .2s;white-space:nowrap;border:1px solid rgba(201,169,110,.3);padding:13px 28px;border-radius:100px;display:inline-block}
+.btn-ghost:hover{color:var(--cream);border-color:rgba(201,169,110,.6)}
 .hero-sep{position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.2}
 #ticker{padding:16px 0;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--deep)}
 .ticker-track{display:flex;width:max-content;animation:ticker 35s linear infinite}
@@ -53,8 +53,8 @@ section{position:relative;z-index:1}
 .inner{max-width:1200px;margin:0 auto;padding:0 5vw}
 .s-eyebrow{font-size:10px;font-weight:300;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;display:flex;align-items:center;gap:12px}
 .s-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--teal)}
-.s-title{font-family:var(--display);font-size:clamp(44px,6.5vw,88px);font-weight:300;line-height:.92;letter-spacing:-.01em;margin-bottom:24px}
-.s-title em{font-style:italic;color:var(--gold)}
+.s-title{font-family:var(--display);font-size:clamp(36px,5.5vw,72px);font-weight:800;line-height:.95;letter-spacing:-.025em;margin-bottom:24px}
+.s-title em{font-style:normal;color:var(--gold);font-weight:800}
 #services{padding:110px 0;background:var(--deep)}
 .srv-header{margin-bottom:64px;max-width:600px}
 .srv-header p{font-size:15px;font-weight:300;color:var(--muted);line-height:1.8;margin-top:20px}
@@ -66,9 +66,9 @@ section{position:relative;z-index:1}
 .srv-icon{width:48px;height:48px;margin-bottom:24px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)}
 .srv-icon svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s}
 .srv-card:hover .srv-icon svg{stroke:var(--teal)}
-.srv-name{font-family:var(--display);font-size:24px;font-weight:400;letter-spacing:.02em;margin-bottom:12px;color:var(--cream)}
+.srv-name{font-family:var(--display);font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:12px;color:var(--cream)}
 .srv-desc{font-size:13px;font-weight:300;line-height:1.75;color:var(--muted)}
-.srv-tag{display:inline-block;margin-top:20px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(78,205,196,.2);padding:4px 10px}
+.srv-tag{display:inline-block;margin-top:20px;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(78,205,196,.2);padding:4px 12px;border-radius:100px;background:rgba(78,205,196,.06)}
 #problems{padding:110px 0;background:linear-gradient(160deg,#0f0d0a 0%,var(--void) 55%)}
 .prob-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:64px}
 .prob-copy{font-size:15px;font-weight:300;line-height:1.8;color:var(--muted);max-width:420px}
@@ -89,7 +89,7 @@ section{position:relative;z-index:1}
 .case-header:hover{background:rgba(28,28,40,.5)}
 .case-header-left{display:flex;flex-direction:column;gap:8px}
 .case-tag{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal)}
-.case-hl{font-family:var(--display);font-size:clamp(28px,3.5vw,52px);font-weight:300;line-height:1;color:var(--cream)}
+.case-hl{font-family:var(--display);font-size:clamp(24px,3vw,44px);font-weight:700;line-height:1;letter-spacing:-.02em;color:var(--cream)}
 .case-sub{font-size:11px;color:var(--muted);font-weight:300;letter-spacing:.08em}
 .case-arrow{width:40px;height:40px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color .3s}
 .case-arrow svg{width:14px;height:14px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .4s}
@@ -103,7 +103,7 @@ section{position:relative;z-index:1}
 .case-list li::before{content:'—';position:absolute;left:0;color:var(--gold);font-size:11px}
 .metrics{display:flex;flex-direction:column;gap:1px;background:var(--border)}
 .metric{background:var(--void);padding:16px 20px}
-.metric-v{font-family:var(--display);font-size:32px;font-weight:300;color:var(--gold);line-height:1}
+.metric-v{font-family:var(--display);font-size:32px;font-weight:800;color:var(--gold);line-height:1;letter-spacing:-.03em}
 .metric-l{font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:4px}
 #how{padding:110px 0;background:var(--deep)}
 .how-header{margin-bottom:64px}
@@ -114,18 +114,18 @@ section{position:relative;z-index:1}
 .tier.feat{background:var(--deep)}
 .tier-eyebrow{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-bottom:16px}
 .tier.feat .tier-eyebrow{color:var(--gold)}
-.tier-name{font-family:var(--display);font-size:28px;font-weight:400;letter-spacing:.02em;margin-bottom:8px}
+.tier-name{font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px}
 .tier-sep{width:24px;height:1px;background:var(--gold);margin:16px 0;opacity:.5}
 .tier.feat .tier-sep{opacity:1}
 .tier-desc{font-size:13px;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:28px}
 .tier-feats{flex:1;margin-bottom:32px}
 .tier-feat{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px;font-weight:300;color:var(--muted);line-height:1.4}
 .tier-feat::before{content:'◆';color:var(--gold);font-size:6px;margin-top:4px;flex-shrink:0}
-.btn-tier{display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:10px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;padding:12px 20px;transition:opacity .2s}
-.btn-tier.p{background:var(--gold);color:var(--void)}
-.btn-tier.p:hover{opacity:.85}
+.btn-tier{display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:13px 20px;border-radius:100px;transition:opacity .2s,transform .15s}
+.btn-tier.p{background:linear-gradient(135deg,var(--gold) 0%,#9A7840 100%);color:var(--void)}
+.btn-tier.p:hover{opacity:.88;transform:translateY(-1px)}
 .btn-tier.s{background:transparent;color:var(--cream);border:1px solid var(--border)}
-.btn-tier.s:hover{border-color:rgba(201,169,110,.4)}
+.btn-tier.s:hover{border-color:rgba(201,169,110,.5);transform:translateY(-1px)}
 #faqs{padding:110px 0;background:var(--deep)}
 .faq-list{max-width:760px}
 .faq-item{border-bottom:1px solid var(--border)}
@@ -136,16 +136,16 @@ section{position:relative;z-index:1}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;font-size:13px;font-weight:300;line-height:1.8;color:var(--muted)}
 .faq-item.open .faq-a{max-height:300px;padding-bottom:22px}
 #cta{padding:140px 5vw;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--border)}
-.cta-glow{position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(201,169,110,.07) 0%,transparent 70%);pointer-events:none}
+.cta-glow{position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse 50% 50% at 30% 50%,rgba(108,92,231,.07) 0%,transparent 65%),radial-gradient(ellipse 50% 50% at 70% 50%,rgba(201,169,110,.08) 0%,transparent 65%);pointer-events:none}
 .cta-eyebrow{font-size:10px;font-weight:300;letter-spacing:.28em;text-transform:uppercase;color:var(--teal);margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:12px}
 .cta-eyebrow::before,.cta-eyebrow::after{content:'';display:block;width:24px;height:1px;background:var(--teal)}
-.cta-title{font-family:var(--display);font-size:clamp(48px,8vw,112px);font-weight:300;line-height:.9;margin-bottom:20px;position:relative;z-index:1}
-.cta-title em{font-style:italic;color:var(--gold)}
+.cta-title{font-family:var(--display);font-size:clamp(44px,7vw,100px);font-weight:800;line-height:.92;letter-spacing:-.03em;margin-bottom:20px;position:relative;z-index:1}
+.cta-title em{font-style:normal;color:var(--gold);font-weight:800}
 .cta-sep{width:1px;height:48px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);margin:0 auto 28px;opacity:.5}
 .cta-sub{font-size:15px;font-weight:300;color:var(--muted);max-width:480px;margin:0 auto 40px;line-height:1.8;position:relative;z-index:1}
 .cta-sub strong{color:var(--cream);font-weight:400}
 footer{padding:40px 5vw;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.footer-logo{font-family:var(--display);font-size:20px;font-weight:400;color:var(--cream);text-decoration:none;letter-spacing:.08em}
+.footer-logo{font-family:var(--display);font-size:13px;font-weight:700;color:var(--cream);text-decoration:none;letter-spacing:.22em;text-transform:uppercase}
 .footer-logo-sub{display:block;font-size:7px;letter-spacing:.22em;color:var(--gold);font-family:var(--body);font-weight:300;text-transform:uppercase;margin-top:2px}
 .footer-links{font-size:11px;color:var(--muted);display:flex;gap:24px;flex-wrap:wrap;align-items:center}
 .footer-links a{color:var(--muted);text-decoration:none;transition:color .2s}
@@ -213,7 +213,7 @@ footer{padding:40px 5vw;border-top:1px solid var(--border);display:flex;align-it
 <div id="grain"></div>
 <div id="cur"></div>
 <nav id="nav">
-  <a href="index.html" class="nav-logo">VELIA<span class="nav-logo-sub">AI-Powered Marketing</span></a>
+  <a href="index.html" class="nav-logo"><img src="./VELIA_isotipo_claro_transparente.svg" alt="VELIA" class="nav-isotipo">VELIA<span class="nav-logo-sub">AI · Powered Marketing</span></a>
   <div class="nav-right">
     <a href="#services" class="nav-link">Servicios</a>
     <a href="#results" class="nav-link">Casos</a>
