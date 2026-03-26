@@ -179,9 +179,13 @@ section{position:relative;z-index:1}
 @keyframes badgeGlow{0%,100%{box-shadow:0 0 6px rgba(201,169,110,.08);border-color:rgba(201,169,110,.25)}50%{box-shadow:0 0 18px rgba(201,169,110,.28);border-color:rgba(201,169,110,.65)}}
 @keyframes dotPulse{0%,100%{opacity:1;box-shadow:0 0 0 rgba(201,169,110,.4)}50%{opacity:.35;box-shadow:0 0 7px rgba(201,169,110,.75)}}
 
+/* ═══ CASE METRIC PILL ═══ */
+.case-metric-pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--f);font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--gold);background:rgba(201,169,110,.07);border:1px solid rgba(201,169,110,.18);padding:4px 12px;border-radius:100px;white-space:nowrap;margin-top:10px}
+.case-metric-pill::before{content:'↑';font-size:9px}
+
 /* ═══ PRICING ═══ */
 #how{padding:140px 0;background:var(--void)}
-.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:80px}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:80px}
 .tier{background:var(--void);padding:40px 32px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .2s}
 .tier-bd{display:flex;flex-direction:column;flex:1}
 .tier::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .4s}
@@ -264,7 +268,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 @media(max-width:768px){
   .tiers{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 5vw 28px;margin:0 -5vw;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:16px;background:transparent;border:none}
   .tiers::-webkit-scrollbar{display:none}
-  .tier{flex:0 0 260px;scroll-snap-align:start;border:1px solid var(--border);background:var(--deep);box-shadow:none;padding:28px 24px}
+  .tier{flex:0 0 280px;scroll-snap-align:start;border:1px solid var(--border);background:var(--deep);box-shadow:none;padding:28px 24px}
   .tier.feat{border-color:rgba(201,169,110,.3)}
   .tier-hd{display:block;margin-bottom:14px;padding:0}
   .tier-bd{max-height:none!important;overflow:visible!important;padding:0!important}
@@ -342,11 +346,11 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   <img src="./VELIA_isotipo_claro_transparente.svg" alt="" class="hero-isotipo"/>
   <p class="hero-eyebrow">AI-Powered Marketing Agency</p>
   <h1 class="hero-h1">
-    <span><i>NEGOCIOS QUE</i></span>
-    <span><i>NO <em>DUERMEN.</em></i></span>
+    <span><i>FACTURACIÓN</i></span>
+    <span><i>QUE NO <em>DUERME.</em></i></span>
   </h1>
   <div class="hero-row">
-    <p class="hero-sub">La IA amplifica la productividad humana.<br><strong>Construimos el sistema que hará crecer tu negocio.</strong></p>
+    <p class="hero-sub">Tu negocio no puede crecer a base de boca a boca.<br><strong>Construimos el sistema automático que capta, cualifica y cierra clientes mientras tú duermes.</strong></p>
     <div class="hero-btns">
       <a href="contacto.html" class="btn-primary">Empezar ahora</a>
       <a href="#services" class="btn-ghost">Ver servicios ↓</a>
@@ -545,6 +549,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
             <p class="case-tag">Cónsul Jurídico · Asesoría Legal</p>
             <p class="case-hl">Sistema de captación automatizado</p>
             <p class="case-sub">Web + Agentes IA + Automatización de leads</p>
+            <span class="case-metric-pill">+85% nuevos clientes · -70% tiempo en gestión</span>
           </div>
           <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
@@ -571,6 +576,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
             <p class="case-tag">Krea Hogar · Hogar &amp; Decoración</p>
             <p class="case-hl">+210% en ventas online</p>
             <p class="case-sub">E-commerce + Paid Media + Email Automation</p>
+            <span class="case-metric-pill">×3.4 ROAS · +34% recuperación carritos</span>
           </div>
           <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
@@ -597,6 +603,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
             <p class="case-tag">The Drop Agency · Management &amp; Production</p>
             <p class="case-hl">Pipeline de ventas 100% automatizado</p>
             <p class="case-sub">CRM + Automatización + Reporting en tiempo real</p>
+            <span class="case-metric-pill">+45% tasa de cierre · ×2.1 capacidad clientes</span>
           </div>
           <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
@@ -623,6 +630,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
             <p class="case-tag">9989 | Method Numbers · Streetwear</p>
             <p class="case-hl">Ecosistema digital completo</p>
             <p class="case-sub">Marca + Web + Paid Media + Contenidos + IA</p>
+            <span class="case-metric-pill">+120% tráfico orgánico · 4.1% conversión web</span>
           </div>
           <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
@@ -709,28 +717,6 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
             <div class="tier-feat"><span class="tf-check">◆</span>Integración con Máquina de Captación</div>
           </div>
           <a href="contacto.html" class="btn-tier p">Solicitar propuesta →</a>
-        </div>
-      </div>
-      <div class="tier">
-        <div class="tier-hd" onclick="toggleTier(this)">
-          <div>
-            <p class="tier-step">Nivel 04</p>
-            <p class="tier-name">Sistema Operativo VELIA</p>
-          </div>
-          <span class="tier-toggle">+</span>
-        </div>
-        <div class="tier-bd">
-          <p class="tier-eyebrow">Operación autónoma</p>
-          <div class="tier-sep"></div>
-          <p class="tier-desc">Los 50 agentes trabajando en sinergia. Tu negocio opera, crece y aprende de forma completamente autónoma.</p>
-          <div class="tier-feats">
-            <div class="tier-feat"><span class="tf-check">◆</span>Ecosistema completo de 50 agentes</div>
-            <div class="tier-feat"><span class="tf-check">◆</span>Portal de cliente con control total</div>
-            <div class="tier-feat"><span class="tf-check">◆</span>Todos los sistemas anteriores integrados</div>
-            <div class="tier-feat"><span class="tf-check">◆</span>Evolución continua del sistema</div>
-            <div class="tier-feat"><span class="tf-check">◆</span>Account manager dedicado</div>
-          </div>
-          <span class="btn-wip"><span class="wip-dot"></span>En desarrollo</span>
         </div>
       </div>
     </div>
