@@ -114,8 +114,9 @@ section{position:relative;z-index:1}
 .eco-divider{width:1px;background:var(--border);align-self:stretch}
 
 /* Category legend */
-.cat-legend{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:52px auto 0;max-width:700px}
-.cat-pill{display:flex;align-items:center;gap:7px;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:6px 14px;border-radius:100px;border:1px solid;color:var(--muted)}
+.cat-legend{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:52px auto 0;max-width:780px}
+.cat-pill{display:flex;align-items:center;gap:7px;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:6px 14px;border-radius:100px;border:1px solid;color:var(--muted);cursor:pointer;transition:background .2s,border-color .2s,color .2s,opacity .2s;user-select:none}
+.cat-pill:hover{opacity:.85}
 .cat-pill-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .cp-core{border-color:rgba(201,169,110,.25);color:rgba(201,169,110,.8)}
 .cp-core .cat-pill-dot{background:var(--gold)}
@@ -129,6 +130,18 @@ section{position:relative;z-index:1}
 .cp-analytics .cat-pill-dot{background:var(--signal)}
 .cp-meta{border-color:rgba(108,92,231,.25);color:rgba(108,92,231,.7)}
 .cp-meta .cat-pill-dot{background:linear-gradient(135deg,var(--pulse),var(--signal))}
+/* Active states */
+.cp-core.cat-active{background:rgba(201,169,110,.1);border-color:rgba(201,169,110,.5);color:var(--gold)}
+.cp-comms.cat-active{background:rgba(78,205,196,.08);border-color:rgba(78,205,196,.5);color:var(--signal)}
+.cp-marketing.cat-active{background:rgba(108,92,231,.1);border-color:rgba(108,92,231,.55);color:var(--pulse)}
+.cp-sales.cat-active{background:rgba(201,169,110,.08);border-color:rgba(201,169,110,.4);color:var(--gold-l)}
+.cp-analytics.cat-active{background:rgba(78,205,196,.08);border-color:rgba(78,205,196,.45);color:var(--signal)}
+.cp-meta.cat-active{background:rgba(108,92,231,.1);border-color:rgba(108,92,231,.45);color:var(--pulse)}
+/* VELIA all-pill — animated gradient border */
+.cat-pill-velia{position:relative;z-index:0;background:rgba(10,10,15,.9);border-color:transparent!important;color:var(--cream)!important}
+.cat-pill-velia::before{content:'';position:absolute;inset:0;padding:1px;border-radius:100px;background:linear-gradient(135deg,var(--gold),var(--pulse),var(--signal),var(--gold));background-size:400% 400%;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;animation:pillGlow 3s ease infinite;z-index:-1}
+.cat-pill-velia.cat-active{background:rgba(20,16,34,.95)!important}
+@keyframes pillGlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
 /* Agent grid */
 .agents-wrap{margin-top:52px;position:relative}
@@ -226,21 +239,20 @@ section{position:relative;z-index:1}
 
 /* ═══ PRICING ═══ */
 #how{padding:140px 0;background:var(--void)}
-.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:80px}
-.tier{background:var(--void);padding:44px 40px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .2s}
+.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:80px}
+.tier{background:var(--void);padding:40px 32px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .2s}
 .tier::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .4s}
 .tier:hover{background:rgba(14,12,22,.9)}
 .tier:hover::before{background:linear-gradient(90deg,transparent,rgba(201,169,110,.5),transparent)}
 .tier.feat{background:var(--deep);box-shadow:inset 0 0 100px rgba(108,92,231,.04)}
 .tier.feat::before{background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.tier-step{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-weight:600}
 .tier-eyebrow{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--signal);margin-bottom:16px;font-weight:600}
 .tier.feat .tier-eyebrow{color:var(--gold)}
-.tier-name{font-family:var(--f);font-size:22px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
-.tier-impl{font-size:12px;font-weight:300;color:var(--muted);margin-bottom:4px}
-.tier-price{font-family:var(--f);font-size:38px;font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--cream)}
-.tier.feat .tier-price{background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.tier-price-sub{font-size:10px;font-weight:300;color:var(--muted);letter-spacing:.05em;margin-bottom:22px}
-.tier-sep{width:28px;height:1px;background:var(--gold);margin:20px 0;opacity:.35}
+.tier-name{font-family:var(--f);font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px;line-height:1.2}
+.tier-price{font-family:var(--f);font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--signal);margin-bottom:4px;text-transform:uppercase}
+.tier.feat .tier-price{color:var(--gold)}
+.tier-sep{width:28px;height:1px;background:var(--gold);margin:18px 0;opacity:.35}
 .tier.feat .tier-sep{opacity:1}
 .tier-desc{font-size:13px;font-weight:300;color:var(--muted);line-height:1.72;margin-bottom:28px}
 .tier-feats{flex:1;margin-bottom:32px}
@@ -307,6 +319,9 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   .faq-layout{grid-template-columns:1fr;gap:48px}
   .faq-aside{position:static}
 }
+@media(max-width:1100px){
+  .tiers{grid-template-columns:repeat(2,1fr)}
+}
 @media(max-width:900px){
   .agents-grid{grid-template-columns:repeat(4,1fr)}
   .tiers{grid-template-columns:1fr}
@@ -358,8 +373,8 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
     </div>
   </a>
   <div class="nav-right">
-    <a href="#ecosystem" class="nav-link">Ecosistema</a>
     <a href="#services" class="nav-link">Servicios</a>
+    <a href="#ecosystem" class="nav-link">Ecosistema</a>
     <a href="#results" class="nav-link">Casos</a>
     <a href="#faqs" class="nav-link">FAQ</a>
     <a href="contacto.html" class="btn-nav">Trabajemos juntos</a>
@@ -438,44 +453,6 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   </div>
 </div>
 
-<!-- ECOSYSTEM -->
-<section id="ecosystem">
-  <div class="inner">
-    <div class="section-header center">
-      <p class="s-eyebrow center">El ecosistema VELIA</p>
-      <h2 class="s-title">50 AGENTES.<br>UN <em>SISTEMA.</em></h2>
-      <p class="eco-sub">Cada agente trabaja de forma autónoma y en sinergia con los demás. Tu negocio opera 24/7 sin intervención manual.</p>
-    </div>
-    <div class="eco-counters">
-      <div class="eco-count">
-        <div class="eco-count-n">50</div>
-        <div class="eco-count-l">Agentes de IA</div>
-      </div>
-      <div class="eco-divider"></div>
-      <div class="eco-count">
-        <div class="eco-count-n">6</div>
-        <div class="eco-count-l">Niveles de profundidad</div>
-      </div>
-      <div class="eco-divider"></div>
-      <div class="eco-count">
-        <div class="eco-count-n">∞</div>
-        <div class="eco-count-l">Escalabilidad</div>
-      </div>
-    </div>
-    <div class="cat-legend">
-      <div class="cat-pill cp-core"><div class="cat-pill-dot"></div>Núcleo</div>
-      <div class="cat-pill cp-comms"><div class="cat-pill-dot"></div>Comunicación</div>
-      <div class="cat-pill cp-marketing"><div class="cat-pill-dot"></div>Marketing</div>
-      <div class="cat-pill cp-sales"><div class="cat-pill-dot"></div>Ventas</div>
-      <div class="cat-pill cp-analytics"><div class="cat-pill-dot"></div>Analytics</div>
-      <div class="cat-pill cp-meta"><div class="cat-pill-dot"></div>Meta-Skills</div>
-    </div>
-    <div class="agents-wrap">
-      <div class="agents-grid" id="agents-grid"></div>
-    </div>
-  </div>
-</section>
-
 <!-- SERVICES -->
 <section id="services">
   <div class="inner">
@@ -527,6 +504,45 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
         <p class="srv-desc">Dashboards, análisis de rentabilidad real y decisiones basadas en datos. Sin métricas de vanidad.</p>
         <span class="srv-tag" style="color:var(--pulse);border-color:rgba(108,92,231,.25);background:rgba(108,92,231,.06)">IA exclusivo</span>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section id="ecosystem">
+  <div class="inner">
+    <div class="section-header center">
+      <p class="s-eyebrow center">El ecosistema VELIA</p>
+      <h2 class="s-title">50 AGENTES.<br>UN <em>SISTEMA.</em></h2>
+      <p class="eco-sub">Cada agente trabaja de forma autónoma y en sinergia con los demás. Tu negocio opera 24/7 sin intervención manual.</p>
+    </div>
+    <div class="eco-counters">
+      <div class="eco-count">
+        <div class="eco-count-n">50</div>
+        <div class="eco-count-l">Agentes de IA</div>
+      </div>
+      <div class="eco-divider"></div>
+      <div class="eco-count">
+        <div class="eco-count-n">6</div>
+        <div class="eco-count-l">Niveles de profundidad</div>
+      </div>
+      <div class="eco-divider"></div>
+      <div class="eco-count">
+        <div class="eco-count-n">∞</div>
+        <div class="eco-count-l">Escalabilidad</div>
+      </div>
+    </div>
+    <div class="cat-legend">
+      <div class="cat-pill cat-pill-velia cat-active" data-cat="all" onclick="filterAgents('all',this)"><div class="cat-pill-dot" style="background:linear-gradient(135deg,var(--gold),var(--pulse),var(--signal))"></div>VELIA</div>
+      <div class="cat-pill cp-core" data-cat="core" onclick="filterAgents('core',this)"><div class="cat-pill-dot"></div>Núcleo</div>
+      <div class="cat-pill cp-comms" data-cat="comms" onclick="filterAgents('comms',this)"><div class="cat-pill-dot"></div>Comunicación</div>
+      <div class="cat-pill cp-marketing" data-cat="marketing" onclick="filterAgents('marketing',this)"><div class="cat-pill-dot"></div>Marketing</div>
+      <div class="cat-pill cp-sales" data-cat="sales" onclick="filterAgents('sales',this)"><div class="cat-pill-dot"></div>Ventas</div>
+      <div class="cat-pill cp-analytics" data-cat="analytics" onclick="filterAgents('analytics',this)"><div class="cat-pill-dot"></div>Analytics</div>
+      <div class="cat-pill cp-meta" data-cat="meta" onclick="filterAgents('meta',this)"><div class="cat-pill-dot"></div>Meta-Skills</div>
+    </div>
+    <div class="agents-wrap">
+      <div class="agents-grid" id="agents-grid"></div>
     </div>
   </div>
 </section>
@@ -598,9 +614,9 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
       <div class="case">
         <div class="case-header" onclick="toggleCase(this)">
           <div>
-            <p class="case-tag">Despacho de Abogados</p>
-            <p class="case-hl">+85% Captación de clientes</p>
-            <p class="case-sub">Sistema completo · IA + Web + Automatización</p>
+            <p class="case-tag">Cónsul Jurídico · Asesoría Legal</p>
+            <p class="case-hl">Sistema de captación automatizado</p>
+            <p class="case-sub">Web + Agentes IA + Automatización de leads</p>
           </div>
           <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
@@ -608,10 +624,10 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
           <div class="case-inner">
             <ul class="case-list">
               <li>Automatización completa del primer contacto y cualificación de leads</li>
-              <li>Email sequences personalizadas según tipo de consulta legal</li>
+              <li>Email sequences personalizadas según tipo de consulta jurídica</li>
               <li>Sistema de reserva de citas integrado con Google Calendar</li>
-              <li>Dashboard de métricas con rentabilidad real por canal</li>
-              <li>Agente de seguimiento post-consulta para aumentar conversión</li>
+              <li>Dashboard de métricas con rentabilidad real por canal de captación</li>
+              <li>Agente de seguimiento post-consulta para aumentar tasa de conversión</li>
             </ul>
             <div class="metrics">
               <div class="metric"><div class="metric-v">+85%</div><div class="metric-l">Nuevos clientes</div></div>
@@ -624,23 +640,23 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
       <div class="case">
         <div class="case-header" onclick="toggleCase(this)">
           <div>
-            <p class="case-tag">E-commerce Fashion</p>
-            <p class="case-hl">×3.4 en ROAS de Meta Ads</p>
-            <p class="case-sub">Paid Media + Email + Automatización</p>
+            <p class="case-tag">Krea Hogar · Hogar &amp; Decoración</p>
+            <p class="case-hl">+210% en ventas online</p>
+            <p class="case-sub">E-commerce + Paid Media + Email Automation</p>
           </div>
           <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
         <div class="case-body">
           <div class="case-inner">
             <ul class="case-list">
-              <li>Restructuración completa de la cuenta de Meta Ads con IA</li>
-              <li>Segmentación avanzada y creative testing automatizado</li>
-              <li>Flujos de email post-compra para aumentar LTV y recurrencia</li>
-              <li>Recuperación de carritos abandonados con tasa del 34%</li>
-              <li>Reporting automático semanal con insights accionables</li>
+              <li>Restructuración completa de la cuenta de Meta Ads con segmentación IA</li>
+              <li>Creative testing automatizado con análisis de rendimiento por variante</li>
+              <li>Flujos de email post-compra para aumentar LTV y recurrencia de cliente</li>
+              <li>Recuperación de carritos abandonados con secuencias personalizadas</li>
+              <li>Reporting automático semanal con insights accionables por canal</li>
             </ul>
             <div class="metrics">
-              <div class="metric"><div class="metric-v">×3.4</div><div class="metric-l">ROAS</div></div>
+              <div class="metric"><div class="metric-v">×3.4</div><div class="metric-l">ROAS Meta Ads</div></div>
               <div class="metric"><div class="metric-v">+34%</div><div class="metric-l">Recuperación carritos</div></div>
               <div class="metric"><div class="metric-v">+210%</div><div class="metric-l">Revenue mensual</div></div>
             </div>
@@ -650,25 +666,51 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
       <div class="case">
         <div class="case-header" onclick="toggleCase(this)">
           <div>
-            <p class="case-tag">Clínica Dental</p>
-            <p class="case-hl">Sistema de captación 24/7</p>
-            <p class="case-sub">Web + Agentes IA + Google Ads</p>
+            <p class="case-tag">The Drop Agency · Marketing &amp; Eventos</p>
+            <p class="case-hl">Pipeline de ventas 100% automatizado</p>
+            <p class="case-sub">CRM + Automatización + Reporting en tiempo real</p>
           </div>
           <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
         <div class="case-body">
           <div class="case-inner">
             <ul class="case-list">
-              <li>Web con chatbot IA que responde consultas y agenda citas automáticamente</li>
-              <li>Google Ads local con targeting por proximidad y hora del día</li>
-              <li>Sistema de reseñas automático con NPS post-visita</li>
-              <li>Perfil GMB optimizado con posts semanales automáticos</li>
-              <li>WhatsApp Business automatizado para recordatorios de cita</li>
+              <li>Sistema CRM propio construido sobre Supabase con pipeline visual</li>
+              <li>Cualificación automática de leads por sector, presupuesto y urgencia</li>
+              <li>Propuestas generadas automáticamente con datos del cliente</li>
+              <li>Seguimiento post-propuesta con secuencias de activación personalizadas</li>
+              <li>Dashboard de rentabilidad por cliente y por campaña en tiempo real</li>
             </ul>
             <div class="metrics">
-              <div class="metric"><div class="metric-v">+120%</div><div class="metric-l">Citas mensuales</div></div>
-              <div class="metric"><div class="metric-v">4.9★</div><div class="metric-l">Google rating</div></div>
-              <div class="metric"><div class="metric-v">-45%</div><div class="metric-l">No-shows</div></div>
+              <div class="metric"><div class="metric-v">-60%</div><div class="metric-l">Tiempo operativo</div></div>
+              <div class="metric"><div class="metric-v">+45%</div><div class="metric-l">Tasa de cierre</div></div>
+              <div class="metric"><div class="metric-v">×2.1</div><div class="metric-l">Capacidad clientes</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="case">
+        <div class="case-header" onclick="toggleCase(this)">
+          <div>
+            <p class="case-tag">9989 | Method Numbers · Streetwear</p>
+            <p class="case-hl">Ecosistema digital completo</p>
+            <p class="case-sub">Marca + Web + Paid Media + Contenidos + IA</p>
+          </div>
+          <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="case-body">
+          <div class="case-inner">
+            <ul class="case-list">
+              <li>Desarrollo de identidad de marca y sistema visual completo</li>
+              <li>E-commerce con integración de todos los agentes desde el día 1</li>
+              <li>Estrategia de contenidos orgánicos + Paid Media en Meta y TikTok</li>
+              <li>Sistema de email marketing con segmentación por comportamiento</li>
+              <li>Agente de IA para gestión de comunidad y atención al cliente 24/7</li>
+            </ul>
+            <div class="metrics">
+              <div class="metric"><div class="metric-v">0→1</div><div class="metric-l">Lanzamiento completo</div></div>
+              <div class="metric"><div class="metric-v">+120%</div><div class="metric-l">Tráfico orgánico</div></div>
+              <div class="metric"><div class="metric-v">4.1%</div><div class="metric-l">Conversión web</div></div>
             </div>
           </div>
         </div>
@@ -681,63 +723,72 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 <section id="how">
   <div class="inner">
     <div class="section-header">
-      <p class="s-eyebrow">Planes</p>
-      <h2 class="s-title">ELIGE TU<br><em>NIVEL.</em></h2>
-      <p>Implementación única + gestión mensual continua. Cada plan incluye acceso al sistema de agentes de IA.</p>
+      <p class="s-eyebrow">Cómo trabajamos contigo</p>
+      <h2 class="s-title">CONSTRUIMOS<br><em>CONTIGO.</em></h2>
+      <p>No existe un precio fijo porque no existe una solución fija. Cada negocio tiene un punto de entrada distinto. Identificamos dónde está tu mayor palanca de crecimiento y empezamos ahí.</p>
     </div>
     <div class="tiers">
       <div class="tier">
-        <p class="tier-eyebrow">Starter</p>
-        <p class="tier-name">Base</p>
-        <p class="tier-impl">Implementación · 800€</p>
-        <p class="tier-price">450€</p>
-        <p class="tier-price-sub">/ mes · IVA no incluido</p>
+        <p class="tier-step">Nivel 01</p>
+        <p class="tier-eyebrow">El primer paso</p>
+        <p class="tier-name">Una automatización que cambia todo</p>
+        <p class="tier-price">Precio a medida</p>
         <div class="tier-sep"></div>
-        <p class="tier-desc">Para negocios que quieren empezar a sistematizar su marketing con IA.</p>
+        <p class="tier-desc">Identificamos la tarea que más tiempo te consume o más dinero te cuesta. La automatizamos. Resultado en semanas, no meses.</p>
         <div class="tier-feats">
-          <div class="tier-feat"><span class="tf-check">◆</span>Estrategia digital mensual</div>
-          <div class="tier-feat"><span class="tf-check">◆</span>Gestión de 1 red social</div>
-          <div class="tier-feat"><span class="tf-check">◆</span>Agente de email automático</div>
-          <div class="tier-feat"><span class="tf-check">◆</span>Dashboard de métricas básico</div>
-          <div class="tier-feat"><span class="tf-check">◆</span>Informe mensual de resultados</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Diagnóstico del proceso a automatizar</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>1 agente IA a medida construido en n8n</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Integración con tus herramientas actuales</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Formación y entrega del sistema</div>
         </div>
-        <a href="contacto.html" class="btn-tier s">Empezar →</a>
-      </div>
-      <div class="tier feat">
-        <p class="tier-eyebrow">Más popular</p>
-        <p class="tier-name">Growth</p>
-        <p class="tier-impl">Implementación · 1.200€</p>
-        <p class="tier-price">700€</p>
-        <p class="tier-price-sub">/ mes · IVA no incluido</p>
-        <div class="tier-sep"></div>
-        <p class="tier-desc">El plan completo para negocios listos para escalar con IA de forma integral.</p>
-        <div class="tier-feats">
-          <div class="tier-feat"><span class="tf-check">◆</span>Todo lo de Base</div>
-          <div class="tier-feat"><span class="tf-check">◆</span>Paid Media (Meta + Google)</div>
-          <div class="tier-feat"><span class="tf-check">◆</span>3 redes sociales gestionadas</div>
-          <div class="tier-feat"><span class="tf-check">◆</span>Agentes IA de WhatsApp + email</div>
-          <div class="tier-feat"><span class="tf-check">◆</span>CRM + pipeline de ventas</div>
-          <div class="tier-feat"><span class="tf-check">◆</span>SEO técnico + GMB</div>
-        </div>
-        <a href="contacto.html" class="btn-tier p">Empezar →</a>
+        <a href="contacto.html" class="btn-tier s">Solicitar propuesta →</a>
       </div>
       <div class="tier">
-        <p class="tier-eyebrow">Full</p>
-        <p class="tier-name">Ecosistema</p>
-        <p class="tier-impl">Implementación · 2.000€</p>
-        <p class="tier-price">1.100€</p>
-        <p class="tier-price-sub">/ mes · IVA no incluido</p>
+        <p class="tier-step">Nivel 02</p>
+        <p class="tier-eyebrow">Captación automática</p>
+        <p class="tier-name">Lead Generation System</p>
+        <p class="tier-price">Precio a medida</p>
         <div class="tier-sep"></div>
-        <p class="tier-desc">Sistema completo con todos los agentes IA y vídeo integrado para marcas que van en serio.</p>
+        <p class="tier-desc">Tu embudo de captación trabaja 24/7. Atraer leads, calificarlos y enviarlos listos para el cierre sin intervención manual.</p>
         <div class="tier-feats">
-          <div class="tier-feat"><span class="tf-check">◆</span>Todo lo de Growth</div>
-          <div class="tier-feat"><span class="tf-check">◆</span>Estrategia y producción de vídeo</div>
-          <div class="tier-feat"><span class="tf-check">◆</span>Ecosistema de agentes IA completo</div>
-          <div class="tier-feat"><span class="tf-check">◆</span>Portal de cliente propio</div>
-          <div class="tier-feat"><span class="tf-check">◆</span>Account manager dedicado</div>
-          <div class="tier-feat"><span class="tf-check">◆</span>Acceso a todos los 50 agentes</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Estrategia de captación multicanal</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Agentes de cualificación automática</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Email + WhatsApp automatizados</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Dashboard de leads en tiempo real</div>
         </div>
-        <a href="contacto.html" class="btn-tier s">Empezar →</a>
+        <a href="contacto.html" class="btn-tier s">Solicitar propuesta →</a>
+      </div>
+      <div class="tier feat">
+        <p class="tier-step">Nivel 03</p>
+        <p class="tier-eyebrow">Ventas sistematizadas</p>
+        <p class="tier-name">Sales System</p>
+        <p class="tier-price">Precio a medida</p>
+        <div class="tier-sep"></div>
+        <p class="tier-desc">Pipeline completo desde el lead hasta el contrato firmado. Propuestas automáticas, seguimiento inteligente y cierre acelerado.</p>
+        <div class="tier-feats">
+          <div class="tier-feat"><span class="tf-check">◆</span>CRM propio sobre Supabase</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Agente de propuestas y contratos</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Pipeline visual con automatizaciones</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Reporting de rentabilidad por cliente</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Integración con Lead Gen System</div>
+        </div>
+        <a href="contacto.html" class="btn-tier p">Solicitar propuesta →</a>
+      </div>
+      <div class="tier">
+        <p class="tier-step">Nivel 04</p>
+        <p class="tier-eyebrow">Operación autónoma</p>
+        <p class="tier-name">Sistema Operativo VELIA</p>
+        <p class="tier-price">Precio a medida</p>
+        <div class="tier-sep"></div>
+        <p class="tier-desc">Los 50 agentes trabajando en sinergia. Tu negocio opera, crece y aprende de forma completamente autónoma.</p>
+        <div class="tier-feats">
+          <div class="tier-feat"><span class="tf-check">◆</span>Ecosistema completo de 50 agentes</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Portal de cliente con control total</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Todos los sistemas anteriores integrados</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Evolución continua del sistema</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Account manager dedicado</div>
+        </div>
+        <a href="contacto.html" class="btn-tier s">Solicitar propuesta →</a>
       </div>
     </div>
   </div>
@@ -817,9 +868,12 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 
 <!-- FOOTER -->
 <footer>
-  <a href="index.html" class="footer-logo">
-    <span class="footer-logo-name">VELIA</span>
-    <span class="footer-logo-sub">AI · Powered Marketing</span>
+  <a href="index.html" class="footer-logo" style="display:flex;align-items:center;gap:10px">
+    <img src="./VELIA_isotipo_claro_transparente.svg" alt="VELIA" style="width:32px;height:32px;object-fit:contain;opacity:.85"/>
+    <div>
+      <span class="footer-logo-name">VELIA</span>
+      <span class="footer-logo-sub">AI · Powered Marketing</span>
+    </div>
   </a>
   <div class="footer-links">
     <a href="#services">Servicios</a>
@@ -963,6 +1017,28 @@ const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 40);
 }, {passive:true});
+
+/* ══════════════════════════════════════
+   AGENT FILTER
+══════════════════════════════════════ */
+function filterAgents(cat, pillEl) {
+  // Update active pill
+  document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('cat-active'));
+  pillEl.classList.add('cat-active');
+
+  const cards = Array.from(document.querySelectorAll('.agent-card'));
+
+  if (cat === 'all') {
+    cards.forEach(c => { c.style.display = ''; });
+    gsap.from(cards, { opacity:0, y:18, duration:.35, stagger:.025, ease:'power2.out' });
+  } else {
+    const show = cards.filter(c => c.classList.contains('cat-' + cat));
+    const hide = cards.filter(c => !c.classList.contains('cat-' + cat));
+    hide.forEach(c => { c.style.display = 'none'; });
+    show.forEach(c => { c.style.display = ''; });
+    gsap.from(show, { opacity:0, y:18, duration:.35, stagger:.04, ease:'power2.out' });
+  }
+}
 
 /* ══════════════════════════════════════
    ACCORDION
