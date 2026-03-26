@@ -41,11 +41,9 @@ body:hover #cur,body:hover #cur-ring{opacity:1}
 nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:20px 5vw;background:rgba(10,10,15,.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid transparent;transition:border-color .4s,background .4s}
 nav.scrolled{border-color:var(--border);background:rgba(10,10,15,.8)}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
-.nav-isotipo{width:36px;height:36px;object-fit:contain;filter:brightness(1.1);animation:isotipoGlow 4s ease-in-out infinite}
-@keyframes isotipoGlow{0%,100%{filter:brightness(1.1)}50%{filter:brightness(1.28) drop-shadow(0 0 9px rgba(201,169,110,.38))}}
 .nav-logo-text{display:flex;flex-direction:column;line-height:1}
-.nav-logo-name{font-size:12px;font-weight:700;color:var(--cream);letter-spacing:.22em;text-transform:uppercase}
-.nav-logo-sub{font-size:7px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:3px}
+.nav-logo-name{font-size:16px;font-weight:800;color:var(--cream);letter-spacing:.28em;text-transform:uppercase;background:linear-gradient(135deg,var(--cream) 60%,var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-logo-sub{font-size:7px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:4px}
 .nav-right{display:flex;align-items:center;gap:28px}
 .nav-link{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
 .nav-link:hover{color:var(--cream)}
@@ -146,8 +144,11 @@ section{position:relative;z-index:1}
 
 /* Agent grid */
 .agents-wrap{margin-top:52px;position:relative}
-.agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:1px;background:rgba(201,169,110,.055)}
-.agent-card{background:var(--void);padding:22px 20px;position:relative;overflow:hidden;min-height:155px;display:flex;flex-direction:column;gap:8px;transition:background .3s}
+.agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:0;background:transparent}
+.agent-card{background:var(--void);padding:22px 20px;position:relative;overflow:hidden;min-height:155px;display:flex;flex-direction:column;gap:8px;transition:background .3s;border-right:1px solid rgba(201,169,110,.06);border-bottom:1px solid rgba(201,169,110,.06)}
+/* Exclusive VELIA-only agents */
+.agent-exclusive::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 25%,var(--pulse) 60%,var(--signal) 85%,transparent 100%);background-size:300% 100%;animation:pillGlow 3s ease infinite;pointer-events:none;z-index:3}
+.agent-exclusive .agent-name::after{content:' ✦';font-size:7px;color:var(--gold);opacity:.7;vertical-align:super}
 .agent-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;opacity:.35;transition:opacity .3s}
 .cat-core.agent-card::before{background:var(--gold)}
 .cat-comms.agent-card::before{background:var(--signal)}
@@ -218,7 +219,7 @@ section{position:relative;z-index:1}
 
 /* ═══ RESULTS ═══ */
 #results{padding:140px 0;background:var(--deep)}
-.res-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:80px}
+.res-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:80px}
 .res-stat{background:var(--deep);padding:36px 32px;position:relative;overflow:hidden;transition:background .3s}
 .res-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .4s}
 .res-stat:hover::before{opacity:1}
@@ -246,6 +247,12 @@ section{position:relative;z-index:1}
 .metric{background:var(--void);padding:18px 22px}
 .metric-v{font-family:var(--f);font-size:34px;font-weight:800;letter-spacing:-.03em;line-height:1;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .metric-l{font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:5px}
+
+/* WIP badge */
+.tier-badge-wip{display:inline-flex;align-items:center;gap:7px;font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,169,110,.3);background:rgba(201,169,110,.05);padding:4px 12px;border-radius:100px;margin-bottom:12px;animation:badgeGlow 2.5s ease-in-out infinite}
+.wip-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;animation:dotPulse 1.5s ease-in-out infinite}
+@keyframes badgeGlow{0%,100%{box-shadow:0 0 6px rgba(201,169,110,.08);border-color:rgba(201,169,110,.25)}50%{box-shadow:0 0 18px rgba(201,169,110,.28);border-color:rgba(201,169,110,.65)}}
+@keyframes dotPulse{0%,100%{opacity:1;box-shadow:0 0 0 rgba(201,169,110,.4)}50%{opacity:.35;box-shadow:0 0 7px rgba(201,169,110,.75)}}
 
 /* ═══ PRICING ═══ */
 #how{padding:140px 0;background:var(--void)}
@@ -314,8 +321,8 @@ section{position:relative;z-index:1}
 /* ═══ FOOTER ═══ */
 footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;background:var(--deep)}
 .footer-logo{text-decoration:none}
-.footer-logo-name{font-size:12px;font-weight:700;color:var(--cream);letter-spacing:.22em;text-transform:uppercase;display:block}
-.footer-logo-sub{font-size:7px;letter-spacing:.22em;color:var(--gold);font-weight:300;text-transform:uppercase;margin-top:3px;display:block}
+.footer-logo-name{font-size:16px;font-weight:800;color:var(--cream);letter-spacing:.28em;text-transform:uppercase;display:block;background:linear-gradient(135deg,var(--cream) 60%,var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.footer-logo-sub{font-size:7px;letter-spacing:.22em;color:var(--gold);font-weight:300;text-transform:uppercase;margin-top:4px;display:block}
 .footer-links{font-size:10px;color:var(--muted);display:flex;gap:22px;flex-wrap:wrap;align-items:center;letter-spacing:.08em}
 .footer-links a{color:var(--muted);text-decoration:none;transition:color .2s}
 .footer-links a:hover{color:var(--gold)}
@@ -367,7 +374,6 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 <!-- NAV -->
 <nav id="nav">
   <a href="index.html" class="nav-logo">
-    <img src="./VELIA_isotipo_claro_transparente.svg" alt="VELIA" class="nav-isotipo"/>
     <div class="nav-logo-text">
       <span class="nav-logo-name">VELIA</span>
       <span class="nav-logo-sub">AI · Powered Marketing</span>
@@ -564,7 +570,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
         </div>
         <span class="proc-card-tag">Semana 1</span>
         <p class="proc-card-title">Diagnóstico</p>
-        <p class="proc-card-desc">Analizamos tu negocio, competencia y audiencia con IA para identificar oportunidades reales de crecimiento.</p>
+        <p class="proc-card-desc">Analizamos tu negocio, competencia y audiencia con VELIA para identificar oportunidades reales de crecimiento.</p>
         <div class="proc-card-line"></div>
       </div>
       <div class="proc-card">
@@ -612,10 +618,6 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
       <div class="res-stat">
         <div class="res-stat-v">+340%</div>
         <div class="res-stat-l">ROI medio en paid media</div>
-      </div>
-      <div class="res-stat">
-        <div class="res-stat-v">2.500€</div>
-        <div class="res-stat-l">Primer cliente cerrado</div>
       </div>
       <div class="res-stat">
         <div class="res-stat-v">-60%</div>
@@ -748,7 +750,6 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
         <p class="tier-step">Nivel 01</p>
         <p class="tier-eyebrow">El primer paso</p>
         <p class="tier-name">Una automatización que cambia todo</p>
-        <p class="tier-price">Precio a medida</p>
         <div class="tier-sep"></div>
         <p class="tier-desc">Identificamos la tarea que más tiempo te consume o más dinero te cuesta. La automatizamos. Resultado en semanas, no meses.</p>
         <div class="tier-feats">
@@ -762,8 +763,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
       <div class="tier">
         <p class="tier-step">Nivel 02</p>
         <p class="tier-eyebrow">Captación automática</p>
-        <p class="tier-name">Lead Generation System</p>
-        <p class="tier-price">Precio a medida</p>
+        <p class="tier-name">Máquina de Captación</p>
         <div class="tier-sep"></div>
         <p class="tier-desc">Tu embudo de captación trabaja 24/7. Atraer leads, calificarlos y enviarlos listos para el cierre sin intervención manual.</p>
         <div class="tier-feats">
@@ -777,8 +777,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
       <div class="tier feat">
         <p class="tier-step">Nivel 03</p>
         <p class="tier-eyebrow">Ventas sistematizadas</p>
-        <p class="tier-name">Sales System</p>
-        <p class="tier-price">Precio a medida</p>
+        <p class="tier-name">Pipeline de Ventas</p>
         <div class="tier-sep"></div>
         <p class="tier-desc">Pipeline completo desde el lead hasta el contrato firmado. Propuestas automáticas, seguimiento inteligente y cierre acelerado.</p>
         <div class="tier-feats">
@@ -786,15 +785,15 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
           <div class="tier-feat"><span class="tf-check">◆</span>Agente de propuestas y contratos</div>
           <div class="tier-feat"><span class="tf-check">◆</span>Pipeline visual con automatizaciones</div>
           <div class="tier-feat"><span class="tf-check">◆</span>Reporting de rentabilidad por cliente</div>
-          <div class="tier-feat"><span class="tf-check">◆</span>Integración con Lead Gen System</div>
+          <div class="tier-feat"><span class="tf-check">◆</span>Integración con Máquina de Captación</div>
         </div>
         <a href="contacto.html" class="btn-tier p">Solicitar propuesta →</a>
       </div>
       <div class="tier">
         <p class="tier-step">Nivel 04</p>
         <p class="tier-eyebrow">Operación autónoma</p>
+        <span class="tier-badge-wip"><span class="wip-dot"></span>En desarrollo</span>
         <p class="tier-name">Sistema Operativo VELIA</p>
-        <p class="tier-price">Precio a medida</p>
         <div class="tier-sep"></div>
         <p class="tier-desc">Los 50 agentes trabajando en sinergia. Tu negocio opera, crece y aprende de forma completamente autónoma.</p>
         <div class="tier-feats">
@@ -884,12 +883,9 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 
 <!-- FOOTER -->
 <footer>
-  <a href="index.html" class="footer-logo" style="display:flex;align-items:center;gap:10px">
-    <img src="./VELIA_isotipo_claro_transparente.svg" alt="VELIA" style="width:32px;height:32px;object-fit:contain;opacity:.85"/>
-    <div>
-      <span class="footer-logo-name">VELIA</span>
-      <span class="footer-logo-sub">AI · Powered Marketing</span>
-    </div>
+  <a href="index.html" class="footer-logo">
+    <span class="footer-logo-name">VELIA</span>
+    <span class="footer-logo-sub">AI · Powered Marketing</span>
   </a>
   <div class="footer-links">
     <a href="#services">Servicios</a>
@@ -910,11 +906,11 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 ══════════════════════════════════════ */
 const AGENTS = [
   // NÚCLEO (8)
-  {name:'System Monitor',desc:'Monitoriza errores y salud del sistema 24/7',cat:'core',status:'building',icon:'activity'},
+  {name:'System Monitor',desc:'Monitoriza errores y salud del sistema 24/7',cat:'core',status:'building',icon:'activity',exclusive:true},
   {name:'Email Agent',desc:'Emails transaccionales via Resend + Claude AI',cat:'core',status:'building',icon:'mail'},
   {name:'Meeting Transcriber',desc:'Transcripción automática con Whisper AI',cat:'core',status:'planned',icon:'mic'},
-  {name:'Database Health',desc:'Auditoría y rendimiento de Supabase',cat:'core',status:'planned',icon:'database'},
-  {name:'Backup Agent',desc:'Copias automáticas de datos críticos',cat:'core',status:'planned',icon:'archive'},
+  {name:'Database Health',desc:'Auditoría y rendimiento de Supabase',cat:'core',status:'planned',icon:'database',exclusive:true},
+  {name:'Backup Agent',desc:'Copias automáticas de datos críticos',cat:'core',status:'planned',icon:'archive',exclusive:true},
   {name:'Project Manager',desc:'Gestión de proyectos y deadlines del cliente',cat:'core',status:'planned',icon:'layers'},
   {name:'Drive Agent',desc:'Organización automática en Google Drive',cat:'core',status:'planned',icon:'folder'},
   {name:'Document Manager',desc:'Generación y archivo de documentos con IA',cat:'core',status:'planned',icon:'file-text'},
@@ -923,7 +919,7 @@ const AGENTS = [
   {name:'Onboarding Agent',desc:'Activa nuevos clientes automáticamente',cat:'comms',status:'building',icon:'user-check'},
   {name:'Calendar Agent',desc:'Gestión de citas y agenda del cliente',cat:'comms',status:'planned',icon:'calendar'},
   {name:'Lead Nurturing',desc:'Secuencias de activación automáticas',cat:'comms',status:'planned',icon:'heart'},
-  {name:'Client Portal',desc:'Dashboard del cliente en tiempo real',cat:'comms',status:'planned',icon:'layout'},
+  {name:'Client Portal',desc:'Dashboard del cliente en tiempo real',cat:'comms',status:'planned',icon:'layout',exclusive:true},
   {name:'Reputation Monitor',desc:'Monitoriza reseñas y menciones online',cat:'comms',status:'planned',icon:'bell'},
   {name:'Offboarding Agent',desc:'Cierre de clientes con entrega ordenada',cat:'comms',status:'planned',icon:'log-out'},
   {name:'Web Chatbot',desc:'Chat inteligente integrado en la web del cliente',cat:'comms',status:'planned',icon:'zap'},
@@ -952,19 +948,19 @@ const AGENTS = [
   {name:'Report Generator',desc:'Informes mensuales con datos reales',cat:'analytics',status:'planned',icon:'bar-chart'},
   {name:'Client Health',desc:'NPS y satisfacción del cliente',cat:'analytics',status:'planned',icon:'pulse'},
   {name:'Web Analyzer',desc:'Auditoría web + CRO + conversión',cat:'analytics',status:'planned',icon:'monitor'},
-  {name:'Finance Monitor',desc:'Control financiero y rentabilidad',cat:'analytics',status:'planned',icon:'dollar'},
+  {name:'Finance Monitor',desc:'Control financiero y rentabilidad',cat:'analytics',status:'planned',icon:'dollar',exclusive:true},
   {name:'Web Deploy Agent',desc:'Construye y despliega webs de clientes',cat:'analytics',status:'planned',icon:'cloud'},
-  // META-SKILLS (10)
-  {name:'Vision Global',desc:'Cerebro estratégico: conecta todos los agentes',cat:'meta',status:'planned',icon:'eye'},
-  {name:'Admin Cerebro',desc:'Panel de control total del ecosistema',cat:'meta',status:'planned',icon:'cpu'},
-  {name:'Brand Guardian',desc:'Protege y aplica la identidad de marca',cat:'meta',status:'planned',icon:'lock'},
-  {name:'GDPR Agent',desc:'Cumplimiento automático de datos',cat:'meta',status:'planned',icon:'check-shield'},
-  {name:'Billing Agent',desc:'Orquestación de pagos y suscripciones',cat:'meta',status:'planned',icon:'dollar'},
-  {name:'VELIA Architect',desc:'Diseña y evoluciona la arquitectura del sistema',cat:'meta',status:'planned',icon:'layers'},
-  {name:'CRM Feature Agent',desc:'Añade funcionalidades al CRM dinámicamente',cat:'meta',status:'planned',icon:'plus'},
-  {name:'Agent Health Monitor',desc:'Supervisa el rendimiento de todos los agentes',cat:'meta',status:'planned',icon:'activity'},
-  {name:'Automation Builder',desc:'Crea nuevas automatizaciones bajo demanda',cat:'meta',status:'planned',icon:'zap'},
-  {name:'Client Context',desc:'Construye y actualiza la memoria de cada cliente',cat:'meta',status:'planned',icon:'database'},
+  // META-SKILLS (10) — todos exclusivos del OS
+  {name:'Vision Global',desc:'Cerebro estratégico: conecta todos los agentes',cat:'meta',status:'planned',icon:'eye',exclusive:true},
+  {name:'Admin Cerebro',desc:'Panel de control total del ecosistema',cat:'meta',status:'planned',icon:'cpu',exclusive:true},
+  {name:'Brand Guardian',desc:'Protege y aplica la identidad de marca',cat:'meta',status:'planned',icon:'lock',exclusive:true},
+  {name:'GDPR Agent',desc:'Cumplimiento automático de datos',cat:'meta',status:'planned',icon:'check-shield',exclusive:true},
+  {name:'Billing Agent',desc:'Orquestación de pagos y suscripciones',cat:'meta',status:'planned',icon:'dollar',exclusive:true},
+  {name:'VELIA Architect',desc:'Diseña y evoluciona la arquitectura del sistema',cat:'meta',status:'planned',icon:'layers',exclusive:true},
+  {name:'CRM Feature Agent',desc:'Añade funcionalidades al CRM dinámicamente',cat:'meta',status:'planned',icon:'plus',exclusive:true},
+  {name:'Agent Health Monitor',desc:'Supervisa el rendimiento de todos los agentes',cat:'meta',status:'planned',icon:'activity',exclusive:true},
+  {name:'Automation Builder',desc:'Crea nuevas automatizaciones bajo demanda',cat:'meta',status:'planned',icon:'zap',exclusive:true},
+  {name:'Client Context',desc:'Construye y actualiza la memoria de cada cliente',cat:'meta',status:'planned',icon:'database',exclusive:true},
 ];
 
 const ICONS = {
@@ -1020,7 +1016,7 @@ const STATUS_LABEL = {active:'Activo',building:'En desarrollo',planned:'Planific
 function renderAgents(list) {
   const grid = document.getElementById('agents-grid');
   grid.innerHTML = (list||AGENTS).map(a => `
-    <div class="agent-card cat-${a.cat}">
+    <div class="agent-card cat-${a.cat}${a.exclusive?' agent-exclusive':''}">
       <div class="agent-icon-wrap">
         <svg viewBox="0 0 24 24">${ICONS[a.icon]||''}</svg>
       </div>
