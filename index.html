@@ -327,22 +327,23 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 .footer-links a:hover{color:var(--gold)}
 
 /* ═══ RESPONSIVE ═══ */
-/* ═══ TIER ACCORDION (mobile) ═══ */
-.tier-hd{cursor:default}
+/* ═══ TIERS ═══ */
+.tier-hd{cursor:default;pointer-events:none}
 .tier-toggle{display:none}
 .tier-bd{overflow:visible;max-height:none}
+/* Botón WIP decorativo */
+.btn-wip{display:inline-flex;align-items:center;gap:8px;font-family:var(--f);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);padding:14px 24px;border-radius:100px;position:relative;z-index:0;background:rgba(10,10,15,.9);cursor:default;user-select:none;width:100%;justify-content:center}
+.btn-wip::before{content:'';position:absolute;inset:0;padding:1px;border-radius:100px;background:linear-gradient(135deg,var(--gold),var(--pulse),var(--signal),var(--gold));background-size:400% 400%;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;animation:pillGlow 3s ease infinite;z-index:-1}
 @media(max-width:768px){
-  .tiers{grid-template-columns:1fr;gap:0;background:transparent;border-top:1px solid var(--border)}
-  .tier{border:none;border-bottom:1px solid var(--border);background:var(--void);padding:0}
-  .tier.feat{box-shadow:none}
-  .tier-hd{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;cursor:pointer}
-  .tier-toggle{display:flex;width:28px;height:28px;border:1px solid var(--border);border-radius:50%;align-items:center;justify-content:center;color:var(--gold);font-size:18px;font-weight:300;flex-shrink:0;transition:transform .3s,background .2s,border-color .2s}
-  .tier.t-open .tier-toggle{transform:rotate(45deg);background:rgba(201,169,110,.08);border-color:rgba(201,169,110,.4)}
-  .tier-bd{max-height:0;overflow:hidden;transition:max-height .45s ease;padding:0 24px}
-  .tier.t-open .tier-bd{max-height:700px;padding-bottom:24px}
-  .tier-sep{margin:14px 0}
-  .tier::before{display:none}
-  .tier.feat::before,.tier.t-open::before{display:block;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(201,169,110,.5),transparent)}
+  .tiers{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 5vw 28px;margin:0 -5vw;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:16px;background:transparent;border:none}
+  .tiers::-webkit-scrollbar{display:none}
+  .tier{flex:0 0 260px;scroll-snap-align:start;border:1px solid var(--border);background:var(--deep);box-shadow:none;padding:28px 24px}
+  .tier.feat{border-color:rgba(201,169,110,.3)}
+  .tier-hd{display:block;margin-bottom:14px;padding:0}
+  .tier-bd{max-height:none!important;overflow:visible!important;padding:0!important}
+  .tier-sep{margin:12px 0}
+  .tier::before{position:absolute;top:0;left:0;right:0;height:2px;content:'';bottom:auto;width:auto;background:transparent}
+  .tier.feat::before{background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 }
 @media(max-width:1100px){
   .res-stats{grid-template-columns:repeat(2,1fr)}
@@ -370,6 +371,9 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   .hero-h1{font-size:clamp(48px,14vw,80px)}
   .eco-divider{display:none}
 }
+@media(max-width:720px){
+  .nav-logo-sub{display:none}
+}
 </style>
 </head>
 <body>
@@ -391,7 +395,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 <nav id="nav">
   <a href="index.html" class="nav-logo">
     <img src="./VELIA_logotipo_claro.svg" alt="VELIA" class="nav-wordmark"/>
-    <span class="nav-logo-sub" style="display:block;font-size:7px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:5px">AI · Powered Marketing</span>
+    <span class="nav-logo-sub">AI · Powered Marketing</span>
   </a>
   <div class="nav-right">
     <a href="#services" class="nav-link">Servicios</a>
@@ -838,7 +842,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
             <div class="tier-feat"><span class="tf-check">◆</span>Evolución continua del sistema</div>
             <div class="tier-feat"><span class="tf-check">◆</span>Account manager dedicado</div>
           </div>
-          <a href="contacto.html" class="btn-tier s">Solicitar propuesta →</a>
+          <span class="btn-wip"><span class="wip-dot"></span>En desarrollo</span>
         </div>
       </div>
     </div>
@@ -1137,11 +1141,6 @@ function toggleTier(hd) {
 ══════════════════════════════════════ */
 gsap.registerPlugin(ScrollTrigger);
 
-// Hero isotipo parallax
-gsap.to('.hero-isotipo', {
-  rotation:10, scale:1.06, opacity:.01,
-  scrollTrigger:{trigger:'#hero',start:'top top',end:'+=480',scrub:2}
-});
 
 // Hero title — clip reveal
 gsap.from('.hero-h1 span i', {
