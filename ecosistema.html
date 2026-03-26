@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>VELIA — Ecosistema Interno</title>
+<link rel="icon" type="image/png" href="./VELIA_isotipo_oscuro.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:#0A0A0F;overflow-x:hidden}
+:root{
+  --void:#0A0A0F;
+  --deep:#1C1C28;
+  --gold:#C9A96E;
+  --gold-l:#E8D5B0;
+  --gold-d:#9A7840;
+  --cream:#EDE9E1;
+  --signal:#4ECDC4;
+  --pulse:#6C5CE7;
+  --muted:rgba(237,233,225,.42);
+  --border:rgba(201,169,110,.1);
+  --f:'Montserrat',sans-serif;
+}
+body{font-family:var(--f);background:var(--void);color:var(--cream);font-weight:300;-webkit-font-smoothing:antialiased}
+
+/* ═══ GRAIN ═══ */
+#grain{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:99999}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:20px 5vw;background:rgba(10,10,15,.75);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-wordmark{height:20px;width:auto;display:block}
+.nav-badge{font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,169,110,.3);background:rgba(201,169,110,.06);padding:3px 10px;border-radius:100px}
+
+/* ═══ SHARED ═══ */
+section{position:relative;z-index:1}
+.inner{max-width:1280px;margin:0 auto;padding:0 5vw}
+.s-eyebrow{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--signal);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.s-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--signal);flex-shrink:0}
+.s-title{font-family:var(--f);font-size:clamp(38px,5.5vw,78px);font-weight:800;line-height:.92;letter-spacing:-.03em;margin-bottom:32px}
+.s-title em{font-style:normal;color:var(--gold)}
+
+/* ═══ PROGRESS SECTION ═══ */
+#progress{padding:140px 0 80px}
+
+/* Global bar */
+.prog-global{margin-top:52px;background:var(--deep);border:1px solid var(--border);padding:32px 36px}
+.prog-global-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:20px;gap:16px;flex-wrap:wrap}
+.prog-global-label{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cream)}
+.prog-global-pct{font-family:var(--f);font-size:36px;font-weight:800;letter-spacing:-.03em;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.prog-track{height:4px;background:rgba(201,169,110,.1);border-radius:2px;overflow:hidden;margin-bottom:16px}
+.prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold-d),var(--gold),var(--gold-l));transition:width 1s ease;position:relative}
+.prog-fill::after{content:'';position:absolute;right:0;top:-3px;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px rgba(201,169,110,.7)}
+.prog-global-detail{font-size:11px;font-weight:300;color:var(--muted)}
+.prog-global-detail strong{color:var(--signal);font-weight:600}
+
+/* Sprint grid */
+.sprints-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:1px}
+.sprint-card{background:var(--deep);padding:32px 28px;position:relative;overflow:hidden;transition:background .3s}
+.sprint-card:hover{background:rgba(22,20,36,.9)}
+.sprint-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .4s}
+.sprint-card:hover::before{background:linear-gradient(90deg,transparent,rgba(201,169,110,.3),transparent)}
+.sprint-card.active-sprint::before{background:linear-gradient(90deg,transparent,var(--signal),transparent)}
+.sprint-num{font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.sprint-pct-row{display:flex;align-items:baseline;justify-content:space-between;margin:8px 0 12px}
+.sprint-name{font-family:var(--f);font-size:16px;font-weight:700;letter-spacing:-.01em;color:var(--cream);margin-bottom:10px;line-height:1.2}
+.sprint-pct-val{font-family:var(--f);font-size:28px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.sprint-track{height:3px;background:rgba(237,233,225,.07);border-radius:2px;overflow:hidden;margin-bottom:14px}
+.sprint-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold-d),var(--gold));transition:width 1s ease .2s}
+.sprint-fill.s-signal{background:linear-gradient(90deg,rgba(78,205,196,.5),var(--signal))}
+.sprint-fill.s-pulse{background:linear-gradient(90deg,rgba(108,92,231,.5),var(--pulse))}
+.sprint-desc{font-size:11px;font-weight:300;color:var(--muted);line-height:1.65;margin-bottom:14px}
+.sprint-agents-list{display:flex;flex-wrap:wrap;gap:6px}
+.sprint-agent-tag{font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:100px;border:1px solid rgba(201,169,110,.15);color:rgba(201,169,110,.6);background:rgba(201,169,110,.04)}
+.sprint-agent-tag.tag-building{border-color:rgba(201,169,110,.35);color:var(--gold);background:rgba(201,169,110,.08)}
+.sprint-agent-tag.tag-active{border-color:rgba(78,205,196,.35);color:var(--signal);background:rgba(78,205,196,.07)}
+.sprint-status-row{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.sprint-status-dot{width:6px;height:6px;border-radius:50%;background:rgba(237,233,225,.2);flex-shrink:0}
+.sprint-status-dot.dot-active{background:var(--signal);box-shadow:0 0 6px rgba(78,205,196,.7);animation:dotPulse 1.5s ease-in-out infinite}
+.sprint-status-dot.dot-building{background:var(--gold);box-shadow:0 0 6px rgba(201,169,110,.6);animation:dotPulse 1.5s ease-in-out infinite}
+.sprint-status-lbl{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sprint-status-dot.dot-active + .sprint-status-lbl{color:var(--signal)}
+.sprint-status-dot.dot-building + .sprint-status-lbl{color:var(--gold)}
+@keyframes dotPulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+@media(max-width:900px){.sprints-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.sprints-grid{grid-template-columns:1fr}}
+
+/* ═══ ECOSYSTEM SECTION ═══ */
+#ecosystem{padding:80px 0 140px;background:linear-gradient(180deg,var(--void) 0%,#0c0a18 40%,var(--void) 100%)}
+.eco-sub{font-size:15px;font-weight:300;color:var(--muted);max-width:560px;line-height:1.85;margin-bottom:52px}
+
+/* Category legend */
+.cat-legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:0}
+.cat-pill{display:flex;align-items:center;gap:7px;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:6px 14px;border-radius:100px;border:1px solid;color:var(--muted);cursor:pointer;transition:background .2s,border-color .2s,color .2s,opacity .2s;user-select:none}
+.cat-pill:hover{opacity:.85}
+.cat-pill-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.cp-core{border-color:rgba(201,169,110,.25);color:rgba(201,169,110,.8)}
+.cp-core .cat-pill-dot{background:var(--gold)}
+.cp-comms{border-color:rgba(78,205,196,.25);color:rgba(78,205,196,.8)}
+.cp-comms .cat-pill-dot{background:var(--signal)}
+.cp-marketing{border-color:rgba(108,92,231,.3);color:rgba(108,92,231,.85)}
+.cp-marketing .cat-pill-dot{background:var(--pulse)}
+.cp-sales{border-color:rgba(201,169,110,.2);color:rgba(237,233,225,.5)}
+.cp-sales .cat-pill-dot{background:var(--gold-l)}
+.cp-analytics{border-color:rgba(78,205,196,.2);color:rgba(78,205,196,.65)}
+.cp-analytics .cat-pill-dot{background:var(--signal)}
+.cp-meta{border-color:rgba(108,92,231,.25);color:rgba(108,92,231,.7)}
+.cp-meta .cat-pill-dot{background:linear-gradient(135deg,var(--pulse),var(--signal))}
+.cp-core.cat-active{background:rgba(201,169,110,.1);border-color:rgba(201,169,110,.5);color:var(--gold)}
+.cp-comms.cat-active{background:rgba(78,205,196,.08);border-color:rgba(78,205,196,.5);color:var(--signal)}
+.cp-marketing.cat-active{background:rgba(108,92,231,.1);border-color:rgba(108,92,231,.55);color:var(--pulse)}
+.cp-sales.cat-active{background:rgba(201,169,110,.08);border-color:rgba(201,169,110,.4);color:var(--gold-l)}
+.cp-analytics.cat-active{background:rgba(78,205,196,.08);border-color:rgba(78,205,196,.45);color:var(--signal)}
+.cp-meta.cat-active{background:rgba(108,92,231,.1);border-color:rgba(108,92,231,.45);color:var(--pulse)}
+.cat-pill-velia{position:relative;z-index:0;background:rgba(10,10,15,.9);border-color:transparent!important;color:var(--cream)!important}
+.cat-pill-velia::before{content:'';position:absolute;inset:0;padding:1px;border-radius:100px;background:linear-gradient(135deg,var(--gold),var(--pulse),var(--signal),var(--gold));background-size:400% 400%;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;animation:pillGlow 3s ease infinite;z-index:-1}
+.cat-pill-velia.cat-active{background:rgba(20,16,34,.95)!important}
+@keyframes pillGlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+/* Agent grid */
+.agents-controls{display:flex;align-items:center;justify-content:space-between;margin-top:32px;margin-bottom:0;flex-wrap:wrap;gap:12px}
+.agents-count{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.agents-count strong{color:var(--cream)}
+.agents-wrap{margin-top:1px;position:relative}
+.agents-wrap.eco-collapsed{max-height:318px;overflow:hidden}
+.agents-fade{position:absolute;bottom:0;left:0;right:0;height:140px;background:linear-gradient(to bottom,transparent,var(--void) 85%);pointer-events:none;z-index:2;transition:opacity .35s}
+.agents-wrap:not(.eco-collapsed) .agents-fade{opacity:0}
+.eco-toggle-wrap{text-align:center;margin-top:36px}
+.eco-toggle-btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--f);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cream);background:rgba(10,10,15,.9);border:1px solid rgba(201,169,110,.28);border-radius:100px;padding:14px 32px;cursor:pointer;transition:border-color .3s,background .3s}
+.eco-toggle-btn:hover{border-color:rgba(201,169,110,.55);background:rgba(20,16,30,.95)}
+.eco-toggle-arrow{display:inline-block;transition:transform .4s;font-style:normal}
+.eco-expanded .eco-toggle-arrow{transform:rotate(180deg)}
+.agents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:0;background:transparent}
+.agent-card{background:var(--void);padding:22px 20px;position:relative;overflow:hidden;min-height:155px;display:flex;flex-direction:column;gap:8px;transition:background .3s;border-right:1px solid rgba(201,169,110,.06);border-bottom:1px solid rgba(201,169,110,.06)}
+.agent-exclusive::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 25%,var(--pulse) 60%,var(--signal) 85%,transparent 100%);background-size:300% 100%;animation:pillGlow 3s ease infinite;pointer-events:none;z-index:3}
+.agent-exclusive .agent-name::after{content:' ✦';font-size:7px;color:var(--gold);opacity:.7;vertical-align:super}
+.agent-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;opacity:.35;transition:opacity .3s}
+.cat-core.agent-card::before{background:var(--gold)}
+.cat-comms.agent-card::before{background:var(--signal)}
+.cat-marketing.agent-card::before{background:var(--pulse)}
+.cat-sales.agent-card::before{background:linear-gradient(to bottom,var(--gold-l),var(--gold))}
+.cat-analytics.agent-card::before{background:var(--signal)}
+.cat-meta.agent-card::before{background:linear-gradient(to bottom,var(--pulse),var(--signal))}
+.agent-card:hover{background:rgba(18,15,28,.97)}
+.agent-card:hover::before{opacity:.9}
+.agent-icon-wrap{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:2px;border:1px solid}
+.cat-core .agent-icon-wrap{background:rgba(201,169,110,.07);border-color:rgba(201,169,110,.15)}
+.cat-comms .agent-icon-wrap{background:rgba(78,205,196,.07);border-color:rgba(78,205,196,.15)}
+.cat-marketing .agent-icon-wrap{background:rgba(108,92,231,.08);border-color:rgba(108,92,231,.18)}
+.cat-sales .agent-icon-wrap{background:rgba(201,169,110,.07);border-color:rgba(201,169,110,.13)}
+.cat-analytics .agent-icon-wrap{background:rgba(78,205,196,.07);border-color:rgba(78,205,196,.12)}
+.cat-meta .agent-icon-wrap{background:linear-gradient(135deg,rgba(108,92,231,.1),rgba(78,205,196,.07));border-color:rgba(108,92,231,.22)}
+.agent-icon-wrap svg{width:15px;height:15px;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.cat-core .agent-icon-wrap svg,.cat-sales .agent-icon-wrap svg{stroke:var(--gold)}
+.cat-comms .agent-icon-wrap svg,.cat-analytics .agent-icon-wrap svg{stroke:var(--signal)}
+.cat-marketing .agent-icon-wrap svg{stroke:var(--pulse)}
+.cat-meta .agent-icon-wrap svg{stroke:url(#grad-stroke)}
+.agent-name{font-size:11px;font-weight:700;color:var(--cream);letter-spacing:.01em;line-height:1.25}
+.agent-desc{font-size:10px;font-weight:300;color:var(--muted);line-height:1.55;flex:1}
+.agent-status{display:flex;align-items:center;gap:5px;margin-top:auto}
+.status-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.s-active{background:var(--signal);box-shadow:0 0 5px rgba(78,205,196,.7)}
+.s-building{background:var(--gold);box-shadow:0 0 5px rgba(201,169,110,.6)}
+.s-planned{background:rgba(237,233,225,.2)}
+.status-lbl{font-size:8px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.s-active+.status-lbl{color:var(--signal)}
+.s-building+.status-lbl{color:var(--gold)}
+.s-planned+.status-lbl{color:var(--muted)}
+
+/* ═══ FOOTER ═══ */
+footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;background:var(--deep)}
+.footer-logo{text-decoration:none;display:flex;flex-direction:column}
+.footer-wordmark{height:20px;width:auto;display:block}
+.footer-logo-sub{font-size:7px;letter-spacing:.22em;color:var(--gold);font-weight:300;text-transform:uppercase;margin-top:5px;display:block}
+.footer-links{font-size:10px;color:var(--muted);letter-spacing:.08em}
+</style>
+</head>
+<body>
+<div id="grain"></div>
+
+<!-- SVG gradient for meta icons -->
+<svg style="position:absolute;width:0;height:0">
+  <defs>
+    <linearGradient id="grad-stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6C5CE7"/>
+      <stop offset="100%" stop-color="#4ECDC4"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="./VELIA_logotipo_claro.svg" alt="VELIA" class="nav-wordmark"/>
+  </a>
+  <span class="nav-badge">Acceso interno</span>
+</nav>
+
+<!-- PROGRESS -->
+<section id="progress">
+  <div class="inner">
+    <p class="s-eyebrow">Panel interno</p>
+    <h2 class="s-title">PROGRESO DEL<br><em>ECOSISTEMA.</em></h2>
+
+    <div class="prog-global">
+      <div class="prog-global-header">
+        <span class="prog-global-label">Progreso global del sistema</span>
+        <span class="prog-global-pct" id="global-pct">0%</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="global-fill" style="width:0%"></div></div>
+      <p class="prog-global-detail" id="global-detail">Calculando...</p>
+    </div>
+
+    <div class="sprints-grid" id="sprints-grid"></div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section id="ecosystem">
+  <div class="inner">
+    <p class="s-eyebrow">Todos los agentes</p>
+    <h2 class="s-title">50 AGENTES.<br>UN <em>SISTEMA.</em></h2>
+    <p class="eco-sub">✦ marca agentes exclusivos del Sistema Operativo VELIA.</p>
+    <div class="cat-legend">
+      <div class="cat-pill cat-pill-velia cat-active" data-cat="all" onclick="filterAgents('all',this)"><div class="cat-pill-dot" style="background:linear-gradient(135deg,var(--gold),var(--pulse),var(--signal))"></div>VELIA</div>
+      <div class="cat-pill cp-core" data-cat="core" onclick="filterAgents('core',this)"><div class="cat-pill-dot"></div>Núcleo</div>
+      <div class="cat-pill cp-comms" data-cat="comms" onclick="filterAgents('comms',this)"><div class="cat-pill-dot"></div>Comunicación</div>
+      <div class="cat-pill cp-marketing" data-cat="marketing" onclick="filterAgents('marketing',this)"><div class="cat-pill-dot"></div>Marketing</div>
+      <div class="cat-pill cp-sales" data-cat="sales" onclick="filterAgents('sales',this)"><div class="cat-pill-dot"></div>Ventas</div>
+      <div class="cat-pill cp-analytics" data-cat="analytics" onclick="filterAgents('analytics',this)"><div class="cat-pill-dot"></div>Analytics</div>
+      <div class="cat-pill cp-meta" data-cat="meta" onclick="filterAgents('meta',this)"><div class="cat-pill-dot"></div>Meta-Skills</div>
+    </div>
+    <div class="agents-controls">
+      <span class="agents-count"><strong id="agents-shown">50</strong> agentes</span>
+    </div>
+    <div class="agents-wrap eco-collapsed" id="agents-wrap">
+      <div class="agents-grid" id="agents-grid"></div>
+      <div class="agents-fade" id="agents-fade"></div>
+    </div>
+    <div class="eco-toggle-wrap" id="eco-toggle-wrap">
+      <button class="eco-toggle-btn" id="eco-toggle-btn" onclick="toggleEco()">
+        <span id="eco-toggle-label">Ver los 50 agentes</span>
+        <i class="eco-toggle-arrow">↓</i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">
+    <img src="./VELIA_logotipo_claro.svg" alt="VELIA" class="footer-wordmark"/>
+    <span class="footer-logo-sub">AI · Powered Marketing</span>
+  </a>
+  <span class="footer-links">© 2026 VELIA — Documento interno</span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+/* ══════════════════════════════════════
+   AGENTS DATA
+   Actualizar status cuando avance el sprint:
+   planned → building → active
+══════════════════════════════════════ */
+const AGENTS = [
+  // NÚCLEO (8)
+  {name:'System Monitor',desc:'Monitoriza errores y salud del sistema 24/7',cat:'core',status:'building',icon:'activity',exclusive:true},
+  {name:'Email Agent',desc:'Emails transaccionales via Resend + Claude AI',cat:'core',status:'building',icon:'mail'},
+  {name:'Meeting Transcriber',desc:'Transcripción automática con Whisper AI',cat:'core',status:'planned',icon:'mic'},
+  {name:'Database Health',desc:'Auditoría y rendimiento de Supabase',cat:'core',status:'planned',icon:'database',exclusive:true},
+  {name:'Backup Agent',desc:'Copias automáticas de datos críticos',cat:'core',status:'planned',icon:'archive',exclusive:true},
+  {name:'Project Manager',desc:'Gestión de proyectos y deadlines del cliente',cat:'core',status:'planned',icon:'layers'},
+  {name:'Drive Agent',desc:'Organización automática en Google Drive',cat:'core',status:'planned',icon:'folder'},
+  {name:'Document Manager',desc:'Generación y archivo de documentos con IA',cat:'core',status:'planned',icon:'file-text'},
+  // COMUNICACIÓN (9)
+  {name:'WhatsApp Agent',desc:'Mensajes automáticos via Meta Business API',cat:'comms',status:'planned',icon:'message'},
+  {name:'Onboarding Agent',desc:'Activa nuevos clientes automáticamente',cat:'comms',status:'building',icon:'user-check'},
+  {name:'Calendar Agent',desc:'Gestión de citas y agenda del cliente',cat:'comms',status:'planned',icon:'calendar'},
+  {name:'Lead Nurturing',desc:'Secuencias de activación automáticas',cat:'comms',status:'planned',icon:'heart'},
+  {name:'Client Portal',desc:'Dashboard del cliente en tiempo real',cat:'comms',status:'planned',icon:'layout',exclusive:true},
+  {name:'Reputation Monitor',desc:'Monitoriza reseñas y menciones online',cat:'comms',status:'planned',icon:'bell'},
+  {name:'Offboarding Agent',desc:'Cierre de clientes con entrega ordenada',cat:'comms',status:'planned',icon:'log-out'},
+  {name:'Web Chatbot',desc:'Chat inteligente integrado en la web del cliente',cat:'comms',status:'planned',icon:'zap'},
+  {name:'Client Chat',desc:'Canal de comunicación directa con el cliente',cat:'comms',status:'planned',icon:'message-square'},
+  // MARKETING (11)
+  {name:'Meta Ads Agent',desc:'Campañas Meta Ads optimizadas con IA',cat:'marketing',status:'planned',icon:'target'},
+  {name:'Google Ads Agent',desc:'Google Ads con optimización automática',cat:'marketing',status:'planned',icon:'search'},
+  {name:'SEO Agent',desc:'SEO técnico, local y Google My Business',cat:'marketing',status:'planned',icon:'trending'},
+  {name:'Content Generator',desc:'Contenido multicanal generado con IA',cat:'marketing',status:'planned',icon:'edit'},
+  {name:'Social Scheduler',desc:'Publicación automática en todas las redes',cat:'marketing',status:'planned',icon:'share'},
+  {name:'Content Approval',desc:'Flujo de revisión y aprobación de contenidos',cat:'marketing',status:'planned',icon:'check'},
+  {name:'Trend Analyzer',desc:'Detecta tendencias y oportunidades de contenido',cat:'marketing',status:'planned',icon:'bar-chart-2'},
+  {name:'Ads Library Scout',desc:'Analiza creatividades de competidores en Meta',cat:'marketing',status:'planned',icon:'eye'},
+  {name:'YouTube Agent',desc:'Optimización de canal y vídeos en YouTube',cat:'marketing',status:'planned',icon:'play'},
+  {name:'SEO Claude',desc:'Auditoría SEO profunda con análisis semántico IA',cat:'marketing',status:'planned',icon:'globe'},
+  {name:'Social Analytics',desc:'Métricas consolidadas de todas las redes',cat:'marketing',status:'planned',icon:'pie-chart'},
+  // VENTAS (7)
+  {name:'Pipeline Agent',desc:'CRM y ciclo de ventas completo',cat:'sales',status:'planned',icon:'filter'},
+  {name:'Lead Qualifier',desc:'Calificación automática de leads',cat:'sales',status:'planned',icon:'star'},
+  {name:'Proposal Analyst',desc:'Análisis y generación de propuestas',cat:'sales',status:'planned',icon:'file'},
+  {name:'Legal Agent',desc:'Contratos automáticos + Stripe Payments',cat:'sales',status:'planned',icon:'shield'},
+  {name:'Upsell Agent',desc:'Detecta oportunidades de venta adicional',cat:'sales',status:'planned',icon:'arrow-up'},
+  {name:'Invoice Agent',desc:'Facturación automática y gestión de cobros',cat:'sales',status:'planned',icon:'credit'},
+  {name:'Admin Agent',desc:'Tareas administrativas y backoffice automatizados',cat:'sales',status:'planned',icon:'briefcase'},
+  // ANALYTICS (5)
+  {name:'Report Generator',desc:'Informes mensuales con datos reales',cat:'analytics',status:'planned',icon:'bar-chart'},
+  {name:'Client Health',desc:'NPS y satisfacción del cliente',cat:'analytics',status:'planned',icon:'pulse'},
+  {name:'Web Analyzer',desc:'Auditoría web + CRO + conversión',cat:'analytics',status:'planned',icon:'monitor'},
+  {name:'Finance Monitor',desc:'Control financiero y rentabilidad',cat:'analytics',status:'planned',icon:'dollar',exclusive:true},
+  {name:'Web Deploy Agent',desc:'Construye y despliega webs de clientes',cat:'analytics',status:'planned',icon:'cloud'},
+  // META-SKILLS (10)
+  {name:'Vision Global',desc:'Cerebro estratégico: conecta todos los agentes',cat:'meta',status:'planned',icon:'eye',exclusive:true},
+  {name:'Admin Cerebro',desc:'Panel de control total del ecosistema',cat:'meta',status:'planned',icon:'cpu',exclusive:true},
+  {name:'Brand Guardian',desc:'Protege y aplica la identidad de marca',cat:'meta',status:'planned',icon:'lock',exclusive:true},
+  {name:'GDPR Agent',desc:'Cumplimiento automático de datos',cat:'meta',status:'planned',icon:'check-shield',exclusive:true},
+  {name:'Billing Agent',desc:'Orquestación de pagos y suscripciones',cat:'meta',status:'planned',icon:'dollar',exclusive:true},
+  {name:'VELIA Architect',desc:'Diseña y evoluciona la arquitectura del sistema',cat:'meta',status:'planned',icon:'layers',exclusive:true},
+  {name:'CRM Feature Agent',desc:'Añade funcionalidades al CRM dinámicamente',cat:'meta',status:'planned',icon:'code',exclusive:true},
+  {name:'Agent Health Monitor',desc:'Supervisa el rendimiento de todos los agentes',cat:'meta',status:'planned',icon:'activity',exclusive:true},
+  {name:'Automation Builder',desc:'Crea nuevas automatizaciones bajo demanda',cat:'meta',status:'planned',icon:'zap',exclusive:true},
+  {name:'Client Context',desc:'Construye y actualiza la memoria de cada cliente',cat:'meta',status:'planned',icon:'database',exclusive:true},
+];
+
+/* ══════════════════════════════════════
+   SPRINTS DATA
+   Actualizar progress y agent tags cuando avance
+══════════════════════════════════════ */
+const SPRINTS = [
+  {
+    num:1, name:'Sistema Base',
+    desc:'Infraestructura central: monitoring, email transaccional y onboarding automático de clientes.',
+    agents:['System Monitor','Email Agent','Onboarding Agent'],
+    total:3, active:0, building:3,
+    colorClass:'s-gold', status:'building'
+  },
+  {
+    num:2, name:'Captación Automática',
+    desc:'WhatsApp, pipeline de ventas, lead nurturing, calendario y reporting.',
+    agents:['WhatsApp Agent','Pipeline Agent','Lead Nurturing','Report Generator','Calendar Agent'],
+    total:5, active:0, building:0,
+    colorClass:'s-signal', status:'planned'
+  },
+  {
+    num:3, name:'Portal Cliente',
+    desc:'Dashboard de cliente en tiempo real, web deploy automático y análisis de conversión.',
+    agents:['Client Portal','Web Deploy Agent','Web Analyzer'],
+    total:3, active:0, building:0,
+    colorClass:'s-pulse', status:'planned'
+  },
+  {
+    num:4, name:'Marketing Inteligente',
+    desc:'Meta Ads, Google Ads, SEO, generación de contenidos, scheduling y analytics multi-canal.',
+    agents:['Meta Ads Agent','Google Ads Agent','SEO Agent','Content Generator','Social Scheduler','Content Approval','Trend Analyzer','Ads Library Scout','YouTube Agent','SEO Claude','Social Analytics'],
+    total:11, active:0, building:0,
+    colorClass:'s-gold', status:'planned'
+  },
+  {
+    num:5, name:'Ventas & Finanzas',
+    desc:'Cualificación de leads, propuestas, contratos, facturación y control financiero.',
+    agents:['Lead Qualifier','Proposal Analyst','Legal Agent','Upsell Agent','Invoice Agent','Invoice Agent','Finance Monitor','Client Health'],
+    total:8, active:0, building:0,
+    colorClass:'s-signal', status:'planned'
+  },
+  {
+    num:6, name:'Sistema Operativo',
+    desc:'Meta-skills exclusivas que orquestan y evolucionan el ecosistema completo de forma autónoma.',
+    agents:['Vision Global','Admin Cerebro','Brand Guardian','GDPR Agent','Billing Agent','VELIA Architect','CRM Feature Agent','Agent Health Monitor','Automation Builder','Client Context'],
+    total:10, active:0, building:0,
+    colorClass:'s-pulse', status:'planned'
+  }
+];
+
+const ICONS = {
+  activity:`<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>`,
+  mail:`<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>`,
+  mic:`<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>`,
+  database:`<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>`,
+  archive:`<polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/>`,
+  message:`<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>`,
+  'user-check':`<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/>`,
+  calendar:`<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>`,
+  heart:`<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>`,
+  layout:`<rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>`,
+  target:`<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>`,
+  search:`<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>`,
+  trending:`<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>`,
+  edit:`<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>`,
+  share:`<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>`,
+  filter:`<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>`,
+  star:`<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>`,
+  file:`<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>`,
+  shield:`<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>`,
+  'arrow-up':`<line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>`,
+  'bar-chart':`<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>`,
+  pulse:`<polyline points="22 12 18 12 15 20 9 4 6 12 2 12"/>`,
+  monitor:`<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>`,
+  dollar:`<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>`,
+  cloud:`<polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/>`,
+  eye:`<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`,
+  cpu:`<rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>`,
+  lock:`<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>`,
+  'check-shield':`<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>`,
+  credit:`<rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>`,
+  layers:`<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>`,
+  folder:`<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>`,
+  'file-text':`<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>`,
+  bell:`<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>`,
+  'log-out':`<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>`,
+  zap:`<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>`,
+  'message-square':`<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>`,
+  check:`<polyline points="20 6 9 17 4 12"/>`,
+  'bar-chart-2':`<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>`,
+  play:`<circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>`,
+  globe:`<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>`,
+  'pie-chart':`<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>`,
+  briefcase:`<rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>`,
+  code:`<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>`,
+};
+
+const STATUS = {active:'s-active',building:'s-building',planned:'s-planned'};
+const STATUS_LABEL = {active:'Activo',building:'En desarrollo',planned:'Planificado'};
+
+/* ══════════════════════════════════════
+   PROGRESS BARS
+══════════════════════════════════════ */
+function calcProgress(sprint) {
+  // active = 100%, building = 50%, planned = 0%
+  const sprintAgents = AGENTS.filter(a => sprint.agents.includes(a.name));
+  const pts = sprintAgents.reduce((sum, a) => {
+    if (a.status === 'active') return sum + 100;
+    if (a.status === 'building') return sum + 50;
+    return sum;
+  }, 0);
+  return sprint.total > 0 ? Math.round(pts / (sprint.total * 100) * 100) : 0;
+}
+
+function renderProgress() {
+  // Global
+  const totalPts = AGENTS.reduce((sum, a) => {
+    if (a.status === 'active') return sum + 100;
+    if (a.status === 'building') return sum + 50;
+    return sum;
+  }, 0);
+  const globalPct = Math.round(totalPts / (AGENTS.length * 100) * 100);
+  const started = AGENTS.filter(a => a.status !== 'planned').length;
+
+  document.getElementById('global-pct').textContent = globalPct + '%';
+  document.getElementById('global-fill').style.width = globalPct + '%';
+  document.getElementById('global-detail').innerHTML =
+    `<strong>${started}</strong> de <strong>${AGENTS.length}</strong> agentes iniciados · <strong>${AGENTS.filter(a=>a.status==='active').length}</strong> activos · <strong>${AGENTS.filter(a=>a.status==='building').length}</strong> en desarrollo · <strong>${AGENTS.filter(a=>a.status==='planned').length}</strong> planificados`;
+
+  // Sprints
+  const grid = document.getElementById('sprints-grid');
+  grid.innerHTML = SPRINTS.map(sp => {
+    const pct = calcProgress(sp);
+    const statusDot = sp.status === 'active' ? 'dot-active' : sp.status === 'building' ? 'dot-building' : '';
+    const statusLbl = sp.status === 'active' ? 'Activo' : sp.status === 'building' ? 'En desarrollo' : 'Planificado';
+    const fillClass = sp.colorClass === 's-signal' ? 's-signal' : sp.colorClass === 's-pulse' ? 's-pulse' : '';
+    const agentTags = sp.agents.map(name => {
+      const a = AGENTS.find(x => x.name === name);
+      const cls = a ? (a.status === 'active' ? 'tag-active' : a.status === 'building' ? 'tag-building' : '') : '';
+      return `<span class="sprint-agent-tag ${cls}">${name}</span>`;
+    }).join('');
+    return `
+      <div class="sprint-card ${sp.status === 'building' ? 'active-sprint' : ''}">
+        <span class="sprint-num">Sprint ${sp.num}</span>
+        <div class="sprint-pct-row">
+          <div class="sprint-name">${sp.name}</div>
+          <span class="sprint-pct-val" style="color:${pct>0?'var(--gold)':'rgba(237,233,225,.25)'}">${pct}%</span>
+        </div>
+        <div class="sprint-track"><div class="sprint-fill ${fillClass}" style="width:${pct}%"></div></div>
+        <p class="sprint-desc">${sp.desc}</p>
+        <div class="sprint-status-row">
+          <div class="sprint-status-dot ${statusDot}"></div>
+          <span class="sprint-status-lbl">${statusLbl}</span>
+        </div>
+        <div class="sprint-agents-list">${agentTags}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ══════════════════════════════════════
+   AGENTS GRID
+══════════════════════════════════════ */
+function renderAgents(list) {
+  const grid = document.getElementById('agents-grid');
+  const shown = list || AGENTS;
+  document.getElementById('agents-shown').textContent = shown.length;
+  grid.innerHTML = shown.map(a => `
+    <div class="agent-card cat-${a.cat}${a.exclusive?' agent-exclusive':''}">
+      <div class="agent-icon-wrap">
+        <svg viewBox="0 0 24 24">${ICONS[a.icon]||''}</svg>
+      </div>
+      <div class="agent-name">${a.name}</div>
+      <div class="agent-desc">${a.desc}</div>
+      <div class="agent-status">
+        <div class="status-dot ${STATUS[a.status]}"></div>
+        <span class="status-lbl">${STATUS_LABEL[a.status]}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+let ecoExpanded = false;
+function toggleEco() {
+  ecoExpanded = !ecoExpanded;
+  const wrap = document.getElementById('agents-wrap');
+  const btn  = document.getElementById('eco-toggle-btn');
+  const lbl  = document.getElementById('eco-toggle-label');
+  wrap.classList.toggle('eco-collapsed', !ecoExpanded);
+  btn.classList.toggle('eco-expanded', ecoExpanded);
+  lbl.textContent = ecoExpanded ? 'Cerrar vista' : 'Ver todos los agentes';
+  if (ecoExpanded) {
+    gsap.from('#agents-grid .agent-card', {opacity:0, y:12, duration:.32, stagger:.008, ease:'power2.out'});
+  }
+}
+
+function filterAgents(cat, pillEl) {
+  document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('cat-active'));
+  pillEl.classList.add('cat-active');
+  const filtered = cat === 'all' ? AGENTS : AGENTS.filter(a => a.cat === cat);
+  renderAgents(filtered);
+  gsap.from('#agents-grid .agent-card', { opacity:0, y:16, duration:.32, stagger:.025, ease:'power2.out' });
+  const wrap = document.getElementById('agents-wrap');
+  const toggleWrap = document.getElementById('eco-toggle-wrap');
+  if (cat !== 'all' && filtered.length <= 12) {
+    wrap.classList.remove('eco-collapsed');
+    toggleWrap.style.display = 'none';
+    ecoExpanded = true;
+  } else {
+    wrap.classList.add('eco-collapsed');
+    toggleWrap.style.display = 'block';
+    ecoExpanded = false;
+    document.getElementById('eco-toggle-label').textContent = 'Ver todos los agentes';
+    document.getElementById('eco-toggle-btn').classList.remove('eco-expanded');
+  }
+}
+
+// Init
+renderProgress();
+renderAgents();
+
+// GSAP
+gsap.registerPlugin(ScrollTrigger);
+gsap.from('#progress .s-title', {scrollTrigger:{trigger:'#progress .s-title',start:'top 85%',once:true}, y:40, opacity:0, duration:.9, ease:'power3.out'});
+gsap.from('.prog-global', {scrollTrigger:{trigger:'.prog-global',start:'top 85%',once:true}, y:30, opacity:0, duration:.8, ease:'power2.out', delay:.1});
+gsap.from('.sprint-card', {scrollTrigger:{trigger:'.sprints-grid',start:'top 82%',once:true}, y:24, opacity:0, duration:.7, stagger:.08, ease:'power2.out'});
+gsap.from('#ecosystem .s-title', {scrollTrigger:{trigger:'#ecosystem .s-title',start:'top 85%',once:true}, y:40, opacity:0, duration:.9, ease:'power3.out'});
+gsap.from('.agent-card', {scrollTrigger:{trigger:'.agents-grid',start:'top 78%',once:true}, y:28, opacity:0, duration:.5, stagger:{amount:1.6,from:'start'}, ease:'power2.out'});
+</script>
+</body>
+</html>
