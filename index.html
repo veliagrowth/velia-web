@@ -41,8 +41,7 @@ body:hover #cur,body:hover #cur-ring{opacity:1}
 nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:20px 5vw;background:rgba(10,10,15,.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid transparent;transition:border-color .4s,background .4s}
 nav.scrolled{border-color:var(--border);background:rgba(10,10,15,.8)}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
-.nav-logo-text{display:flex;flex-direction:column;line-height:1}
-.nav-logo-name{font-size:16px;font-weight:800;color:var(--cream);letter-spacing:.28em;text-transform:uppercase;background:linear-gradient(135deg,var(--cream) 60%,var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-wordmark{height:22px;width:auto;display:block}
 .nav-logo-sub{font-size:7px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:4px}
 .nav-right{display:flex;align-items:center;gap:28px}
 .nav-link{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
@@ -320,9 +319,9 @@ section{position:relative;z-index:1}
 
 /* ═══ FOOTER ═══ */
 footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;background:var(--deep)}
-.footer-logo{text-decoration:none}
-.footer-logo-name{font-size:16px;font-weight:800;color:var(--cream);letter-spacing:.28em;text-transform:uppercase;display:block;background:linear-gradient(135deg,var(--cream) 60%,var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.footer-logo-sub{font-size:7px;letter-spacing:.22em;color:var(--gold);font-weight:300;text-transform:uppercase;margin-top:4px;display:block}
+.footer-logo{text-decoration:none;display:flex;flex-direction:column}
+.footer-wordmark{height:20px;width:auto;display:block}
+.footer-logo-sub{font-size:7px;letter-spacing:.22em;color:var(--gold);font-weight:300;text-transform:uppercase;margin-top:5px;display:block}
 .footer-links{font-size:10px;color:var(--muted);display:flex;gap:22px;flex-wrap:wrap;align-items:center;letter-spacing:.08em}
 .footer-links a{color:var(--muted);text-decoration:none;transition:color .2s}
 .footer-links a:hover{color:var(--gold)}
@@ -374,10 +373,8 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 <!-- NAV -->
 <nav id="nav">
   <a href="index.html" class="nav-logo">
-    <div class="nav-logo-text">
-      <span class="nav-logo-name">VELIA</span>
-      <span class="nav-logo-sub">AI · Powered Marketing</span>
-    </div>
+    <img src="./VELIA_logotipo_claro.svg" alt="VELIA" class="nav-wordmark"/>
+    <span class="nav-logo-sub" style="display:block;font-size:7px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:5px">AI · Powered Marketing</span>
   </a>
   <div class="nav-right">
     <a href="#services" class="nav-link">Servicios</a>
@@ -884,7 +881,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 <!-- FOOTER -->
 <footer>
   <a href="index.html" class="footer-logo">
-    <span class="footer-logo-name">VELIA</span>
+    <img src="./VELIA_logotipo_claro.svg" alt="VELIA" class="footer-wordmark"/>
     <span class="footer-logo-sub">AI · Powered Marketing</span>
   </a>
   <div class="footer-links">

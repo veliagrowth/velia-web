@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- VELIA — Logotipo wordmark · Misma geometría que el isotipo -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+  <style>
+    .l{fill:none;stroke:#F5F3EE;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:.92}
+    .d{fill:#C9A96E}
+  </style>
+  <!-- V — misma geometría que el isotipo -->
+  <line class="l" x1="10" y1="10" x2="44" y2="90"/>
+  <line class="l" x1="78" y1="10" x2="44" y2="90"/>
+  <circle class="d" cx="44" cy="90" r="4.5"/>
+  <!-- E -->
+  <line class="l" x1="113" y1="10" x2="113" y2="90"/>
+  <line class="l" x1="113" y1="10" x2="165" y2="10"/>
+  <line class="l" x1="113" y1="50" x2="153" y2="50"/>
+  <line class="l" x1="113" y1="90" x2="165" y2="90"/>
+  <!-- L -->
+  <line class="l" x1="200" y1="10" x2="200" y2="90"/>
+  <line class="l" x1="200" y1="90" x2="252" y2="90"/>
+  <!-- I -->
+  <line class="l" x1="287" y1="10" x2="287" y2="90"/>
+  <!-- A -->
+  <line class="l" x1="322" y1="90" x2="356" y2="10"/>
+  <line class="l" x1="390" y1="90" x2="356" y2="10"/>
+  <line class="l" x1="335" y1="60" x2="377" y2="60"/>
+</svg>
