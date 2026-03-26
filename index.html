@@ -257,6 +257,7 @@ section{position:relative;z-index:1}
 #how{padding:140px 0;background:var(--void)}
 .tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:80px}
 .tier{background:var(--void);padding:40px 32px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .2s}
+.tier-bd{display:flex;flex-direction:column;flex:1}
 .tier::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .4s}
 .tier:hover{background:rgba(14,12,22,.9)}
 .tier:hover::before{background:linear-gradient(90deg,transparent,rgba(201,169,110,.5),transparent)}
@@ -842,7 +843,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
             <div class="tier-feat"><span class="tf-check">◆</span>Evolución continua del sistema</div>
             <div class="tier-feat"><span class="tf-check">◆</span>Account manager dedicado</div>
           </div>
-          <a href="contacto.html" class="btn-tier s">Solicitar propuesta →</a>
+          <span class="btn-wip"><span class="wip-dot"></span>En desarrollo</span>
         </div>
       </div>
     </div>
