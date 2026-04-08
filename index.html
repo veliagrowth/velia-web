@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>VELIA — AI-Powered Marketing</title>
-<meta name="description" content="50 agentes de IA trabajando 24/7 para escalar tu negocio. Estrategia, automatización y crecimiento real."/>
+<title>VELIA — Marketing para negocios de servicios | Captación predecible</title>
+<meta name="description" content="Combinamos inteligencia artificial con supervisión humana para que clínicas, despachos y negocios de servicios capten clientes de forma predecible y medible. Primera llamada gratuita."/>
 <link rel="icon" type="image/png" href="./VELIA_isotipo_oscuro.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -12,7 +12,7 @@
 <style>
 /* ═══ RESET + TOKENS ═══ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;background:#0A0A0F;overflow-x:hidden}
+html{scroll-behavior:smooth;background:#0A0A0F;overflow-x:hidden;overflow-y:scroll}
 *{cursor:none!important}
 :root{
   --void:#0A0A0F;
@@ -39,10 +39,10 @@ body:hover #cur,body:hover #cur-ring{opacity:1}
 #grain{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:99999}
 
 /* ═══ NAV ═══ */
-nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:20px 5vw;background:rgba(10,10,15,.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid transparent;transition:border-color .4s,background .4s}
+nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:64px;background:rgba(10,10,15,.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid transparent;transition:border-color .4s,background .4s}
 nav.scrolled{border-color:var(--border);background:rgba(10,10,15,.8)}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
-.nav-wordmark{height:22px;width:auto;display:block}
+.nav-wordmark{height:26px;width:auto;display:block}
 .nav-logo-sub{font-size:7px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:4px}
 .nav-right{display:flex;align-items:center;gap:28px}
 .nav-link{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
@@ -51,7 +51,7 @@ nav.scrolled{border-color:var(--border);background:rgba(10,10,15,.8)}
 .btn-nav:hover{opacity:.85;transform:translateY(-1px)}
 
 /* ═══ HERO ═══ */
-#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:130px 5vw 90px;position:relative;overflow:hidden}
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:130px 5vw 90px;position:relative;overflow:hidden}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,169,110,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(201,169,110,.032) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 72%)}
 .orb{position:absolute;border-radius:50%;pointer-events:none}
 .orb-1{width:800px;height:800px;background:radial-gradient(circle,rgba(108,92,231,.1) 0%,transparent 65%);filter:blur(100px);top:-20%;left:-22%;animation:orbF 16s ease-in-out infinite}
@@ -59,21 +59,21 @@ nav.scrolled{border-color:var(--border);background:rgba(10,10,15,.8)}
 .orb-3{width:700px;height:700px;background:radial-gradient(circle,rgba(201,169,110,.065) 0%,transparent 65%);filter:blur(120px);bottom:-25%;left:20%;animation:orbF 24s ease-in-out infinite .8s}
 @keyframes orbF{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(28px,-22px) scale(1.03)}66%{transform:translate(-22px,18px) scale(.97)}}
 .hero-isotipo{position:absolute;width:68vw;right:-20vw;top:50%;transform:translateY(-50%);opacity:.042;pointer-events:none;z-index:0;filter:brightness(.9)}
-.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--signal);position:relative;z-index:1;display:flex;align-items:center;gap:12px;margin-bottom:28px}
-.hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--signal);flex-shrink:0}
-.hero-h1{font-family:var(--f);font-size:clamp(52px,7vw,96px);font-weight:800;line-height:.9;letter-spacing:-.03em;color:var(--cream);position:relative;z-index:1;max-width:1100px}
-.hero-h1 span{display:block;overflow:hidden;padding-bottom:.06em}
+.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--signal);position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:28px;text-align:center}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:20px;height:1px;background:var(--signal);flex-shrink:0}
+.hero-h1{font-family:var(--f);font-size:clamp(52px,7vw,96px);font-weight:800;line-height:.9;letter-spacing:-.03em;color:var(--cream);position:relative;z-index:1;max-width:1100px;text-align:center;width:100%;margin:0 auto}
+.hero-h1 span{display:block;overflow:hidden;padding-bottom:.06em;padding-top:.12em;margin-top:-.12em}.hero-h1-q{padding-bottom:.26em}
 .hero-h1 span i{display:block;font-style:normal}
 .hero-h1 em{font-style:normal;color:var(--gold)}
-.hero-row{display:flex;align-items:flex-end;justify-content:space-between;margin-top:48px;flex-wrap:wrap;gap:32px;position:relative;z-index:1}
-.hero-sub{max-width:440px;font-size:15px;font-weight:300;line-height:1.85;color:var(--muted)}
+.hero-row{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:48px;gap:32px;position:relative;z-index:1}
+.hero-sub{max-width:500px;font-size:16px;font-weight:300;line-height:1.85;color:var(--muted)}
 .hero-sub strong{color:var(--cream);font-weight:400}
-.hero-btns{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.hero-btns{display:flex;flex-direction:column;align-items:center;gap:14px}
 .btn-primary{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-d) 100%);color:var(--void);font-family:var(--f);font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:14px 32px;border-radius:100px;text-decoration:none;transition:opacity .2s,transform .15s,box-shadow .2s;display:inline-block;box-shadow:0 4px 24px rgba(201,169,110,.28)}
 .btn-primary:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 8px 36px rgba(201,169,110,.38)}
 .btn-ghost{color:var(--muted);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(201,169,110,.22);padding:13px 28px;border-radius:100px;display:inline-block;transition:color .2s,border-color .2s}
 .btn-ghost:hover{color:var(--cream);border-color:rgba(201,169,110,.55)}
-.hero-stats{display:flex;gap:48px;align-items:flex-start;margin-top:60px;padding-top:40px;border-top:1px solid var(--border);position:relative;z-index:1;flex-wrap:wrap}
+.hero-stats{display:flex;gap:48px;align-items:flex-start;justify-content:center;margin-top:60px;padding-top:40px;position:relative;z-index:1;flex-wrap:wrap}
 .hero-stat-v{font-family:var(--f);font-size:30px;font-weight:800;letter-spacing:-.025em;line-height:1;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-stat-l{font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:6px}
 .hero-stat-divider{width:1px;height:36px;background:var(--border);align-self:center}
@@ -106,6 +106,11 @@ section{position:relative;z-index:1}
 
 /* pillGlow animation (used by btn-wip, exclusive agents) */
 @keyframes pillGlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+/* ═══ HERO CTA — borde animado ═══ */
+.btn-hero{position:relative;z-index:0;font-size:11px;padding:18px 48px}
+.btn-hero::after{content:'';position:absolute;inset:-4px;border-radius:100px;background:linear-gradient(135deg,var(--gold),var(--pulse),var(--signal),var(--gold));background-size:300% 300%;animation:pillGlow 2.5s ease infinite;z-index:-1;opacity:.7;filter:blur(8px)}
+@media(max-width:520px){.btn-hero{width:100%;text-align:center;display:block;font-size:10px;padding:15px 32px}}
 
 /* ═══ SERVICES ═══ */
 #services{padding:140px 0;background:var(--deep)}
@@ -144,7 +149,7 @@ section{position:relative;z-index:1}
 
 /* ═══ RESULTS ═══ */
 #results{padding:140px 0;background:var(--deep)}
-.res-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:80px}
+.res-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:80px;overflow:hidden}
 .res-stat{background:var(--deep);padding:36px 32px;position:relative;overflow:hidden;transition:background .3s}
 .res-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .4s}
 .res-stat:hover::before{opacity:1}
@@ -241,7 +246,7 @@ section{position:relative;z-index:1}
 .cta-orb-2{width:700px;height:500px;filter:blur(110px);background:radial-gradient(ellipse,rgba(201,169,110,.08),transparent 70%);right:-8%;top:50%;transform:translateY(-50%)}
 .cta-eyebrow{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--signal);margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:12px;position:relative;z-index:1}
 .cta-eyebrow::before,.cta-eyebrow::after{content:'';display:block;width:24px;height:1px;background:var(--signal)}
-.cta-title{font-family:var(--f);font-size:clamp(52px,9vw,120px);font-weight:800;line-height:.9;letter-spacing:-.03em;margin-bottom:24px;position:relative;z-index:1}
+.cta-title{font-family:var(--f);font-size:clamp(38px,5.5vw,72px);font-weight:800;line-height:.95;letter-spacing:-.03em;margin-bottom:24px;position:relative;z-index:1}
 .cta-title em{font-style:normal;color:var(--gold)}
 .cta-sep{width:1px;height:56px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);margin:0 auto 32px;opacity:.4;position:relative;z-index:1}
 .cta-sub{font-size:15px;font-weight:300;color:var(--muted);max-width:480px;margin:0 auto 48px;line-height:1.85;position:relative;z-index:1}
@@ -289,26 +294,82 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   #cta{padding:100px 5vw}
 }
 @media(max-width:720px){
-  nav{padding:16px 5vw}
+  nav{padding:0 5vw;height:56px}
   .nav-right .nav-link{display:none}
-  #hero{padding:92px 5vw 72px}
-  .hero-stats{gap:20px;justify-content:center}
+  .nav-logo-sub{display:none}
+  .nav-wordmark{height:28px}
+  #hero{padding:88px 6vw 64px}
+  .hero-eyebrow{font-size:8px;letter-spacing:.18em;gap:8px;white-space:nowrap}
+  .hero-eyebrow::before,.hero-eyebrow::after{width:14px}
+  .hero-h1{font-size:clamp(42px,12vw,64px)}
+  .hero-sub{font-size:12px;line-height:1.65;max-width:280px;margin:0 auto}
+  .hero-row{gap:24px}
+  .hero-stats{gap:0;justify-content:space-around;width:100%;margin-top:40px}
   .hero-stat-divider{display:none}
+  .hero-stat{text-align:center;flex:1}
+  .hero-stat-v{font-size:22px}
+  .hero-stat-l{font-size:8px}
   .srv-grid{grid-template-columns:repeat(2,1fr)}
   .srv-card{padding:28px 18px}
   .res-stats{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:520px){
-  .hero-h1{font-size:clamp(22px,8.5vw,44px)}
-  .hero-h1 span i{white-space:nowrap}
+  .hero-h1{font-size:clamp(38px,11vw,54px);text-align:center;width:100%}
+  .hero-h1 span i{white-space:normal}
   .hero-isotipo{width:100vw;right:-30vw;opacity:.055}
+  .hero-row{gap:20px}
+  .hero-eyebrow{font-size:7.5px;letter-spacing:.14em}
+  .res-stats{grid-template-columns:1fr;gap:1px}
+  .res-stat{display:flex;align-items:center;gap:20px;padding:22px 24px}
+  .res-stat-v{font-size:28px;flex-shrink:0}
+  .res-stat-l{font-size:9px;margin-top:0}
 }
+
+/* ═══ HERO DESDE ═══ */
+.hero-desde{font-size:11px;font-weight:300;color:var(--muted);letter-spacing:.04em;opacity:.8;text-align:center}
+.hero-desde strong{color:var(--gold);font-weight:600}
+
+/* ═══ PAIN SECTION ═══ */
+#pain{padding:140px 0;background:var(--deep)}
+.pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-top:72px}
+.pain-item{background:var(--deep);padding:48px 44px;position:relative;overflow:hidden;transition:background .3s}
+.pain-item::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,110,.3),transparent);opacity:0;transition:opacity .4s}
+.pain-item:hover::before{opacity:1}
+.pain-item:hover{background:rgba(20,20,32,.9)}
+.pain-n{font-size:9px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;display:block}
+.pain-text{font-family:var(--f);font-size:18px;font-weight:700;line-height:1.22;letter-spacing:-.01em;color:var(--cream);margin-bottom:12px}
+.pain-sub{font-size:12px;font-weight:300;color:var(--muted);line-height:1.75}
 @media(max-width:720px){
-  .nav-logo-sub{display:none}
+  .pain-grid{grid-template-columns:1fr}
+  .pain-item{padding:32px 24px}
 }
+
+/* ═══ TEAM SECTION ═══ */
+#team{padding:140px 0;background:var(--void)}
+.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-top:72px}
+.team-card{background:var(--void);padding:48px 44px;display:flex;align-items:flex-start;gap:32px;transition:background .3s;position:relative;overflow:hidden}
+.team-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .4s}
+.team-card:hover{background:rgba(14,12,22,.9)}
+.team-card:hover::before{opacity:1}
+.team-avatar{width:72px;height:72px;border-radius:50%;border:1px solid var(--border);background:rgba(201,169,110,.06);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:var(--gold);letter-spacing:-.02em}
+.team-info{flex:1}
+.team-name{font-family:var(--f);font-size:18px;font-weight:700;letter-spacing:-.01em;color:var(--cream);margin-bottom:4px}
+.team-role{font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--signal);margin-bottom:16px;display:block}
+.team-quote{font-size:13px;font-weight:300;color:var(--muted);line-height:1.82;font-style:italic}
+.team-quote::before{content:'"';color:var(--gold);font-style:normal;font-weight:700;margin-right:2px}
+.team-quote::after{content:'"';color:var(--gold);font-style:normal;font-weight:700;margin-left:2px}
+@media(max-width:900px){
+  .team-grid{grid-template-columns:1fr}
+  .team-card{padding:36px 28px}
+}
+@media(max-width:600px){
+  .team-card{flex-direction:column;gap:20px}
+}
+
 </style>
 </head>
 <body>
+
 <div id="grain"></div>
 <div id="cur"></div>
 <div id="cur-ring"></div>
@@ -330,7 +391,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
     <span class="nav-logo-sub">AI · Powered Marketing</span>
   </a>
   <div class="nav-right">
-    <a href="#services" class="nav-link">Servicios</a>
+    <a href="#pain" class="nav-link">Por qué VELIA</a>
     <a href="#results" class="nav-link">Casos</a>
     <a href="#faqs" class="nav-link">FAQ</a>
     <a href="contacto.html" class="btn-nav">Trabajemos juntos</a>
@@ -344,32 +405,32 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
   <img src="./VELIA_isotipo_claro_transparente.svg" alt="" class="hero-isotipo"/>
-  <p class="hero-eyebrow">AI-Powered Marketing Agency</p>
+  <p class="hero-eyebrow">Para despachos, clínicas y negocios que quieren crecer.</p>
   <h1 class="hero-h1">
     <span><i>FACTURACIÓN</i></span>
-    <span><i>QUE NO <em>DUERME.</em></i></span>
+    <span class="hero-h1-q"><i>QUE NO <em>DUERME.</em></i></span>
   </h1>
   <div class="hero-row">
-    <p class="hero-sub">Tu negocio no puede crecer a base de boca a boca.<br><strong>Construimos el sistema automático que capta, cualifica y cierra clientes mientras tú duermes.</strong></p>
+    <p class="hero-sub">La mayoría de agencias desaparecen tras montarte algo. <strong>Nosotros no.</strong><br>IA que trabaja. Personas que piensan.</p>
     <div class="hero-btns">
-      <a href="contacto.html" class="btn-primary">Empezar ahora</a>
-      <a href="#services" class="btn-ghost">Ver servicios ↓</a>
+      <a href="contacto.html" class="btn-primary btn-hero">Reservar diagnóstico gratuito</a>
+      <p class="hero-desde">Servicios desde <strong>399€</strong> · Sin permanencia · Primera sesión gratuita</p>
     </div>
   </div>
   <div class="hero-stats">
     <div class="hero-stat">
-      <div class="hero-stat-v">50</div>
-      <div class="hero-stat-l">Agentes de IA</div>
+      <div class="hero-stat-v">30min</div>
+      <div class="hero-stat-l">Diagnóstico gratuito</div>
     </div>
     <div class="hero-stat-divider"></div>
     <div class="hero-stat">
       <div class="hero-stat-v">24/7</div>
-      <div class="hero-stat-l">Siempre activo</div>
+      <div class="hero-stat-l">Sistema activo</div>
     </div>
     <div class="hero-stat-divider"></div>
     <div class="hero-stat">
       <div class="hero-stat-v">100%</div>
-      <div class="hero-stat-l">IA-First</div>
+      <div class="hero-stat-l">Supervisión humana</div>
     </div>
   </div>
   <div class="scroll-ind">
@@ -382,83 +443,57 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 <!-- TICKER -->
 <div id="ticker">
   <div class="ticker-track">
-    <span class="ticker-item">Estrategia Digital</span>
-    <span class="ticker-item">AI Marketing</span>
-    <span class="ticker-item">Paid Media</span>
-    <span class="ticker-item">Automatización</span>
-    <span class="ticker-item">Contenidos</span>
-    <span class="ticker-item">Growth Partner</span>
-    <span class="ticker-item">n8n + IA</span>
-    <span class="ticker-item">CRO &amp; Funnels</span>
-    <span class="ticker-item">Email &amp; Retención</span>
-    <span class="ticker-item">Data &amp; Analytics</span>
-    <span class="ticker-item">50 Agentes Activos</span>
-    <span class="ticker-item">Supabase</span>
-    <span class="ticker-item">Estrategia Digital</span>
-    <span class="ticker-item">AI Marketing</span>
-    <span class="ticker-item">Paid Media</span>
-    <span class="ticker-item">Automatización</span>
-    <span class="ticker-item">Contenidos</span>
-    <span class="ticker-item">Growth Partner</span>
-    <span class="ticker-item">n8n + IA</span>
-    <span class="ticker-item">CRO &amp; Funnels</span>
-    <span class="ticker-item">Email &amp; Retención</span>
-    <span class="ticker-item">Data &amp; Analytics</span>
-    <span class="ticker-item">50 Agentes Activos</span>
-    <span class="ticker-item">Supabase</span>
+    <span class="ticker-item">Más clientes cada mes</span>
+    <span class="ticker-item">Captación predecible</span>
+    <span class="ticker-item">Sin depender del boca a boca</span>
+    <span class="ticker-item">Diagnóstico gratuito</span>
+    <span class="ticker-item">IA con supervisión humana</span>
+    <span class="ticker-item">Presencia y autoridad digital</span>
+    <span class="ticker-item">Sistema que trabaja solo</span>
+    <span class="ticker-item">Leads cualificados</span>
+    <span class="ticker-item">Desde 399€</span>
+    <span class="ticker-item">Sin permanencia</span>
+    <span class="ticker-item">Más clientes cada mes</span>
+    <span class="ticker-item">Captación predecible</span>
+    <span class="ticker-item">Sin depender del boca a boca</span>
+    <span class="ticker-item">Diagnóstico gratuito</span>
+    <span class="ticker-item">IA con supervisión humana</span>
+    <span class="ticker-item">Presencia y autoridad digital</span>
+    <span class="ticker-item">Sistema que trabaja solo</span>
+    <span class="ticker-item">Leads cualificados</span>
+    <span class="ticker-item">Desde 399€</span>
+    <span class="ticker-item">Sin permanencia</span>
   </div>
 </div>
 
-<!-- SERVICES -->
-<section id="services">
+<!-- PAIN POINTS -->
+<section id="pain">
   <div class="inner">
     <div class="section-header">
-      <p class="s-eyebrow">Lo que hacemos</p>
-      <h2 class="s-title">EL SISTEMA QUE<br>TE HACE <em>CRECER.</em></h2>
-      <p>Cada área trabaja en conjunto. No acciones aisladas — un sistema completo orientado a resultados medibles.</p>
+      <p class="s-eyebrow">¿Te suena esto?</p>
+      <h2 class="s-title">EL PROBLEMA<br>NO ES TU <em>NEGOCIO.</em></h2>
+      <p>Es que nadie te ha montado un sistema de captación que funcione solo. El boca a boca no escala — y trabajar más horas tampoco.</p>
     </div>
-    <div class="srv-grid">
-      <div class="srv-card">
-        <div class="srv-card-accent"></div>
-        <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
-        <p class="srv-name">Contenidos &amp; Redes</p>
-        <p class="srv-desc">Estrategia y gestión de contenidos que construye marca, genera confianza y convierte audiencia en clientes.</p>
-        <span class="srv-tag">Servicio ancla</span>
+    <div class="pain-grid">
+      <div class="pain-item">
+        <span class="pain-n">01</span>
+        <p class="pain-text">No sabes cuántos clientes tendrás el mes que viene.</p>
+        <p class="pain-sub">Tu agenda depende del boca a boca y de si alguien se acuerda de recomendarte. No hay sistema, no hay previsión.</p>
       </div>
-      <div class="srv-card">
-        <div class="srv-card-accent"></div>
-        <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <p class="srv-name">Paid Media</p>
-        <p class="srv-desc">Meta Ads y Google Ads optimizados con IA. Invertimos donde tiene sentido, testamos y escalamos lo que funciona.</p>
-        <span class="srv-tag">Alto ROI</span>
+      <div class="pain-item">
+        <span class="pain-n">02</span>
+        <p class="pain-text">Gestionas los leads tú mismo, a mano, entre cliente y cliente.</p>
+        <p class="pain-sub">Contestar mensajes, filtrar consultas, agendar citas. Horas que podrías dedicar a facturar.</p>
       </div>
-      <div class="srv-card">
-        <div class="srv-card-accent"></div>
-        <div class="srv-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
-        <p class="srv-name">Agentes de IA</p>
-        <p class="srv-desc">Automatizaciones inteligentes con n8n que trabajan 24/7. Menos tiempo operativo, más resultados sin esfuerzo humano.</p>
-        <span class="srv-tag" style="color:var(--pulse);border-color:rgba(108,92,231,.25);background:rgba(108,92,231,.06)">IA exclusivo</span>
+      <div class="pain-item">
+        <span class="pain-n">03</span>
+        <p class="pain-text">Tienes presencia en redes pero no se traduce en nada real.</p>
+        <p class="pain-sub">Publicas, recibes likes, y los clientes siguen sin llegar. Visibilidad sin conversión no sirve de nada.</p>
       </div>
-      <div class="srv-card">
-        <div class="srv-card-accent"></div>
-        <div class="srv-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <p class="srv-name">Web &amp; CRO</p>
-        <p class="srv-desc">Webs a medida con todas las integraciones. Optimizamos cada paso del funnel para convertir más tráfico en clientes.</p>
-        <span class="srv-tag">Conversión</span>
-      </div>
-      <div class="srv-card">
-        <div class="srv-card-accent"></div>
-        <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-        <p class="srv-name">Email &amp; Retención</p>
-        <p class="srv-desc">Automatizaciones y secuencias que aumentan la recurrencia. El dinero real está en que vuelvan a comprarte.</p>
-        <span class="srv-tag">LTV</span>
-      </div>
-      <div class="srv-card">
-        <div class="srv-card-accent"></div>
-        <div class="srv-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-        <p class="srv-name">Data &amp; Estrategia</p>
-        <p class="srv-desc">Dashboards, análisis de rentabilidad real y decisiones basadas en datos. Sin métricas de vanidad.</p>
-        <span class="srv-tag" style="color:var(--pulse);border-color:rgba(108,92,231,.25);background:rgba(108,92,231,.06)">IA exclusivo</span>
+      <div class="pain-item">
+        <span class="pain-n">04</span>
+        <p class="pain-text">Has probado agencias antes. Prometieron y desaparecieron.</p>
+        <p class="pain-sub">Informes bonitos, resultados escasos y nadie al teléfono cuando lo necesitabas. Eso no va a pasar aquí.</p>
       </div>
     </div>
   </div>
@@ -468,19 +503,19 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 <section id="process">
   <div class="inner">
     <div class="section-header">
-      <p class="s-eyebrow">Cómo trabajamos</p>
-      <h2 class="s-title">SISTEMA EN<br><em>4 PASOS.</em></h2>
-      <p>Desde el primer diagnóstico hasta el crecimiento sostenible. Un proceso probado que elimina la incertidumbre.</p>
+      <p class="s-eyebrow">Cómo funciona</p>
+      <h2 class="s-title">SIMPLE.<br><em>DIRECTO. REAL.</em></h2>
+      <p>Sin onboardings eternos ni promesas vagas. En semanas tienes un sistema funcionando.</p>
     </div>
-    <div class="proc-cards">
+    <div class="proc-cards" style="grid-template-columns:repeat(3,1fr)">
       <div class="proc-card">
         <div class="proc-card-bg-n">01</div>
         <div class="proc-card-icon">
           <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </div>
-        <span class="proc-card-tag">Semana 1</span>
+        <span class="proc-card-tag">30 minutos · Gratis</span>
         <p class="proc-card-title">Diagnóstico</p>
-        <p class="proc-card-desc">Analizamos tu negocio, competencia y audiencia con VELIA para identificar oportunidades reales de crecimiento.</p>
+        <p class="proc-card-desc">Analizamos tu situación y te decimos exactamente qué necesitas para captar más clientes. Sin venta, sin presión.</p>
         <div class="proc-card-line"></div>
       </div>
       <div class="proc-card">
@@ -490,27 +525,17 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
         </div>
         <span class="proc-card-tag">Semanas 2–3</span>
         <p class="proc-card-title">Sistema</p>
-        <p class="proc-card-desc">Construimos la infraestructura completa: web, automatizaciones, agentes de IA y estrategia integrada.</p>
+        <p class="proc-card-desc">Construimos lo que necesitas: web, automatizaciones, agentes IA o todo junto. A medida, sin paquetes cerrados.</p>
         <div class="proc-card-line"></div>
       </div>
       <div class="proc-card">
         <div class="proc-card-bg-n">03</div>
         <div class="proc-card-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-        </div>
-        <span class="proc-card-tag">Semana 4</span>
-        <p class="proc-card-title">Activación</p>
-        <p class="proc-card-desc">Encendemos todos los agentes. Tu negocio empieza a operar de forma autónoma y a generar resultados.</p>
-        <div class="proc-card-line"></div>
-      </div>
-      <div class="proc-card">
-        <div class="proc-card-bg-n">04</div>
-        <div class="proc-card-icon">
           <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
         </div>
         <span class="proc-card-tag">Mes a mes</span>
-        <p class="proc-card-title">Escala</p>
-        <p class="proc-card-desc">Optimización continua basada en datos reales. Cada mes el sistema aprende y mejora su rendimiento.</p>
+        <p class="proc-card-title">Resultados</p>
+        <p class="proc-card-desc">Tu negocio capta y cualifica clientes solo. Nosotros revisamos los resultados y optimizamos cada mes.</p>
         <div class="proc-card-line"></div>
       </div>
     </div>
@@ -573,80 +598,26 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
       <div class="case">
         <div class="case-header" onclick="toggleCase(this)">
           <div>
-            <p class="case-tag">Krea Hogar · Hogar &amp; Decoración</p>
-            <p class="case-hl">+210% en ventas online</p>
-            <p class="case-sub">E-commerce + Paid Media + Email Automation</p>
-            <span class="case-metric-pill">×3.4 ROAS · +34% recuperación carritos</span>
+            <p class="case-tag">The Drop Agency · Management &amp; Producción Audiovisual</p>
+            <p class="case-hl">Gestión de artistas sin caos</p>
+            <p class="case-sub">Gestión de artistas + Producción de contenido + Automatización</p>
+            <span class="case-metric-pill">×2.1 artistas gestionados · -60% tiempo operativo</span>
           </div>
           <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
         <div class="case-body">
           <div class="case-inner">
             <ul class="case-list">
-              <li>Restructuración completa de la cuenta de Meta Ads con segmentación IA</li>
-              <li>Creative testing automatizado con análisis de rendimiento por variante</li>
-              <li>Flujos de email post-compra para aumentar LTV y recurrencia de cliente</li>
-              <li>Recuperación de carritos abandonados con secuencias personalizadas</li>
-              <li>Reporting automático semanal con insights accionables por canal</li>
-            </ul>
-            <div class="metrics">
-              <div class="metric"><div class="metric-v">×3.4</div><div class="metric-l">ROAS Meta Ads</div></div>
-              <div class="metric"><div class="metric-v">+34%</div><div class="metric-l">Recuperación carritos</div></div>
-              <div class="metric"><div class="metric-v">+210%</div><div class="metric-l">Revenue mensual</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="case">
-        <div class="case-header" onclick="toggleCase(this)">
-          <div>
-            <p class="case-tag">The Drop Agency · Management &amp; Production</p>
-            <p class="case-hl">Pipeline de ventas 100% automatizado</p>
-            <p class="case-sub">CRM + Automatización + Reporting en tiempo real</p>
-            <span class="case-metric-pill">+45% tasa de cierre · ×2.1 capacidad clientes</span>
-          </div>
-          <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </div>
-        <div class="case-body">
-          <div class="case-inner">
-            <ul class="case-list">
-              <li>Sistema CRM propio construido sobre Supabase con pipeline visual</li>
-              <li>Cualificación automática de leads por sector, presupuesto y urgencia</li>
-              <li>Propuestas generadas automáticamente con datos del cliente</li>
-              <li>Seguimiento post-propuesta con secuencias de activación personalizadas</li>
-              <li>Dashboard de rentabilidad por cliente y por campaña en tiempo real</li>
+              <li>Sistema de gestión de agenda de artistas con alertas y seguimiento automático</li>
+              <li>Agente de captación de proyectos: cualifica oportunidades de producción antes de que lleguen al equipo</li>
+              <li>Propuestas de colaboración y riders generados automáticamente según el perfil del artista</li>
+              <li>Pipeline de producción audiovisual con estados, deadlines y notificaciones en tiempo real</li>
+              <li>Dashboard de rentabilidad por artista y por proyecto — sin hojas de cálculo</li>
             </ul>
             <div class="metrics">
               <div class="metric"><div class="metric-v">-60%</div><div class="metric-l">Tiempo operativo</div></div>
-              <div class="metric"><div class="metric-v">+45%</div><div class="metric-l">Tasa de cierre</div></div>
-              <div class="metric"><div class="metric-v">×2.1</div><div class="metric-l">Capacidad clientes</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="case">
-        <div class="case-header" onclick="toggleCase(this)">
-          <div>
-            <p class="case-tag">9989 | Method Numbers · Streetwear</p>
-            <p class="case-hl">Ecosistema digital completo</p>
-            <p class="case-sub">Marca + Web + Paid Media + Contenidos + IA</p>
-            <span class="case-metric-pill">+120% tráfico orgánico · 4.1% conversión web</span>
-          </div>
-          <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </div>
-        <div class="case-body">
-          <div class="case-inner">
-            <ul class="case-list">
-              <li>Desarrollo de identidad de marca y sistema visual completo</li>
-              <li>E-commerce con integración de todos los agentes desde el día 1</li>
-              <li>Estrategia de contenidos orgánicos + Paid Media en Meta y TikTok</li>
-              <li>Sistema de email marketing con segmentación por comportamiento</li>
-              <li>Agente de IA para gestión de comunidad y atención al cliente 24/7</li>
-            </ul>
-            <div class="metrics">
-              <div class="metric"><div class="metric-v">0→1</div><div class="metric-l">Lanzamiento completo</div></div>
-              <div class="metric"><div class="metric-v">+120%</div><div class="metric-l">Tráfico orgánico</div></div>
-              <div class="metric"><div class="metric-v">4.1%</div><div class="metric-l">Conversión web</div></div>
+              <div class="metric"><div class="metric-v">×2.1</div><div class="metric-l">Artistas gestionados</div></div>
+              <div class="metric"><div class="metric-v">+45%</div><div class="metric-l">Proyectos cerrados</div></div>
             </div>
           </div>
         </div>
@@ -655,73 +626,6 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   </div>
 </section>
 
-<!-- PRICING -->
-<section id="how">
-  <div class="inner">
-    <div class="section-header">
-      <p class="s-eyebrow">Cómo trabajamos contigo</p>
-      <h2 class="s-title">CONSTRUIMOS<br><em>CONTIGO.</em></h2>
-      <p>No existe un precio fijo porque no existe una solución fija. Cada negocio tiene un punto de entrada distinto. Identificamos dónde está tu mayor palanca de crecimiento y empezamos ahí.</p>
-    </div>
-    <div class="tiers">
-      <div class="tier">
-        <div class="tier-hd" onclick="toggleTier(this)">
-          <div><p class="tier-step">Nivel 01</p><p class="tier-name">Una automatización que cambia todo</p></div>
-          <span class="tier-toggle">+</span>
-        </div>
-        <div class="tier-bd">
-          <p class="tier-eyebrow">El primer paso</p>
-          <div class="tier-sep"></div>
-          <p class="tier-desc">Identificamos la tarea que más tiempo te consume o más dinero te cuesta. La automatizamos. Resultado en semanas, no meses.</p>
-          <div class="tier-feats">
-            <div class="tier-feat"><span class="tf-check">◆</span>Diagnóstico del proceso a automatizar</div>
-            <div class="tier-feat"><span class="tf-check">◆</span>1 agente IA a medida construido en n8n</div>
-            <div class="tier-feat"><span class="tf-check">◆</span>Integración con tus herramientas actuales</div>
-            <div class="tier-feat"><span class="tf-check">◆</span>Formación y entrega del sistema</div>
-          </div>
-          <a href="contacto.html" class="btn-tier s">Solicitar propuesta →</a>
-        </div>
-      </div>
-      <div class="tier">
-        <div class="tier-hd" onclick="toggleTier(this)">
-          <div><p class="tier-step">Nivel 02</p><p class="tier-name">Máquina de Captación</p></div>
-          <span class="tier-toggle">+</span>
-        </div>
-        <div class="tier-bd">
-          <p class="tier-eyebrow">Captación automática</p>
-          <div class="tier-sep"></div>
-          <p class="tier-desc">Tu embudo de captación trabaja 24/7. Atraer leads, calificarlos y enviarlos listos para el cierre sin intervención manual.</p>
-          <div class="tier-feats">
-            <div class="tier-feat"><span class="tf-check">◆</span>Estrategia de captación multicanal</div>
-            <div class="tier-feat"><span class="tf-check">◆</span>Agentes de cualificación automática</div>
-            <div class="tier-feat"><span class="tf-check">◆</span>Email + WhatsApp automatizados</div>
-            <div class="tier-feat"><span class="tf-check">◆</span>Dashboard de leads en tiempo real</div>
-          </div>
-          <a href="contacto.html" class="btn-tier s">Solicitar propuesta →</a>
-        </div>
-      </div>
-      <div class="tier feat">
-        <div class="tier-hd" onclick="toggleTier(this)">
-          <div><p class="tier-step">Nivel 03</p><p class="tier-name">Pipeline de Ventas</p></div>
-          <span class="tier-toggle">+</span>
-        </div>
-        <div class="tier-bd">
-          <p class="tier-eyebrow">Ventas sistematizadas</p>
-          <div class="tier-sep"></div>
-          <p class="tier-desc">Pipeline completo desde el lead hasta el contrato firmado. Propuestas automáticas, seguimiento inteligente y cierre acelerado.</p>
-          <div class="tier-feats">
-            <div class="tier-feat"><span class="tf-check">◆</span>CRM propio sobre Supabase</div>
-            <div class="tier-feat"><span class="tf-check">◆</span>Agente de propuestas y contratos</div>
-            <div class="tier-feat"><span class="tf-check">◆</span>Pipeline visual con automatizaciones</div>
-            <div class="tier-feat"><span class="tf-check">◆</span>Reporting de rentabilidad por cliente</div>
-            <div class="tier-feat"><span class="tf-check">◆</span>Integración con Máquina de Captación</div>
-          </div>
-          <a href="contacto.html" class="btn-tier p">Solicitar propuesta →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- FAQ -->
 <section id="faqs">
@@ -733,48 +637,66 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
     <div class="faq-layout">
       <div class="faq-list">
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">¿Qué es exactamente VELIA?<span class="faq-icon">+</span></button>
-          <div class="faq-a">VELIA es una agencia de marketing AI-First. Combinamos estrategia humana con un ecosistema de 50 agentes de IA que automatizan y optimizan tu marketing 24/7. No somos una agencia tradicional — somos el sistema que te hace crecer de forma sostenible.</div>
+          <button class="faq-q" onclick="toggleFaq(this)">¿Por qué el diagnóstico es gratuito?<span class="faq-icon">+</span></button>
+          <div class="faq-a">Porque creemos que primero hay que entender tu negocio antes de proponer nada. En 30 minutos analizamos tu situación real y te decimos exactamente qué tiene más sentido para ti. Si encajamos, perfecto. Si no, te habrás llevado un análisis útil sin coste.</div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">¿Cómo funcionan los agentes de IA?<span class="faq-icon">+</span></button>
-          <div class="faq-a">Cada agente es un sistema automatizado (construido con n8n + Claude) especializado en una tarea específica. Trabajan en sinergia: el agente de email recibe un lead del agente de pipeline, que a su vez fue activado por el agente de Meta Ads. Todo conectado y automatizado.</div>
+          <button class="faq-q" onclick="toggleFaq(this)">¿Cuánto cuesta y cuándo veo resultados?<span class="faq-icon">+</span></button>
+          <div class="faq-a">Los servicios empiezan desde 399€ según lo que necesites. Los primeros resultados visibles aparecen entre la semana 2 y 4 de activación. El sistema no promete magia — promete un proceso sistemático que mejora cada mes.</div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">¿Cuánto tiempo hasta ver resultados?<span class="faq-icon">+</span></button>
-          <div class="faq-a">Los primeros resultados visibles aparecen entre la semana 2-4 de activación. El sistema tarda 60-90 días en alcanzar su rendimiento óptimo, conforme aprende los patrones de tu negocio y audiencia.</div>
+          <button class="faq-q" onclick="toggleFaq(this)">¿Necesito saber de tecnología o marketing?<span class="faq-icon">+</span></button>
+          <div class="faq-a">No. Tú te centras en tu negocio — nosotros nos encargamos del sistema. No tendrás que tocar nada técnico. Recibirás informes claros con lo que importa: cuántos leads entraron, cuántos se convirtieron y qué rentabilidad está generando cada canal.</div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">¿Necesito conocimientos técnicos?<span class="faq-icon">+</span></button>
-          <div class="faq-a">No. Todo el sistema es plug-and-play. Te entregamos un portal propio con dashboard intuitivo donde ves en tiempo real qué están haciendo tus agentes, qué resultados están generando y cuál es la rentabilidad exacta de cada canal.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">¿Qué diferencia a VELIA de otras agencias?<span class="faq-icon">+</span></button>
-          <div class="faq-a">La mayoría de agencias ejecutan tareas manualmente. Nosotros construimos infraestructura. Cuando terminamos de trabajar contigo, tienes un sistema autónomo que sigue creciendo. El resultado no depende de cuántas horas invertimos — depende del sistema que hemos construido.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">¿Qué pasa si quiero cancelar?<span class="faq-icon">+</span></button>
-          <div class="faq-a">Sin permanencia forzada. Trabajamos con contratos mensuales renovables. Si decides parar, el sistema que hemos construido sigue siendo tuyo. Nos llevamos el conocimiento, tú te quedas con la infraestructura.</div>
+          <button class="faq-q" onclick="toggleFaq(this)">¿Hay permanencia o contrato largo?<span class="faq-icon">+</span></button>
+          <div class="faq-a">Sin permanencia forzada. Trabajamos mes a mes y puedes cancelar cuando quieras.<br><br>Lo que conservas si te vas: tu web, tu dominio y cualquier activo digital que hayamos creado para ti — eso es tuyo.<br><br>Lo que deja de funcionar: las automatizaciones, el CRM, los agentes de IA, los informes automáticos y cualquier proceso que corre sobre la infraestructura de VELIA. Eso tiene un coste real de computación, licencias y APIs que nosotros asumimos mientras somos tu equipo. Si la colaboración termina, también termina el soporte del sistema. Tiene sentido para las dos partes.</div>
         </div>
       </div>
       <div class="faq-aside">
-        <p class="faq-aside-title">¿Por qué VELIA?</p>
-        <p class="faq-aside-p">No vendemos horas de trabajo. Vendemos un sistema de crecimiento. La diferencia es que el sistema escala con tu negocio sin que el coste escale al mismo ritmo.</p>
+        <p class="faq-aside-title">¿Listo para empezar?</p>
+        <p class="faq-aside-p">El diagnóstico es gratuito y sin compromiso. En 30 minutos sabes exactamente qué necesita tu negocio para captar más clientes.</p>
         <div class="faq-aside-item">
           <div class="fai-dot d-signal"></div>
-          <div class="fai-text"><strong>50 agentes de IA</strong> trabajando en paralelo, 24 horas al día, 7 días a la semana.</div>
+          <div class="fai-text"><strong>Sin permanencia.</strong> Mes a mes. Te quedas porque funciona, no porque firmaste algo.</div>
         </div>
         <div class="faq-aside-item">
           <div class="fai-dot d-gold"></div>
-          <div class="fai-text">Cada cliente tiene su propio <strong>ecosistema aislado</strong>. Tus datos nunca se mezclan.</div>
+          <div class="fai-text"><strong>Personas reales</strong> detrás de cada automatización. Siempre hay alguien al otro lado.</div>
         </div>
         <div class="faq-aside-item">
           <div class="fai-dot d-pulse"></div>
-          <div class="fai-text"><strong>Portal propio</strong> con visibilidad total: métricas, agentes activos, rentabilidad en tiempo real.</div>
+          <div class="fai-text">Servicios <strong>desde 399€</strong> adaptados a lo que realmente necesitas.</div>
         </div>
-        <div class="faq-aside-item">
-          <div class="fai-dot d-signal"></div>
-          <div class="fai-text">Tecnología en <strong>constante evolución</strong>. Cada sprint mejora el sistema sin coste adicional.</div>
+        <a href="contacto.html" class="btn-primary" style="display:block;text-align:center;margin-top:32px">Reservar diagnóstico gratuito</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPLEMENTACIÓN 06 — Sección Las personas detrás del sistema -->
+<section id="team">
+  <div class="inner">
+    <div class="section-header">
+      <p class="s-eyebrow">El equipo</p>
+      <h2 class="s-title">LAS PERSONAS<br>DETRÁS DEL <em>SISTEMA.</em></h2>
+      <p>La IA hace el trabajo pesado. Nosotros tomamos las decisiones, revisamos los resultados y estamos disponibles cuando lo necesitas. Así funciona VELIA.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar">JP</div>
+        <div class="team-info">
+          <p class="team-name">Joaquín Paiva</p>
+          <span class="team-role">Cofundador &amp; CTO</span>
+          <p class="team-quote">Llevo años construyendo sistemas. La diferencia entre uno que funciona y uno que no no es la tecnología — es si alguien de verdad se preocupa de que funcione. Eso es lo que hacemos aquí.</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">A</div>
+        <div class="team-info">
+          <p class="team-name">Axel Soto</p>
+          <span class="team-role">Cofundador &amp; Estratega Comercial</span>
+          <p class="team-quote">He cerrado suficientes tratos para saber que los clientes no compran tecnología. Compran confianza. Y eso es lo que construimos primero — antes que cualquier automatización.</p>
         </div>
       </div>
     </div>
@@ -785,14 +707,16 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 <section id="cta">
   <div class="cta-orb cta-orb-1"></div>
   <div class="cta-orb cta-orb-2"></div>
-  <p class="cta-eyebrow">Empieza hoy</p>
-  <h2 class="cta-title">EMPIEZA A<br><em>ESCALAR.</em></h2>
+  <!-- IMPLEMENTACIÓN 07 — CTA específico y concreto -->
+  <p class="cta-eyebrow">Primera sesión gratuita</p>
+  <h2 class="cta-title">30 MINUTOS QUE<br>PUEDEN <em>CAMBIARLO TODO.</em></h2>
   <div class="cta-sep"></div>
-  <p class="cta-sub">Primera llamada gratuita. <strong>Sin compromiso.</strong><br>En 30 minutos sabemos si podemos ayudarte.</p>
+  <p class="cta-sub">Analizamos tu situación actual y te decimos exactamente qué automatización te daría más resultado. <strong>Sin venta, sin presión, sin compromiso.</strong></p>
   <div class="cta-btns">
-    <a href="contacto.html" class="btn-primary">Reservar llamada gratuita</a>
-    <a href="#services" class="btn-ghost">Ver servicios ↑</a>
+    <a href="contacto.html" class="btn-primary">Reservar análisis gratuito</a>
+    <a href="#pain" class="btn-ghost">Cómo funciona</a>
   </div>
+  <p style="margin-top:24px;font-size:10px;font-weight:300;color:var(--muted);opacity:.7;position:relative;z-index:1;letter-spacing:.06em">Respondemos en menos de 24 horas.</p>
 </section>
 
 <!-- FOOTER -->
@@ -802,7 +726,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
     <span class="footer-logo-sub">AI · Powered Marketing</span>
   </a>
   <div class="footer-links">
-    <a href="#services">Servicios</a>
+    <a href="#pain">Cómo funciona</a>
     <a href="#results">Casos</a>
     <a href="contacto.html">Contacto</a>
     <span style="color:rgba(237,233,225,.2)">|</span>
@@ -885,14 +809,6 @@ gsap.from('.hero-stats', { opacity:0, y:20, duration:.8, delay:1.1, ease:'power2
 gsap.from('.scroll-ind', { opacity:0, duration:.8, delay:1.5 });
 
 //Services
-gsap.from('#services .section-header', {
-  scrollTrigger:{trigger:'#services',start:'top 80%',once:true},
-  y:36, opacity:0, duration:.9, ease:'power3.out'
-});
-gsap.from('.srv-card', {
-  scrollTrigger:{trigger:'.srv-grid',start:'top 82%',once:true},
-  y:30, opacity:0, duration:.7, stagger:.1, ease:'power2.out'
-});
 
 // Process
 gsap.from('#process .section-header', {
@@ -919,10 +835,6 @@ gsap.from('.case', {
 });
 
 // Pricing
-gsap.from('#how .section-header', {
-  scrollTrigger:{trigger:'#how',start:'top 80%',once:true},
-  y:36, opacity:0, duration:.9, ease:'power3.out'
-});
 gsap.from('.tier', {
   scrollTrigger:{trigger:'.tiers',start:'top 80%',once:true},
   y:30, opacity:0, duration:.8, stagger:.12, ease:'power2.out'
@@ -943,6 +855,27 @@ gsap.from('#cta .cta-eyebrow, #cta .cta-title, #cta .cta-sep, #cta .cta-sub, #ct
   scrollTrigger:{trigger:'#cta',start:'top 80%',once:true},
   y:30, opacity:0, duration:.8, stagger:.1, ease:'power2.out'
 });
+
+// Pain section
+gsap.from('#pain .section-header', {
+  scrollTrigger:{trigger:'#pain',start:'top 80%',once:true},
+  y:36, opacity:0, duration:.9, ease:'power3.out'
+});
+gsap.from('.pain-item', {
+  scrollTrigger:{trigger:'.pain-grid',start:'top 82%',once:true},
+  y:24, opacity:0, duration:.7, stagger:.1, ease:'power2.out'
+});
+
+// Team section
+gsap.from('#team .section-header', {
+  scrollTrigger:{trigger:'#team',start:'top 80%',once:true},
+  y:36, opacity:0, duration:.9, ease:'power3.out'
+});
+gsap.from('.team-card', {
+  scrollTrigger:{trigger:'.team-grid',start:'top 82%',once:true},
+  y:24, opacity:0, duration:.8, stagger:.15, ease:'power2.out'
+});
+
 </script>
 </body>
 </html>

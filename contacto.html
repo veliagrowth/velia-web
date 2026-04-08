@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;background:#0A0A0F;overflow-x:hidden}
+html{scroll-behavior:smooth;background:#0A0A0F;overflow-x:hidden;overflow-y:scroll}
 *{cursor:none!important}
 :root{
   --void:#0A0A0F;
@@ -38,12 +38,14 @@ body:hover #cur,body:hover #cur-ring{opacity:1}
 #grain{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:99999}
 
 /* ═══ NAV ═══ */
-nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:20px 5vw;background:rgba(10,10,15,.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:64px;background:rgba(10,10,15,.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:background .4s}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
-.nav-wordmark{height:22px;width:auto;display:block}
+.nav-wordmark{height:26px;width:auto;display:block}
+.nav-logo-sub{font-size:7px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:4px}
 .nav-back{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:8px}
 .nav-back::before{content:'←';font-size:12px}
 .nav-back:hover{color:var(--cream)}
+@media(max-width:720px){nav{padding:0 5vw;height:56px}.nav-logo-sub{display:none}}
 
 /* ═══ LAYOUT ═══ */
 .page-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding-top:64px}
@@ -109,6 +111,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:c
 <nav>
   <a href="index.html" class="nav-logo">
     <img src="./VELIA_logotipo_claro.svg" alt="VELIA" class="nav-wordmark"/>
+    <span class="nav-logo-sub">AI · Powered Marketing</span>
   </a>
   <a href="index.html" class="nav-back">Volver</a>
 </nav>
@@ -127,7 +130,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:c
       </div>
       <div class="info-pill">
         <div class="info-pill-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></div>
-        <div><p class="info-pill-label">Primera sesión</p><p class="info-pill-val">45 min · Sin compromiso</p></div>
+        <div><p class="info-pill-label">Primera auditoría</p><p class="info-pill-val">30 min · Sin compromiso</p></div>
       </div>
     </div>
   </div>
@@ -272,14 +275,24 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:c
 <script>
 (function(){
   var cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
-  var x=0,y=0;
-  document.addEventListener('mousemove',function(e){
-    x=e.clientX;y=e.clientY;
-    cur.style.transform='translate('+x+'px,'+y+'px)';
-    ring.style.transform='translate('+x+'px,'+y+'px)';
+  var mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;});
+  (function animCur(){
+    rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+    cur.style.transform='translate('+mx+'px,'+my+'px) translate(-50%,-50%)';
+    ring.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';
+    requestAnimationFrame(animCur);
+  })();
+  document.querySelectorAll('a,button,input,select,textarea').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      cur.style.width='12px';cur.style.height='12px';
+      ring.style.width='44px';ring.style.height='44px';ring.style.borderColor='rgba(201,169,110,.6)';
+    });
+    el.addEventListener('mouseleave',function(){
+      cur.style.width='7px';cur.style.height='7px';
+      ring.style.width='30px';ring.style.height='30px';ring.style.borderColor='rgba(201,169,110,.35)';
+    });
   });
-  document.addEventListener('mouseleave',function(){cur.style.opacity='0';ring.style.opacity='0';});
-  document.addEventListener('mouseenter',function(){cur.style.opacity='1';ring.style.opacity='1';});
 
   var GHL='TU_WEBHOOK_URL_AQUI';
   function submitForm(e){
