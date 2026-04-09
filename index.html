@@ -116,9 +116,9 @@ section{position:relative;z-index:1}
 /* pillGlow animation (used by btn-wip, exclusive agents) */
 @keyframes pillGlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-/* ═══ HERO CTA — borde animado ═══ */
-.btn-hero{position:relative;z-index:0;font-size:11px;padding:18px 48px}
-.btn-hero::after{content:'';position:absolute;inset:-4px;border-radius:100px;background:linear-gradient(135deg,var(--gold),var(--pulse),var(--signal),var(--gold));background-size:300% 300%;animation:pillGlow 2.5s ease infinite;z-index:-1;opacity:.7;filter:blur(8px)}
+/* ═══ HERO CTA — glow suave ═══ */
+.btn-hero{position:relative;z-index:0;font-size:11px;padding:18px 48px;transition:opacity .2s,transform .2s,box-shadow .25s}
+.btn-hero:hover{opacity:1;transform:scale(1.05);box-shadow:0 0 36px rgba(201,169,110,.55),0 8px 32px rgba(201,169,110,.25)!important}
 @media(max-width:520px){.btn-hero{width:100%;text-align:center;display:block;font-size:10px;padding:15px 32px}}
 
 /* ═══ SERVICES ═══ */
@@ -401,7 +401,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   </a>
   <div class="nav-right">
     <a href="#pain" class="nav-link">Por qué VELIA</a>
-    <a href="#results" class="nav-link">Casos</a>
+    <a href="#results" class="nav-link">Resultados</a>
     <a href="#faqs" class="nav-link">FAQ</a>
     <a href="contacto.html" class="btn-nav">Trabajemos juntos</a>
   </div>
@@ -420,7 +420,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
     <span class="hero-h1-q"><i>QUE NO <em>DUERME.</em></i></span>
   </h1>
   <div class="hero-row">
-    <p class="hero-sub">La mayoría de agencias desaparecen tras montarte algo. <strong>Nosotros no.</strong><br>IA que trabaja. Personas que piensan.</p>
+    <p class="hero-sub">Ayudamos a negocios a facturar más con sistemas de captación que trabajan solos. <strong>Sin depender del boca a boca. Sin agencias que desaparecen.</strong></p>
     <div class="hero-btns">
       <a href="contacto.html" class="btn-primary btn-hero">Reservar diagnóstico gratuito</a>
       <p class="hero-desde">Servicios desde <strong>399€</strong> · Sin permanencia · Primera sesión gratuita</p>
@@ -475,56 +475,9 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   </div>
 </div>
 
-<!-- INTEGRATIONS -->
-<section id="integrations">
-  <span class="int-label">Integrado con las herramientas que ya usas</span>
-  <div class="int-grid">
-    <div class="int-chip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      WhatsApp
-    </div>
-    <div class="int-chip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
-      Meta Ads
-    </div>
-    <div class="int-chip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      Google Calendar
-    </div>
-    <div class="int-chip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-      Stripe
-    </div>
-    <div class="int-chip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+<!-- INTEGRATIONS REMOVED --><div style="display:none"><div class="int-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
       n8n
-    </div>
-    <div class="int-chip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-      Resend
-    </div>
-    <div class="int-chip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-      Supabase
-    </div>
-    <div class="int-chip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      Twilio
-    </div>
-    <div class="int-chip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 22 22 22"/></svg>
-      Vercel
-    </div>
-    <div class="int-chip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
-      Cal.com
-    </div>
-    <div class="int-chip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
-      Cloudflare
-    </div>
-  </div>
-</section>
+    </div></div></div><!-- /INTEGRATIONS REMOVED -->
 
 <!-- PAIN POINTS -->
 <section id="pain">
@@ -555,6 +508,134 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
         <p class="pain-text">Has probado agencias antes. Prometieron y desaparecieron.</p>
         <p class="pain-sub">Informes bonitos, resultados escasos y nadie al teléfono cuando lo necesitabas. Eso no va a pasar aquí.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="inner">
+    <div class="section-header">
+      <p class="s-eyebrow">Casos reales</p>
+      <h2 class="s-title">LO QUE OCURRE<br>CUANDO <em>FUNCIONA.</em></h2>
+      <p>No vendemos promesas. Estos son negocios reales con resultados medibles.</p>
+    </div>
+    <div class="res-stats">
+      <div class="res-stat">
+        <div class="res-stat-v">+340%</div>
+        <div class="res-stat-l">ROI medio en paid media</div>
+      </div>
+      <div class="res-stat">
+        <div class="res-stat-v">-60%</div>
+        <div class="res-stat-l">Tiempo operativo manual</div>
+      </div>
+      <div class="res-stat">
+        <div class="res-stat-v">4.8★</div>
+        <div class="res-stat-l">Satisfacción media</div>
+      </div>
+      <div class="res-stat">
+        <div class="res-stat-v">24/7</div>
+        <div class="res-stat-l">Agentes trabajando</div>
+      </div>
+    </div>
+    <div class="cases">
+
+      <!-- CASO 1: CÓNSUL JURÍDICO -->
+      <div class="case">
+        <div class="case-header" onclick="toggleCase(this)">
+          <div>
+            <p class="case-tag">Cónsul Jurídico · Asesoría Legal · Fraga, Huesca</p>
+            <p class="case-hl">De cero presencia digital a referente local en menos de 60 días</p>
+            <p class="case-sub">Web + Agentes IA + Captación automatizada</p>
+            <span class="case-metric-pill">+85% nuevos clientes · -70% tiempo en gestión</span>
+          </div>
+          <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="case-body">
+          <div class="case-inner">
+            <div>
+              <p style="font-size:13px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:24px">Iván llegó a VELIA con un bufete nuevo y un problema real: dependía completamente del boca a boca para conseguir clientes. Cero presencia digital, cero sistema. En menos de 60 días tenía web profesional, captación activa y agenda con clientes nuevos cada semana — sin dedicar tiempo a gestionarlo.</p>
+              <ul class="case-list">
+                <li>Automatización completa del primer contacto y cualificación de leads</li>
+                <li>Email sequences personalizadas según tipo de consulta jurídica</li>
+                <li>Sistema de reserva de citas integrado con Google Calendar</li>
+                <li>Agente de seguimiento post-consulta para aumentar tasa de conversión</li>
+                <li>Dashboard de métricas con rentabilidad real por canal de captación</li>
+              </ul>
+            </div>
+            <div class="metrics">
+              <div class="metric"><div class="metric-v">+85%</div><div class="metric-l">Nuevos clientes</div></div>
+              <div class="metric"><div class="metric-v">-70%</div><div class="metric-l">Tiempo en gestión</div></div>
+              <div class="metric"><div class="metric-v">&lt;60</div><div class="metric-l">Días hasta resultados</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASO 2: KREA HOGAR -->
+      <div class="case">
+        <div class="case-header" onclick="toggleCase(this)">
+          <div>
+            <p class="case-tag">Krea Hogar · Diseño &amp; Muebles · kreahogar.com</p>
+            <p class="case-hl">De idea a referente local: la marca que ya prepara su expansión por toda la Península</p>
+            <p class="case-sub">Identidad de marca + Presencia digital + Estrategia de crecimiento</p>
+            <span class="case-metric-pill">Facturación en aumento · Expansión en marcha</span>
+          </div>
+          <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="case-body">
+          <div class="case-inner">
+            <div>
+              <p style="font-size:13px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:24px">Krea Hogar nació como una apuesta en su localidad y en menos de 2 años se ha convertido en el referente del sector en su zona. Con identidad de marca sólida, presencia digital consolidada y facturación creciendo mes a mes, el objetivo ahora es claro: abrir nuevas tiendas Krea a lo largo de toda la Península Ibérica.</p>
+              <ul class="case-list">
+                <li>Identidad de marca diseñada para escalar: coherente en tienda, redes y digital</li>
+                <li>Presencia digital consolidada que posiciona a Krea como referente en su sector</li>
+                <li>Sistema de contenido que genera autoridad y atrae clientes de forma continua</li>
+                <li>Estrategia de expansión preparada para apertura de nuevas tiendas</li>
+                <li>Facturación en crecimiento constante desde el primer mes de activación</li>
+              </ul>
+            </div>
+            <div class="metrics">
+              <div class="metric"><div class="metric-v">&lt;2</div><div class="metric-l">Años desde cero hasta referente</div></div>
+              <div class="metric"><div class="metric-v">↑</div><div class="metric-l">Facturación mes a mes</div></div>
+              <div class="metric"><div class="metric-v">→ PE</div><div class="metric-l">Expansión Península</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASO 3: THE DROP AGENCY -->
+      <div class="case">
+        <div class="case-header" onclick="toggleCase(this)">
+          <div>
+            <p class="case-tag">The Drop Agency · Management &amp; Producción Audiovisual</p>
+            <p class="case-hl">El doble de artistas gestionados sin contratar más equipo</p>
+            <p class="case-sub">Gestión de artistas + Producción de contenido + Automatización</p>
+            <span class="case-metric-pill">×2.1 artistas gestionados · -60% tiempo operativo</span>
+          </div>
+          <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="case-body">
+          <div class="case-inner">
+            <div>
+              <p style="font-size:13px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:24px">Gestionar artistas significa manejar agendas, riders, propuestas y pipelines de producción al mismo tiempo. The Drop Agency llegó al límite de lo que podía gestionar manualmente. Con VELIA automatizaron el 60% de la carga operativa y más que duplicaron su cartera sin añadir una sola persona al equipo.</p>
+              <ul class="case-list">
+                <li>Sistema de gestión de agenda de artistas con alertas y seguimiento automático</li>
+                <li>Agente de captación de proyectos que cualifica oportunidades antes de llegar al equipo</li>
+                <li>Propuestas y riders generados automáticamente según el perfil del artista</li>
+                <li>Pipeline de producción audiovisual con estados, deadlines y notificaciones en tiempo real</li>
+                <li>Dashboard de rentabilidad por artista y proyecto — sin hojas de cálculo</li>
+              </ul>
+            </div>
+            <div class="metrics">
+              <div class="metric"><div class="metric-v">-60%</div><div class="metric-l">Tiempo operativo</div></div>
+              <div class="metric"><div class="metric-v">×2.1</div><div class="metric-l">Artistas gestionados</div></div>
+              <div class="metric"><div class="metric-v">+45%</div><div class="metric-l">Proyectos cerrados</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -597,90 +678,6 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
         <p class="proc-card-title">Resultados</p>
         <p class="proc-card-desc">Tu negocio capta y cualifica clientes solo. Nosotros revisamos los resultados y optimizamos cada mes.</p>
         <div class="proc-card-line"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- RESULTS -->
-<section id="results">
-  <div class="inner">
-    <div class="section-header">
-      <p class="s-eyebrow">Resultados</p>
-      <h2 class="s-title">NÚMEROS QUE<br><em>HABLAN.</em></h2>
-    </div>
-    <div class="res-stats">
-      <div class="res-stat">
-        <div class="res-stat-v">+340%</div>
-        <div class="res-stat-l">ROI medio en paid media</div>
-      </div>
-      <div class="res-stat">
-        <div class="res-stat-v">-60%</div>
-        <div class="res-stat-l">Tiempo operativo manual</div>
-      </div>
-      <div class="res-stat">
-        <div class="res-stat-v">4.8★</div>
-        <div class="res-stat-l">Satisfacción media</div>
-      </div>
-      <div class="res-stat">
-        <div class="res-stat-v">24/7</div>
-        <div class="res-stat-l">Agentes trabajando</div>
-      </div>
-    </div>
-    <div class="cases">
-      <div class="case">
-        <div class="case-header" onclick="toggleCase(this)">
-          <div>
-            <p class="case-tag">Cónsul Jurídico · Asesoría Legal</p>
-            <p class="case-hl">Sistema de captación automatizado</p>
-            <p class="case-sub">Web + Agentes IA + Automatización de leads</p>
-            <span class="case-metric-pill">+85% nuevos clientes · -70% tiempo en gestión</span>
-          </div>
-          <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </div>
-        <div class="case-body">
-          <div class="case-inner">
-            <ul class="case-list">
-              <li>Automatización completa del primer contacto y cualificación de leads</li>
-              <li>Email sequences personalizadas según tipo de consulta jurídica</li>
-              <li>Sistema de reserva de citas integrado con Google Calendar</li>
-              <li>Dashboard de métricas con rentabilidad real por canal de captación</li>
-              <li>Agente de seguimiento post-consulta para aumentar tasa de conversión</li>
-            </ul>
-            <div class="metrics">
-              <div class="metric"><div class="metric-v">+85%</div><div class="metric-l">Nuevos clientes</div></div>
-              <div class="metric"><div class="metric-v">-70%</div><div class="metric-l">Tiempo en gestión</div></div>
-              <div class="metric"><div class="metric-v">4.8★</div><div class="metric-l">Satisfacción media</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="case">
-        <div class="case-header" onclick="toggleCase(this)">
-          <div>
-            <p class="case-tag">The Drop Agency · Management &amp; Producción Audiovisual</p>
-            <p class="case-hl">Gestión de artistas sin caos</p>
-            <p class="case-sub">Gestión de artistas + Producción de contenido + Automatización</p>
-            <span class="case-metric-pill">×2.1 artistas gestionados · -60% tiempo operativo</span>
-          </div>
-          <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </div>
-        <div class="case-body">
-          <div class="case-inner">
-            <ul class="case-list">
-              <li>Sistema de gestión de agenda de artistas con alertas y seguimiento automático</li>
-              <li>Agente de captación de proyectos: cualifica oportunidades de producción antes de que lleguen al equipo</li>
-              <li>Propuestas de colaboración y riders generados automáticamente según el perfil del artista</li>
-              <li>Pipeline de producción audiovisual con estados, deadlines y notificaciones en tiempo real</li>
-              <li>Dashboard de rentabilidad por artista y por proyecto — sin hojas de cálculo</li>
-            </ul>
-            <div class="metrics">
-              <div class="metric"><div class="metric-v">-60%</div><div class="metric-l">Tiempo operativo</div></div>
-              <div class="metric"><div class="metric-v">×2.1</div><div class="metric-l">Artistas gestionados</div></div>
-              <div class="metric"><div class="metric-v">+45%</div><div class="metric-l">Proyectos cerrados</div></div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
