@@ -69,21 +69,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:c
 .info-pill-val{font-size:12px;font-weight:300;color:var(--cream)}
 
 /* ═══ FORM ═══ */
-.page-right{padding:80px 5vw 80px;background:var(--void)}
-.form-block{margin-bottom:28px;padding-top:28px;border-top:1px solid var(--border)}
-.form-block-title{font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
-.fg{margin-bottom:12px}
-.fg label{display:block;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
-.fg input,.fg select,.fg textarea{width:100%;background:var(--deep);border:1px solid var(--border);color:var(--cream);font-family:var(--f);font-size:13px;font-weight:300;padding:12px 15px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
+.page-right{padding:80px 5vw;background:var(--void);display:flex;flex-direction:column;justify-content:center}
+.form-intro{margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.form-intro-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--signal);margin-bottom:12px;display:block}
+.form-intro-title{font-size:clamp(22px,2.5vw,32px);font-weight:700;letter-spacing:-.02em;color:var(--cream);line-height:1.15}
+.fg{margin-bottom:16px}
+.fg label{display:block;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.fg input,.fg textarea{width:100%;background:var(--deep);border:1px solid var(--border);color:var(--cream);font-family:var(--f);font-size:13px;font-weight:300;padding:14px 16px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
 .fg input::placeholder,.fg textarea::placeholder{color:rgba(237,233,225,.2)}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(201,169,110,.4)}
-.fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A96E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:38px}
-.fg select option{background:var(--deep);color:var(--cream)}
-.fg textarea{resize:vertical;min-height:96px}
+.fg input:focus,.fg textarea:focus{border-color:rgba(201,169,110,.4)}
+.fg textarea{resize:vertical;min-height:120px;line-height:1.7}
 .fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.btn-submit{width:100%;margin-top:8px;background:linear-gradient(135deg,var(--gold) 0%,var(--gold-d) 100%);color:var(--void);border:none;font-family:var(--f);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:15px 32px;border-radius:100px;transition:opacity .2s,transform .15s,box-shadow .2s;box-shadow:0 4px 24px rgba(201,169,110,.28);display:block}
+.btn-submit{width:100%;margin-top:8px;background:linear-gradient(135deg,var(--gold) 0%,var(--gold-d) 100%);color:var(--void);border:none;font-family:var(--f);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:16px 32px;border-radius:100px;transition:opacity .2s,transform .15s,box-shadow .2s;box-shadow:0 4px 24px rgba(201,169,110,.28);display:block;cursor:pointer}
 .btn-submit:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 8px 36px rgba(201,169,110,.38)}
-.btn-submit:disabled{opacity:.5;transform:none;box-shadow:none}
+.btn-submit:disabled{opacity:.5;transform:none;box-shadow:none;cursor:default}
+.form-note{font-size:10px;font-weight:300;color:rgba(237,233,225,.28);text-align:center;margin-top:14px;letter-spacing:.04em}
 
 /* ═══ SUCCESS ═══ */
 .success-state{display:none;text-align:center;padding:80px 20px}
@@ -97,7 +97,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:c
 @media(max-width:900px){
   .page-wrap{grid-template-columns:1fr}
   .page-left{position:relative;top:0;height:auto;padding:80px 5vw 50px}
-  .page-right{padding:50px 5vw 80px}
+  .page-right{padding:50px 5vw 80px;justify-content:flex-start}
 }
 @media(max-width:600px){.fg2{grid-template-columns:1fr}}
 @media(max-width:720px){nav{padding:16px 5vw}}
@@ -137,131 +137,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:c
 
   <div class="page-right">
     <div id="form-wrap">
+      <div class="form-intro">
+        <span class="form-intro-label">Un solo paso</span>
+        <p class="form-intro-title">Cuéntanos dónde estás<br>y qué quieres conseguir.</p>
+      </div>
       <form id="contact-form" onsubmit="submitForm(event)" novalidate>
-        <div class="form-block">
-          <p class="form-block-title">Sobre ti</p>
-          <div class="fg2">
-            <div class="fg"><label>Nombre *</label><input type="text" name="nombre" placeholder="Tu nombre" required/></div>
-            <div class="fg"><label>Empresa *</label><input type="text" name="empresa" placeholder="Tu empresa" required/></div>
-          </div>
-          <div class="fg2">
-            <div class="fg"><label>Email *</label><input type="email" name="email" placeholder="tu@empresa.com" required/></div>
-            <div class="fg"><label>Teléfono</label><input type="tel" name="telefono" placeholder="+34 600 000 000"/></div>
-          </div>
-          <div class="fg"><label>Web / Tienda Online</label><input type="url" name="web" placeholder="https://tuempresa.com"/></div>
-          <div class="fg2">
-            <div class="fg"><label>Sector *</label>
-              <select name="sector" required>
-                <option value="">Selecciona tu sector</option>
-                <option>Legal / Asesoría</option>
-                <option>Salud / Clínicas</option>
-                <option>Inmobiliario</option>
-                <option>E-commerce / Retail</option>
-                <option>Hostelería / Restauración</option>
-                <option>Formación / Educación</option>
-                <option>Tecnología / SaaS</option>
-                <option>Construcción / Reformas</option>
-                <option>Belleza / Estética</option>
-                <option>Deporte / Wellness</option>
-                <option>Finanzas / Inversión</option>
-                <option>Otro</option>
-              </select>
-            </div>
-            <div class="fg"><label>¿Cómo nos has encontrado?</label>
-              <select name="fuente">
-                <option value="">Selecciona</option>
-                <option>Instagram</option>
-                <option>LinkedIn</option>
-                <option>Google</option>
-                <option>Me lo recomendó alguien</option>
-                <option>TikTok</option>
-                <option>Otro</option>
-              </select>
-            </div>
-          </div>
-          <div class="fg"><label>Presencia en redes sociales</label>
-            <select name="redes">
-              <option value="">Selecciona</option>
-              <option>Sin presencia activa</option>
-              <option>Presencia básica (poca actividad)</option>
-              <option>Activa pero sin estrategia</option>
-              <option>Activa y con comunidad consolidada</option>
-            </select>
-          </div>
+        <div class="fg2">
+          <div class="fg"><label>Nombre *</label><input type="text" name="nombre" placeholder="Tu nombre" required/></div>
+          <div class="fg"><label>Email *</label><input type="email" name="email" placeholder="tu@empresa.com" required/></div>
         </div>
-
-        <div class="form-block">
-          <p class="form-block-title">Tu negocio</p>
-          <div class="fg"><label>Facturación mensual actual</label>
-            <select name="facturacion">
-              <option value="">Selecciona un rango</option>
-              <option>Menos de 20.000€</option>
-              <option>20.000€ — 50.000€</option>
-              <option>50.000€ — 100.000€</option>
-              <option>100.000€ — 300.000€</option>
-              <option>+300.000€</option>
-            </select>
-          </div>
-          <div class="fg"><label>Inversión mensual en publicidad</label>
-            <select name="inversion">
-              <option value="">Selecciona un rango</option>
-              <option>Menos de 2.000€</option>
-              <option>2.000€ — 5.000€</option>
-              <option>5.000€ — 15.000€</option>
-              <option>15.000€ — 50.000€</option>
-              <option>+50.000€</option>
-            </select>
-          </div>
-          <div class="fg2">
-            <div class="fg"><label>Objetivo principal</label>
-              <select name="objetivo">
-                <option value="">Selecciona</option>
-                <option>Escalar facturación</option>
-                <option>Mejorar rentabilidad</option>
-                <option>Reducir CPA</option>
-                <option>Aumentar LTV / retención</option>
-                <option>Profesionalizar el marketing</option>
-              </select>
-            </div>
-            <div class="fg"><label>¿Qué limita tu crecimiento?</label>
-              <select name="limitante">
-                <option value="">Selecciona</option>
-                <option>Falta de estrategia clara</option>
-                <option>Publicidad que no rentabiliza</option>
-                <option>Contenido sin impacto</option>
-                <option>Falta de automatización</option>
-                <option>Sin presencia digital</option>
-                <option>Otros</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-block">
-          <p class="form-block-title">Planificación</p>
-          <div class="fg2">
-            <div class="fg"><label>¿Cuándo quieres empezar?</label>
-              <select name="timing">
-                <option value="">Selecciona</option>
-                <option>Inmediatamente</option>
-                <option>En el próximo mes</option>
-                <option>En 1-3 meses</option>
-                <option>Solo investigando</option>
-              </select>
-            </div>
-            <div class="fg"><label>¿Quién toma la decisión?</label>
-              <select name="decision">
-                <option value="">Selecciona</option>
-                <option>Yo</option>
-                <option>Socios / dirección</option>
-                <option>Equipo</option>
-              </select>
-            </div>
-          </div>
-          <div class="fg"><label>¿Cuál es tu principal reto ahora mismo?</label><textarea name="mensaje" placeholder="Cuéntanos dónde estás y qué quieres conseguir..."></textarea></div>
-        </div>
-
+        <div class="fg"><label>Teléfono</label><input type="tel" name="telefono" placeholder="+34 600 000 000"/></div>
+        <div class="fg"><label>¿Cuál es tu reto principal? *</label><textarea name="mensaje" placeholder="Cuéntanos tu situación: dónde estás ahora, qué quieres conseguir y qué no ha funcionado hasta ahora." required></textarea></div>
         <button type="submit" class="btn-submit" id="submit-btn">Enviar solicitud</button>
+        <p class="form-note">Sin compromiso · Respuesta en menos de 24h</p>
       </form>
     </div>
     <div class="success-state" id="success">
@@ -283,7 +171,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:c
     ring.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';
     requestAnimationFrame(animCur);
   })();
-  document.querySelectorAll('a,button,input,select,textarea').forEach(function(el){
+  document.querySelectorAll('a,button,input,textarea').forEach(function(el){
     el.addEventListener('mouseenter',function(){
       cur.style.width='12px';cur.style.height='12px';
       ring.style.width='44px';ring.style.height='44px';ring.style.borderColor='rgba(201,169,110,.6)';
@@ -298,22 +186,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:c
   function submitForm(e){
     e.preventDefault();
     var f=e.target,btn=document.getElementById('submit-btn');
+    var nombre=f.querySelector('[name="nombre"]').value.trim();
+    var email=f.querySelector('[name="email"]').value.trim();
+    var mensaje=f.querySelector('[name="mensaje"]').value.trim();
+    if(!nombre||!email||!mensaje){return;}
     var p={
-      nombre:f.querySelector('[name="nombre"]').value,
-      empresa:f.querySelector('[name="empresa"]').value,
-      email:f.querySelector('[name="email"]').value,
-      telefono:f.querySelector('[name="telefono"]').value,
-      web:f.querySelector('[name="web"]').value,
-      sector:f.querySelector('[name="sector"]').value,
-      fuente:f.querySelector('[name="fuente"]').value,
-      redes:f.querySelector('[name="redes"]').value,
-      facturacion:f.querySelector('[name="facturacion"]').value,
-      inversion:f.querySelector('[name="inversion"]').value,
-      objetivo:f.querySelector('[name="objetivo"]').value,
-      limitante:f.querySelector('[name="limitante"]').value,
-      timing:f.querySelector('[name="timing"]').value,
-      decision:f.querySelector('[name="decision"]').value,
-      mensaje:f.querySelector('[name="mensaje"]').value,
+      nombre:nombre,
+      email:email,
+      telefono:f.querySelector('[name="telefono"]').value.trim(),
+      mensaje:mensaje,
       fecha:new Date().toISOString(),
       origen:'Formulario VELIA'
     };
