@@ -270,8 +270,8 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 ══════════════════════════════════════ */
 const AGENTS = [
   // NÚCLEO (8)
-  {name:'System Monitor',desc:'Monitoriza errores y salud del sistema 24/7',cat:'core',status:'building',icon:'activity',exclusive:true},
-  {name:'Email Agent',desc:'Emails transaccionales via Resend + Claude AI',cat:'core',status:'building',icon:'mail'},
+  {name:'System Monitor',desc:'Monitoriza errores y salud del sistema 24/7',cat:'core',status:'active',icon:'activity',exclusive:true},
+  {name:'Email Agent',desc:'Emails transaccionales via Resend + Claude AI',cat:'core',status:'active',icon:'mail'},
   {name:'Meeting Transcriber',desc:'Transcripción automática con Whisper AI',cat:'core',status:'planned',icon:'mic'},
   {name:'Database Health',desc:'Auditoría y rendimiento de Supabase',cat:'core',status:'planned',icon:'database',exclusive:true},
   {name:'Backup Agent',desc:'Copias automáticas de datos críticos',cat:'core',status:'planned',icon:'archive',exclusive:true},
@@ -279,8 +279,8 @@ const AGENTS = [
   {name:'Drive Agent',desc:'Organización automática en Google Drive',cat:'core',status:'planned',icon:'folder'},
   {name:'Document Manager',desc:'Generación y archivo de documentos con IA',cat:'core',status:'planned',icon:'file-text'},
   // COMUNICACIÓN (9)
-  {name:'WhatsApp Agent',desc:'Mensajes automáticos via Meta Business API',cat:'comms',status:'planned',icon:'message'},
-  {name:'Onboarding Agent',desc:'Activa nuevos clientes automáticamente',cat:'comms',status:'building',icon:'user-check'},
+  {name:'WhatsApp Agent',desc:'Mensajes automáticos via Twilio — inbound + outbound activo',cat:'comms',status:'active',icon:'message'},
+  {name:'Onboarding Agent',desc:'Activa nuevos clientes automáticamente',cat:'comms',status:'active',icon:'user-check'},
   {name:'Calendar Agent',desc:'Gestión de citas y agenda del cliente',cat:'comms',status:'planned',icon:'calendar'},
   {name:'Lead Nurturing',desc:'Secuencias de activación automáticas',cat:'comms',status:'planned',icon:'heart'},
   {name:'Client Portal',desc:'Dashboard del cliente en tiempo real',cat:'comms',status:'planned',icon:'layout',exclusive:true},
@@ -336,15 +336,15 @@ const SPRINTS = [
     num:1, name:'Sistema Base',
     desc:'Infraestructura central: monitoring, email transaccional y onboarding automático de clientes.',
     agents:['System Monitor','Email Agent','Onboarding Agent'],
-    total:3, active:0, building:3,
-    colorClass:'s-gold', status:'building'
+    total:3, active:3, building:0,
+    colorClass:'s-gold', status:'active'
   },
   {
     num:2, name:'Captación Automática',
     desc:'WhatsApp, pipeline de ventas, lead nurturing, calendario y reporting.',
     agents:['WhatsApp Agent','Pipeline Agent','Lead Nurturing','Report Generator','Calendar Agent'],
-    total:5, active:0, building:0,
-    colorClass:'s-signal', status:'planned'
+    total:5, active:1, building:0,
+    colorClass:'s-signal', status:'building'
   },
   {
     num:3, name:'Portal Cliente',
@@ -468,7 +468,7 @@ function renderProgress() {
       return `<span class="sprint-agent-tag ${cls}">${name}</span>`;
     }).join('');
     return `
-      <div class="sprint-card ${sp.status === 'building' ? 'active-sprint' : ''}">
+      <div class="sprint-card ${(sp.status === 'building' || sp.status === 'active') ? 'active-sprint' : ''}">
         <span class="sprint-num">Sprint ${sp.num}</span>
         <div class="sprint-pct-row">
           <div class="sprint-name">${sp.name}</div>
