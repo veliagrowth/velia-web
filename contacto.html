@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;background:#0A0A0F;overflow-x:hidden;overflow-y:scroll}
+html{scroll-behavior:smooth;background:#EDE9E1;overflow-x:hidden;overflow-y:scroll}
 *{cursor:none!important}
 :root{
   --void:#0A0A0F;
@@ -22,11 +22,11 @@ html{scroll-behavior:smooth;background:#0A0A0F;overflow-x:hidden;overflow-y:scro
   --cream:#EDE9E1;
   --signal:#4ECDC4;
   --pulse:#6C5CE7;
-  --muted:rgba(237,233,225,.42);
-  --border:rgba(201,169,110,.1);
+  --muted:rgba(10,10,15,.5);
+  --border:rgba(10,10,15,.09);
   --f:'Montserrat',sans-serif;
 }
-body{font-family:var(--f);background:var(--void);color:var(--cream);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+body{font-family:var(--f);background:var(--cream);color:var(--void);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
 
 /* ═══ CURSOR ═══ */
 #cur{position:fixed;top:0;left:0;width:7px;height:7px;background:var(--gold);border-radius:50%;pointer-events:none;opacity:0;z-index:9999999;will-change:transform;transform:translate(-50%,-50%);transition:width .18s,height .18s,background .2s,opacity .2s}
@@ -101,6 +101,34 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:c
 }
 @media(max-width:600px){.fg2{grid-template-columns:1fr}}
 @media(max-width:720px){nav{padding:16px 5vw}}
+
+/* ═══ CREAM THEME OVERRIDES ═══ */
+nav{background:rgba(237,233,225,.9);border-bottom-color:rgba(10,10,15,.09)}
+.nav-back{color:rgba(10,10,15,.5)}
+.nav-back:hover{color:var(--void)}
+#cur-ring{border-color:rgba(10,10,15,.18)}
+.page-left{background:#F5F1EA;border-right-color:rgba(10,10,15,.09)}
+.page-title{color:var(--void)}
+.page-sub{color:rgba(10,10,15,.55)}
+.page-sub strong{color:var(--void)}
+.page-eyebrow{color:var(--signal)}
+.page-eyebrow::before{background:var(--signal)}
+.info-pill{background:rgba(255,255,255,.55);border-color:rgba(10,10,15,.09)}
+.info-pill:hover{border-color:rgba(201,169,110,.3)}
+.info-pill-label{color:rgba(10,10,15,.4)}
+.info-pill-val{color:var(--void)}
+.page-right{background:var(--cream)}
+.form-intro{border-bottom-color:rgba(10,10,15,.09)}
+.form-intro-label{color:var(--signal)}
+.form-intro-title{color:var(--void)}
+.fg label{color:rgba(10,10,15,.45)}
+.fg input,.fg textarea{background:#fff;border-color:rgba(10,10,15,.12);color:var(--void)}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(10,10,15,.22)}
+.fg input:focus,.fg textarea:focus{border-color:rgba(201,169,110,.5)}
+.form-note{color:rgba(10,10,15,.28)}
+.success-title{color:var(--void)}
+.success-sub{color:rgba(10,10,15,.55)}
+
 </style>
 </head>
 <body>
@@ -110,7 +138,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:c
 
 <nav>
   <a href="index.html" class="nav-logo">
-    <img src="./VELIA_logotipo_claro.svg" alt="VELIA" class="nav-wordmark"/>
+    <img src="./velia_logotipo.svg" alt="VELIA" class="nav-wordmark"/>
     <span class="nav-logo-sub">AI · Powered Marketing</span>
   </a>
   <a href="index.html" class="nav-back">Volver</a>
@@ -182,7 +210,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:c
     });
   });
 
-  var GHL='TU_WEBHOOK_URL_AQUI';
+  // TODO: Reemplazar con el webhook URL de VELIA en GHL
+  // GHL → Settings → Integrations → Webhooks → + New Webhook → "Formulario Web VELIA" → copiar URL
+  // O usar: GHL → Forms → Embed → copiar submission webhook URL del formulario activo
+  var GHL='TU_WEBHOOK_GHL_VELIA_AQUI';
   function submitForm(e){
     e.preventDefault();
     var f=e.target,btn=document.getElementById('submit-btn');

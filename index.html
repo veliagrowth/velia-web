@@ -12,7 +12,7 @@
 <style>
 /* ═══ RESET + TOKENS ═══ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;background:#0A0A0F;overflow-x:hidden;overflow-y:scroll}
+html{scroll-behavior:smooth;background:#EDE9E1;overflow-x:hidden;overflow-y:scroll}
 *{cursor:none!important}
 :root{
   --void:#0A0A0F;
@@ -23,11 +23,11 @@ html{scroll-behavior:smooth;background:#0A0A0F;overflow-x:hidden;overflow-y:scro
   --cream:#EDE9E1;
   --signal:#4ECDC4;
   --pulse:#6C5CE7;
-  --muted:rgba(237,233,225,.42);
-  --border:rgba(201,169,110,.1);
+  --muted:rgba(10,10,15,.5);
+  --border:rgba(10,10,15,.09);
   --f:'Montserrat',sans-serif;
 }
-body{font-family:var(--f);background:var(--void);color:var(--cream);font-weight:300;-webkit-font-smoothing:antialiased}
+body{font-family:var(--f);background:var(--cream);color:var(--void);font-weight:300;-webkit-font-smoothing:antialiased}
 
 /* ═══ CURSOR ═══ */
 #cur{position:fixed;top:0;left:0;width:7px;height:7px;background:var(--gold);border-radius:50%;pointer-events:none;opacity:0;z-index:9999999;will-change:transform;transform:translate(-50%,-50%);transition:width .18s,height .18s,background .2s,opacity .2s}
@@ -390,7 +390,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 }
 
 /* ═══ TEAM SECTION ═══ */
-#team{padding:140px 0;background:var(--void)}
+#team{padding:140px 0;background:var(--cream)}
 .team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-top:72px}
 .team-card{background:var(--void);padding:48px 44px;display:flex;align-items:flex-start;gap:32px;transition:background .3s;position:relative;overflow:hidden}
 .team-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .4s}
@@ -410,6 +410,142 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 @media(max-width:600px){
   .team-card{flex-direction:column;gap:20px}
 }
+
+/* ═══ CREAM THEME OVERRIDES ═══ */
+nav{background:rgba(237,233,225,.88)}
+nav.scrolled{background:rgba(237,233,225,.97);border-color:rgba(10,10,15,.09)}
+.nav-link{color:rgba(10,10,15,.5)}
+.nav-link:hover{color:var(--void)}
+.btn-nav{background:var(--void);color:var(--cream)}
+#cur-ring{border-color:rgba(10,10,15,.18)}
+.hero-h1{color:var(--void)}
+.hero-sub{color:rgba(10,10,15,.55)}
+.hero-sub strong{color:var(--void)}
+.hero-stat-l{color:rgba(10,10,15,.45)}
+.hero-desde{color:rgba(10,10,15,.5)}
+.hero-desde strong{color:var(--void)}
+.scroll-ind span{color:rgba(10,10,15,.35)}
+.scroll-line{background:linear-gradient(to bottom,var(--gold),transparent)}
+.hero-sep{background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.18}
+#ticker{background:var(--void);border-color:rgba(201,169,110,.12)}
+.ticker-item{color:rgba(237,233,225,.42)}
+.s-title{color:var(--void)}
+.s-eyebrow{color:var(--signal)}
+.section-header p{color:rgba(10,10,15,.6)}
+#pain{background:#F5F1EA}
+.pain-item{background:var(--cream)}
+.pain-item:hover{background:#fff}
+.pain-item::before{background:linear-gradient(90deg,transparent,rgba(201,169,110,.35),transparent)}
+.pain-text{color:var(--void)}
+.pain-sub{color:rgba(10,10,15,.55)}
+.pain-n{color:rgba(10,10,15,.3)}
+.pain-grid{background:rgba(10,10,15,.07)}
+#services{background:#F5F1EA}
+.srv-grid{background:rgba(10,10,15,.07)}
+.srv-card{background:var(--cream)}
+.srv-card:hover{background:#fff}
+.srv-card-accent{background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.srv-name{color:var(--void)}
+.srv-desc{color:rgba(10,10,15,.55)}
+.srv-icon{border-color:rgba(10,10,15,.1);background:rgba(201,169,110,.05)}
+.srv-card:hover .srv-icon{border-color:rgba(201,169,110,.35);background:rgba(201,169,110,.1)}
+.srv-tag{color:var(--signal);border-color:rgba(78,205,196,.2);background:rgba(78,205,196,.05)}
+#process{background:var(--cream)}
+.proc-card{background:#fff;border-color:rgba(10,10,15,.08)}
+.proc-card:hover{background:#faf8f5;border-color:rgba(201,169,110,.28)}
+.proc-card-title{color:var(--void)}
+.proc-card-desc{color:rgba(10,10,15,.55)}
+.proc-card-tag{color:var(--signal)}
+.proc-card-bg-n{background:linear-gradient(180deg,rgba(10,10,15,.06) 0%,transparent 80%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.proc-card-icon{border-color:rgba(10,10,15,.1);background:rgba(201,169,110,.04)}
+.proc-card:hover .proc-card-icon{border-color:rgba(201,169,110,.3);background:rgba(201,169,110,.08)}
+#results{background:#F5F1EA}
+.res-stats{background:rgba(10,10,15,.07)}
+.res-stat{background:#F5F1EA}
+.res-stat:hover{background:var(--cream)}
+.res-stat::before{background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.res-stat-l{color:rgba(10,10,15,.5)}
+.cases{background:rgba(10,10,15,.07)}
+.case{background:var(--cream)}
+.case-header:hover{background:rgba(255,255,255,.6)}
+.case-hl{color:var(--void)}
+.case-sub{color:rgba(10,10,15,.5)}
+.case-tag{color:var(--signal)}
+.case-arrow{border-color:rgba(10,10,15,.12)}
+.case.open .case-arrow{border-color:rgba(201,169,110,.4);background:rgba(201,169,110,.06)}
+.case-arrow svg{stroke:var(--gold)}
+.metrics{background:rgba(10,10,15,.07)}
+.metric{background:var(--cream)}
+.metric-l{color:rgba(10,10,15,.5)}
+.case-list li{color:rgba(10,10,15,.65)}
+.case-list li::before{color:var(--gold)}
+.case-carousel{border-color:rgba(10,10,15,.1)}
+.carousel-img-wrap{background:#e4e0d8}
+.carousel-caption{background:rgba(237,233,225,.97);border-top-color:rgba(10,10,15,.07)}
+.carousel-caption-title{color:var(--void)}
+.carousel-caption-text{color:rgba(10,10,15,.6)}
+.carousel-footer{background:rgba(245,241,234,.97);border-top-color:rgba(10,10,15,.07)}
+.carousel-btn{border-color:rgba(10,10,15,.14);color:var(--gold)}
+.carousel-btn:hover{border-color:rgba(201,169,110,.5);background:rgba(201,169,110,.06)}
+.carousel-btn:disabled{opacity:.2}
+.carousel-counter{color:rgba(10,10,15,.45)}
+.carousel-dot{background:rgba(10,10,15,.14)}
+.carousel-dot.active{background:var(--gold)}
+.carousel-ph{border-color:rgba(10,10,15,.1)}
+.carousel-ph-n{color:rgba(10,10,15,.3)}
+.carousel-ph-label{color:rgba(10,10,15,.25)}
+#how{background:var(--cream)}
+.tiers{background:rgba(10,10,15,.07)}
+.tier{background:var(--cream)}
+.tier:hover{background:#fff}
+.tier.feat{background:#fff;box-shadow:inset 0 0 100px rgba(201,169,110,.03)}
+.tier-name{color:var(--void)}
+.tier-desc{color:rgba(10,10,15,.6)}
+.tier-feat{color:rgba(10,10,15,.6);border-bottom-color:rgba(10,10,15,.08)}
+.tier-step{color:rgba(10,10,15,.35)}
+.btn-tier.s{color:var(--void);border-color:rgba(10,10,15,.15)}
+.btn-tier.s:hover{border-color:rgba(201,169,110,.5)}
+.tier-badge-wip{color:var(--gold)}
+.btn-wip{background:rgba(237,233,225,.7);color:var(--gold)}
+#faqs{background:#F5F1EA}
+.faq-item{border-bottom-color:rgba(10,10,15,.1)}
+.faq-q{color:var(--void)}
+.faq-q:hover{color:var(--gold-d)}
+.faq-a{color:rgba(10,10,15,.65)}
+.faq-icon{border-color:rgba(10,10,15,.12);color:var(--gold)}
+.faq-item.open .faq-icon{border-color:rgba(201,169,110,.35);background:rgba(201,169,110,.06)}
+.faq-aside{background:rgba(255,255,255,.82);border-color:rgba(10,10,15,.1)}
+.faq-aside-title{color:var(--void)}
+.faq-aside-p{color:rgba(10,10,15,.55)}
+.faq-aside-item{border-bottom-color:rgba(10,10,15,.08)}
+.fai-text{color:rgba(10,10,15,.6)}
+.fai-text strong{color:var(--void)}
+.team-grid{background:rgba(10,10,15,.07)}
+.team-card{background:var(--cream)}
+.team-card:hover{background:#fff}
+.team-card::before{background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.team-name{color:var(--void)}
+.team-role{color:var(--signal)}
+.team-quote{color:rgba(10,10,15,.6)}
+.team-avatar{border-color:rgba(10,10,15,.1);background:rgba(201,169,110,.06)}
+#cta{background:var(--cream);border-top-color:rgba(10,10,15,.08)}
+.cta-title{color:var(--void)}
+.cta-sub{color:rgba(10,10,15,.55)}
+.cta-sub strong{color:var(--void)}
+.cta-eyebrow{color:var(--signal)}
+.cta-eyebrow::before,.cta-eyebrow::after{background:var(--signal)}
+footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
+.footer-links{color:rgba(237,233,225,.32)}
+.footer-links a{color:rgba(237,233,225,.32)}
+.footer-links a:hover{color:var(--gold)}
+.footer-links span:last-child{color:rgba(237,233,225,.2)}
+.footer-logo-sub{color:var(--gold)}
+#wa-float{background:rgba(10,10,15,.92);border-color:rgba(201,169,110,.18)}
+.int-chip{color:rgba(10,10,15,.45);border-color:rgba(10,10,15,.1)}
+.int-chip:hover{border-color:rgba(201,169,110,.35);color:rgba(10,10,15,.7)}
+.int-label{color:rgba(10,10,15,.35)}
+.hero-grid{background-image:linear-gradient(rgba(10,10,15,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(10,10,15,.04) 1px,transparent 1px)}
+.case-metric-pill{color:var(--gold-d);background:rgba(201,169,110,.08);border-color:rgba(201,169,110,.2)}
 
 </style>
 </head>
@@ -432,7 +568,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 <!-- NAV -->
 <nav id="nav">
   <a href="index.html" class="nav-logo">
-    <img src="./VELIA_logotipo_claro.svg" alt="VELIA" class="nav-wordmark"/>
+    <img src="./velia_logotipo.svg" alt="VELIA" class="nav-wordmark"/>
     <span class="nav-logo-sub">AI · Powered Marketing</span>
   </a>
   <div class="nav-right">
@@ -576,7 +712,84 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
     </div>
     <div class="cases">
 
-      <!-- CASO 1: CÓNSUL JURÍDICO -->
+      <!-- CASO 1: KREA HOGAR -->
+      <div class="case">
+        <div class="case-header" onclick="toggleCase(this)">
+          <div>
+            <p class="case-tag">Krea Hogar · Diseño &amp; Muebles · kreahogar.com</p>
+            <p class="case-hl">Identidad de marca y sistema digital que sostienen una expansión nacional</p>
+            <p class="case-sub">Identidad de marca + Presencia digital + Estrategia de crecimiento</p>
+            <span class="case-metric-pill">Facturación en aumento · Expansión en marcha</span>
+          </div>
+          <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="case-body">
+          <!-- CARRUSEL -->
+          <div class="case-carousel" data-case="krea">
+            <div class="carousel-track">
+              <div class="carousel-slide">
+                <div class="carousel-img-wrap">
+                  <img src="img/cases/krea-hogar/01-identidad-marca.webp" alt="Identidad de marca Krea Hogar" onerror="this.parentElement.innerHTML='<div class=\'carousel-ph\'><span class=\'carousel-ph-n\'>01 / 03</span><span class=\'carousel-ph-label\'>Imagen próximamente</span></div>'"/>
+                </div>
+                <div class="carousel-caption">
+                  <p class="carousel-caption-title">La marca desde cero</p>
+                  <p class="carousel-caption-text">Desarrollamos el sistema de identidad completo: logotipo, paleta de color, tipografía, tono de comunicación y guía de aplicación en tienda, redes y web. Una marca que se reconoce en cualquier punto de contacto con el cliente.</p>
+                </div>
+              </div>
+              <div class="carousel-slide">
+                <div class="carousel-img-wrap">
+                  <img src="img/cases/krea-hogar/02-presencia-digital.webp" alt="Presencia digital Krea Hogar" onerror="this.parentElement.innerHTML='<div class=\'carousel-ph\'><span class=\'carousel-ph-n\'>02 / 03</span><span class=\'carousel-ph-label\'>Imagen próximamente</span></div>'"/>
+                </div>
+                <div class="carousel-caption">
+                  <p class="carousel-caption-title">Presencia digital que posiciona</p>
+                  <p class="carousel-caption-text">Instagram con contenido de valor: antes y después de proyectos reales, materiales, tendencias de interiorismo y proceso de trabajo. Comunidad creciendo orgánicamente. Google My Business optimizado para búsquedas locales de muebles y diseño de interiores.</p>
+                </div>
+              </div>
+              <div class="carousel-slide">
+                <div class="carousel-img-wrap">
+                  <img src="img/cases/krea-hogar/03-expansion.webp" alt="Estrategia de expansión Krea Hogar" onerror="this.parentElement.innerHTML='<div class=\'carousel-ph\'><span class=\'carousel-ph-n\'>03 / 03</span><span class=\'carousel-ph-label\'>Imagen próximamente</span></div>'"/>
+                </div>
+                <div class="carousel-caption">
+                  <p class="carousel-caption-title">Preparados para escalar</p>
+                  <p class="carousel-caption-text">Con la marca y el sistema digital consolidados, el siguiente paso está definido: apertura de nuevas tiendas Krea en la Península Ibérica. La estrategia de marketing, el playbook de lanzamiento local y los sistemas de captación están listos para replicarse.</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-footer">
+              <div class="carousel-dots">
+                <button class="carousel-dot active" onclick="goToSlide(this,0)"></button>
+                <button class="carousel-dot" onclick="goToSlide(this,1)"></button>
+                <button class="carousel-dot" onclick="goToSlide(this,2)"></button>
+              </div>
+              <span class="carousel-counter">1 / 3</span>
+              <div class="carousel-btns">
+                <button class="carousel-btn" onclick="moveCarousel(this,-1)" disabled>&#8592;</button>
+                <button class="carousel-btn" onclick="moveCarousel(this,1)">&#8594;</button>
+              </div>
+            </div>
+          </div>
+          <!-- CONTENIDO -->
+          <div class="case-inner">
+            <div>
+              <p style="font-size:13px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:24px">Krea Hogar nació como una apuesta en su localidad y en menos de 2 años se ha convertido en el referente del sector en su zona. Con identidad de marca sólida, presencia digital consolidada y facturación creciendo mes a mes, el objetivo ahora es claro: abrir nuevas tiendas Krea a lo largo de toda la Península Ibérica.</p>
+              <ul class="case-list">
+                <li>Identidad de marca diseñada para escalar: coherente en tienda, redes y digital</li>
+                <li>Presencia digital consolidada que posiciona a Krea como referente en su sector</li>
+                <li>Sistema de contenido que genera autoridad y atrae clientes de forma continua</li>
+                <li>Estrategia de expansión preparada para apertura de nuevas tiendas</li>
+                <li>Facturación en crecimiento constante desde el primer mes de activación</li>
+              </ul>
+            </div>
+            <div class="metrics">
+              <div class="metric"><div class="metric-v">&lt;2</div><div class="metric-l">Años desde cero hasta referente</div></div>
+              <div class="metric"><div class="metric-v">↑</div><div class="metric-l">Facturación mes a mes</div></div>
+              <div class="metric"><div class="metric-v">→ PE</div><div class="metric-l">Expansión Península</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASO 2: CÓNSUL JURÍDICO -->
       <div class="case">
         <div class="case-header" onclick="toggleCase(this)">
           <div>
@@ -658,83 +871,6 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
               <div class="metric"><div class="metric-v">+85%</div><div class="metric-l">Nuevos clientes</div></div>
               <div class="metric"><div class="metric-v">-70%</div><div class="metric-l">Tiempo en gestión</div></div>
               <div class="metric"><div class="metric-v">&lt;60</div><div class="metric-l">Días hasta resultados</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CASO 2: KREA HOGAR -->
-      <div class="case">
-        <div class="case-header" onclick="toggleCase(this)">
-          <div>
-            <p class="case-tag">Krea Hogar · Diseño &amp; Muebles · kreahogar.com</p>
-            <p class="case-hl">Identidad de marca y sistema digital que sostienen una expansión nacional</p>
-            <p class="case-sub">Identidad de marca + Presencia digital + Estrategia de crecimiento</p>
-            <span class="case-metric-pill">Facturación en aumento · Expansión en marcha</span>
-          </div>
-          <div class="case-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </div>
-        <div class="case-body">
-          <!-- CARRUSEL -->
-          <div class="case-carousel" data-case="krea">
-            <div class="carousel-track">
-              <div class="carousel-slide">
-                <div class="carousel-img-wrap">
-                  <img src="img/cases/krea-hogar/01-identidad-marca.webp" alt="Identidad de marca Krea Hogar" onerror="this.parentElement.innerHTML='<div class=\'carousel-ph\'><span class=\'carousel-ph-n\'>01 / 03</span><span class=\'carousel-ph-label\'>Imagen próximamente</span></div>'"/>
-                </div>
-                <div class="carousel-caption">
-                  <p class="carousel-caption-title">La marca desde cero</p>
-                  <p class="carousel-caption-text">Desarrollamos el sistema de identidad completo: logotipo, paleta de color, tipografía, tono de comunicación y guía de aplicación en tienda, redes y web. Una marca que se reconoce en cualquier punto de contacto con el cliente.</p>
-                </div>
-              </div>
-              <div class="carousel-slide">
-                <div class="carousel-img-wrap">
-                  <img src="img/cases/krea-hogar/02-presencia-digital.webp" alt="Presencia digital Krea Hogar" onerror="this.parentElement.innerHTML='<div class=\'carousel-ph\'><span class=\'carousel-ph-n\'>02 / 03</span><span class=\'carousel-ph-label\'>Imagen próximamente</span></div>'"/>
-                </div>
-                <div class="carousel-caption">
-                  <p class="carousel-caption-title">Presencia digital que posiciona</p>
-                  <p class="carousel-caption-text">Instagram con contenido de valor: antes y después de proyectos reales, materiales, tendencias de interiorismo y proceso de trabajo. Comunidad creciendo orgánicamente. Google My Business optimizado para búsquedas locales de muebles y diseño de interiores.</p>
-                </div>
-              </div>
-              <div class="carousel-slide">
-                <div class="carousel-img-wrap">
-                  <img src="img/cases/krea-hogar/03-expansion.webp" alt="Estrategia de expansión Krea Hogar" onerror="this.parentElement.innerHTML='<div class=\'carousel-ph\'><span class=\'carousel-ph-n\'>03 / 03</span><span class=\'carousel-ph-label\'>Imagen próximamente</span></div>'"/>
-                </div>
-                <div class="carousel-caption">
-                  <p class="carousel-caption-title">Preparados para escalar</p>
-                  <p class="carousel-caption-text">Con la marca y el sistema digital consolidados, el siguiente paso está definido: apertura de nuevas tiendas Krea en la Península Ibérica. La estrategia de marketing, el playbook de lanzamiento local y los sistemas de captación están listos para replicarse.</p>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-footer">
-              <div class="carousel-dots">
-                <button class="carousel-dot active" onclick="goToSlide(this,0)"></button>
-                <button class="carousel-dot" onclick="goToSlide(this,1)"></button>
-                <button class="carousel-dot" onclick="goToSlide(this,2)"></button>
-              </div>
-              <span class="carousel-counter">1 / 3</span>
-              <div class="carousel-btns">
-                <button class="carousel-btn" onclick="moveCarousel(this,-1)" disabled>&#8592;</button>
-                <button class="carousel-btn" onclick="moveCarousel(this,1)">&#8594;</button>
-              </div>
-            </div>
-          </div>
-          <!-- CONTENIDO -->
-          <div class="case-inner">
-            <div>
-              <p style="font-size:13px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:24px">Krea Hogar nació como una apuesta en su localidad y en menos de 2 años se ha convertido en el referente del sector en su zona. Con identidad de marca sólida, presencia digital consolidada y facturación creciendo mes a mes, el objetivo ahora es claro: abrir nuevas tiendas Krea a lo largo de toda la Península Ibérica.</p>
-              <ul class="case-list">
-                <li>Identidad de marca diseñada para escalar: coherente en tienda, redes y digital</li>
-                <li>Presencia digital consolidada que posiciona a Krea como referente en su sector</li>
-                <li>Sistema de contenido que genera autoridad y atrae clientes de forma continua</li>
-                <li>Estrategia de expansión preparada para apertura de nuevas tiendas</li>
-                <li>Facturación en crecimiento constante desde el primer mes de activación</li>
-              </ul>
-            </div>
-            <div class="metrics">
-              <div class="metric"><div class="metric-v">&lt;2</div><div class="metric-l">Años desde cero hasta referente</div></div>
-              <div class="metric"><div class="metric-v">↑</div><div class="metric-l">Facturación mes a mes</div></div>
-              <div class="metric"><div class="metric-v">→ PE</div><div class="metric-l">Expansión Península</div></div>
             </div>
           </div>
         </div>
