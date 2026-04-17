@@ -296,6 +296,11 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   .faq-aside{position:static}
   .tiers{grid-template-columns:repeat(2,1fr)}
 }
+@media(min-width:769px){
+  .carousel-slide{display:flex;flex-direction:row;align-items:stretch}
+  .carousel-img-wrap{width:38%;flex-shrink:0;aspect-ratio:unset;height:440px}
+  .carousel-caption{flex:1;display:flex;flex-direction:column;justify-content:center;padding:32px 28px;border-top:none;border-left:1px solid var(--border)}
+}
 @media(max-width:900px){
   .case-inner{grid-template-columns:1fr;padding:0 28px 32px;gap:28px}
   .case-header{padding:24px 28px}
@@ -338,8 +343,8 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 .case-carousel{position:relative;margin:0 44px 36px;overflow:hidden;border:1px solid var(--border)}
 .carousel-track{display:flex;transition:transform .42s cubic-bezier(.25,.46,.45,.94);will-change:transform}
 .carousel-slide{min-width:100%}
-.carousel-img-wrap{position:relative;aspect-ratio:16/9;overflow:hidden;background:rgba(10,10,15,.8)}
-.carousel-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.carousel-img-wrap{position:relative;aspect-ratio:3/4;overflow:hidden;background:rgba(10,10,15,.8)}
+.carousel-img-wrap img,.carousel-img-wrap video{width:100%;height:100%;object-fit:contain;display:block}
 .carousel-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:1px dashed rgba(201,169,110,.12)}
 .carousel-ph-n{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:rgba(201,169,110,.3)}
 .carousel-ph-label{font-size:11px;font-weight:300;color:rgba(237,233,225,.2);letter-spacing:.04em}
@@ -482,7 +487,7 @@ nav.scrolled{background:rgba(10,10,15,.92);border-color:rgba(201,169,110,.12)}
 .case-list li::before{color:var(--gold)}
 .case-carousel{border-color:rgba(10,10,15,.1)}
 .carousel-img-wrap{background:#e4e0d8}
-.carousel-caption{background:rgba(237,233,225,.97);border-top-color:rgba(10,10,15,.07)}
+.carousel-caption{background:rgba(237,233,225,.97);border-top-color:rgba(10,10,15,.07);border-left-color:rgba(10,10,15,.07)}
 .carousel-caption-title{color:var(--void)}
 .carousel-caption-text{color:rgba(10,10,15,.6)}
 .carousel-footer{background:rgba(245,241,234,.97);border-top-color:rgba(10,10,15,.07)}
@@ -775,7 +780,7 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
               </div>
               <div class="carousel-slide">
                 <div class="carousel-img-wrap" style="background:#000;display:flex;align-items:center;justify-content:center;">
-                  <video controls playsinline preload="metadata" style="max-width:100%;max-height:100%;border-radius:4px;" aria-label="Vídeo campaña Meta Ads Krea Hogar sofás y colchones Lleida">
+                  <video controls playsinline preload="metadata" controlsList="nodownload" style="width:100%;height:100%;object-fit:contain;" aria-label="Vídeo campaña Meta Ads Krea Hogar sofás y colchones Lleida">
                     <source src="img/cases/krea-hogar/krea-hogar-video-meta-ads-sofas-colchones-lleida.mp4" type="video/mp4"/>
                   </video>
                 </div>
