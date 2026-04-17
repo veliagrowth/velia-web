@@ -122,7 +122,7 @@ section{position:relative;z-index:1}
 @media(max-width:520px){.btn-hero{width:100%;text-align:center;display:block;font-size:10px;padding:15px 32px}}
 
 /* ═══ SERVICES ═══ */
-#services{padding:140px 0;background:var(--deep)}
+#services{padding:100px 0;background:var(--deep)}
 .srv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1px;background:var(--border);margin-top:72px}
 .srv-card{background:var(--deep);padding:44px 40px;position:relative;overflow:hidden;transition:background .3s}
 .srv-card-accent{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transform-origin:left;transition:transform .5s}
@@ -136,7 +136,7 @@ section{position:relative;z-index:1}
 .srv-tag{display:inline-flex;margin-top:22px;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--signal);border:1px solid rgba(78,205,196,.2);padding:4px 12px;border-radius:100px;background:rgba(78,205,196,.05)}
 
 /* ═══ PROCESS ═══ */
-#process{padding:140px 0;background:var(--void)}
+#process{padding:100px 0;background:var(--void)}
 .proc-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:72px}
 .proc-card{background:var(--deep);padding:40px 32px 36px;border:1px solid var(--border);position:relative;overflow:hidden;transition:border-color .3s,background .3s}
 .proc-card:hover{border-color:rgba(201,169,110,.28);background:rgba(22,20,36,.92)}
@@ -157,7 +157,7 @@ section{position:relative;z-index:1}
 }
 
 /* ═══ RESULTS ═══ */
-#results{padding:140px 0;background:var(--deep)}
+#results{padding:100px 0;background:var(--deep)}
 .res-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-bottom:80px;overflow:hidden}
 .res-stat{background:var(--deep);padding:36px 32px;position:relative;overflow:hidden;transition:background .3s}
 .res-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .4s}
@@ -203,7 +203,7 @@ section{position:relative;z-index:1}
 .case-metric-pill::before{content:'↑';font-size:9px}
 
 /* ═══ PRICING ═══ */
-#how{padding:140px 0;background:var(--void)}
+#how{padding:100px 0;background:var(--void)}
 .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:80px}
 .tier{background:var(--void);padding:40px 32px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .2s}
 .tier-bd{display:flex;flex-direction:column;flex:1}
@@ -231,7 +231,7 @@ section{position:relative;z-index:1}
 .btn-tier.s:hover{border-color:rgba(201,169,110,.45);transform:translateY(-1px)}
 
 /* ═══ FAQ ═══ */
-#faqs{padding:140px 0;background:var(--deep)}
+#faqs{padding:100px 0;background:var(--deep)}
 .faq-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:80px;align-items:start;margin-top:72px}
 .faq-list{display:flex;flex-direction:column}
 .faq-item{border-bottom:1px solid var(--border)}
@@ -254,7 +254,7 @@ section{position:relative;z-index:1}
 .fai-text strong{color:var(--cream);font-weight:600}
 
 /* ═══ CTA ═══ */
-#cta{padding:170px 5vw;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--border);background:var(--void)}
+#cta{padding:120px 5vw;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--border);background:var(--void)}
 .cta-orb{position:absolute;border-radius:50%;pointer-events:none}
 .cta-orb-1{width:700px;height:500px;filter:blur(110px);background:radial-gradient(ellipse,rgba(108,92,231,.1),transparent 70%);left:-8%;top:50%;transform:translateY(-50%)}
 .cta-orb-2{width:700px;height:500px;filter:blur(110px);background:radial-gradient(ellipse,rgba(201,169,110,.08),transparent 70%);right:-8%;top:50%;transform:translateY(-50%)}
@@ -309,8 +309,11 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 @media(max-width:900px){
   .case-inner{grid-template-columns:1fr;padding:0 28px 32px;gap:28px}
   .case-header{padding:24px 28px}
-  #services,#process,#results,#how,#faqs,#cta{padding:100px 0}
-  #cta{padding:100px 5vw}
+}
+@media(max-width:768px){
+  #pain,#services,#process,#results,#how,#faqs{padding:72px 0}
+  #cta{padding:80px 5vw}
+  .section-header{margin-bottom:48px}
 }
 @media(max-width:720px){
   nav{padding:0 5vw;height:56px}
@@ -344,9 +347,9 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   .res-stat-v{font-size:28px;flex-shrink:0}
   .res-stat-l{font-size:9px;margin-top:0}
   #hero{padding:76px 5vw 40px}
-  #services,#process,#results,#how,#faqs{padding:48px 0}
-  #cta{padding:60px 5vw}
-  .section-header{margin-bottom:36px}
+  #pain,#services,#process,#results,#how,#faqs{padding:48px 0}
+  #cta{padding:56px 5vw}
+  .section-header{margin-bottom:32px}
   .case-metric-pill{white-space:normal;line-height:1.5}
   .case-header{padding:18px 16px}
   .case-inner{padding:0 16px 24px}
@@ -381,7 +384,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 @media(max-width:600px){.case-carousel{margin:0 0 20px;border-left:none;border-right:none}.carousel-caption{padding:14px 20px 16px}}
 
 /* ═══ WHATSAPP FLOAT ═══ */
-#wa-float{position:fixed;bottom:32px;right:32px;z-index:9000;display:flex;align-items:center;gap:12px;background:rgba(10,10,15,.92);border:1px solid rgba(201,169,110,.18);padding:10px 20px 10px 10px;border-radius:100px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);text-decoration:none;transition:border-color .25s,transform .2s,box-shadow .25s;cursor:not-allowed}
+#wa-float{position:fixed;bottom:32px;right:32px;z-index:9000;display:flex;align-items:center;gap:12px;background:rgba(10,10,15,.92);border:1px solid rgba(201,169,110,.18);padding:10px 20px 10px 10px;border-radius:100px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);text-decoration:none;transition:border-color .25s,transform .2s,box-shadow .25s;cursor:pointer}
 #wa-float:hover{border-color:rgba(201,169,110,.38);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.35)}
 .wa-icon{width:38px;height:38px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .wa-icon svg{width:19px;height:19px;fill:#fff}
@@ -397,7 +400,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 .hero-desde strong{color:var(--gold);font-weight:600}
 
 /* ═══ PAIN SECTION ═══ */
-#pain{padding:140px 0;background:var(--deep)}
+#pain{padding:100px 0;background:var(--deep)}
 .pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-top:72px}
 .pain-item{background:var(--deep);padding:48px 44px;position:relative;overflow:hidden;transition:background .3s}
 .pain-item::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,110,.3),transparent);opacity:0;transition:opacity .4s}
@@ -1388,7 +1391,7 @@ document.querySelectorAll('.case-carousel').forEach(carousel => {
 </script>
 
 <!-- WHATSAPP FLOAT -->
-<div id="wa-float" title="WhatsApp directo — Próximamente">
+<a id="wa-float" href="https://wa.me/34646568303" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
   <div class="wa-icon">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </div>
@@ -1397,7 +1400,7 @@ document.querySelectorAll('.case-carousel').forEach(carousel => {
     <span class="wa-cta">WhatsApp directo</span>
   </div>
   <div class="wa-pulse"></div>
-</div>
+</a>
 
 </body>
 </html>
