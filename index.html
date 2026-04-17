@@ -336,24 +336,25 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   .hero-h1{font-size:clamp(38px,11vw,54px);text-align:center;width:100%}
   .hero-h1 span i{white-space:normal}
   .hero-isotipo{width:100vw;right:-30vw;opacity:.055}
-  .hero-row{gap:20px}
-  .hero-eyebrow{font-size:7.5px;letter-spacing:.14em}
+  .hero-row{gap:16px;margin-top:28px}
+  .hero-eyebrow{font-size:7.5px;letter-spacing:.14em;margin-bottom:18px}
+  .hero-stats{margin-top:24px;padding-top:20px}
   .res-stats{grid-template-columns:1fr;gap:1px}
   .res-stat{display:flex;align-items:center;gap:20px;padding:22px 24px}
   .res-stat-v{font-size:28px;flex-shrink:0}
   .res-stat-l{font-size:9px;margin-top:0}
-  /* Secciones: padding reducido en móvil */
-  #services,#process,#results,#how,#faqs{padding:64px 0}
-  #cta{padding:80px 5vw}
-  /* Pills: permiten wrap en pantallas pequeñas */
+  #hero{padding:76px 5vw 40px}
+  #services,#process,#results,#how,#faqs{padding:48px 0}
+  #cta{padding:60px 5vw}
+  .section-header{margin-bottom:36px}
   .case-metric-pill{white-space:normal;line-height:1.5}
-  /* Texto de casos: padding lateral cómodo */
-  .case-header{padding:20px 20px}
-  .case-inner{padding:0 20px 28px}
+  .case-header{padding:18px 16px}
+  .case-inner{padding:0 16px 24px}
 }
 
 /* ═══ CAROUSEL ═══ */
-.case-carousel{position:relative;margin:0 44px 36px;overflow:hidden;border:1px solid var(--border)}
+.case-carousel{position:relative;margin:0 44px 36px;overflow:hidden;border:1px solid var(--border);cursor:grab}
+.case-carousel:active{cursor:grabbing}
 @media(max-width:600px){
   .case-carousel{margin:0 0 24px}
 }
@@ -742,7 +743,7 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
         <div class="case-header" onclick="toggleCase(this)">
           <div>
             <p class="case-tag">Krea Hogar · Sofás &amp; Colchones · kreahogar.com</p>
-            <p class="case-hl">De tienda local a referente nacional: 133K visualizaciones y 16.1K seguidores</p>
+            <p class="case-hl">De tienda local a referente nacional</p>
             <p class="case-sub">Identidad de marca + Meta Ads + Redes sociales + SEO local</p>
             <span class="case-metric-pill">133K views Meta Ads · 4.9★ Google · 16.1K seguidores</span>
           </div>
@@ -857,7 +858,7 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
         <div class="case-header" onclick="toggleCase(this)">
           <div>
             <p class="case-tag">Cónsul Jurídico · Asesoría Legal · Fraga, Huesca</p>
-            <p class="case-hl">Presencia digital completa y captación automatizada en menos de 60 días</p>
+            <p class="case-hl">Presencia digital y captación automática en menos de 60 días</p>
             <p class="case-sub">Web + Agentes IA + Captación automatizada</p>
             <span class="case-metric-pill">+85% nuevos clientes · -70% tiempo en gestión</span>
           </div>
@@ -1338,39 +1339,51 @@ gsap.from('.team-card', {
 /* ══════════════════════════════════════
    CAROUSEL
 ══════════════════════════════════════ */
-function getCarousel(el) {
-  return el.closest('.case-carousel');
-}
-function moveCarousel(btn, dir) {
-  const carousel = getCarousel(btn);
-  const track = carousel.querySelector('.carousel-track');
+function navCarousel(carousel, idx) {
   const slides = carousel.querySelectorAll('.carousel-slide');
-  const dots = carousel.querySelectorAll('.carousel-dot');
-  const counter = carousel.querySelector('.carousel-counter');
-  const btns = carousel.querySelectorAll('.carousel-btn');
-  let current = parseInt(carousel.dataset.current || 0);
-  current = Math.max(0, Math.min(slides.length - 1, current + dir));
-  carousel.dataset.current = current;
-  track.style.transform = 'translateX(-' + (current * 100) + '%)';
-  dots.forEach((d, i) => d.classList.toggle('active', i === current));
-  counter.textContent = (current + 1) + ' / ' + slides.length;
-  btns[0].disabled = current === 0;
-  btns[1].disabled = current === slides.length - 1;
-}
-function goToSlide(dot, idx) {
-  const carousel = getCarousel(dot);
-  const track = carousel.querySelector('.carousel-track');
-  const slides = carousel.querySelectorAll('.carousel-slide');
-  const dots = carousel.querySelectorAll('.carousel-dot');
-  const counter = carousel.querySelector('.carousel-counter');
-  const btns = carousel.querySelectorAll('.carousel-btn');
+  idx = Math.max(0, Math.min(slides.length - 1, idx));
   carousel.dataset.current = idx;
-  track.style.transform = 'translateX(-' + (idx * 100) + '%)';
-  dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-  counter.textContent = (idx + 1) + ' / ' + slides.length;
+  carousel.querySelector('.carousel-track').style.transform = 'translateX(-' + (idx * 100) + '%)';
+  carousel.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+  carousel.querySelector('.carousel-counter').textContent = (idx + 1) + ' / ' + slides.length;
+  const btns = carousel.querySelectorAll('.carousel-btn');
   btns[0].disabled = idx === 0;
   btns[1].disabled = idx === slides.length - 1;
 }
+function moveCarousel(btn, dir) {
+  const carousel = btn.closest('.case-carousel');
+  navCarousel(carousel, parseInt(carousel.dataset.current || 0) + dir);
+}
+function goToSlide(dot, idx) {
+  navCarousel(dot.closest('.case-carousel'), idx);
+}
+
+// Swipe — touch (móvil) y drag (escritorio)
+document.querySelectorAll('.case-carousel').forEach(carousel => {
+  let x0 = 0, y0 = 0, down = false;
+
+  // Touch
+  carousel.addEventListener('touchstart', e => {
+    x0 = e.touches[0].clientX;
+    y0 = e.touches[0].clientY;
+  }, {passive: true});
+  carousel.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - x0;
+    const dy = e.changedTouches[0].clientY - y0;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40)
+      navCarousel(carousel, parseInt(carousel.dataset.current || 0) + (dx < 0 ? 1 : -1));
+  }, {passive: true});
+
+  // Mouse drag (escritorio)
+  carousel.addEventListener('mousedown', e => { x0 = e.clientX; down = true; });
+  carousel.addEventListener('mouseup', e => {
+    if (!down) return; down = false;
+    const dx = e.clientX - x0;
+    if (Math.abs(dx) > 60)
+      navCarousel(carousel, parseInt(carousel.dataset.current || 0) + (dx < 0 ? 1 : -1));
+  });
+  carousel.addEventListener('mouseleave', () => { down = false; });
+});
 
 </script>
 
