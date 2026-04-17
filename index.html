@@ -337,10 +337,21 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   .res-stat{display:flex;align-items:center;gap:20px;padding:22px 24px}
   .res-stat-v{font-size:28px;flex-shrink:0}
   .res-stat-l{font-size:9px;margin-top:0}
+  /* Secciones: padding reducido en móvil */
+  #services,#process,#results,#how,#faqs{padding:64px 0}
+  #cta{padding:80px 5vw}
+  /* Pills: permiten wrap en pantallas pequeñas */
+  .case-metric-pill{white-space:normal;line-height:1.5}
+  /* Texto de casos: padding lateral cómodo */
+  .case-header{padding:20px 20px}
+  .case-inner{padding:0 20px 28px}
 }
 
 /* ═══ CAROUSEL ═══ */
 .case-carousel{position:relative;margin:0 44px 36px;overflow:hidden;border:1px solid var(--border)}
+@media(max-width:600px){
+  .case-carousel{margin:0 0 24px}
+}
 .carousel-track{display:flex;transition:transform .42s cubic-bezier(.25,.46,.45,.94);will-change:transform}
 .carousel-slide{min-width:100%}
 .carousel-img-wrap{position:relative;aspect-ratio:3/4;overflow:hidden;background:rgba(10,10,15,.8)}
