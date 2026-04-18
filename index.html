@@ -398,6 +398,21 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 /* ═══ HERO DESDE ═══ */
 .hero-desde{font-size:11px;font-weight:300;color:var(--muted);letter-spacing:.04em;opacity:.8;text-align:center}
 
+/* ═══ APPLE REDUCTION ═══ */
+/* Cursor — desactivado */
+*{cursor:auto!important}
+#cur,#cur-ring{display:none!important}
+/* Hero noise */
+.hero-grid{display:none}
+.orb-2,.orb-3{display:none}
+.orb-1{opacity:.6}
+.scroll-ind{display:none}
+/* Ticker */
+#ticker{display:none}
+/* btn-ghost en fondos claros — fix contraste */
+#cta .btn-ghost{color:rgba(10,10,15,.5);border-color:rgba(10,10,15,.18)}
+#cta .btn-ghost:hover{color:var(--void)!important;border-color:rgba(10,10,15,.35)!important;background:rgba(10,10,15,.04)}
+
 /* ═══ LOGO STRIP ═══ */
 #logos{padding:18px 5vw;display:flex;align-items:center;gap:40px;background:var(--cream);border-bottom:1px solid rgba(10,10,15,.06)}
 .logos-label{font-size:8px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:rgba(10,10,15,.25);white-space:nowrap;flex-shrink:0}
@@ -655,8 +670,6 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
 <body>
 
 <div id="grain"></div>
-<div id="cur"></div>
-<div id="cur-ring"></div>
 
 <!-- SVG gradient for meta icons -->
 <svg style="position:absolute;width:0;height:0">
@@ -684,10 +697,7 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-grid"></div>
   <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
   <img src="./VELIA_isotipo_transparente.png" alt="" class="hero-isotipo"/>
   <p class="hero-eyebrow">Para despachos, clínicas y negocios que quieren crecer.</p>
   <h1 class="hero-h1">
@@ -716,10 +726,6 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
       <div class="hero-stat-v">100%</div>
       <div class="hero-stat-l">Supervisión humana</div>
     </div>
-  </div>
-  <div class="scroll-ind">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
   </div>
   <div class="hero-sep"></div>
 </section>
@@ -1284,27 +1290,7 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
 /* ══════════════════════════════════════
    CURSOR
 ══════════════════════════════════════ */
-const cur = document.getElementById('cur');
-const ring = document.getElementById('cur-ring');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-(function animCur() {
-  rx += (mx - rx) * .12;
-  ry += (my - ry) * .12;
-  cur.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
-  ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
-  requestAnimationFrame(animCur);
-})();
-document.querySelectorAll('a,button,.agent-card,.case-header,.proc-step').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cur.style.width='12px'; cur.style.height='12px'; cur.style.background='var(--gold)';
-    ring.style.width='44px'; ring.style.height='44px'; ring.style.borderColor='rgba(201,169,110,.6)';
-  });
-  el.addEventListener('mouseleave', () => {
-    cur.style.width='7px'; cur.style.height='7px'; cur.style.background='var(--gold)';
-    ring.style.width='30px'; ring.style.height='30px'; ring.style.borderColor='rgba(201,169,110,.35)';
-  });
-});
+// Cursor eliminado — Apple principle
 
 /* ══════════════════════════════════════
    NAV
