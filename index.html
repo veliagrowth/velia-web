@@ -39,8 +39,8 @@ body:hover #cur,body:hover #cur-ring{opacity:1}
 #grain{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:99999}
 
 /* ═══ NAV ═══ */
-nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:64px;background:var(--void);border-bottom:1px solid rgba(201,169,110,.1);transition:border-color .4s}
-nav.scrolled{border-color:rgba(201,169,110,.15)}
+nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:64px;background:rgba(10,10,15,.62);backdrop-filter:blur(22px) saturate(1.6);-webkit-backdrop-filter:blur(22px) saturate(1.6);border-bottom:1px solid rgba(201,169,110,.1);transition:background .45s ease,border-color .45s ease}
+nav.scrolled{background:rgba(10,10,15,.84);border-color:rgba(201,169,110,.18)}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
 .nav-wordmark{height:26px;width:auto;display:block}
 .nav-logo-sub{font-size:7px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:4px}
@@ -520,8 +520,8 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 }
 
 /* ═══ CREAM THEME OVERRIDES ═══ */
-/* nav: dark void igual que footer */
-nav.scrolled{border-color:rgba(201,169,110,.18)}
+/* nav: glass oscuro — fondo siempre oscuro independientemente del tema */
+nav.scrolled{background:rgba(10,10,15,.88);border-color:rgba(201,169,110,.2)}
 .nav-link{color:rgba(237,233,225,.45)}
 .nav-link:hover{color:var(--cream)}
 .btn-nav{background:var(--gold);color:var(--void)}
@@ -656,6 +656,37 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
 .hero-grid{background-image:linear-gradient(rgba(10,10,15,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(10,10,15,.04) 1px,transparent 1px)}
 .case-metric-pill{color:var(--gold-d);background:rgba(201,169,110,.08);border-color:rgba(201,169,110,.2)}
 .case-feat-stat-l{color:rgba(10,10,15,.4)}
+
+/* ════════════════════════════════════
+   GRADIENT TEXT — editorial dissolve
+════════════════════════════════════ */
+/* Títulos de sección: void sólido arriba → void 35% abajo */
+.s-title{
+  background:linear-gradient(175deg, rgba(10,10,15,1) 18%, rgba(10,10,15,.32) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+/* El em dentro de s-title conserva gold gradient */
+.s-title em{
+  background:linear-gradient(135deg, var(--gold) 0%, var(--gold-l) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+/* Hero h1 — mismo fondo cream, mismo tratamiento que s-title */
+.hero-h1{
+  background:linear-gradient(175deg, rgba(10,10,15,1) 18%, rgba(10,10,15,.3) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-h1 em{
+  background:linear-gradient(135deg, var(--gold) 0%, var(--gold-l) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
 
 /* ═══ APPLE SINGLE-ACCENT PRINCIPLE ═══ */
 /* Gold = solo en la acción principal. Todo lo demás: neutro. */
@@ -1324,105 +1355,104 @@ function toggleTier(hd) {
 }
 
 /* ══════════════════════════════════════
-   GSAP ANIMATIONS
+   GSAP ANIMATIONS — v2 premium
 ══════════════════════════════════════ */
 gsap.registerPlugin(ScrollTrigger);
 
+/* ── HERO — timeline orquestado ── */
+const heroTL = gsap.timeline({delay:.12});
+heroTL
+  .from('.hero-eyebrow',   {opacity:0, y:20, duration:.9,  ease:'expo.out'})
+  .from('.hero-h1 span i', {yPercent:72, opacity:0, duration:1.08, stagger:.15, ease:'expo.out'}, '-=.52')
+  .from('.hero-row',       {opacity:0, y:30, duration:1,   ease:'expo.out'}, '-=.58')
+  .from('.hero-stats',     {opacity:0, y:20, duration:.85, ease:'expo.out'}, '-=.58')
+  .from('#logos',          {opacity:0, y:12, duration:.65, ease:'power2.out'}, '-=.38');
 
-// Hero title — clip reveal
-gsap.from('.hero-h1 span i', {
-  yPercent:60, opacity:0, duration:1.1, stagger:.13,
-  ease:'power3.out', delay:.4
-});
-gsap.from('.hero-eyebrow', { opacity:0, y:16, duration:.8, delay:.2, ease:'power2.out' });
-gsap.from('.hero-row', { opacity:0, y:28, duration:.9, delay:.85, ease:'power2.out' });
-gsap.from('.hero-stats', { opacity:0, y:20, duration:.8, delay:1.1, ease:'power2.out' });
-gsap.from('.scroll-ind', { opacity:0, duration:.8, delay:1.5 });
-
-// Services
-gsap.from('#services .section-header', {
-  scrollTrigger:{trigger:'#services',start:'top 80%',once:true},
-  y:36, opacity:0, duration:.9, ease:'power3.out'
-});
-gsap.from('.srv-card', {
-  scrollTrigger:{trigger:'.srv-grid',start:'top 78%',once:true},
-  y:32, opacity:0, duration:.75, stagger:.09, ease:'power2.out'
+/* ── HERO — parallax isotipo en scroll ── */
+gsap.to('.hero-isotipo', {
+  scrollTrigger:{trigger:'#hero', start:'top top', end:'bottom top', scrub:1.6},
+  y:-110, scale:.9, opacity:.018, ease:'none'
 });
 
-// Process
-gsap.from('#process .section-header', {
-  scrollTrigger:{trigger:'#process .section-header',start:'top 85%',once:true},
-  y:36, opacity:0, duration:.9, ease:'power3.out'
-});
-gsap.from('.proc-card', {
-  scrollTrigger:{trigger:'.proc-cards',start:'top 78%',once:true},
-  y:40, opacity:0, duration:.8, stagger:.14, ease:'power2.out'
-});
-
-// Results
-gsap.from('#results .section-header', {
-  scrollTrigger:{trigger:'#results',start:'top 80%',once:true},
-  y:36, opacity:0, duration:.9, ease:'power3.out'
-});
-gsap.from('.res-stat', {
-  scrollTrigger:{trigger:'.res-stats',start:'top 82%',once:true},
-  y:24, opacity:0, duration:.7, stagger:.1, ease:'power2.out'
-});
-gsap.from('.case', {
-  scrollTrigger:{trigger:'.cases',start:'top 82%',once:true},
-  y:20, opacity:0, duration:.6, stagger:.12, ease:'power2.out'
-});
-
-// Pricing
-gsap.from('.tier', {
-  scrollTrigger:{trigger:'.tiers',start:'top 80%',once:true},
-  y:30, opacity:0, duration:.8, stagger:.12, ease:'power2.out'
-});
-
-// FAQ
-gsap.from('#faqs .section-header', {
-  scrollTrigger:{trigger:'#faqs',start:'top 80%',once:true},
-  y:36, opacity:0, duration:.9, ease:'power3.out'
-});
-gsap.from('.faq-list, .faq-aside', {
-  scrollTrigger:{trigger:'.faq-layout',start:'top 78%',once:true},
-  y:30, opacity:0, duration:.8, stagger:.15, ease:'power2.out'
-});
-
-// CTA
-gsap.from('#cta .cta-eyebrow, #cta .cta-title, #cta .cta-sep, #cta .cta-sub, #cta .cta-btns', {
-  scrollTrigger:{trigger:'#cta',start:'top 80%',once:true},
-  y:30, opacity:0, duration:.8, stagger:.1, ease:'power2.out'
-});
-
-// Integrations
-gsap.from('.int-label', {
-  scrollTrigger:{trigger:'#integrations',start:'top 85%',once:true},
-  opacity:0, y:12, duration:.7, ease:'power2.out'
-});
-gsap.from('.int-chip', {
-  scrollTrigger:{trigger:'#integrations',start:'top 82%',once:true},
-  opacity:0, y:16, duration:.6, stagger:.05, ease:'power2.out', delay:.15
-});
-
-// Pain section
+/* ── PAIN ── */
 gsap.from('#pain .section-header', {
-  scrollTrigger:{trigger:'#pain',start:'top 80%',once:true},
-  y:36, opacity:0, duration:.9, ease:'power3.out'
+  scrollTrigger:{trigger:'#pain', start:'top 78%', once:true},
+  x:-32, opacity:0, duration:1.05, ease:'expo.out'
 });
 gsap.from('.pain-item', {
-  scrollTrigger:{trigger:'.pain-grid',start:'top 82%',once:true},
-  y:24, opacity:0, duration:.7, stagger:.1, ease:'power2.out'
+  scrollTrigger:{trigger:'.pain-grid', start:'top 80%', once:true},
+  x:-24, opacity:0, duration:.88, stagger:.11, ease:'expo.out'
 });
 
-// Team section
+/* ── SERVICES ── */
+gsap.from('#services .section-header', {
+  scrollTrigger:{trigger:'#services', start:'top 78%', once:true},
+  x:-32, opacity:0, duration:1.05, ease:'expo.out'
+});
+gsap.from('.srv-card', {
+  scrollTrigger:{trigger:'.srv-grid', start:'top 78%', once:true},
+  y:48, opacity:0, scale:.97, duration:.88, stagger:.08, ease:'expo.out',
+  transformOrigin:'center bottom'
+});
+
+/* ── PROCESS ── */
+gsap.from('#process .section-header', {
+  scrollTrigger:{trigger:'#process .section-header', start:'top 85%', once:true},
+  x:-32, opacity:0, duration:1.05, ease:'expo.out'
+});
+gsap.from('.proc-card', {
+  scrollTrigger:{trigger:'.proc-cards', start:'top 78%', once:true},
+  y:54, opacity:0, scale:.97, duration:.92, stagger:.13, ease:'expo.out',
+  transformOrigin:'center bottom'
+});
+
+/* ── RESULTS ── */
+gsap.from('#results .section-header', {
+  scrollTrigger:{trigger:'#results', start:'top 80%', once:true},
+  x:-32, opacity:0, duration:1.05, ease:'expo.out'
+});
+gsap.from('.res-stat', {
+  scrollTrigger:{trigger:'.res-stats', start:'top 82%', once:true},
+  y:36, opacity:0, scale:.97, duration:.82, stagger:.1, ease:'expo.out',
+  transformOrigin:'center bottom'
+});
+gsap.from('.case', {
+  scrollTrigger:{trigger:'.cases', start:'top 82%', once:true},
+  y:28, opacity:0, duration:.78, stagger:.13, ease:'expo.out'
+});
+
+/* ── PRICING ── */
+gsap.from('.tier', {
+  scrollTrigger:{trigger:'.tiers', start:'top 80%', once:true},
+  y:44, opacity:0, scale:.97, duration:.88, stagger:.12, ease:'expo.out',
+  transformOrigin:'center bottom'
+});
+
+/* ── FAQ ── */
+gsap.from('#faqs .section-header', {
+  scrollTrigger:{trigger:'#faqs', start:'top 80%', once:true},
+  x:-32, opacity:0, duration:1.05, ease:'expo.out'
+});
+gsap.from('.faq-list, .faq-aside', {
+  scrollTrigger:{trigger:'.faq-layout', start:'top 78%', once:true},
+  y:36, opacity:0, duration:.92, stagger:.18, ease:'expo.out'
+});
+
+/* ── TEAM ── */
 gsap.from('#team .section-header', {
-  scrollTrigger:{trigger:'#team',start:'top 80%',once:true},
-  y:36, opacity:0, duration:.9, ease:'power3.out'
+  scrollTrigger:{trigger:'#team', start:'top 80%', once:true},
+  x:-32, opacity:0, duration:1.05, ease:'expo.out'
 });
 gsap.from('.team-card', {
-  scrollTrigger:{trigger:'.team-grid',start:'top 82%',once:true},
-  y:24, opacity:0, duration:.8, stagger:.15, ease:'power2.out'
+  scrollTrigger:{trigger:'.team-grid', start:'top 82%', once:true},
+  y:36, opacity:0, scale:.97, duration:.92, stagger:.18, ease:'expo.out',
+  transformOrigin:'center bottom'
+});
+
+/* ── CTA ── */
+gsap.from('#cta .cta-eyebrow, #cta .cta-title, #cta .cta-sep, #cta .cta-sub, #cta .cta-btns', {
+  scrollTrigger:{trigger:'#cta', start:'top 80%', once:true},
+  y:32, opacity:0, duration:.88, stagger:.1, ease:'expo.out'
 });
 
 /* ══════════════════════════════════════
