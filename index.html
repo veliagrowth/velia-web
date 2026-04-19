@@ -448,19 +448,11 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 .case-body{max-height:none!important;overflow:visible!important;transition:none!important}
 .case-arrow{display:none!important}
 .case-header{cursor:default!important;pointer-events:none!important;position:relative;overflow:hidden;padding:44px!important}
-.case-num{position:absolute;right:0;bottom:-18px;font-size:clamp(72px,9vw,120px);
-  font-weight:800;letter-spacing:-.05em;line-height:1;
-  color:rgba(201,169,110,.08);pointer-events:none;user-select:none;font-family:var(--f)}
+.case-num{display:none}
 .cases{gap:0}
 .case+.case{border-top:1px solid var(--border)}
 @media(max-width:900px){.case-header{padding:28px!important}}
 
-/* ═══ TEAM — PHOTO PLACEHOLDERS ═══ */
-.team-avatar{width:72px;height:88px;border-radius:8px;font-size:8px;
-  font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-  color:rgba(10,10,15,.2);font-family:var(--f);
-  flex-direction:column;gap:5px;flex-shrink:0}
-.team-avatar svg{width:22px;height:22px;flex-shrink:0;stroke:rgba(10,10,15,.2);fill:none;stroke-width:1.2}
 
 /* ═══ HERO SPLIT — DESKTOP ═══ */
 @media(min-width:900px){
@@ -842,7 +834,6 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
       <!-- CASO 1: KREA HOGAR -->
       <div class="case open">
         <div class="case-header">
-          <span class="case-num">01</span>
           <div>
             <p class="case-tag">Krea Hogar · Sofás &amp; Colchones · kreahogar.com</p>
             <p class="case-hl">De tienda local a referente nacional</p>
@@ -946,7 +937,6 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
       <!-- CASO 2: CÓNSUL JURÍDICO -->
       <div class="case">
         <div class="case-header">
-          <span class="case-num">02</span>
           <div>
             <p class="case-tag">Cónsul Jurídico · Asesoría Legal · Fraga, Huesca</p>
             <p class="case-hl">Presencia digital y captación automática en menos de 60 días</p>
@@ -1040,7 +1030,6 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
       <!-- CASO 3: THE DROP AGENCY -->
       <div class="case">
         <div class="case-header">
-          <span class="case-num">03</span>
           <div>
             <p class="case-tag">The Drop Agency · Management &amp; Producción Audiovisual</p>
             <p class="case-hl">El doble de cartera gestionada sin ampliar equipo ni estructura</p>
@@ -1151,7 +1140,7 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
         </div>
         <span class="proc-card-tag">Semanas 2–3</span>
         <p class="proc-card-title">Sistema</p>
-        <p class="proc-card-desc">Construimos lo que necesitas: web, automatizaciones, agentes IA o todo junto. A medida, sin paquetes cerrados.</p>
+        <p class="proc-card-desc">Construimos lo que necesitas: web, captación, seguimiento de clientes o todo junto. A medida, sin paquetes cerrados.</p>
         <div class="proc-card-line"></div>
       </div>
       <div class="proc-card">
@@ -1204,7 +1193,7 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
         </div>
         <div class="faq-aside-item">
           <div class="fai-dot d-gold"></div>
-          <div class="fai-text"><strong>Personas reales</strong> detrás de cada automatización. Siempre hay alguien al otro lado.</div>
+          <div class="fai-text"><strong>Personas reales</strong> detrás de cada decisión. Siempre hay alguien al otro lado.</div>
         </div>
         <div class="faq-aside-item">
           <div class="fai-dot d-pulse"></div>
@@ -1226,10 +1215,7 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
     </div>
     <div class="team-grid">
       <div class="team-card">
-        <div class="team-avatar">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="9" r="3"/><path d="M6 21v-1a6 6 0 0112 0v1"/></svg>
-          <span>Foto</span>
-        </div>
+        <div class="team-avatar">JP</div>
         <div class="team-info">
           <p class="team-name">Joaquín Paiva</p>
           <span class="team-role">Cofundador &amp; CTO</span>
@@ -1237,14 +1223,11 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
         </div>
       </div>
       <div class="team-card">
-        <div class="team-avatar">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="9" r="3"/><path d="M6 21v-1a6 6 0 0112 0v1"/></svg>
-          <span>Foto</span>
-        </div>
+        <div class="team-avatar">AS</div>
         <div class="team-info">
           <p class="team-name">Axel Soto</p>
           <span class="team-role">Cofundador &amp; Estratega Comercial</span>
-          <p class="team-quote">He cerrado suficientes tratos para saber que los clientes no compran tecnología. Compran confianza. Y eso es lo que construimos primero — antes que cualquier automatización.</p>
+          <p class="team-quote">He cerrado suficientes tratos para saber que los clientes no compran tecnología. Compran confianza. Y eso es lo que construimos primero — antes que cualquier sistema.</p>
         </div>
       </div>
     </div>
@@ -1259,7 +1242,7 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
   <p class="cta-eyebrow">Primera sesión gratuita</p>
   <h2 class="cta-title">30 MINUTOS QUE<br>PUEDEN <em>CAMBIARLO TODO.</em></h2>
   <div class="cta-sep"></div>
-  <p class="cta-sub">Analizamos tu situación actual y te decimos exactamente qué automatización te daría más resultado. <strong>Sin venta, sin presión, sin compromiso.</strong></p>
+  <p class="cta-sub">Analizamos tu situación actual y te decimos exactamente qué sistema te daría más resultado. <strong>Sin venta, sin presión, sin compromiso.</strong></p>
   <div class="cta-btns">
     <a href="contacto.html" class="btn-primary">Reservar análisis gratuito</a>
     <a href="#pain" class="btn-ghost">Cómo funciona</a>
