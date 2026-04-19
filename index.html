@@ -657,6 +657,29 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
 .case-metric-pill{color:var(--gold-d);background:rgba(201,169,110,.08);border-color:rgba(201,169,110,.2)}
 .case-feat-stat-l{color:rgba(10,10,15,.4)}
 
+/* ═══ APPLE SINGLE-ACCENT PRINCIPLE ═══ */
+/* Gold = solo en la acción principal. Todo lo demás: neutro. */
+
+/* Hero stats: datos de apoyo, no la acción */
+.hero-stat-v{background:none;-webkit-text-fill-color:var(--void);color:var(--void)}
+
+/* Iconos de servicio: neutros por defecto, gold solo en hover */
+.srv-icon svg{stroke:rgba(10,10,15,.28)}
+.srv-card:hover .srv-icon svg{stroke:var(--gold)}
+
+/* Iconos de proceso: ídem */
+.proc-card-icon svg{stroke:rgba(10,10,15,.28)}
+.proc-card:hover .proc-card-icon svg{stroke:var(--gold)}
+
+/* Stat destacado por caso: neutro (los 4 contadores de sección ya son el acento) */
+.case-feat-stat-v{background:none;-webkit-text-fill-color:var(--void);color:var(--void);font-size:clamp(28px,3.5vw,44px)}
+
+/* Métricas internas por caso: neutras, peso 800 ya les da jerarquía */
+.metric-v{background:none;-webkit-text-fill-color:var(--void);color:var(--void)}
+
+/* Guiones de lista: muted, no compiten con CTA */
+.case-list li::before{color:rgba(10,10,15,.22)}
+
 </style>
 </head>
 <body>
