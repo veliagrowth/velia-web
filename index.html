@@ -39,15 +39,15 @@ body:hover #cur,body:hover #cur-ring{opacity:1}
 #grain{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:99999}
 
 /* ═══ NAV ═══ */
-nav{position:fixed;top:16px;left:16px;right:16px;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:56px;background:rgba(10,10,15,.68);backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);border-radius:100px;border:1px solid rgba(201,169,110,.16);box-shadow:0 4px 28px rgba(0,0,0,.25);transition:background .35s,border-color .35s,box-shadow .35s}
-nav.scrolled{background:rgba(10,10,15,.84);border-color:rgba(201,169,110,.28);box-shadow:0 8px 40px rgba(0,0,0,.36)}
+nav{position:fixed;top:16px;left:16px;right:16px;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:56px;background:rgba(10,10,15,.06);backdrop-filter:blur(10px) saturate(1.2);-webkit-backdrop-filter:blur(10px) saturate(1.2);border-radius:100px;border:1px solid rgba(10,10,15,.10);box-shadow:0 2px 12px rgba(0,0,0,.05);transition:background .4s,border-color .4s,box-shadow .4s}
+nav.scrolled{background:rgba(10,10,15,.82);border-color:rgba(201,169,110,.28);box-shadow:0 8px 40px rgba(0,0,0,.36)}
 @media(max-width:680px){nav{top:12px;left:12px;right:12px;padding:0 20px;height:50px}}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
-.nav-wordmark{height:26px;width:auto;display:block}
+.nav-wordmark{height:26px;width:auto;display:block;transition:opacity .25s}
 .nav-logo-sub{font-size:7px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:4px}
 .nav-right{display:flex;align-items:center;gap:28px}
-.nav-link{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
-.nav-link:hover{color:var(--cream)}
+.nav-link{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(10,10,15,.52);text-decoration:none;transition:color .2s}
+.nav-link:hover{color:rgba(10,10,15,.88)}
 .btn-nav{font-family:var(--f);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--void);background:var(--gold);padding:10px 22px;border-radius:100px;text-decoration:none;transition:opacity .2s,transform .15s;white-space:nowrap}
 .btn-nav:hover{opacity:.85;transform:translateY(-1px)}
 
@@ -499,7 +499,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 }
 
 /* ═══ TEAM SECTION ═══ */
-#team{padding:140px 0;background:var(--cream)}
+#team{padding:100px 0;background:var(--cream)}
 .team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);margin-top:72px}
 .team-card{background:var(--void);padding:48px 44px;display:flex;align-items:flex-start;gap:32px;transition:background .3s;position:relative;overflow:hidden}
 .team-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .4s}
@@ -521,10 +521,17 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 }
 
 /* ═══ CREAM THEME OVERRIDES ═══ */
-/* nav: pill oscuro — sin cambios en cream theme */
-.nav-link{color:rgba(237,233,225,.45)}
-.nav-link:hover{color:var(--cream)}
+/* nav: transparente al top (logo oscuro + links oscuros), glass al scroll */
+.nav-link{color:rgba(10,10,15,.55)}
+.nav-link:hover{color:rgba(10,10,15,.88)}
+nav.scrolled .nav-link{color:rgba(237,233,225,.55)}
+nav.scrolled .nav-link:hover{color:var(--cream)}
 .btn-nav{background:var(--gold);color:var(--void)}
+/* logo swap: oscuro al top, claro al scroll */
+.nav-wm-dark{display:block}
+.nav-wm-light{display:none}
+nav.scrolled .nav-wm-dark{display:none}
+nav.scrolled .nav-wm-light{display:block}
 #cur-ring{border-color:rgba(10,10,15,.18)}
 .hero-h1{color:var(--void)}
 .hero-sub{color:rgba(10,10,15,.55)}
@@ -703,6 +710,14 @@ section, #logos {scroll-margin-top:84px}
 /* Guiones de lista: muted, no compiten con CTA */
 .case-list li::before{color:rgba(10,10,15,.22)}
 
+/* Pantallas muy pequeñas (<440px) — servicios en 1 columna */
+@media(max-width:440px){
+  .srv-grid{grid-template-columns:1fr}
+  .srv-card{padding:24px 20px}
+  #logos{flex-direction:column;align-items:flex-start;gap:10px}
+  .logos-track{flex-wrap:wrap}
+}
+
 </style>
 </head>
 <body>
@@ -722,7 +737,8 @@ section, #logos {scroll-margin-top:84px}
 <!-- NAV -->
 <nav id="nav">
   <a href="index.html" class="nav-logo">
-    <img src="./VELIA_logotipo_claro.svg" alt="VELIA" class="nav-wordmark"/>
+    <img src="./velia_logotipo.svg" alt="VELIA" class="nav-wordmark nav-wm-dark"/>
+    <img src="./VELIA_logotipo_claro.svg" alt="VELIA" class="nav-wordmark nav-wm-light"/>
     <span class="nav-logo-sub">AI · Powered Marketing</span>
   </a>
   <div class="nav-right">
@@ -900,7 +916,7 @@ section, #logos {scroll-margin-top:84px}
             <div class="carousel-track">
               <div class="carousel-slide">
                 <div class="carousel-img-wrap">
-                  <img src="img/cases/krea-hogar/krea-hogar-tienda-sofas-colchones-lleida-fachada.jpeg" alt="Tienda Krea Hogar sofás y colchones en Lleida — fachada exterior"/>
+                  <img src="img/cases/krea-hogar/krea-hogar-tienda-sofas-colchones-lleida-fachada.jpeg" alt="Tienda Krea Hogar sofás y colchones en Lleida — fachada exterior" loading="lazy"/>
                 </div>
                 <div class="carousel-caption">
                   <p class="carousel-caption-title">Una tienda física con ambición nacional</p>
@@ -909,7 +925,7 @@ section, #logos {scroll-margin-top:84px}
               </div>
               <div class="carousel-slide">
                 <div class="carousel-img-wrap">
-                  <img src="img/cases/krea-hogar/krea-hogar-web-kreahogar-sofas-colchones-espana.jpeg" alt="Web kreahogar.com sofás y colchones fabricados en España — vista móvil"/>
+                  <img src="img/cases/krea-hogar/krea-hogar-web-kreahogar-sofas-colchones-espana.jpeg" alt="Web kreahogar.com sofás y colchones fabricados en España — vista móvil" loading="lazy"/>
                 </div>
                 <div class="carousel-caption">
                   <p class="carousel-caption-title">Una web que convierte visitas en clientes</p>
@@ -918,7 +934,7 @@ section, #logos {scroll-margin-top:84px}
               </div>
               <div class="carousel-slide">
                 <div class="carousel-img-wrap">
-                  <img src="img/cases/krea-hogar/krea-hogar-instagram-16000-seguidores-sofas-colchones-lleida.jpeg" alt="Perfil Instagram kreahogar_ con 16.100 seguidores — tienda de sofás y colchones Lleida"/>
+                  <img src="img/cases/krea-hogar/krea-hogar-instagram-16000-seguidores-sofas-colchones-lleida.jpeg" alt="Perfil Instagram kreahogar_ con 16.100 seguidores — tienda de sofás y colchones Lleida" loading="lazy"/>
                 </div>
                 <div class="carousel-caption">
                   <p class="carousel-caption-title">16.100 seguidores. Comunidad real, no inflada.</p>
@@ -927,7 +943,7 @@ section, #logos {scroll-margin-top:84px}
               </div>
               <div class="carousel-slide">
                 <div class="carousel-img-wrap">
-                  <img src="img/cases/krea-hogar/krea-hogar-meta-ads-133k-visualizaciones-72k-alcance.jpeg" alt="Resultados Meta Ads Krea Hogar — 133K visualizaciones, 72K alcance, 29.900 interacciones"/>
+                  <img src="img/cases/krea-hogar/krea-hogar-meta-ads-133k-visualizaciones-72k-alcance.jpeg" alt="Resultados Meta Ads Krea Hogar — 133K visualizaciones, 72K alcance, 29.900 interacciones" loading="lazy"/>
                 </div>
                 <div class="carousel-caption">
                   <p class="carousel-caption-title">133K visualizaciones. 72K personas alcanzadas.</p>
@@ -936,7 +952,7 @@ section, #logos {scroll-margin-top:84px}
               </div>
               <div class="carousel-slide">
                 <div class="carousel-img-wrap">
-                  <img src="img/cases/krea-hogar/krea-hogar-google-business-4-9-estrellas-153-resenas-lleida.jpeg" alt="Google Business Krea Lleida — 4,9 estrellas con 153 reseñas y 1.573 interacciones con clientes"/>
+                  <img src="img/cases/krea-hogar/krea-hogar-google-business-4-9-estrellas-153-resenas-lleida.jpeg" alt="Google Business Krea Lleida — 4,9 estrellas con 153 reseñas y 1.573 interacciones con clientes" loading="lazy"/>
                 </div>
                 <div class="carousel-caption">
                   <p class="carousel-caption-title">4.9★ con 153 reseñas. El mejor de su zona.</p>
