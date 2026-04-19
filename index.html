@@ -39,8 +39,9 @@ body:hover #cur,body:hover #cur-ring{opacity:1}
 #grain{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:99999}
 
 /* ═══ NAV ═══ */
-nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:64px;background:rgba(10,10,15,.62);backdrop-filter:blur(22px) saturate(1.6);-webkit-backdrop-filter:blur(22px) saturate(1.6);border-bottom:1px solid rgba(201,169,110,.1);transition:background .45s ease,border-color .45s ease}
-nav.scrolled{background:rgba(10,10,15,.84);border-color:rgba(201,169,110,.18)}
+nav{position:fixed;top:16px;left:16px;right:16px;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:56px;background:#0A0A0F;border-radius:100px;border:1px solid rgba(201,169,110,.14);box-shadow:0 4px 24px rgba(0,0,0,.22);transition:border-color .3s,box-shadow .3s}
+nav.scrolled{border-color:rgba(201,169,110,.26);box-shadow:0 8px 36px rgba(0,0,0,.34)}
+@media(max-width:680px){nav{top:12px;left:12px;right:12px;padding:0 20px;height:50px}}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
 .nav-wordmark{height:26px;width:auto;display:block}
 .nav-logo-sub{font-size:7px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:4px}
@@ -520,8 +521,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 }
 
 /* ═══ CREAM THEME OVERRIDES ═══ */
-/* nav: glass oscuro — fondo siempre oscuro independientemente del tema */
-nav.scrolled{background:rgba(10,10,15,.88);border-color:rgba(201,169,110,.2)}
+/* nav: pill oscuro — sin cambios en cream theme */
 .nav-link{color:rgba(237,233,225,.45)}
 .nav-link:hover{color:var(--cream)}
 .btn-nav{background:var(--gold);color:var(--void)}
@@ -657,36 +657,28 @@ footer{background:var(--void);border-top-color:rgba(201,169,110,.1)}
 .case-metric-pill{color:var(--gold-d);background:rgba(201,169,110,.08);border-color:rgba(201,169,110,.2)}
 .case-feat-stat-l{color:rgba(10,10,15,.4)}
 
+
 /* ════════════════════════════════════
-   GRADIENT TEXT — editorial dissolve
+   ROUNDED CORNERS
 ════════════════════════════════════ */
-/* Títulos de sección: void sólido arriba → void 35% abajo */
-.s-title{
-  background:linear-gradient(175deg, rgba(10,10,15,1) 18%, rgba(10,10,15,.32) 100%);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-/* El em dentro de s-title conserva gold gradient */
-.s-title em{
-  background:linear-gradient(135deg, var(--gold) 0%, var(--gold-l) 100%);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-/* Hero h1 — mismo fondo cream, mismo tratamiento que s-title */
-.hero-h1{
-  background:linear-gradient(175deg, rgba(10,10,15,1) 18%, rgba(10,10,15,.3) 100%);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-.hero-h1 em{
-  background:linear-gradient(135deg, var(--gold) 0%, var(--gold-l) 100%);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-}
+/* Scroll offset para el pill nav flotante (top:16 + height:56 + gap:12) */
+section, #logos {scroll-margin-top:84px}
+
+/* Grid containers — redondear el bloque completo */
+.srv-grid{border-radius:20px;overflow:hidden}
+.res-stats{border-radius:20px;overflow:hidden}
+.cases{border-radius:20px;overflow:hidden}
+.tiers{border-radius:20px;overflow:hidden}
+.team-grid{border-radius:20px;overflow:hidden}
+.metrics{border-radius:14px;overflow:hidden}
+
+/* Cards individuales (no están dentro de un container clip) */
+.proc-card{border-radius:16px}
+.faq-aside{border-radius:20px}
+.case-carousel{border-radius:16px;overflow:hidden}
+
+/* FAQ items — suavizar el borde inferior del último */
+.faq-item:last-child{border-radius:0 0 14px 14px}
 
 /* ═══ APPLE SINGLE-ACCENT PRINCIPLE ═══ */
 /* Gold = solo en la acción principal. Todo lo demás: neutro. */
