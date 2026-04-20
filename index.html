@@ -764,6 +764,43 @@ nav.scrolled .nav-menu-sep{background:rgba(237,233,225,.1)}
 @media(min-width:900px){.pain-item{flex-basis:340px!important}}
 
 /* ══════════════════════════════════
+   SIGNAL COLOR OVERRIDE — sober gold palette
+══════════════════════════════════ */
+:root{--signal:#9A7840}
+.srv-tag{color:var(--gold-d)!important;border-color:rgba(201,169,110,.22)!important;background:rgba(201,169,110,.05)!important}
+.fai-dot.d-signal{background:var(--gold-d)!important;box-shadow:0 0 6px rgba(154,120,64,.45)!important}
+.s-eyebrow,.s-eyebrow.center{color:rgba(10,10,15,.45)!important}
+.s-eyebrow::before{background:rgba(10,10,15,.25)!important}
+nav.scrolled .nav-menu-link{color:rgba(237,233,225,.5)}
+
+/* ══════════════════════════════════
+   ECO TICKER — servicios VELIA
+══════════════════════════════════ */
+#eco-ticker{padding:20px 0;overflow:hidden;border-top:1px solid rgba(10,10,15,.07);border-bottom:1px solid rgba(10,10,15,.07);background:var(--cream);position:relative}
+.eco-track{display:flex;width:max-content;animation:ecoTick 50s linear infinite;gap:10px;align-items:center}
+.eco-track:hover{animation-play-state:paused}
+.eco-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 16px;border:1px solid rgba(10,10,15,.1);border-radius:100px;font-size:10px;font-weight:600;letter-spacing:.06em;color:rgba(10,10,15,.48);white-space:nowrap;transition:border-color .25s,color .2s}
+.eco-pill:hover{border-color:rgba(201,169,110,.42);color:var(--void)}
+.eco-dot{width:4px;height:4px;border-radius:50%;background:var(--gold-d);flex-shrink:0;opacity:.55}
+@keyframes ecoTick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ══════════════════════════════════
+   CAROUSEL — progress bar auto-avance
+══════════════════════════════════ */
+.carousel-progress{position:absolute;top:0;left:0;right:0;height:2px;z-index:5;background:rgba(10,10,15,.06);overflow:hidden}
+.carousel-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--gold-d),var(--gold));border-radius:0 2px 2px 0;will-change:width}
+@keyframes cpProgress{from{width:0%}to{width:100%}}
+
+/* ══════════════════════════════════
+   PAIN — DESKTOP: 2×2 grid / MOBILE: scroll
+══════════════════════════════════ */
+@media(min-width:720px){
+  .pain-grid{display:grid!important;grid-template-columns:repeat(2,1fr)!important;overflow-x:visible!important;padding-bottom:0!important}
+  .pain-item{flex:unset!important;flex-direction:row!important;border:none!important;padding:36px 32px!important;border-radius:20px!important}
+  .pain-n{width:clamp(72px,10vw,110px)!important;font-size:72px!important;margin-bottom:0!important;flex-shrink:0}
+}
+
+/* ══════════════════════════════════
    SPACING REDUCTIONS
 ══════════════════════════════════ */
 #services,#process,#how,#faqs,#team{padding:72px 0!important}
@@ -826,10 +863,10 @@ nav.scrolled .nav-menu-sep{background:rgba(237,233,225,.1)}
     <span class="hero-h1-q"><i>QUE NO <em>DUERME.</em></i></span>
   </h1>
   <div class="hero-row">
-    <p class="hero-sub">Ayudamos a negocios a facturar más con sistemas de captación que trabajan solos. <strong>Sin depender del boca a boca.</strong></p>
+    <p class="hero-sub">Ayudamos a pequeñas y medianas empresas a aumentar su facturación con un sistema probado. <strong>Sin depender del boca a boca.</strong></p>
     <div class="hero-btns">
-      <a href="contacto.html" class="btn-primary btn-hero">Reservar diagnóstico gratuito</a>
-      <p class="hero-desde">Servicios desde <strong>399€</strong> · Sin permanencia · Primera sesión gratuita</p>
+      <a href="contacto.html" class="btn-primary btn-hero">Quiero más clientes</a>
+      <p class="hero-desde">Sin permanencia · Primera sesión gratuita</p>
     </div>
   </div>
   <div class="hero-stats">
@@ -839,18 +876,58 @@ nav.scrolled .nav-menu-sep{background:rgba(237,233,225,.1)}
     </div>
     <div class="hero-stat-divider"></div>
     <div class="hero-stat">
-      <div class="hero-stat-v">24/7</div>
-      <div class="hero-stat-l">Sistema activo</div>
+      <div class="hero-stat-v">4 sem.</div>
+      <div class="hero-stat-l">Primeros resultados</div>
     </div>
     <div class="hero-stat-divider"></div>
     <div class="hero-stat">
-      <div class="hero-stat-v">100%</div>
-      <div class="hero-stat-l">Supervisión humana</div>
+      <div class="hero-stat-v">24/7</div>
+      <div class="hero-stat-l">Soporte activo</div>
     </div>
   </div>
   <div class="hero-sep"></div>
 </section>
 
+
+<!-- ECO TICKER -->
+<div id="eco-ticker">
+  <div class="eco-track">
+    <span class="eco-pill"><span class="eco-dot"></span>Diseño web</span>
+    <span class="eco-pill"><span class="eco-dot"></span>CRM</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Embudo de ventas</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Creación de contenido</span>
+    <span class="eco-pill"><span class="eco-dot"></span>SEO posicionamiento</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Automatizaciones</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Meta Ads</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Auditorías</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Email marketing</span>
+    <span class="eco-pill"><span class="eco-dot"></span>WhatsApp Business</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Gestión de reseñas</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Google Ads</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Analítica y reportes</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Captación de leads</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Branding</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Seguimiento de clientes</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Calendarios inteligentes</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Diseño web</span>
+    <span class="eco-pill"><span class="eco-dot"></span>CRM</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Embudo de ventas</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Creación de contenido</span>
+    <span class="eco-pill"><span class="eco-dot"></span>SEO posicionamiento</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Automatizaciones</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Meta Ads</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Auditorías</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Email marketing</span>
+    <span class="eco-pill"><span class="eco-dot"></span>WhatsApp Business</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Gestión de reseñas</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Google Ads</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Analítica y reportes</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Captación de leads</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Branding</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Seguimiento de clientes</span>
+    <span class="eco-pill"><span class="eco-dot"></span>Calendarios inteligentes</span>
+  </div>
+</div>
 
 <!-- TICKER -->
 <div id="ticker">
@@ -882,54 +959,13 @@ nav.scrolled .nav-menu-sep{background:rgba(237,233,225,.1)}
       n8n
     </div></div></div><!-- /INTEGRATIONS REMOVED -->
 
-<!-- PAIN POINTS -->
-<section id="pain">
-  <div class="inner">
-    <div class="section-header">
-      <p class="s-eyebrow">¿Te suena esto?</p>
-      <h2 class="s-title">EL PROBLEMA<br>NO ES TU <em>NEGOCIO.</em></h2>
-      <p>Es que nadie te ha montado un sistema de captación que funcione solo. El boca a boca no escala — y trabajar más horas tampoco.</p>
-    </div>
-    <div class="pain-grid">
-      <div class="pain-item">
-        <span class="pain-n">01</span>
-        <div class="pain-content">
-          <p class="pain-text">No sabes cuántos clientes tendrás el mes que viene.</p>
-          <p class="pain-sub">Tu agenda depende del boca a boca y de si alguien se acuerda de recomendarte. No hay sistema, no hay previsión.</p>
-        </div>
-      </div>
-      <div class="pain-item">
-        <span class="pain-n">02</span>
-        <div class="pain-content">
-          <p class="pain-text">Gestionas los leads tú mismo, a mano, entre cliente y cliente.</p>
-          <p class="pain-sub">Contestar mensajes, filtrar consultas, agendar citas. Horas que podrías dedicar a facturar.</p>
-        </div>
-      </div>
-      <div class="pain-item">
-        <span class="pain-n">03</span>
-        <div class="pain-content">
-          <p class="pain-text">Tienes presencia en redes pero no se traduce en nada real.</p>
-          <p class="pain-sub">Publicas, recibes likes, y los clientes siguen sin llegar. Visibilidad sin conversión no sirve de nada.</p>
-        </div>
-      </div>
-      <div class="pain-item">
-        <span class="pain-n">04</span>
-        <div class="pain-content">
-          <p class="pain-text">Has probado agencias antes. Prometieron y desaparecieron.</p>
-          <p class="pain-sub">Informes bonitos, resultados escasos y nadie al teléfono cuando lo necesitabas. Eso no va a pasar aquí.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- RESULTS -->
 <section id="results">
   <div class="inner">
     <div class="section-header">
-      <p class="s-eyebrow">Casos reales</p>
-      <h2 class="s-title">LO QUE OCURRE<br>CUANDO <em>FUNCIONA.</em></h2>
-      <p>No vendemos promesas. Estos son negocios reales con resultados medibles.</p>
+      <p class="s-eyebrow">Prueba social</p>
+      <h2 class="s-title">CASOS DE<br><em>ÉXITO.</em></h2>
+      <p>Empresas como la tuya que confían en VELIA.</p>
     </div>
     <div class="res-stats">
       <div class="res-stat">
@@ -1239,6 +1275,47 @@ nav.scrolled .nav-menu-sep{background:rgba(237,233,225,.1)}
   </div>
 </section>
 
+<!-- PAIN POINTS -->
+<section id="pain">
+  <div class="inner">
+    <div class="section-header">
+      <p class="s-eyebrow">¿Te suena esto?</p>
+      <h2 class="s-title">EL PROBLEMA<br>NO ES TU <em>NEGOCIO.</em></h2>
+      <p>Es que nadie te ha montado un sistema de captación que funcione solo. El boca a boca no escala — y trabajar más horas tampoco.</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-item">
+        <span class="pain-n">01</span>
+        <div class="pain-content">
+          <p class="pain-text">No sabes cuántos clientes tendrás el mes que viene.</p>
+          <p class="pain-sub">Tu agenda depende del boca a boca y de si alguien se acuerda de recomendarte. No hay sistema, no hay previsión.</p>
+        </div>
+      </div>
+      <div class="pain-item">
+        <span class="pain-n">02</span>
+        <div class="pain-content">
+          <p class="pain-text">Gestionas los leads tú mismo, a mano, entre cliente y cliente.</p>
+          <p class="pain-sub">Contestar mensajes, filtrar consultas, agendar citas. Horas que podrías dedicar a facturar.</p>
+        </div>
+      </div>
+      <div class="pain-item">
+        <span class="pain-n">03</span>
+        <div class="pain-content">
+          <p class="pain-text">Tienes presencia en redes pero no se traduce en nada real.</p>
+          <p class="pain-sub">Publicas, recibes likes, y los clientes siguen sin llegar. Visibilidad sin conversión no sirve de nada.</p>
+        </div>
+      </div>
+      <div class="pain-item">
+        <span class="pain-n">04</span>
+        <div class="pain-content">
+          <p class="pain-text">Has probado agencias antes. Prometieron y desaparecieron.</p>
+          <p class="pain-sub">Informes bonitos, resultados escasos y nadie al teléfono cuando lo necesitabas. Eso no va a pasar aquí.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PROCESS -->
 <section id="process">
   <div class="inner">
@@ -1298,7 +1375,7 @@ nav.scrolled .nav-menu-sep{background:rgba(237,233,225,.1)}
         </div>
         <div class="faq-item">
           <button class="faq-q" onclick="toggleFaq(this)">¿Cuánto cuesta y cuándo veo resultados?<span class="faq-icon">+</span></button>
-          <div class="faq-a">Los servicios empiezan desde 399€ según lo que necesites. Los primeros resultados visibles aparecen entre la semana 2 y 4 de activación. El sistema no promete magia — promete un proceso sistemático que mejora cada mes.</div>
+          <div class="faq-a">Los primeros resultados visibles aparecen entre la semana 2 y 4 de activación. El sistema no promete magia — promete un proceso sistemático que mejora cada mes.</div>
         </div>
         <div class="faq-item">
           <button class="faq-q" onclick="toggleFaq(this)">¿Necesito saber de tecnología o marketing?<span class="faq-icon">+</span></button>
@@ -1322,7 +1399,7 @@ nav.scrolled .nav-menu-sep{background:rgba(237,233,225,.1)}
         </div>
         <div class="faq-aside-item">
           <div class="fai-dot d-pulse"></div>
-          <div class="fai-text">Servicios <strong>desde 399€</strong> adaptados a lo que realmente necesitas.</div>
+          <div class="fai-text">Servicios adaptados <strong>a lo que realmente necesitas.</strong></div>
         </div>
         <a href="contacto.html" class="btn-primary" style="display:block;text-align:center;margin-top:32px">Reservar diagnóstico gratuito</a>
       </div>
@@ -1645,6 +1722,60 @@ function scrollToCase(id, pill) {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
 }
+
+/* ══════════════════════════════════════
+   CAROUSEL — AUTO-ADVANCE WITH PROGRESS BAR
+══════════════════════════════════════ */
+const SLIDE_MS = 5200;
+
+function startAutoSlide(carousel) {
+  const pb = carousel.querySelector('.carousel-progress-bar');
+  if (!pb) return;
+  clearTimeout(carousel._autoT);
+  pb.style.animation = 'none';
+  pb.offsetWidth; // force reflow
+  pb.style.animation = `cpProgress ${SLIDE_MS}ms linear forwards`;
+  carousel._autoT = setTimeout(() => {
+    if (carousel._paused) return;
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const cur = parseInt(carousel.dataset.current || 0);
+    navCarousel(carousel, (cur + 1) % slides.length);
+  }, SLIDE_MS);
+}
+
+function stopAutoSlide(carousel) {
+  clearTimeout(carousel._autoT);
+  const pb = carousel.querySelector('.carousel-progress-bar');
+  if (pb) { pb.style.animation = 'none'; }
+}
+
+// Override navCarousel to restart auto-slide on navigation
+navCarousel = function(carousel, idx) {
+  const slides = carousel.querySelectorAll('.carousel-slide');
+  idx = Math.max(0, Math.min(slides.length - 1, idx));
+  carousel.dataset.current = idx;
+  carousel.querySelector('.carousel-track').style.transform = 'translateX(-' + (idx * 100) + '%)';
+  carousel.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+  carousel.querySelector('.carousel-counter').textContent = (idx + 1) + ' / ' + slides.length;
+  const btns = carousel.querySelectorAll('.carousel-btn');
+  btns[0].disabled = idx === 0;
+  btns[1].disabled = idx === slides.length - 1;
+  if (!carousel._paused) startAutoSlide(carousel);
+};
+
+// Init all carousels
+document.querySelectorAll('.case-carousel').forEach(carousel => {
+  const prog = document.createElement('div');
+  prog.className = 'carousel-progress';
+  prog.innerHTML = '<div class="carousel-progress-bar"></div>';
+  carousel.insertBefore(prog, carousel.firstChild);
+  carousel.dataset.current = '0';
+  startAutoSlide(carousel);
+  carousel.addEventListener('mouseenter', () => { carousel._paused = true; stopAutoSlide(carousel); });
+  carousel.addEventListener('mouseleave', () => { carousel._paused = false; startAutoSlide(carousel); });
+  carousel.addEventListener('touchstart', () => { carousel._paused = true; stopAutoSlide(carousel); }, {passive:true});
+  carousel.addEventListener('touchend',   () => { carousel._paused = false; setTimeout(() => startAutoSlide(carousel), 800); }, {passive:true});
+});
 
 /* ══════════════════════════════════════
    CASES PILLS — highlight on scroll
