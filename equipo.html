@@ -27,30 +27,27 @@ html{scroll-behavior:smooth;background:#EDE9E1;overflow-x:hidden}
 }
 body{font-family:var(--f);background:var(--cream);color:var(--void);font-weight:300;-webkit-font-smoothing:antialiased}
 
-/* NAV */
-nav{position:fixed;top:16px;left:16px;right:16px;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:56px;background:rgba(10,10,15,.06);backdrop-filter:blur(10px) saturate(1.2);-webkit-backdrop-filter:blur(10px) saturate(1.2);border-radius:100px;border:1px solid rgba(10,10,15,.10);box-shadow:0 2px 12px rgba(0,0,0,.05);transition:background .4s,border-color .4s}
-nav.scrolled{background:rgba(10,10,15,.82);border-color:rgba(201,169,110,.28);box-shadow:0 8px 40px rgba(0,0,0,.36)}
+/* NAV — página sobre fondo oscuro, siempre estilo dark */
+nav{position:fixed;top:16px;left:16px;right:16px;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:56px;background:rgba(10,10,15,.72);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border-radius:100px;border:1px solid rgba(201,169,110,.18);box-shadow:0 4px 24px rgba(0,0,0,.22);transition:background .4s,border-color .4s}
+nav.scrolled{background:rgba(10,10,15,.88);border-color:rgba(201,169,110,.32);box-shadow:0 8px 40px rgba(0,0,0,.4)}
 @media(max-width:680px){nav{top:12px;left:12px;right:12px;padding:0 20px;height:50px}}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
 .nav-wordmark{height:26px;width:auto;display:block}
-.nav-wm-dark{display:block}
-.nav-wm-light{display:none}
-nav.scrolled .nav-wm-dark{display:none}
-nav.scrolled .nav-wm-light{display:block}
+/* hero oscuro: mostrar logo claro siempre */
+.nav-wm-dark{display:none}
+.nav-wm-light{display:block}
 .nav-desktop-links{display:flex;align-items:center;gap:28px}
 @media(max-width:720px){.nav-desktop-links{display:none!important}}
-.nav-link{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(10,10,15,.52);text-decoration:none;transition:color .2s}
-.nav-link:hover{color:rgba(10,10,15,.88)}
-nav.scrolled .nav-link{color:rgba(237,233,225,.55)}
-nav.scrolled .nav-link:hover{color:var(--cream)}
+.nav-link{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(237,233,225,.55);text-decoration:none;transition:color .2s}
+.nav-link:hover{color:var(--cream)}
 .btn-nav{font-family:var(--f);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--void);background:var(--gold);padding:10px 22px;border-radius:100px;text-decoration:none;transition:opacity .2s,transform .15s;white-space:nowrap}
 .btn-nav:hover{opacity:.85;transform:translateY(-1px)}
 .nav-menu-wrap{position:relative;display:flex;align-items:center}
 @media(min-width:721px){.nav-menu-wrap{display:none!important}}
 .nav-hamburger{width:36px;height:36px;background:none;border:1px solid rgba(10,10,15,.14);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer!important;padding:0;transition:border-color .2s}
 nav.scrolled .nav-hamburger{border-color:rgba(237,233,225,.22)}
-.nav-hamburger span{display:block;width:16px;height:1.5px;background:var(--void);border-radius:2px;transition:background .25s,transform .3s,opacity .25s}
-nav.scrolled .nav-hamburger span{background:var(--cream)}
+.nav-hamburger{border-color:rgba(237,233,225,.22)!important}
+.nav-hamburger span{display:block;width:16px;height:1.5px;background:var(--cream);border-radius:2px;transition:background .25s,transform .3s,opacity .25s}
 .nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 .nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 .nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
@@ -219,7 +216,6 @@ section{scroll-margin-top:84px}
     <a href="index.html#pain" class="nav-link">Por qué VELIA</a>
     <a href="index.html#results" class="nav-link">Clientes</a>
     <a href="index.html#faqs" class="nav-link">FAQ</a>
-    <a href="equipo.html" class="nav-link" style="color:var(--gold-d)">Equipo</a>
     <a href="contacto.html" class="btn-nav">Trabajemos juntos</a>
   </div>
   <div class="nav-menu-wrap">
@@ -234,7 +230,6 @@ section{scroll-margin-top:84px}
   <a href="index.html#pain" class="nav-menu-link" onclick="closeNavMenu()">Por qué VELIA</a>
   <a href="index.html#results" class="nav-menu-link" onclick="closeNavMenu()">Clientes</a>
   <a href="index.html#faqs" class="nav-menu-link" onclick="closeNavMenu()">FAQ</a>
-  <a href="equipo.html" class="nav-menu-link" onclick="closeNavMenu()">Equipo</a>
   <a href="contacto.html" class="nav-menu-cta" onclick="closeNavMenu()">Trabajemos juntos →</a>
 </div>
 
