@@ -12,7 +12,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;background:#EDE9E1;overflow-x:hidden}
-*{cursor:auto!important}
+body{overflow-x:hidden}
 :root{
   --void:#0A0A0F;
   --deep:#1C1C28;
@@ -151,15 +151,11 @@ nav.scrolled .nav-hamburger{border-color:rgba(237,233,225,.22)}
 .val-card:hover .val-icon svg{stroke:var(--gold)}
 .val-title{font-size:16px;font-weight:700;letter-spacing:-.01em;color:var(--void);margin-bottom:10px}
 .val-desc{font-size:12px;font-weight:300;color:rgba(10,10,15,.55);line-height:1.82}
-@media(max-width:768px){
+@media(max-width:900px){
   .values-grid{grid-template-columns:1fr}
 }
 @media(max-width:600px){
-  .values-grid{grid-template-columns:repeat(2,1fr)}
   .val-card{padding:28px 20px}
-}
-@media(max-width:420px){
-  .values-grid{grid-template-columns:1fr}
 }
 
 /* CTA */
@@ -201,6 +197,16 @@ footer{padding:40px 5vw;border-top:1px solid rgba(201,169,110,.1);display:flex;a
 
 /* scroll offset */
 section{scroll-margin-top:84px}
+
+/* cursor pointer en interactivos */
+a[href],button:not(:disabled),[role="button"],
+.btn-primary,.btn-ghost,.btn-nav,
+.nav-hamburger,.nav-menu-close,.nav-menu-link,.nav-menu-cta,
+#wa-float{cursor:pointer!important}
+
+/* hero overflow fix — prevent horizontal scroll */
+#hero{overflow:hidden}
+.hero-h1{max-width:100%;word-break:break-word}
 </style>
 </head>
 <body>

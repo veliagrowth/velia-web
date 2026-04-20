@@ -13,7 +13,6 @@
 /* ═══ RESET + TOKENS ═══ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;background:#EDE9E1;overflow-x:hidden;overflow-y:scroll}
-*{cursor:none!important}
 :root{
   --void:#0A0A0F;
   --deep:#1C1C28;
@@ -33,7 +32,7 @@ body{font-family:var(--f);background:var(--cream);color:var(--void);font-weight:
 #cur{position:fixed;top:0;left:0;width:7px;height:7px;background:var(--gold);border-radius:50%;pointer-events:none;opacity:0;z-index:9999999;will-change:transform;transform:translate(-50%,-50%);transition:width .18s,height .18s,background .2s,opacity .2s}
 #cur-ring{position:fixed;top:0;left:0;width:30px;height:30px;border:1px solid rgba(201,169,110,.35);border-radius:50%;pointer-events:none;opacity:0;z-index:9999998;will-change:transform;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .2s}
 body:hover #cur,body:hover #cur-ring{opacity:1}
-@media(hover:none){#cur,#cur-ring{display:none}*{cursor:auto!important}}
+@media(hover:none){#cur,#cur-ring{display:none}}
 
 /* ═══ GRAIN ═══ */
 #grain{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:99999}
@@ -400,9 +399,13 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 .hero-desde{font-size:11px;font-weight:300;color:var(--muted);letter-spacing:.04em;opacity:.8;text-align:center}
 
 /* ═══ APPLE REDUCTION ═══ */
-/* Cursor — desactivado */
-*{cursor:auto!important}
+/* Cursor — pointer en elementos interactivos */
 #cur,#cur-ring{display:none!important}
+a[href],button:not(:disabled),[role="button"],
+.btn-primary,.btn-nav,.btn-ghost,.btn-tier,.btn-wip,
+.nav-hamburger,.nav-menu-close,.nav-menu-link,.nav-menu-cta,
+.case-pill,.carousel-btn,.carousel-dot,.faq-q,
+.logo-chip,.eco-pill,#wa-float,.choice-btn,.form-back,.cal-back-btn{cursor:pointer!important}
 /* Hero noise */
 .hero-grid{display:none}
 .orb-2,.orb-3{display:none}
