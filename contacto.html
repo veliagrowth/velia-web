@@ -68,22 +68,56 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:c
 .info-pill-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;font-weight:600}
 .info-pill-val{font-size:12px;font-weight:300;color:var(--cream)}
 
-/* ═══ FORM ═══ */
+/* ═══ CHOICE SCREEN ═══ */
 .page-right{padding:80px 5vw;background:var(--void);display:flex;flex-direction:column;justify-content:center}
-.form-intro{margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border)}
-.form-intro-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--signal);margin-bottom:12px;display:block}
-.form-intro-title{font-size:clamp(22px,2.5vw,32px);font-weight:700;letter-spacing:-.02em;color:var(--cream);line-height:1.15}
+.choice-screen{display:flex;flex-direction:column;justify-content:center}
+.choice-title{font-size:clamp(20px,2.2vw,28px);font-weight:700;letter-spacing:-.02em;color:var(--cream);line-height:1.15;margin-bottom:8px}
+.choice-sub{font-size:13px;font-weight:300;color:rgba(237,233,225,.45);line-height:1.75;margin-bottom:32px}
+.choice-btns{display:flex;flex-direction:column;gap:14px}
+.choice-btn{display:flex;align-items:center;gap:18px;padding:22px 24px;border:1.5px solid rgba(237,233,225,.1);background:rgba(237,233,225,.03);border-radius:16px;cursor:pointer;transition:border-color .25s,background .2s,transform .2s,box-shadow .25s;text-align:left;width:100%;font-family:var(--f)}
+.choice-btn:hover{border-color:rgba(201,169,110,.4);background:rgba(201,169,110,.05);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.28)}
+.choice-btn.primary{border-color:rgba(201,169,110,.3);background:rgba(201,169,110,.06)}
+.choice-btn.primary:hover{border-color:rgba(201,169,110,.6);box-shadow:0 8px 32px rgba(201,169,110,.18)}
+.choice-btn-icon{width:46px;height:46px;border-radius:13px;background:rgba(237,233,225,.07);border:1px solid rgba(237,233,225,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s,border-color .2s}
+.choice-btn:hover .choice-btn-icon{background:rgba(201,169,110,.1);border-color:rgba(201,169,110,.3)}
+.choice-btn.primary .choice-btn-icon{background:linear-gradient(135deg,var(--gold),var(--gold-d));border-color:transparent}
+.choice-btn-icon svg{width:19px;height:19px;stroke:rgba(237,233,225,.6);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.choice-btn.primary .choice-btn-icon svg{stroke:#fff}
+.choice-btn-text{flex:1}
+.choice-btn-label{font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--cream);display:block;margin-bottom:3px}
+.choice-btn-desc{font-size:12px;font-weight:300;color:rgba(237,233,225,.42);line-height:1.5}
+.choice-btn-arrow{font-size:16px;color:var(--gold-d);opacity:.45;flex-shrink:0;transition:opacity .2s,transform .2s}
+.choice-btn:hover .choice-btn-arrow{opacity:1;transform:translateX(3px)}
+
+/* ═══ FORM ═══ */
+.form-wrap-inner{display:none}
+.form-wrap-inner.show{display:block}
+.form-back{background:none;border:none;font-family:var(--f);font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(237,233,225,.35);cursor:pointer;padding:0;display:flex;align-items:center;gap:7px;margin-bottom:28px;transition:color .2s}
+.form-back::before{content:'←';font-size:12px}
+.form-back:hover{color:var(--cream)}
+.form-intro{margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.form-intro-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-d);margin-bottom:10px;display:block}
+.form-intro-title{font-size:clamp(20px,2.2vw,28px);font-weight:700;letter-spacing:-.02em;color:var(--cream);line-height:1.15}
 .fg{margin-bottom:16px}
 .fg label{display:block;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.fg input,.fg textarea{width:100%;background:var(--deep);border:1px solid var(--border);color:var(--cream);font-family:var(--f);font-size:13px;font-weight:300;padding:14px 16px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none}
-.fg input::placeholder,.fg textarea::placeholder{color:rgba(237,233,225,.2)}
-.fg input:focus,.fg textarea:focus{border-color:rgba(201,169,110,.4)}
-.fg textarea{resize:vertical;min-height:120px;line-height:1.7}
+.fg input{width:100%;background:var(--deep);border:1px solid var(--border);color:var(--cream);font-family:var(--f);font-size:13px;font-weight:300;padding:14px 16px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none;border-radius:0}
+.fg input::placeholder{color:rgba(237,233,225,.2)}
+.fg input:focus{border-color:rgba(201,169,110,.4)}
 .fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .btn-submit{width:100%;margin-top:8px;background:linear-gradient(135deg,var(--gold) 0%,var(--gold-d) 100%);color:var(--void);border:none;font-family:var(--f);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:16px 32px;border-radius:100px;transition:opacity .2s,transform .15s,box-shadow .2s;box-shadow:0 4px 24px rgba(201,169,110,.28);display:block;cursor:pointer}
 .btn-submit:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 8px 36px rgba(201,169,110,.38)}
 .btn-submit:disabled{opacity:.5;transform:none;box-shadow:none;cursor:default}
 .form-note{font-size:10px;font-weight:300;color:rgba(237,233,225,.28);text-align:center;margin-top:14px;letter-spacing:.04em}
+
+/* ═══ CALENDAR SOON ═══ */
+.calendar-coming{display:none;text-align:center;padding:40px 0}
+.calendar-coming.show{display:block}
+.cal-icon{width:60px;height:60px;border-radius:16px;background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.18);display:flex;align-items:center;justify-content:center;margin:0 auto 22px}
+.cal-icon svg{width:26px;height:26px;stroke:var(--gold-d);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.cal-title{font-size:19px;font-weight:700;color:var(--cream);letter-spacing:-.02em;margin-bottom:10px}
+.cal-sub{font-size:13px;font-weight:300;color:rgba(237,233,225,.45);line-height:1.75;margin-bottom:28px;max-width:280px;margin-left:auto;margin-right:auto}
+.cal-back-btn{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(237,233,225,.38);text-decoration:none;background:none;border:1px solid rgba(237,233,225,.12);padding:10px 20px;border-radius:100px;cursor:pointer;font-family:var(--f);transition:color .2s,border-color .2s}
+.cal-back-btn:hover{color:var(--cream);border-color:rgba(237,233,225,.3)}
 
 /* ═══ SUCCESS ═══ */
 .success-state{display:none;text-align:center;padding:80px 20px}
@@ -119,14 +153,35 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
 .info-pill-label{color:rgba(10,10,15,.4)}
 .info-pill-val{color:var(--void)}
 .page-right{background:var(--cream)}
+.choice-title{color:var(--void)}
+.choice-sub{color:rgba(10,10,15,.5)}
+.choice-btn{border-color:rgba(10,10,15,.1);background:rgba(255,255,255,.55)}
+.choice-btn:hover{border-color:rgba(201,169,110,.4);background:rgba(201,169,110,.03)}
+.choice-btn.primary{border-color:rgba(201,169,110,.3);background:rgba(201,169,110,.05)}
+.choice-btn.primary:hover{border-color:rgba(201,169,110,.6)}
+.choice-btn-icon{background:rgba(10,10,15,.04);border-color:rgba(10,10,15,.08)}
+.choice-btn:hover .choice-btn-icon{background:rgba(201,169,110,.08);border-color:rgba(201,169,110,.3)}
+.choice-btn-icon svg{stroke:rgba(10,10,15,.45)}
+.choice-btn.primary .choice-btn-icon svg{stroke:#fff}
+.choice-btn-label{color:var(--void)}
+.choice-btn-desc{color:rgba(10,10,15,.48)}
+.choice-btn-arrow{color:var(--gold-d)}
+.form-back{color:rgba(10,10,15,.35)}
+.form-back:hover{color:var(--void)}
 .form-intro{border-bottom-color:rgba(10,10,15,.09)}
-.form-intro-label{color:var(--signal)}
+.form-intro-label{color:var(--gold-d)}
 .form-intro-title{color:var(--void)}
 .fg label{color:rgba(10,10,15,.45)}
-.fg input,.fg textarea{background:#fff;border-color:rgba(10,10,15,.12);color:var(--void)}
-.fg input::placeholder,.fg textarea::placeholder{color:rgba(10,10,15,.22)}
-.fg input:focus,.fg textarea:focus{border-color:rgba(201,169,110,.5)}
+.fg input{background:#fff;border-color:rgba(10,10,15,.12);color:var(--void)}
+.fg input::placeholder{color:rgba(10,10,15,.22)}
+.fg input:focus{border-color:rgba(201,169,110,.5)}
 .form-note{color:rgba(10,10,15,.28)}
+.cal-icon{background:rgba(201,169,110,.07);border-color:rgba(201,169,110,.2)}
+.cal-icon svg{stroke:var(--gold-d)}
+.cal-title{color:var(--void)}
+.cal-sub{color:rgba(10,10,15,.52)}
+.cal-back-btn{color:rgba(10,10,15,.38);border-color:rgba(10,10,15,.12)}
+.cal-back-btn:hover{color:var(--void);border-color:rgba(10,10,15,.28)}
 .success-title{color:var(--void)}
 .success-sub{color:rgba(10,10,15,.55)}
 
@@ -165,26 +220,72 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
   </div>
 
   <div class="page-right">
-    <div id="form-wrap">
+    <!-- PANTALLA DE ELECCIÓN -->
+    <div id="choice-screen" class="choice-screen">
+      <p class="choice-title">¿Cómo prefieres<br>que nos pongamos en contacto?</p>
+      <p class="choice-sub">Elige la opción que más te convenga.</p>
+      <div class="choice-btns">
+        <button class="choice-btn primary" onclick="showCalendar()">
+          <div class="choice-btn-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="choice-btn-text">
+            <span class="choice-btn-label">Agenda tu llamada</span>
+            <span class="choice-btn-desc">Reserva un hueco en nuestro calendario. 30 min, sin compromiso.</span>
+          </div>
+          <span class="choice-btn-arrow">→</span>
+        </button>
+        <button class="choice-btn" onclick="showForm()">
+          <div class="choice-btn-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="choice-btn-text">
+            <span class="choice-btn-label">Déjanos tu contacto y te llamamos</span>
+            <span class="choice-btn-desc">Rellena tus datos y te contactamos en menos de 24h.</span>
+          </div>
+          <span class="choice-btn-arrow">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- CALENDARIO (próximamente) -->
+    <div id="calendar-coming" class="calendar-coming">
+      <div class="cal-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <p class="cal-title">Disponible muy pronto.</p>
+      <p class="cal-sub">Estamos configurando nuestro sistema de reservas. Mientras tanto, déjanos tu contacto y te llamamos nosotros.</p>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+        <button class="btn-submit" style="max-width:280px;margin-top:0" onclick="showForm()">Déjanos tu contacto</button>
+        <button class="cal-back-btn" onclick="showChoice()">← Volver</button>
+      </div>
+    </div>
+
+    <!-- FORMULARIO SIMPLIFICADO -->
+    <div id="form-wrap" class="form-wrap-inner">
+      <button class="form-back" onclick="showChoice()">Volver</button>
       <div class="form-intro">
-        <span class="form-intro-label">Un solo paso</span>
-        <p class="form-intro-title">Cuéntanos dónde estás<br>y qué quieres conseguir.</p>
+        <span class="form-intro-label">Dejamos tu contacto</span>
+        <p class="form-intro-title">Cuéntanos quién eres<br>y te llamamos nosotros.</p>
       </div>
       <form id="contact-form" onsubmit="submitForm(event)" novalidate>
         <div class="fg2">
           <div class="fg"><label>Nombre *</label><input type="text" name="nombre" placeholder="Tu nombre" required/></div>
           <div class="fg"><label>Email *</label><input type="email" name="email" placeholder="tu@empresa.com" required/></div>
         </div>
-        <div class="fg"><label>Teléfono</label><input type="tel" name="telefono" placeholder="+34 600 000 000"/></div>
-        <div class="fg"><label>¿Cuál es tu reto principal? *</label><textarea name="mensaje" placeholder="Cuéntanos tu situación: dónde estás ahora, qué quieres conseguir y qué no ha funcionado hasta ahora." required></textarea></div>
-        <button type="submit" class="btn-submit" id="submit-btn">Enviar solicitud</button>
-        <p class="form-note">Sin compromiso · Respuesta en menos de 24h</p>
+        <div class="fg2">
+          <div class="fg"><label>Teléfono *</label><input type="tel" name="telefono" placeholder="+34 600 000 000" required/></div>
+          <div class="fg"><label>Empresa</label><input type="text" name="empresa" placeholder="Nombre de tu empresa"/></div>
+        </div>
+        <button type="submit" class="btn-submit" id="submit-btn">Enviar mis datos</button>
+        <p class="form-note">Sin compromiso · Te llamamos en menos de 24h</p>
       </form>
     </div>
+
     <div class="success-state" id="success">
       <div class="success-sep"></div>
       <h2 class="success-title">SOLICITUD<br><em>RECIBIDA.</em></h2>
-      <p class="success-sub">Hemos recibido tu solicitud.<br>Si hay encaje, nos pondremos en contacto en menos de 24h.</p>
+      <p class="success-sub">Hemos recibido tus datos.<br>Te llamamos en menos de 24h.</p>
     </div>
   </div>
 </div>
@@ -211,35 +312,53 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
     });
   });
 
-  // TODO: Reemplazar con el webhook URL de VELIA en GHL
-  // GHL → Settings → Integrations → Webhooks → + New Webhook → "Formulario Web VELIA" → copiar URL
-  // O usar: GHL → Forms → Embed → copiar submission webhook URL del formulario activo
+  // Navegación entre pantallas
+  function showChoice(){
+    document.getElementById('choice-screen').style.display='flex';
+    document.getElementById('form-wrap').classList.remove('show');
+    document.getElementById('calendar-coming').classList.remove('show');
+    document.getElementById('success').classList.remove('show');
+  }
+  function showForm(){
+    document.getElementById('choice-screen').style.display='none';
+    document.getElementById('calendar-coming').classList.remove('show');
+    document.getElementById('form-wrap').classList.add('show');
+  }
+  function showCalendar(){
+    document.getElementById('choice-screen').style.display='none';
+    document.getElementById('form-wrap').classList.remove('show');
+    document.getElementById('calendar-coming').classList.add('show');
+  }
+  window.showChoice=showChoice;
+  window.showForm=showForm;
+  window.showCalendar=showCalendar;
+
   var GHL='TU_WEBHOOK_GHL_VELIA_AQUI';
   function submitForm(e){
     e.preventDefault();
     var f=e.target,btn=document.getElementById('submit-btn');
     var nombre=f.querySelector('[name="nombre"]').value.trim();
     var email=f.querySelector('[name="email"]').value.trim();
-    var mensaje=f.querySelector('[name="mensaje"]').value.trim();
-    if(!nombre||!email||!mensaje){return;}
+    var telefono=f.querySelector('[name="telefono"]').value.trim();
+    if(!nombre||!email||!telefono){return;}
     var p={
       nombre:nombre,
       email:email,
-      telefono:f.querySelector('[name="telefono"]').value.trim(),
-      mensaje:mensaje,
+      telefono:telefono,
+      empresa:f.querySelector('[name="empresa"]').value.trim(),
       fecha:new Date().toISOString(),
       origen:'Formulario VELIA'
     };
     btn.textContent='Enviando...';btn.disabled=true;
-    if(!GHL||GHL==='TU_WEBHOOK_URL_AQUI'){
+    if(!GHL||GHL==='TU_WEBHOOK_GHL_VELIA_AQUI'){
       setTimeout(function(){
-        document.getElementById('form-wrap').style.display='none';
+        document.getElementById('form-wrap').classList.remove('show');
         document.getElementById('success').classList.add('show');
       },800);
       return;
     }
     fetch(GHL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
-      .then(function(){document.getElementById('form-wrap').style.display='none';document.getElementById('success').classList.add('show');})
+      .then(function(){document.getElementById('form-wrap').classList.remove('show');document.getElementById('success').classList.add('show');})
       .catch(function(){btn.textContent='Error — inténtalo de nuevo';btn.disabled=false;});
   }
   window.submitForm=submitForm;

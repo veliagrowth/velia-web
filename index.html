@@ -445,8 +445,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   .pain-text{font-size:clamp(16px,4.5vw,20px)}
 }
 
-/* ═══ CASES — ALWAYS VISIBLE + EDITORIAL HEADERS ═══ */
-.case-body{max-height:none!important;overflow:visible!important;transition:none!important}
+/* ═══ CASES — PILL-TOGGLE ═══ */
 .case-arrow{display:none!important}
 .case-header{cursor:default!important;pointer-events:none!important;position:relative;overflow:hidden;padding:44px!important}
 .case-num{display:none}
@@ -816,6 +815,99 @@ nav.scrolled .nav-menu-link{color:rgba(237,233,225,.5)}
 @media(min-width:900px){#hero{padding:100px 5vw 64px!important;padding-left:clamp(48px,8vw,120px)!important}}
 @media(max-width:768px){#pain,#services,#process,#results,#how,#faqs,#cta{padding:56px 0!important}#cta{padding:56px 5vw!important}}
 
+/* ══════════════════════════════════════
+   DESKTOP NAV — inline links
+══════════════════════════════════════ */
+.nav-desktop-links{display:flex;align-items:center;gap:28px}
+@media(max-width:720px){.nav-desktop-links{display:none!important}}
+@media(min-width:721px){.nav-menu-wrap{display:none!important}}
+
+/* ══════════════════════════════════════
+   DARK SECTIONS — contrast rhythm
+══════════════════════════════════════ */
+/* RESULTS / CASES — dark void */
+#results{background:var(--void)!important;border-top:1px solid rgba(201,169,110,.08);border-bottom:1px solid rgba(201,169,110,.08)}
+#results .s-title{color:var(--cream)!important}
+#results .s-eyebrow{color:var(--gold-d)!important}
+#results .s-eyebrow::before{background:var(--gold-d)!important}
+#results .section-header>p:not(.s-eyebrow){font-size:17px!important;font-weight:500!important;color:rgba(237,233,225,.72)!important;letter-spacing:-.01em}
+#results .res-stats{background:var(--border)!important}
+#results .res-stat{background:var(--deep)!important}
+#results .res-stat:hover{background:rgba(20,20,32,.8)!important}
+#results .res-stat-l{color:var(--muted)!important}
+#results .res-stat::before{background:linear-gradient(90deg,transparent,var(--gold),transparent)!important}
+#results .cases{background:var(--border)!important}
+#results .case{background:var(--deep)!important}
+#results .case-header:hover{background:rgba(22,22,34,.7)!important}
+#results .case-hl{color:var(--cream)!important}
+#results .case-sub{color:var(--muted)!important}
+#results .case-tag{color:var(--gold-d)!important}
+#results .case-list li{color:var(--muted)!important}
+#results .case-list li::before{color:rgba(201,169,110,.4)!important}
+#results .case-inner>div>p{color:var(--muted)!important}
+#results .metric{background:var(--void)!important}
+#results .metric-l{color:var(--muted)!important}
+#results .metric-v{color:var(--cream)!important;-webkit-text-fill-color:var(--cream)!important;background:none!important}
+#results .metrics{background:var(--border)!important}
+#results .case-feat-stat-v{color:var(--cream)!important;-webkit-text-fill-color:var(--cream)!important;background:none!important}
+#results .case-feat-stat-l{color:var(--muted)!important}
+#results .carousel-caption{background:rgba(10,10,15,.7)!important;border-top-color:rgba(237,233,225,.07)!important;border-left-color:rgba(237,233,225,.07)!important}
+#results .carousel-caption-title{color:var(--cream)!important}
+#results .carousel-caption-text{color:rgba(237,233,225,.55)!important}
+#results .carousel-footer{background:rgba(28,28,40,.8)!important;border-top-color:var(--border)!important}
+#results .carousel-btn{border-color:rgba(201,169,110,.18)!important;color:var(--gold)!important}
+#results .carousel-btn:hover{border-color:rgba(201,169,110,.45)!important;background:rgba(201,169,110,.06)!important}
+#results .carousel-dot{background:rgba(201,169,110,.18)!important}
+#results .carousel-dot.active{background:var(--gold)!important}
+#results .carousel-img-wrap{background:rgba(10,10,15,.8)!important}
+#results .case-carousel{border-color:var(--border)!important}
+#results .case-metric-pill{color:var(--gold)!important;background:rgba(201,169,110,.07)!important;border-color:rgba(201,169,110,.18)!important}
+#results .case-pill{background:rgba(237,233,225,.05)!important;border-color:rgba(237,233,225,.12)!important;color:rgba(237,233,225,.48)!important}
+#results .case-pill::before{background:linear-gradient(90deg,transparent,rgba(201,169,110,.35),transparent)!important}
+#results .case-pill:hover{border-color:rgba(201,169,110,.48)!important;color:var(--cream)!important;background:rgba(201,169,110,.08)!important}
+#results .case-pill.active{border-color:rgba(201,169,110,.5)!important;color:var(--cream)!important;background:rgba(201,169,110,.1)!important}
+#results .carousel-ph{border-color:rgba(201,169,110,.1)!important}
+#results .carousel-counter{color:var(--muted)!important}
+#results .carousel-progress{background:rgba(237,233,225,.06)!important}
+/* PROCESS — dark void */
+#process{background:var(--void)!important}
+#process .s-title{color:var(--cream)!important}
+#process .s-eyebrow{color:var(--gold-d)!important}
+#process .s-eyebrow::before{background:var(--gold-d)!important}
+#process .section-header>p{color:var(--muted)!important}
+#process .proc-card{background:var(--deep)!important;border-color:var(--border)!important}
+#process .proc-card:hover{background:rgba(22,20,36,.92)!important;border-color:rgba(201,169,110,.28)!important}
+#process .proc-card-title{color:var(--cream)!important}
+#process .proc-card-desc{color:var(--muted)!important}
+#process .proc-card-tag{color:var(--gold-d)!important}
+#process .proc-card-icon{border-color:var(--border)!important;background:rgba(201,169,110,.04)!important}
+#process .proc-card:hover .proc-card-icon{border-color:rgba(201,169,110,.3)!important;background:rgba(201,169,110,.08)!important}
+#process .proc-card-icon svg{stroke:rgba(237,233,225,.28)!important}
+#process .proc-card:hover .proc-card-icon svg{stroke:var(--gold)!important}
+#process .proc-card-bg-n{background:linear-gradient(180deg,rgba(201,169,110,.07) 0%,transparent 80%)!important;-webkit-text-fill-color:transparent!important}
+/* TEAM — dark void */
+#team{background:var(--void)!important}
+#team .s-title{color:var(--cream)!important}
+#team .s-eyebrow{color:var(--gold-d)!important}
+#team .s-eyebrow::before{background:var(--gold-d)!important}
+#team .section-header>p{color:var(--muted)!important}
+#team .team-grid{background:var(--border)!important}
+#team .team-card{background:var(--deep)!important}
+#team .team-card:hover{background:rgba(14,12,22,.9)!important}
+#team .team-name{color:var(--cream)!important}
+#team .team-role{color:var(--gold-d)!important}
+#team .team-quote{color:var(--muted)!important}
+#team .team-avatar{border-color:rgba(201,169,110,.15)!important;background:rgba(201,169,110,.06)!important}
+/* CTA — dark void */
+#cta{background:var(--void)!important;border-top-color:rgba(201,169,110,.1)!important}
+#cta .cta-title{color:var(--cream)!important}
+#cta .cta-sub{color:var(--muted)!important}
+#cta .cta-sub strong{color:var(--cream)!important}
+#cta .cta-eyebrow{color:var(--gold-d)!important}
+#cta .cta-eyebrow::before,#cta .cta-eyebrow::after{background:var(--gold-d)!important}
+#cta .btn-ghost{color:rgba(237,233,225,.48)!important;border-color:rgba(237,233,225,.16)!important}
+#cta .btn-ghost:hover{color:var(--cream)!important;border-color:rgba(237,233,225,.4)!important;background:transparent!important}
+
 </style>
 </head>
 <body>
@@ -839,13 +931,21 @@ nav.scrolled .nav-menu-link{color:rgba(237,233,225,.5)}
     <img src="./VELIA_logotipo_claro.svg" alt="VELIA" class="nav-wordmark nav-wm-light"/>
     <span class="nav-logo-sub">AI · Powered Marketing</span>
   </a>
+  <!-- Desktop: enlaces inline (oculto en mobile) -->
+  <div class="nav-desktop-links">
+    <a href="#pain" class="nav-link">Por qué VELIA</a>
+    <a href="#results" class="nav-link">Clientes</a>
+    <a href="#faqs" class="nav-link">FAQ</a>
+    <a href="contacto.html" class="btn-nav">Trabajemos juntos</a>
+  </div>
+  <!-- Mobile: hamburger (oculto en desktop) -->
   <div class="nav-menu-wrap">
     <button class="nav-hamburger" id="nav-hamburger" onclick="toggleNavMenu()" aria-label="Menú">
       <span></span><span></span><span></span>
     </button>
     <div class="nav-menu" id="nav-menu">
       <a href="#pain" class="nav-menu-link" onclick="closeNavMenu()">Por qué VELIA</a>
-      <a href="#results" class="nav-menu-link" onclick="closeNavMenu()">Resultados</a>
+      <a href="#results" class="nav-menu-link" onclick="closeNavMenu()">Clientes</a>
       <a href="#faqs" class="nav-menu-link" onclick="closeNavMenu()">FAQ</a>
       <div class="nav-menu-sep"></div>
       <a href="contacto.html" class="nav-menu-cta">Trabajemos juntos</a>
@@ -963,7 +1063,7 @@ nav.scrolled .nav-menu-link{color:rgba(237,233,225,.5)}
 <section id="results">
   <div class="inner">
     <div class="section-header">
-      <p class="s-eyebrow">Prueba social</p>
+      <p class="s-eyebrow">Clientes</p>
       <h2 class="s-title">CASOS DE<br><em>ÉXITO.</em></h2>
       <p>Empresas como la tuya que confían en VELIA.</p>
     </div>
@@ -986,9 +1086,9 @@ nav.scrolled .nav-menu-link{color:rgba(237,233,225,.5)}
       </div>
     </div>
     <div class="cases-nav">
-      <button class="case-pill active" onclick="scrollToCase('case-krea',this)">Krea Hogar</button>
-      <button class="case-pill" onclick="scrollToCase('case-consul',this)">Cónsul Jurídico</button>
-      <button class="case-pill" onclick="scrollToCase('case-drop',this)">The Drop Agency</button>
+      <button class="case-pill active" onclick="toggleCasePanel('case-krea',this)">Krea Hogar</button>
+      <button class="case-pill" onclick="toggleCasePanel('case-consul',this)">Cónsul Jurídico</button>
+      <button class="case-pill" onclick="toggleCasePanel('case-drop',this)">The Drop Agency</button>
     </div>
     <div class="cases">
 
@@ -1714,13 +1814,17 @@ document.addEventListener('click', e => {
 });
 
 /* ══════════════════════════════════════
-   CASES PILLS — scroll + active state
+   CASES PILLS — toggle visibility
 ══════════════════════════════════════ */
-function scrollToCase(id, pill) {
+function toggleCasePanel(id, pill) {
+  const target = document.getElementById(id);
+  const isOpen = target.classList.contains('open');
+  document.querySelectorAll('.case.open').forEach(c => c.classList.remove('open'));
   document.querySelectorAll('.case-pill').forEach(p => p.classList.remove('active'));
-  pill.classList.add('active');
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  if (!isOpen) {
+    target.classList.add('open');
+    pill.classList.add('active');
+  }
 }
 
 /* ══════════════════════════════════════
@@ -1777,22 +1881,7 @@ document.querySelectorAll('.case-carousel').forEach(carousel => {
   carousel.addEventListener('touchend',   () => { carousel._paused = false; setTimeout(() => startAutoSlide(carousel), 800); }, {passive:true});
 });
 
-/* ══════════════════════════════════════
-   CASES PILLS — highlight on scroll
-══════════════════════════════════════ */
-const caseIds = ['case-krea','case-consul','case-drop'];
-const pillBtns = document.querySelectorAll('.case-pill');
-const caseObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const idx = caseIds.indexOf(e.target.id);
-      if (idx >= 0) {
-        pillBtns.forEach((p,i) => p.classList.toggle('active', i === idx));
-      }
-    }
-  });
-}, {threshold:0.3, rootMargin:'-80px 0px -40% 0px'});
-caseIds.forEach(id => { const el = document.getElementById(id); if(el) caseObs.observe(el); });
+// Cases pills controlled exclusively by toggleCasePanel — no scroll observer needed
 
 </script>
 
