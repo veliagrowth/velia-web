@@ -305,6 +305,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
   .carousel-slide{display:flex;flex-direction:row;align-items:stretch}
   .carousel-img-wrap{width:38%;flex-shrink:0;aspect-ratio:unset;height:440px}
   .carousel-caption{flex:1;display:flex;flex-direction:column;justify-content:center;padding:32px 28px;border-top:none;border-left:1px solid var(--border)}
+  #results .carousel-img-wrap{width:40%;height:480px;aspect-ratio:unset}
 }
 @media(max-width:900px){
   .case-inner{grid-template-columns:1fr;padding:0 28px 32px;gap:28px}
@@ -865,7 +866,8 @@ nav.scrolled .nav-menu-link{color:rgba(237,233,225,.5)}
 #results .carousel-btn:hover{border-color:rgba(201,169,110,.45)!important;background:rgba(201,169,110,.06)!important}
 #results .carousel-dot{background:rgba(201,169,110,.2)!important}
 #results .carousel-dot.active{background:var(--gold)!important}
-#results .carousel-img-wrap{background:rgba(10,10,15,.8)!important}
+#results .carousel-img-wrap{background:rgba(10,10,15,.8)!important;aspect-ratio:3/4}
+#results .carousel-img-wrap img{object-fit:contain!important;padding:12px}
 #results .case-carousel{border-color:rgba(237,233,225,.08)!important}
 #results .case-metric-pill{color:var(--gold)!important;background:rgba(201,169,110,.08)!important;border-color:rgba(201,169,110,.2)!important}
 #results .case-pill{background:rgba(237,233,225,.05)!important;border-color:rgba(237,233,225,.14)!important;color:rgba(237,233,225,.5)!important}
@@ -1031,6 +1033,18 @@ nav.scrolled .nav-menu-link{color:rgba(237,233,225,.5)}
 /* Desktop: overlay never shows */
 @media(min-width:721px){.nav-menu{display:none!important}}
 
+/* ── VIDEO REEL ─────────────────────────────────────────── */
+:root{--reel-w:224px;--reel-gap:14px;--reel-n:6}
+#reel{background:var(--void);padding:64px 0 72px;overflow:hidden}
+.reel-label{text-align:center;margin-bottom:44px;font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:rgba(201,169,110,.45);display:flex;align-items:center;justify-content:center;gap:18px}
+.reel-label::before,.reel-label::after{content:'';display:block;width:28px;height:1px;background:rgba(201,169,110,.18)}
+.reel-strip{position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 7%,#000 93%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0%,#000 7%,#000 93%,transparent 100%)}
+.reel-track{display:flex;gap:var(--reel-gap);width:max-content;animation:reel-scroll 34s linear infinite}
+.reel-card{width:var(--reel-w);flex-shrink:0;border-radius:20px;overflow:hidden;aspect-ratio:9/16;background:#0d0d12}
+.reel-card video{width:100%;height:100%;object-fit:cover;pointer-events:none;display:block}
+@keyframes reel-scroll{to{transform:translateX(calc(-1*(var(--reel-w) + var(--reel-gap))*var(--reel-n)))}}
+@media(max-width:768px){:root{--reel-w:160px;--reel-gap:10px}#reel{padding:48px 0 56px}.reel-label{font-size:9px;margin-bottom:32px}}
+
 </style>
 </head>
 <body>
@@ -1183,6 +1197,27 @@ nav.scrolled .nav-menu-link{color:rgba(237,233,225,.5)}
       n8n
     </div></div></div><!-- /INTEGRATIONS REMOVED -->
 
+<!-- VIDEO REEL -->
+<section id="reel">
+  <p class="reel-label">Contenido que convierte</p>
+  <div class="reel-strip">
+    <div class="reel-track">
+      <div class="reel-card"><video src="./videos/reel-01.mp4" autoplay muted loop playsinline></video></div>
+      <div class="reel-card"><video src="./videos/reel-02.mp4" autoplay muted loop playsinline></video></div>
+      <div class="reel-card"><video src="./videos/reel-03.mp4" autoplay muted loop playsinline></video></div>
+      <div class="reel-card"><video src="./videos/reel-04.mp4" autoplay muted loop playsinline></video></div>
+      <div class="reel-card"><video src="./videos/reel-05.mp4" autoplay muted loop playsinline></video></div>
+      <div class="reel-card"><video src="./videos/reel-06.mp4" autoplay muted loop playsinline></video></div>
+      <div class="reel-card"><video src="./videos/reel-01.mp4" autoplay muted loop playsinline></video></div>
+      <div class="reel-card"><video src="./videos/reel-02.mp4" autoplay muted loop playsinline></video></div>
+      <div class="reel-card"><video src="./videos/reel-03.mp4" autoplay muted loop playsinline></video></div>
+      <div class="reel-card"><video src="./videos/reel-04.mp4" autoplay muted loop playsinline></video></div>
+      <div class="reel-card"><video src="./videos/reel-05.mp4" autoplay muted loop playsinline></video></div>
+      <div class="reel-card"><video src="./videos/reel-06.mp4" autoplay muted loop playsinline></video></div>
+    </div>
+  </div>
+</section>
+
 <!-- RESULTS -->
 <section id="results">
   <div class="inner">
@@ -1239,7 +1274,7 @@ nav.scrolled .nav-menu-link{color:rgba(237,233,225,.5)}
             <div class="carousel-track">
               <div class="carousel-slide">
                 <div class="carousel-img-wrap">
-                  <img src="img/cases/krea-hogar/krea-hogar-tienda-sofas-colchones-lleida-fachada.jpeg" alt="Tienda Krea Hogar sofás y colchones en Lleida — fachada exterior" loading="lazy"/>
+                  <img src="img/cases/krea-hogar/krea-hogar-tienda-sofas-colchones-lleida-fachada.jpeg" alt="Tienda Krea Hogar sofás y colchones en Lleida — fachada exterior" loading="lazy" style="object-fit:cover!important;padding:0!important"/>
                 </div>
                 <div class="carousel-caption">
                   <p class="carousel-caption-title">Una tienda física con ambición nacional</p>
@@ -1248,7 +1283,7 @@ nav.scrolled .nav-menu-link{color:rgba(237,233,225,.5)}
               </div>
               <div class="carousel-slide">
                 <div class="carousel-img-wrap">
-                  <img src="img/cases/krea-hogar/krea-hogar-web-kreahogar-sofas-colchones-espana.jpeg" alt="Web kreahogar.com sofás y colchones fabricados en España — vista móvil" loading="lazy"/>
+                  <img src="img/cases/krea-hogar/krea-hogar-web-kreahogar-sofas-colchones-espana.jpeg" alt="Web kreahogar.com sofás y colchones fabricados en España — vista móvil" loading="lazy" style="object-fit:cover!important;padding:0!important;object-position:top center"/>
                 </div>
                 <div class="carousel-caption">
                   <p class="carousel-caption-title">Una web que convierte visitas en clientes</p>
