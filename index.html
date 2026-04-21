@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>VELIA — Marketing para negocios de servicios | Captación predecible</title>
 <meta name="description" content="Combinamos inteligencia artificial con supervisión humana para que clínicas, despachos y negocios de servicios capten clientes de forma predecible y medible. Primera llamada gratuita."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://veliacorp.com/"/>
+<meta property="og:title" content="VELIA — Marketing para negocios de servicios"/>
+<meta property="og:description" content="Combinamos inteligencia artificial con supervisión humana para que clínicas, despachos y negocios de servicios capten clientes de forma predecible y medible."/>
+<meta property="og:image" content="https://veliacorp.com/VELIA_isotipo_transparente.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="VELIA — Marketing para negocios de servicios"/>
+<meta name="twitter:description" content="Combinamos IA con supervisión humana para que tu negocio capte clientes de forma predecible."/>
 <link rel="icon" type="image/png" href="./VELIA_isotipo_oscuro.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -365,7 +373,7 @@ footer{padding:44px 5vw;border-top:1px solid var(--border);display:flex;align-it
 .carousel-track{display:flex;transition:transform .42s cubic-bezier(.25,.46,.45,.94);will-change:transform}
 .carousel-slide{min-width:100%}
 .carousel-img-wrap{position:relative;aspect-ratio:4/3;overflow:hidden;background:rgba(10,10,15,.8)}
-.carousel-img-wrap img,.carousel-img-wrap video{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.carousel-img-wrap img,.carousel-img-wrap video{width:100%;height:100%;object-fit:contain;object-position:center;display:block}
 .carousel-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:1px dashed rgba(201,169,110,.12)}
 .carousel-ph-n{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:rgba(201,169,110,.3)}
 .carousel-ph-label{font-size:11px;font-weight:300;color:rgba(237,233,225,.2);letter-spacing:.04em}
@@ -867,7 +875,7 @@ nav.scrolled .nav-menu-link{color:rgba(237,233,225,.5)}
 #results .carousel-dot{background:rgba(201,169,110,.2)!important}
 #results .carousel-dot.active{background:var(--gold)!important}
 #results .carousel-img-wrap{background:rgba(10,10,15,.8)!important}
-#results .carousel-img-wrap img{object-fit:cover!important;object-position:top center;padding:0!important}
+#results .carousel-img-wrap img{object-fit:contain!important;object-position:center;padding:0!important}
 #results .case-carousel{border-color:rgba(237,233,225,.08)!important}
 #results .case-metric-pill{color:var(--gold)!important;background:rgba(201,169,110,.08)!important;border-color:rgba(201,169,110,.2)!important}
 #results .case-pill{background:rgba(237,233,225,.05)!important;border-color:rgba(237,233,225,.14)!important;color:rgba(237,233,225,.5)!important}
@@ -1377,7 +1385,7 @@ nav.scrolled .nav-menu-link{color:rgba(237,233,225,.5)}
             <div class="carousel-track">
               <div class="carousel-slide">
                 <div class="carousel-img-wrap">
-                  <img src="img/cases/consul-juridico/consul_juridico_ivan.webp" alt="Iván Cónsul Gómez, abogado y fundador de Cónsul Jurídico" loading="lazy"/>
+                  <img src="img/cases/consul-juridico/consul_juridico_web_antigua.webp" alt="Web antigua de Cónsul Jurídico en WordPress — antes de VELIA" loading="lazy"/>
                 </div>
                 <div class="carousel-caption">
                   <p class="carousel-caption-title">El punto de partida</p>
@@ -1395,7 +1403,7 @@ nav.scrolled .nav-menu-link{color:rgba(237,233,225,.5)}
               </div>
               <div class="carousel-slide">
                 <div class="carousel-img-wrap">
-                  <img src="img/cases/consul-juridico/consul_juridico_ivan_web.webp" alt="Iván Cónsul Gómez con el sistema de captación automatizado de VELIA" loading="lazy"/>
+                  <img src="img/cases/consul-juridico/consul_juridico_ivan.webp" alt="Iván Cónsul Gómez, abogado fundador de Cónsul Jurídico" loading="lazy"/>
                 </div>
                 <div class="carousel-caption">
                   <p class="carousel-caption-title">Sistema de captación activo</p>
@@ -1404,7 +1412,7 @@ nav.scrolled .nav-menu-link{color:rgba(237,233,225,.5)}
               </div>
               <div class="carousel-slide">
                 <div class="carousel-img-wrap">
-                  <img src="img/cases/consul-juridico/consul_juridico_banner.webp" alt="Branding y presencia digital de Cónsul Jurídico" loading="lazy"/>
+                  <img src="img/cases/consul-juridico/consul_juridico_ivan_web.webp" alt="Iván Cónsul Gómez con la nueva web en producción" loading="lazy"/>
                 </div>
                 <div class="carousel-caption">
                   <p class="carousel-caption-title">Resultados visibles cada semana</p>
@@ -2063,6 +2071,7 @@ document.querySelectorAll('.case-carousel').forEach(carousel => {
   prog.innerHTML = '<div class="carousel-progress-bar"></div>';
   carousel.insertBefore(prog, carousel.firstChild);
   carousel.dataset.current = '0';
+  navCarousel(carousel, 0);
   startAutoSlide(carousel);
   // touch pause/resume gestionado en el bloque de swipe (arriba)
 });
