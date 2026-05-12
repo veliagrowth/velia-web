@@ -143,6 +143,34 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:c
 .cal-booking-dt{font-size:12px;font-weight:700;color:var(--void)}
 .cal-booking-dur{font-size:10px;color:rgba(10,10,15,.45);margin-top:2px}
 
+/* ═══ PRE-AUDIT QUESTIONNAIRE ═══ */
+.qa-wrap{display:none;animation:qaFadeIn .4s ease}
+.qa-wrap.show{display:block}
+@keyframes qaFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.qa-header{margin-bottom:28px}
+.qa-badge{display:inline-flex;align-items:center;gap:7px;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-d);margin-bottom:14px}
+.qa-badge::before{content:'';width:22px;height:1px;background:var(--gold)}
+.qa-title{font-size:clamp(20px,2.4vw,28px);font-weight:800;letter-spacing:-.02em;color:var(--void);line-height:1.1;margin-bottom:10px}
+.qa-title em{font-style:normal;color:var(--gold)}
+.qa-desc{font-size:12px;color:rgba(10,10,15,.45);line-height:1.7;margin-bottom:0}
+.qa-progress-bar{height:3px;background:rgba(10,10,15,.08);border-radius:100px;margin-bottom:22px;overflow:hidden}
+.qa-progress-fill{height:100%;background:var(--gold);border-radius:100px;transition:width .35s ease;width:0%}
+.qa-q{margin-bottom:22px}
+.qa-q-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(10,10,15,.5);margin-bottom:10px}
+.qa-pills{display:flex;flex-wrap:wrap;gap:7px}
+.qa-pill{padding:8px 14px;border:1.5px solid rgba(10,10,15,.12);border-radius:100px;font-family:var(--f);font-size:12px;font-weight:600;color:rgba(10,10,15,.6);background:rgba(255,255,255,.6);cursor:pointer;transition:all .15s;line-height:1}
+.qa-pill:hover{border-color:rgba(201,169,110,.45);color:var(--void)}
+.qa-pill.sel{border-color:var(--gold);background:rgba(201,169,110,.1);color:var(--gold-d)}
+.qa-url-row{display:flex;align-items:center;gap:9px;margin-top:9px}
+.qa-url-input{flex:1;padding:9px 14px;border:1.5px solid rgba(10,10,15,.12);border-radius:10px;font-family:var(--f);font-size:12px;color:var(--void);background:#fff;outline:none;transition:border-color .15s}
+.qa-url-input:focus{border-color:rgba(201,169,110,.45)}
+.qa-url-input::placeholder{color:rgba(10,10,15,.25)}
+.qa-textarea{width:100%;padding:11px 14px;border:1.5px solid rgba(10,10,15,.12);border-radius:10px;font-family:var(--f);font-size:12px;color:var(--void);background:#fff;outline:none;resize:none;transition:border-color .15s;box-sizing:border-box}
+.qa-textarea:focus{border-color:rgba(201,169,110,.45)}
+.qa-textarea::placeholder{color:rgba(10,10,15,.25)}
+.qa-skip{background:none;border:none;font-family:var(--f);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(10,10,15,.3);cursor:pointer;display:block;margin:12px auto 0;transition:color .2s;padding:0}
+.qa-skip:hover{color:rgba(10,10,15,.6)}
+
 /* ═══ SUCCESS ═══ */
 .success-state{display:none;text-align:center;padding:80px 20px}
 .success-state.show{display:block}
@@ -332,6 +360,104 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
       </form>
     </div>
 
+    <!-- PRE-AUDIT QUESTIONNAIRE -->
+    <div id="qa-wrap" class="qa-wrap">
+      <div class="qa-header">
+        <p class="qa-badge">Reserva confirmada</p>
+        <h2 class="qa-title">Prepara tu auditoría<br><em>en 2 minutos.</em></h2>
+        <p class="qa-desc">Mientras te mandamos la confirmación por email, cuéntanos un poco más. VELIA llegará a la reunión con propuestas concretas para ti.</p>
+      </div>
+      <div class="qa-progress-bar"><div class="qa-progress-fill" id="qa-prog"></div></div>
+
+      <div class="qa-q">
+        <p class="qa-q-label">Sector del negocio</p>
+        <div class="qa-pills" id="qa-pills-sector">
+          <button class="qa-pill" onclick="qaSingle('sector',this,'Legal')">Legal</button>
+          <button class="qa-pill" onclick="qaSingle('sector',this,'Dental')">Dental</button>
+          <button class="qa-pill" onclick="qaSingle('sector',this,'Inmobiliaria')">Inmobiliaria</button>
+          <button class="qa-pill" onclick="qaSingle('sector',this,'Clínica')">Clínica</button>
+          <button class="qa-pill" onclick="qaSingle('sector',this,'Hostelería')">Hostelería</button>
+          <button class="qa-pill" onclick="qaSingle('sector',this,'Ecommerce')">Ecommerce</button>
+          <button class="qa-pill" onclick="qaSingle('sector',this,'Otro')">Otro</button>
+        </div>
+      </div>
+
+      <div class="qa-q">
+        <p class="qa-q-label">Número de empleados</p>
+        <div class="qa-pills" id="qa-pills-empleados">
+          <button class="qa-pill" onclick="qaSingle('empleados',this,'Solo')">Solo</button>
+          <button class="qa-pill" onclick="qaSingle('empleados',this,'2–5')">2–5</button>
+          <button class="qa-pill" onclick="qaSingle('empleados',this,'6–15')">6–15</button>
+          <button class="qa-pill" onclick="qaSingle('empleados',this,'16–50')">16–50</button>
+          <button class="qa-pill" onclick="qaSingle('empleados',this,'+50')">+50</button>
+        </div>
+      </div>
+
+      <div class="qa-q">
+        <p class="qa-q-label">Facturación anual aproximada</p>
+        <div class="qa-pills" id="qa-pills-facturacion">
+          <button class="qa-pill" onclick="qaSingle('facturacion',this,'< 100k€')">Menos de 100k€</button>
+          <button class="qa-pill" onclick="qaSingle('facturacion',this,'100k–300k€')">100k–300k€</button>
+          <button class="qa-pill" onclick="qaSingle('facturacion',this,'300k–1M€')">300k–1M€</button>
+          <button class="qa-pill" onclick="qaSingle('facturacion',this,'> 1M€')">Más de 1M€</button>
+        </div>
+      </div>
+
+      <div class="qa-q">
+        <p class="qa-q-label">¿Tenéis página web?</p>
+        <div class="qa-pills" id="qa-pills-web">
+          <button class="qa-pill" onclick="qaSingle('tiene_web',this,'Sí'); document.getElementById('qa-url-row').style.display='flex'">Sí, tenemos web</button>
+          <button class="qa-pill" onclick="qaSingle('tiene_web',this,'No'); document.getElementById('qa-url-row').style.display='none'">No de momento</button>
+        </div>
+        <div class="qa-url-row" id="qa-url-row" style="display:none">
+          <input type="url" id="qa-url" class="qa-url-input" placeholder="https://tunegocio.com"/>
+        </div>
+      </div>
+
+      <div class="qa-q">
+        <p class="qa-q-label">Redes sociales activas <span style="font-weight:300;font-size:10px;text-transform:none;letter-spacing:0">(selecciona todas las que usáis)</span></p>
+        <div class="qa-pills" id="qa-pills-redes">
+          <button class="qa-pill" onclick="qaMulti('redes',this,'Instagram')">Instagram</button>
+          <button class="qa-pill" onclick="qaMulti('redes',this,'LinkedIn')">LinkedIn</button>
+          <button class="qa-pill" onclick="qaMulti('redes',this,'TikTok')">TikTok</button>
+          <button class="qa-pill" onclick="qaMulti('redes',this,'Facebook')">Facebook</button>
+          <button class="qa-pill" onclick="qaMulti('redes',this,'YouTube')">YouTube</button>
+          <button class="qa-pill" onclick="qaMulti('redes',this,'Ninguna')">Ninguna aún</button>
+        </div>
+      </div>
+
+      <div class="qa-q">
+        <p class="qa-q-label">¿Usáis algún CRM o herramienta de gestión?</p>
+        <div class="qa-pills" id="qa-pills-crm">
+          <button class="qa-pill" onclick="qaSingle('crm',this,'No')">No usamos</button>
+          <button class="qa-pill" onclick="qaSingle('crm',this,'Excel / Notion')">Excel / Notion</button>
+          <button class="qa-pill" onclick="qaSingle('crm',this,'HubSpot')">HubSpot</button>
+          <button class="qa-pill" onclick="qaSingle('crm',this,'Salesforce')">Salesforce</button>
+          <button class="qa-pill" onclick="qaSingle('crm',this,'GoHighLevel')">GoHighLevel</button>
+          <button class="qa-pill" onclick="qaSingle('crm',this,'Otro')">Otro</button>
+        </div>
+      </div>
+
+      <div class="qa-q">
+        <p class="qa-q-label">¿Conocéis los sistemas de agentes IA personalizados?</p>
+        <div class="qa-pills" id="qa-pills-ia">
+          <button class="qa-pill" onclick="qaSingle('conoce_ia',this,'Nuevo para mí')">Es nuevo para mí</button>
+          <button class="qa-pill" onclick="qaSingle('conoce_ia',this,'He oído hablar')">He oído hablar</button>
+          <button class="qa-pill" onclick="qaSingle('conoce_ia',this,'Lo he investigado')">Lo estoy investigando</button>
+          <button class="qa-pill" onclick="qaSingle('conoce_ia',this,'Ya usamos IA')">Ya usamos IA</button>
+        </div>
+      </div>
+
+      <div class="qa-q">
+        <p class="qa-q-label">¿Cuál es vuestro mayor reto ahora mismo? <span style="font-weight:300;font-size:10px;text-transform:none;letter-spacing:0">(opcional)</span></p>
+        <textarea id="qa-reto" class="qa-textarea" rows="3" placeholder="Ej: No tenemos tiempo para crear contenido, necesitamos más leads, queremos digitalizar procesos…" maxlength="300"></textarea>
+      </div>
+
+      <button class="btn-submit" id="qa-btn" onclick="submitProfile()" disabled>Enviar y ver confirmación</button>
+      <p class="form-note">Tu reserva ya está confirmada · Esto nos ayuda a preparar mejor la sesión</p>
+      <button class="qa-skip" onclick="showFinalSuccess()">Saltar este paso →</button>
+    </div>
+
     <div class="success-state" id="success">
       <div class="success-sep"></div>
       <h2 class="success-title">SOLICITUD<br><em>RECIBIDA.</em></h2>
@@ -344,6 +470,75 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
 (function(){
   var API_BASE   = 'https://portal.veliacorp.com/api';
   var GHL_FORM   = 'https://veliacorp.app.n8n.cloud/webhook/velia/pipeline-new-lead';
+  var bookingId  = null;
+
+  // ── Cuestionario pre-auditoría ──
+  var qaAnswers = { sector:null, empleados:null, facturacion:null, tiene_web:null, redes:[], crm:null, conoce_ia:null };
+  var qaRequired = ['sector','empleados','facturacion','tiene_web','crm','conoce_ia'];
+
+  window.qaSingle = function(key, btn, val) {
+    qaAnswers[key] = val;
+    var container = btn.closest('.qa-pills');
+    container.querySelectorAll('.qa-pill').forEach(function(b){ b.classList.remove('sel'); });
+    btn.classList.add('sel');
+    updateQaProgress();
+  };
+
+  window.qaMulti = function(key, btn, val) {
+    if (!Array.isArray(qaAnswers[key])) qaAnswers[key] = [];
+    if (val === 'Ninguna') {
+      qaAnswers[key] = ['Ninguna'];
+      btn.closest('.qa-pills').querySelectorAll('.qa-pill').forEach(function(b){ b.classList.remove('sel'); });
+      btn.classList.add('sel');
+    } else {
+      var idx = qaAnswers[key].indexOf(val);
+      var ningIdx = qaAnswers[key].indexOf('Ninguna');
+      if (ningIdx > -1) {
+        qaAnswers[key].splice(ningIdx, 1);
+        btn.closest('.qa-pills').querySelector('.qa-pill:last-child').classList.remove('sel');
+      }
+      if (idx > -1) { qaAnswers[key].splice(idx, 1); btn.classList.remove('sel'); }
+      else { qaAnswers[key].push(val); btn.classList.add('sel'); }
+    }
+    updateQaProgress();
+  };
+
+  function updateQaProgress() {
+    var filled = qaRequired.filter(function(k){ return qaAnswers[k] && (Array.isArray(qaAnswers[k]) ? qaAnswers[k].length > 0 : true); }).length;
+    var redes = qaAnswers.redes && qaAnswers.redes.length > 0 ? 1 : 0;
+    var total = qaRequired.length + 1; // +1 for redes
+    var pct = Math.round(((filled + redes) / total) * 100);
+    document.getElementById('qa-prog').style.width = Math.min(pct, 100) + '%';
+    document.getElementById('qa-btn').disabled = (filled < 3);
+  }
+
+  window.submitProfile = function() {
+    if (!bookingId) { showFinalSuccess(); return; }
+    var btn = document.getElementById('qa-btn');
+    btn.textContent = 'Guardando...'; btn.disabled = true;
+    var urlInput = document.getElementById('qa-url');
+    var retoInput = document.getElementById('qa-reto');
+    var profile = Object.assign({}, qaAnswers, {
+      url_web: urlInput ? urlInput.value.trim() : '',
+      reto: retoInput ? retoInput.value.trim() : ''
+    });
+    fetch(API_BASE + '/velia-profile', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ booking_id: bookingId, profile: profile })
+    })
+    .then(function() { showFinalSuccess(); })
+    .catch(function() { showFinalSuccess(); }); // non-fatal
+  };
+
+  window.showFinalSuccess = function() {
+    document.getElementById('qa-wrap').classList.remove('show');
+    document.getElementById('success').innerHTML =
+      '<div class="success-sep"></div>'+
+      '<h2 class="success-title">RESERVA<br><em>CONFIRMADA.</em></h2>'+
+      '<p class="success-sub">Hemos reservado tu auditoría.<br>Recibirás un email de confirmación en breve.</p>';
+    document.getElementById('success').classList.add('show');
+  };
 
   // ── Carga de slots ──
   var slotsData = null; // { "2026-05-15": ["2026-05-15T09:00:00.000Z", ...], ... }
@@ -535,12 +730,11 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
         }
         throw new Error(data.error);
       }
+      // Reserva OK → mostrar cuestionario pre-auditoría
+      bookingId = data.booking_id || null;
       document.getElementById('calendar-coming').classList.remove('show');
-      document.getElementById('success').innerHTML =
-        '<div class="success-sep"></div>'+
-        '<h2 class="success-title">RESERVA<br><em>CONFIRMADA.</em></h2>'+
-        '<p class="success-sub">Hemos reservado tu auditoría.<br>Recibirás un email de confirmación en breve.</p>';
-      document.getElementById('success').classList.add('show');
+      document.getElementById('qa-wrap').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     })
     .catch(function(){
       btn.textContent='Error — inténtalo de nuevo';btn.disabled=false;
