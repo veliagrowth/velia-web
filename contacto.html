@@ -104,15 +104,44 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:c
 .btn-submit:disabled{opacity:.5;transform:none;box-shadow:none;cursor:default}
 .form-note{font-size:10px;font-weight:300;color:rgba(237,233,225,.28);text-align:center;margin-top:14px;letter-spacing:.04em}
 
-/* ═══ CALENDAR SOON ═══ */
-.calendar-coming{display:none;text-align:center;padding:40px 0}
-.calendar-coming.show{display:block}
-.cal-icon{width:60px;height:60px;border-radius:16px;background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.18);display:flex;align-items:center;justify-content:center;margin:0 auto 22px}
-.cal-icon svg{width:26px;height:26px;stroke:var(--gold-d);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.cal-title{font-size:19px;font-weight:700;color:var(--cream);letter-spacing:-.02em;margin-bottom:10px}
-.cal-sub{font-size:13px;font-weight:300;color:rgba(237,233,225,.45);line-height:1.75;margin-bottom:28px;max-width:280px;margin-left:auto;margin-right:auto}
-.cal-back-btn{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(237,233,225,.38);text-decoration:none;background:none;border:1px solid rgba(237,233,225,.12);padding:10px 20px;border-radius:100px;cursor:pointer;font-family:var(--f);transition:color .2s,border-color .2s}
-.cal-back-btn:hover{color:var(--cream);border-color:rgba(237,233,225,.3)}
+/* ═══ CALENDAR ═══ */
+.cal-wrap{display:none}
+.cal-wrap.show{display:block}
+.cal-back{background:none;border:none;font-family:var(--f);font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(10,10,15,.35);cursor:pointer;padding:0;display:flex;align-items:center;gap:7px;margin-bottom:24px;transition:color .2s}
+.cal-back::before{content:'←';font-size:12px}
+.cal-back:hover{color:var(--void)}
+.cal-step-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-d);margin-bottom:10px;display:block}
+.cal-step-title{font-size:clamp(18px,2vw,24px);font-weight:700;letter-spacing:-.02em;color:var(--void);margin-bottom:20px;line-height:1.15}
+.cal-loading{text-align:center;padding:40px 0;color:rgba(10,10,15,.35);font-size:12px;letter-spacing:.1em}
+.cal-error{text-align:center;padding:28px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);border-radius:12px;color:rgba(239,68,68,.8);font-size:13px}
+/* Month grid */
+.cal-month-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cal-month-label{font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--void)}
+.cal-nav-btn{background:none;border:1px solid rgba(10,10,15,.1);border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:14px;color:rgba(10,10,15,.5);transition:border-color .2s,color .2s;display:flex;align-items:center;justify-content:center}
+.cal-nav-btn:hover{border-color:rgba(201,169,110,.4);color:var(--void)}
+.cal-nav-btn:disabled{opacity:.25;cursor:default}
+.cal-dow-row{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}
+.cal-dow{font-size:9px;font-weight:600;letter-spacing:.08em;text-align:center;color:rgba(10,10,15,.35);text-transform:uppercase;padding:4px 0}
+.cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:12px;font-weight:600;cursor:default;transition:background .15s,color .15s;position:relative}
+.cal-day.empty{background:transparent}
+.cal-day.past{color:rgba(10,10,15,.2)}
+.cal-day.unavail{color:rgba(10,10,15,.22)}
+.cal-day.avail{background:rgba(201,169,110,.1);color:var(--void);cursor:pointer;border:1px solid rgba(201,169,110,.25)}
+.cal-day.avail:hover{background:rgba(201,169,110,.22);border-color:rgba(201,169,110,.5)}
+.cal-day.selected{background:var(--gold-d)!important;color:#fff!important;border-color:transparent!important}
+.cal-day-dot{position:absolute;bottom:3px;width:4px;height:4px;border-radius:50%;background:var(--gold-d);opacity:.6}
+/* Slots */
+.cal-slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
+.cal-slot{padding:9px 4px;text-align:center;border:1.5px solid rgba(10,10,15,.1);border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;transition:border-color .15s,background .15s,color .15s;color:var(--void);background:#fff}
+.cal-slot:hover{border-color:rgba(201,169,110,.5);background:rgba(201,169,110,.06)}
+.cal-slot.selected{border-color:var(--gold-d);background:rgba(154,120,64,.08);color:var(--gold-d)}
+/* Booking form */
+.cal-booking-summary{display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(201,169,110,.07);border:1px solid rgba(201,169,110,.2);border-radius:10px;margin-bottom:20px}
+.cal-booking-icon{width:34px;height:34px;border-radius:9px;background:var(--gold-d);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cal-booking-icon svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.cal-booking-dt{font-size:12px;font-weight:700;color:var(--void)}
+.cal-booking-dur{font-size:10px;color:rgba(10,10,15,.45);margin-top:2px}
 
 /* ═══ SUCCESS ═══ */
 .success-state{display:none;text-align:center;padding:80px 20px}
@@ -171,12 +200,7 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
 .fg input::placeholder{color:rgba(10,10,15,.22)}
 .fg input:focus{border-color:rgba(201,169,110,.5)}
 .form-note{color:rgba(10,10,15,.28)}
-.cal-icon{background:rgba(201,169,110,.07);border-color:rgba(201,169,110,.2)}
-.cal-icon svg{stroke:var(--gold-d)}
-.cal-title{color:var(--void)}
-.cal-sub{color:rgba(10,10,15,.52)}
-.cal-back-btn{color:rgba(10,10,15,.38);border-color:rgba(10,10,15,.12)}
-.cal-back-btn:hover{color:var(--void);border-color:rgba(10,10,15,.28)}
+/* cal overrides already in cream context above */
 .success-title{color:var(--void)}
 .success-sub{color:rgba(10,10,15,.55)}
 
@@ -240,16 +264,50 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
       </div>
     </div>
 
-    <!-- CALENDARIO (próximamente) -->
-    <div id="calendar-coming" class="calendar-coming">
-      <div class="cal-icon">
-        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <!-- CALENDARIO INTERACTIVO -->
+    <div id="calendar-coming" class="cal-wrap">
+      <!-- Step 1: Elige fecha -->
+      <div id="cal-step-date">
+        <button class="cal-back" onclick="showChoice()">Volver</button>
+        <span class="cal-step-label">Paso 1 de 3</span>
+        <p class="cal-step-title">Elige un día<br>disponible.</p>
+        <div id="cal-month-area">
+          <p class="cal-loading">Cargando disponibilidad…</p>
+        </div>
       </div>
-      <p class="cal-title">Disponible muy pronto.</p>
-      <p class="cal-sub">Estamos configurando nuestro sistema de reservas. Mientras tanto, déjanos tu contacto y te llamamos nosotros.</p>
-      <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
-        <button class="btn-submit" style="max-width:280px;margin-top:0" onclick="showForm()">Déjanos tu contacto</button>
-        <button class="cal-back-btn" onclick="showChoice()">← Volver</button>
+      <!-- Step 2: Elige hora -->
+      <div id="cal-step-time" style="display:none">
+        <button class="cal-back" onclick="calGoBack('date')">Volver</button>
+        <span class="cal-step-label">Paso 2 de 3</span>
+        <p class="cal-step-title" id="cal-time-title">Elige una hora.</p>
+        <div class="cal-slots-grid" id="cal-slots-grid"></div>
+      </div>
+      <!-- Step 3: Tus datos -->
+      <div id="cal-step-form" style="display:none">
+        <button class="cal-back" onclick="calGoBack('time')">Volver</button>
+        <span class="cal-step-label">Paso 3 de 3</span>
+        <p class="cal-step-title">Confirma tu<br>reserva.</p>
+        <div class="cal-booking-summary">
+          <div class="cal-booking-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div>
+            <p class="cal-booking-dt" id="cal-booking-dt-label"></p>
+            <p class="cal-booking-dur">30 min · Auditoría gratuita VELIA</p>
+          </div>
+        </div>
+        <form id="cal-booking-form" onsubmit="submitBooking(event)" novalidate>
+          <div class="fg2">
+            <div class="fg"><label>Nombre *</label><input type="text" name="name" placeholder="Tu nombre" required/></div>
+            <div class="fg"><label>Email *</label><input type="email" name="email" placeholder="tu@empresa.com" required/></div>
+          </div>
+          <div class="fg2">
+            <div class="fg"><label>Teléfono</label><input type="tel" name="phone" placeholder="+34 600 000 000"/></div>
+            <div class="fg"><label>Empresa</label><input type="text" name="company" placeholder="Tu empresa"/></div>
+          </div>
+          <button type="submit" class="btn-submit" id="booking-btn">Confirmar reserva</button>
+          <p class="form-note">Recibirás confirmación por email · Sin compromiso</p>
+        </form>
       </div>
     </div>
 
@@ -284,8 +342,16 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
 
 <script>
 (function(){
+  var API_BASE   = 'https://portal.veliacorp.com/api';
+  var GHL_FORM   = 'https://veliacorp.app.n8n.cloud/webhook/velia/pipeline-new-lead';
 
-  // Navegación entre pantallas
+  // ── Carga de slots ──
+  var slotsData = null; // { "2026-05-15": ["2026-05-15T09:00:00.000Z", ...], ... }
+  var selectedDate = null;
+  var selectedSlot = null;
+  var viewMonth = null; // JS Date at day 1 of shown month
+
+  // ── Navegación entre pantallas ──
   function showChoice(){
     document.getElementById('choice-screen').style.display='flex';
     document.getElementById('form-wrap').classList.remove('show');
@@ -301,40 +367,201 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
     document.getElementById('choice-screen').style.display='none';
     document.getElementById('form-wrap').classList.remove('show');
     document.getElementById('calendar-coming').classList.add('show');
+    calShowStep('date');
+    if(!slotsData) loadSlots();
+  }
+  function calGoBack(to){
+    if(to==='date')      { selectedSlot=null; calShowStep('date'); }
+    else if(to==='time') { selectedSlot=null; calShowStep('time'); }
   }
   window.showChoice=showChoice;
   window.showForm=showForm;
   window.showCalendar=showCalendar;
+  window.calGoBack=calGoBack;
 
-  var GHL='TU_WEBHOOK_GHL_VELIA_AQUI';
-  function submitForm(e){
+  function calShowStep(step){
+    document.getElementById('cal-step-date').style.display = step==='date'  ? '' : 'none';
+    document.getElementById('cal-step-time').style.display = step==='time'  ? '' : 'none';
+    document.getElementById('cal-step-form').style.display = step==='form'  ? '' : 'none';
+  }
+
+  // ── Carga disponibilidad desde portal API ──
+  function loadSlots(){
+    document.getElementById('cal-month-area').innerHTML = '<p class="cal-loading">Cargando disponibilidad…</p>';
+    fetch(API_BASE+'/velia-slots')
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        slotsData = data.slots || {};
+        var dates = Object.keys(slotsData);
+        if(!viewMonth){
+          if(dates.length>0){
+            var first = new Date(dates[0]);
+            viewMonth = new Date(first.getFullYear(), first.getMonth(), 1);
+          } else {
+            var now = new Date();
+            viewMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+          }
+        }
+        renderMonth();
+      })
+      .catch(function(){
+        document.getElementById('cal-month-area').innerHTML =
+          '<p class="cal-error">No hemos podido cargar la disponibilidad.<br>Usa el formulario de contacto o escríbenos directamente.</p>'+
+          '<div style="text-align:center;margin-top:16px"><button class="btn-submit" style="max-width:280px;margin:0 auto" onclick="showForm()">Déjanos tu contacto</button></div>';
+      });
+  }
+
+  function renderMonth(){
+    var now = new Date(); now.setHours(0,0,0,0);
+    var yr  = viewMonth.getFullYear();
+    var mo  = viewMonth.getMonth();
+    var firstDow = viewMonth.getDay(); // 0=Sun
+    var daysInMonth = new Date(yr, mo+1, 0).getDate();
+
+    // Month name
+    var months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    var dows   = ['Lu','Ma','Mi','Ju','Vi','Sá','Do'];
+
+    // Can nav back?
+    var prevMonth = new Date(yr, mo-1, 1);
+    var canPrev = prevMonth >= new Date(now.getFullYear(), now.getMonth(), 1);
+
+    // Check if next month has any slots
+    var nextMonth = new Date(yr, mo+1, 1);
+    var nextMonthStr = nextMonth.getFullYear()+'-'+String(nextMonth.getMonth()+1).padStart(2,'0');
+    var canNext = slotsData && Object.keys(slotsData).some(function(d){ return d.startsWith(nextMonthStr); });
+
+    var html = '<div class="cal-month-nav">';
+    html += '<button class="cal-nav-btn" onclick="calNavMonth(-1)" '+(canPrev?'':'disabled')+'><span style="margin-top:-2px">‹</span></button>';
+    html += '<span class="cal-month-label">'+months[mo]+' '+yr+'</span>';
+    html += '<button class="cal-nav-btn" onclick="calNavMonth(1)" '+(canNext?'':'disabled')+'><span style="margin-top:-2px">›</span></button>';
+    html += '</div>';
+    html += '<div class="cal-dow-row">';
+    // European week starts Monday
+    for(var d=0;d<7;d++) html += '<div class="cal-dow">'+dows[d]+'</div>';
+    html += '</div>';
+    html += '<div class="cal-days">';
+
+    // Offset for Monday-first grid
+    var offset = (firstDow === 0) ? 6 : firstDow - 1;
+    for(var i=0;i<offset;i++) html += '<div class="cal-day empty"></div>';
+
+    for(var day=1;day<=daysInMonth;day++){
+      var dateStr = yr+'-'+String(mo+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+      var dateObj = new Date(yr, mo, day);
+      var cls = 'cal-day';
+      if(dateObj < now){
+        cls += ' past';
+      } else if(slotsData && slotsData[dateStr] && slotsData[dateStr].length > 0){
+        cls += ' avail';
+        if(selectedDate === dateStr) cls += ' selected';
+      } else {
+        cls += ' unavail';
+      }
+      var onclick = (cls.indexOf('avail')>=0) ? ' onclick="calSelectDate(\''+dateStr+'\')"' : '';
+      html += '<div class="'+cls+'"'+onclick+'>'+day;
+      if(cls.indexOf('avail')>=0 && selectedDate!==dateStr) html += '<div class="cal-day-dot"></div>';
+      html += '</div>';
+    }
+    html += '</div>';
+    document.getElementById('cal-month-area').innerHTML = html;
+  }
+
+  window.calNavMonth = function(dir){
+    viewMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth()+dir, 1);
+    renderMonth();
+  };
+
+  window.calSelectDate = function(dateStr){
+    selectedDate = dateStr;
+    renderMonth();
+    // Show time step
+    var slots = slotsData[dateStr] || [];
+    var d = new Date(dateStr+'T12:00:00');
+    var dayNames = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+    var months2 = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    document.getElementById('cal-time-title').textContent = dayNames[d.getDay()]+' '+d.getDate()+' de '+months2[d.getMonth()];
+    var grid = document.getElementById('cal-slots-grid');
+    var gridHtml = '';
+    slots.forEach(function(iso){
+      var t = new Date(iso);
+      var hh = t.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Madrid'});
+      var sel = (selectedSlot === iso) ? ' selected' : '';
+      gridHtml += '<button class="cal-slot'+sel+'" onclick="calSelectSlot(\''+iso+'\',\''+hh+'\')">'+hh+'</button>';
+    });
+    grid.innerHTML = gridHtml || '<p style="color:rgba(10,10,15,.4);font-size:13px;grid-column:1/-1">No hay huecos disponibles este día.</p>';
+    calShowStep('time');
+  };
+
+  window.calSelectSlot = function(iso, label){
+    selectedSlot = iso;
+    // Refresh slot buttons
+    var btns = document.querySelectorAll('.cal-slot');
+    btns.forEach(function(b){ b.classList.toggle('selected', b.textContent===label); });
+    // Build booking summary label
+    var d = new Date(iso);
+    var opts = {weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Madrid'};
+    var dtLabel = d.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',timeZone:'Europe/Madrid'})
+      +' · '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Madrid'});
+    // Capitalise first letter
+    dtLabel = dtLabel.charAt(0).toUpperCase()+dtLabel.slice(1);
+    document.getElementById('cal-booking-dt-label').textContent = dtLabel;
+    calShowStep('form');
+  };
+
+  // ── Envío del formulario de reserva ──
+  window.submitBooking = function(e){
+    e.preventDefault();
+    var f = e.target;
+    var btn = document.getElementById('booking-btn');
+    var name    = f.querySelector('[name="name"]').value.trim();
+    var email   = f.querySelector('[name="email"]').value.trim();
+    var phone   = f.querySelector('[name="phone"]').value.trim();
+    var company = f.querySelector('[name="company"]').value.trim();
+    if(!name||!email||!selectedSlot) return;
+    btn.textContent='Confirmando…';btn.disabled=true;
+    fetch(API_BASE+'/velia-book',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name:name,email:email,phone:phone,company:company,slot:selectedSlot})
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(data.error){
+        if(data.error.indexOf('longer available')>=0||data.error.indexOf('409')>=0){
+          btn.textContent='Este hueco ya está ocupado';btn.disabled=false;
+          setTimeout(function(){ btn.textContent='Confirmar reserva';btn.disabled=false; selectedSlot=null; calGoBack('time'); },2000);
+          return;
+        }
+        throw new Error(data.error);
+      }
+      document.getElementById('calendar-coming').classList.remove('show');
+      document.getElementById('success').innerHTML =
+        '<div class="success-sep"></div>'+
+        '<h2 class="success-title">RESERVA<br><em>CONFIRMADA.</em></h2>'+
+        '<p class="success-sub">Hemos reservado tu auditoría.<br>Recibirás un email de confirmación en breve.</p>';
+      document.getElementById('success').classList.add('show');
+    })
+    .catch(function(){
+      btn.textContent='Error — inténtalo de nuevo';btn.disabled=false;
+    });
+  };
+
+  // ── Formulario de contacto (fallback) ──
+  window.submitForm = function(e){
     e.preventDefault();
     var f=e.target,btn=document.getElementById('submit-btn');
     var nombre=f.querySelector('[name="nombre"]').value.trim();
     var email=f.querySelector('[name="email"]').value.trim();
     var telefono=f.querySelector('[name="telefono"]').value.trim();
     if(!nombre||!email||!telefono){return;}
-    var p={
-      nombre:nombre,
-      email:email,
-      telefono:telefono,
-      empresa:f.querySelector('[name="empresa"]').value.trim(),
-      fecha:new Date().toISOString(),
-      origen:'Formulario VELIA'
-    };
+    var p={nombre:nombre,email:email,telefono:telefono,empresa:f.querySelector('[name="empresa"]').value.trim(),fecha:new Date().toISOString(),origen:'Formulario VELIA'};
     btn.textContent='Enviando...';btn.disabled=true;
-    if(!GHL||GHL==='TU_WEBHOOK_GHL_VELIA_AQUI'){
-      setTimeout(function(){
-        document.getElementById('form-wrap').classList.remove('show');
-        document.getElementById('success').classList.add('show');
-      },800);
-      return;
-    }
-    fetch(GHL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
+    fetch(GHL_FORM,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
       .then(function(){document.getElementById('form-wrap').classList.remove('show');document.getElementById('success').classList.add('show');})
       .catch(function(){btn.textContent='Error — inténtalo de nuevo';btn.disabled=false;});
-  }
-  window.submitForm=submitForm;
+  };
+
 })();
 </script>
 </body>
