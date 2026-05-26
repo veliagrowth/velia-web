@@ -23,6 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/velia.css"/>
 
 <script type="application/ld+json">
 {
@@ -47,11 +48,12 @@
     {
       "@type":"FAQPage",
       "mainEntity":[
-        {"@type":"Question","name":"¿Qué es VELIA Legal?","acceptedAnswer":{"@type":"Answer","text":"VELIA Legal es el sistema operativo completo para tu despacho: panel de gestión de clientes y expedientes, automatización de plazos procesales y facturación, y un sistema de captación de clientes integrado (SEO local, GMB, contenido, anuncios). Todo conectado bajo una sola infraestructura."}},
+        {"@type":"Question","name":"¿Qué diferencia hay entre VELIA Legal y un CRM como Clio o MyCase?","acceptedAnswer":{"@type":"Answer","text":"Clio y MyCase son software de gestión. VELIA Legal incluye también la parte de captación (SEO, contenido, ads, Google Business) y la conecta con el panel. Tu sistema completo en una sola infraestructura, no cinco herramientas sueltas."}},
+        {"@type":"Question","name":"¿Se integra con Lexnet y Verifactu?","acceptedAnswer":{"@type":"Answer","text":"Lexnet se integra en el tier Élite — el bufete autentica con su tarjeta ACA y VELIA centraliza las notificaciones. Verifactu llega con la integración vía fiskaly SIGN ES (cubre Verifactu y TicketBAI), también disponible en Élite."}},
         {"@type":"Question","name":"¿Cuánto tarda la implementación?","acceptedAnswer":{"@type":"Answer","text":"Entre 2 y 6 semanas según el alcance del despacho. Se cierra el calendario y el presupuesto exacto tras una auditoría inicial gratuita de 30-45 minutos."}},
-        {"@type":"Question","name":"¿Se integra con Verifactu y Lexnet?","acceptedAnswer":{"@type":"Answer","text":"Sí. La integración con Verifactu llega en Sprint 14 vía fiskaly SIGN ES (cubre Verifactu y TicketBAI). Lexnet se integra en Sprint 12, autenticando con el certificado ACA del propio bufete."}},
-        {"@type":"Question","name":"¿Qué pasa con mis expedientes si cancelo?","acceptedAnswer":{"@type":"Answer","text":"Tus expedientes siempre viven en TU Google Drive o OneDrive (Bring Your Own Drive). Si cancelas VELIA Legal, conservas el acceso completo a todos tus documentos."}},
-        {"@type":"Question","name":"¿Hay permanencia?","acceptedAnswer":{"@type":"Answer","text":"No hay permanencia. La mensualidad se renueva mes a mes."}}
+        {"@type":"Question","name":"¿Qué pasa con mis expedientes y datos si cancelo?","acceptedAnswer":{"@type":"Answer","text":"Tus expedientes viven siempre en TU Google Drive o OneDrive (Bring Your Own Drive). Si cancelas, conservas el acceso completo a todos los documentos."}},
+        {"@type":"Question","name":"¿Hay permanencia?","acceptedAnswer":{"@type":"Answer","text":"No hay permanencia. La mensualidad se renueva mes a mes."}},
+        {"@type":"Question","name":"¿Puedo tener varios abogados en el panel?","acceptedAnswer":{"@type":"Answer","text":"Sí. Starter cubre 1 abogado, Pro hasta 5 y Élite ilimitados. Cada abogado tiene su propio acceso, asignación de expedientes y agenda."}}
       ]
     }
   ]
@@ -59,84 +61,8 @@
 </script>
 
 <style>
-/* ═══ RESET + TOKENS ═══════════════════════════════════════════════════════ */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;background:#0A0A0F;overflow-x:hidden}
-:root{
-  --void:#0A0A0F;
-  --deep:#1C1C28;
-  --deep-2:#13131D;
-  --gold:#C9A96E;
-  --gold-l:#E8D5B0;
-  --gold-d:#9A7840;
-  --cream:#EDE9E1;
-  --cream-2:#F4F1EB;
-  --ink:#1C1C28;
-  --muted-d:rgba(237,233,225,.55);   /* sobre void/deep */
-  --muted-l:rgba(28,28,40,.55);      /* sobre cream */
-  --line-d:rgba(237,233,225,.10);
-  --line-l:rgba(28,28,40,.10);
-  --sans:'Inter','Inter Variable',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --ease:cubic-bezier(.16,1,.3,1);
-  --r-pill:999px;
-  --r-md:14px;
-  --r-lg:22px;
-}
-body{font-family:var(--sans);background:var(--void);color:var(--cream);font-weight:400;font-feature-settings:"ss01","cv11";line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-img,svg{display:block;max-width:100%}
-a{color:inherit}
-button{font:inherit;cursor:pointer;border:0;background:transparent;color:inherit}
-::selection{background:var(--gold);color:var(--void)}
-
-/* ═══ GRAIN ════════════════════════════════════════════════════════════════ */
-#grain{position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E")}
-
-/* ═══ TYPOGRAPHY UTILITIES ════════════════════════════════════════════════ */
-.eyebrow{font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
-.eyebrow.on-light{color:var(--gold-d)}
-.serif{font-family:var(--serif);font-style:italic;font-weight:500;letter-spacing:-.01em}
-h1,h2,h3{font-weight:700;letter-spacing:-.025em;line-height:1.05}
-h1{font-size:clamp(40px,5.6vw,76px)}
-h2{font-size:clamp(32px,4.2vw,56px)}
-h3{font-size:clamp(20px,2vw,26px);letter-spacing:-.015em;line-height:1.2}
-
-/* ═══ LAYOUT ══════════════════════════════════════════════════════════════ */
-.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
-@media(max-width:640px){.wrap{padding:0 20px}}
-section{position:relative;padding:120px 0}
-@media(max-width:768px){section{padding:88px 0}}
-.surface-cream{background:var(--cream);color:var(--ink)}
-.surface-cream .eyebrow{color:var(--gold-d)}
-.surface-void{background:var(--void);color:var(--cream)}
-.surface-deep{background:var(--deep);color:var(--cream)}
-
-/* ═══ NAV ═════════════════════════════════════════════════════════════════ */
-.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:100;display:flex;align-items:center;justify-content:space-between;gap:32px;padding:10px 14px 10px 22px;width:calc(100% - 28px);max-width:980px;background:rgba(10,10,15,.55);backdrop-filter:saturate(140%) blur(18px);-webkit-backdrop-filter:saturate(140%) blur(18px);border:1px solid var(--line-d);border-radius:var(--r-pill);transition:background .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease)}
-.nav.scrolled{background:rgba(10,10,15,.82);border-color:rgba(201,169,110,.22);box-shadow:0 14px 40px -20px rgba(0,0,0,.5)}
-.nav-brand{display:flex;align-items:baseline;gap:8px;text-decoration:none;color:var(--cream);font-weight:700;letter-spacing:.02em;font-size:15px}
-.nav-brand .product{color:var(--gold);font-weight:500;font-size:13px}
-.nav-links{display:flex;align-items:center;gap:28px}
-.nav-links a{font-size:13px;font-weight:500;color:var(--muted-d);text-decoration:none;transition:color .2s}
-.nav-links a:hover{color:var(--cream)}
-.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:var(--gold);color:var(--void);font-size:12px;font-weight:600;letter-spacing:.02em;border-radius:var(--r-pill);text-decoration:none;transition:transform .2s var(--ease),background .2s}
-.nav-cta:hover{background:var(--gold-l);transform:translateY(-1px)}
-.nav-toggle{display:none}
-@media(max-width:820px){
-  .nav{padding:8px 12px 8px 18px}
-  .nav-links{display:none}
-  .nav-toggle{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;color:var(--cream);background:transparent;border:1px solid var(--line-d)}
-  .nav-cta{padding:9px 15px;font-size:11px}
-  .nav-mobile{position:fixed;inset:80px 14px auto 14px;background:rgba(10,10,15,.96);backdrop-filter:blur(20px);border:1px solid var(--line-d);border-radius:24px;padding:20px;z-index:99;display:none;flex-direction:column;gap:6px}
-  .nav-mobile.open{display:flex}
-  .nav-mobile a{padding:14px 16px;font-size:14px;font-weight:500;color:var(--cream);text-decoration:none;border-radius:14px;transition:background .2s}
-  .nav-mobile a:hover{background:rgba(255,255,255,.04)}
-}
-
-/* ═══ HERO ════════════════════════════════════════════════════════════════ */
+/* ── HOME-SPECIFIC ──────────────────────────────────────────────────── */
 .hero{padding:160px 0 80px;position:relative;overflow:hidden;min-height:92vh;display:flex;align-items:center}
-.hero-glow{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(closest-side,rgba(201,169,110,.16),transparent 70%);top:-260px;right:-260px;filter:blur(40px);pointer-events:none}
-.hero-glow-2{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(closest-side,rgba(201,169,110,.08),transparent 70%);bottom:-200px;left:-200px;filter:blur(50px);pointer-events:none}
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:88px;align-items:center;width:100%;position:relative}
 @media(max-width:980px){.hero-grid{grid-template-columns:1fr;gap:56px}}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;padding:7px 14px 7px 12px;border:1px solid rgba(201,169,110,.28);border-radius:var(--r-pill);font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);background:rgba(201,169,110,.05);margin-bottom:28px}
@@ -145,12 +71,6 @@ section{position:relative;padding:120px 0}
 .hero h1 em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold);letter-spacing:-.01em}
 .hero-sub{font-size:clamp(16px,1.4vw,18px);color:var(--muted-d);max-width:540px;margin-bottom:40px;line-height:1.65}
 .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
-.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:16px 26px;background:var(--gold);color:var(--void);font-size:14px;font-weight:600;letter-spacing:.01em;border-radius:var(--r-pill);text-decoration:none;transition:transform .2s var(--ease),background .2s,box-shadow .25s var(--ease);box-shadow:0 12px 32px -12px rgba(201,169,110,.5)}
-.btn-primary:hover{background:var(--gold-l);transform:translateY(-2px);box-shadow:0 18px 44px -14px rgba(201,169,110,.65)}
-.btn-secondary{display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border:1px solid rgba(237,233,225,.18);color:var(--cream);font-size:14px;font-weight:500;border-radius:var(--r-pill);text-decoration:none;transition:border-color .2s,background .2s,transform .2s var(--ease)}
-.btn-secondary:hover{border-color:rgba(201,169,110,.55);background:rgba(201,169,110,.06);transform:translateY(-2px)}
-.btn-arrow{transition:transform .25s var(--ease)}
-.btn-primary:hover .btn-arrow,.btn-secondary:hover .btn-arrow{transform:translateX(3px)}
 
 /* hero panel mockup */
 .hero-panel{position:relative;perspective:1400px}
@@ -158,10 +78,7 @@ section{position:relative;padding:120px 0}
 @media(max-width:980px){.hero-panel-frame{transform:none}}
 .hero-panel-frame:hover{transform:rotateY(-2deg) rotateX(1deg) translateY(-4px)}
 .hero-panel-bar{display:flex;align-items:center;gap:6px;padding:11px 14px;background:#0c0c12;border-bottom:1px solid rgba(255,255,255,.04)}
-.hero-panel-bar i{display:block;width:10px;height:10px;border-radius:50%;background:#26262f}
-.hero-panel-bar i:nth-child(1){background:#3a3a44}
-.hero-panel-bar i:nth-child(2){background:#3a3a44}
-.hero-panel-bar i:nth-child(3){background:#3a3a44}
+.hero-panel-bar i{display:block;width:10px;height:10px;border-radius:50%;background:#3a3a44}
 .hero-panel-bar span{margin-left:14px;font-size:10px;color:rgba(237,233,225,.32);letter-spacing:.04em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
 .hero-panel-body{display:grid;grid-template-columns:160px 1fr;gap:0;min-height:340px}
 .hero-panel-side{padding:18px 12px;border-right:1px solid rgba(255,255,255,.04);background:#0e0e15}
@@ -184,7 +101,7 @@ section{position:relative;padding:120px 0}
 .hero-panel-row .name{color:var(--cream);font-weight:500}
 .hero-panel-row .time{margin-left:auto;color:rgba(237,233,225,.4);font-family:ui-monospace,monospace;font-size:10px}
 
-/* ═══ TRANSFORMACIÓN (Antes/Después) ═════════════════════════════════════ */
+/* Transformación Antes/Después */
 .transform-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:48px;align-items:stretch;margin-top:64px}
 @media(max-width:880px){.transform-grid{grid-template-columns:1fr;gap:32px}}
 .transform-col{padding:36px 32px;border-radius:var(--r-lg);background:rgba(28,28,40,.05);border:1px solid rgba(28,28,40,.08)}
@@ -197,7 +114,7 @@ section{position:relative;padding:120px 0}
 .transform-arrow{align-self:center;color:var(--gold-d);font-family:var(--serif);font-style:italic;font-size:28px;font-weight:500;text-align:center;padding:0 8px}
 @media(max-width:880px){.transform-arrow{transform:rotate(90deg);font-size:22px}}
 
-/* ═══ PILARES ═════════════════════════════════════════════════════════════ */
+/* Pilares */
 .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:64px}
 @media(max-width:980px){.pillars{grid-template-columns:1fr}}
 .pillar{padding:36px 32px;border:1px solid var(--line-d);border-radius:var(--r-lg);background:rgba(255,255,255,.015);transition:border-color .3s var(--ease),background .3s,transform .3s var(--ease)}
@@ -207,13 +124,13 @@ section{position:relative;padding:120px 0}
 .pillar p{font-size:14.5px;color:var(--muted-d);line-height:1.7}
 .pillar.featured{background:linear-gradient(160deg,rgba(201,169,110,.10) 0%,rgba(201,169,110,.02) 100%);border-color:rgba(201,169,110,.35)}
 
-/* ═══ PRUEBA SOCIAL ══════════════════════════════════════════════════════ */
+/* Testimonio */
 .testimonial{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-top:48px}
 @media(max-width:880px){.testimonial{grid-template-columns:1fr;gap:40px}}
 .testimonial-quote{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(24px,2.6vw,34px);line-height:1.35;color:var(--cream);letter-spacing:-.015em}
 .testimonial-quote::before{content:'«';color:var(--gold);font-size:1.4em;line-height:0;margin-right:6px;vertical-align:-.18em}
 .testimonial-quote::after{content:'»';color:var(--gold);font-size:1.4em;line-height:0;margin-left:4px;vertical-align:-.18em}
-.testimonial-meta{margin-top:32px;font-size:13px;color:var(--muted-d);display:flex;align-items:center;gap:12px}
+.testimonial-meta{margin-top:32px;font-size:13px;color:var(--muted-d);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .testimonial-meta strong{color:var(--cream);font-weight:600}
 .testimonial-meta .divider{width:24px;height:1px;background:rgba(201,169,110,.4)}
 .testimonial-metrics{display:flex;flex-direction:column;gap:20px}
@@ -222,7 +139,7 @@ section{position:relative;padding:120px 0}
 .testimonial-metric .val{font-size:32px;font-weight:700;color:var(--gold);letter-spacing:-.02em;line-height:1}
 .testimonial-metric .val em{font-style:normal;color:var(--cream);font-size:14px;font-weight:500;margin-left:8px}
 
-/* ═══ HOW IT WORKS ════════════════════════════════════════════════════════ */
+/* Steps */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;counter-reset:step}
 @media(max-width:880px){.steps{grid-template-columns:1fr}}
 .step{position:relative;padding:32px 28px;border:1px solid rgba(28,28,40,.10);border-radius:var(--r-lg);background:#fff}
@@ -231,47 +148,17 @@ section{position:relative;padding:120px 0}
 .step p{font-size:14px;color:var(--muted-l);line-height:1.65}
 .step .duration{display:inline-block;margin-top:14px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-d);padding:5px 10px;border:1px solid rgba(154,120,64,.25);border-radius:var(--r-pill)}
 
-/* ═══ FAQ ═════════════════════════════════════════════════════════════════ */
+/* FAQ */
 .faq-list{margin-top:56px;border-top:1px solid var(--line-d)}
 .faq-item{border-bottom:1px solid var(--line-d)}
 .faq-item summary{list-style:none;padding:24px 0;display:flex;align-items:center;justify-content:space-between;gap:24px;cursor:pointer;font-size:17px;font-weight:500;color:var(--cream);letter-spacing:-.005em;transition:color .2s}
 .faq-item summary::-webkit-details-marker{display:none}
 .faq-item summary:hover{color:var(--gold)}
-.faq-item summary .icon{flex-shrink:0;width:32px;height:32px;border-radius:50%;border:1px solid var(--line-d);display:flex;align-items:center;justify-content:center;transition:transform .3s var(--ease),border-color .3s,background .3s}
-.faq-item[open] summary .icon{transform:rotate(45deg);border-color:rgba(201,169,110,.5);background:rgba(201,169,110,.08)}
+.faq-item summary .icon{position:relative;flex-shrink:0;width:32px;height:32px;border-radius:50%;border:1px solid var(--line-d);display:flex;align-items:center;justify-content:center;transition:transform .3s var(--ease),border-color .3s,background .3s}
 .faq-item summary .icon::before{content:'';width:10px;height:1px;background:currentColor;position:absolute}
 .faq-item summary .icon::after{content:'';width:1px;height:10px;background:currentColor;position:absolute}
-.faq-item summary .icon{position:relative}
+.faq-item[open] summary .icon{transform:rotate(45deg);border-color:rgba(201,169,110,.5);background:rgba(201,169,110,.08)}
 .faq-content{padding:0 56px 24px 0;font-size:15px;color:var(--muted-d);line-height:1.75;max-width:780px}
-
-/* ═══ CTA FINAL ═══════════════════════════════════════════════════════════ */
-.cta-band{padding:96px 0;background:linear-gradient(135deg,#1f1a14 0%,#13110d 100%);border-top:1px solid rgba(201,169,110,.18);border-bottom:1px solid rgba(201,169,110,.18);text-align:center;position:relative;overflow:hidden}
-.cta-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,169,110,.12),transparent 60%);pointer-events:none}
-.cta-band .eyebrow{margin-bottom:24px}
-.cta-band h2{max-width:760px;margin:0 auto 32px;color:var(--cream)}
-.cta-band h2 em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold)}
-
-/* ═══ FOOTER ══════════════════════════════════════════════════════════════ */
-footer{padding:64px 0 40px;background:var(--void);border-top:1px solid var(--line-d);color:var(--muted-d)}
-.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
-@media(max-width:820px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}}
-@media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
-.footer-brand .brand{display:flex;align-items:baseline;gap:8px;font-size:17px;font-weight:700;color:var(--cream);margin-bottom:14px}
-.footer-brand .brand .product{color:var(--gold);font-weight:500;font-size:14px}
-.footer-brand p{font-size:13px;line-height:1.7;max-width:300px}
-.footer-col h4{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--cream);margin-bottom:18px}
-.footer-col a{display:block;font-size:13px;color:var(--muted-d);text-decoration:none;padding:5px 0;transition:color .2s}
-.footer-col a:hover{color:var(--cream)}
-.footer-bottom{padding-top:32px;border-top:1px solid var(--line-d);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:12px;color:rgba(237,233,225,.4)}
-
-/* ═══ ANIMATIONS ══════════════════════════════════════════════════════════ */
-@media(prefers-reduced-motion:no-preference){
-  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
-  .reveal.in{opacity:1;transform:none}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
-}
 </style>
 </head>
 <body>
@@ -487,7 +374,7 @@ footer{padding:64px 0 40px;background:var(--void);border-top:1px solid var(--lin
       </details>
       <details class="faq-item">
         <summary>¿Hay permanencia?<span class="icon"></span></summary>
-        <div class="faq-content">No. La mensualidad se renueva mes a mes. La implementación se paga una vez al inicio según el presupuesto cerrado.</div>
+        <div class="faq-content">No. La mensualidad se renueva mes a mes. La implementación se paga una vez al inicio según el presupuesto cerrado en la auditoría.</div>
       </details>
       <details class="faq-item">
         <summary>¿Puedo tener varios abogados en el panel?<span class="icon"></span></summary>
@@ -540,30 +427,6 @@ footer{padding:64px 0 40px;background:var(--void);border-top:1px solid var(--lin
   </div>
 </footer>
 
-<script>
-// Nav scroll state
-(function(){
-  const nav = document.getElementById('nav');
-  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 24);
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  // Mobile toggle
-  const toggle = document.getElementById('navToggle');
-  const mobile = document.getElementById('navMobile');
-  toggle && toggle.addEventListener('click', () => mobile.classList.toggle('open'));
-  mobile && mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobile.classList.remove('open')));
-
-  // Reveal on scroll
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  } else {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
-  }
-})();
-</script>
+<script src="/assets/velia.js"></script>
 </body>
 </html>

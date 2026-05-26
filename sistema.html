@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>El sistema · VELIA Legal</title>
+<meta name="description" content="VELIA Legal es panel de gestión + sistema de captación conectados. Expedientes, plazos procesales, Verifactu, SEO local, contenido y anuncios bajo una sola infraestructura."/>
+<meta name="theme-color" content="#0A0A0F"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://veliacorp.com/sistema.html"/>
+<meta property="og:title" content="El sistema · VELIA Legal"/>
+<meta property="og:description" content="Panel de gestión + sistema de captación conectados. Todo lo que tu despacho necesita en una sola infraestructura."/>
+<meta property="og:image" content="https://veliacorp.com/og/sistema.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="icon" type="image/png" href="./VELIA_isotipo_oscuro.png"/>
+<link rel="canonical" href="https://veliacorp.com/sistema.html"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/velia.css"/>
+
+<style>
+/* PAGE-SPECIFIC */
+.page-hero{padding:180px 0 80px;text-align:left;position:relative;overflow:hidden}
+.page-hero .wrap{max-width:920px}
+.page-hero h1{font-size:clamp(40px,5.6vw,72px);margin-bottom:22px}
+.page-hero h1 em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold)}
+.page-hero p{font-size:clamp(16px,1.4vw,19px);color:var(--muted-d);max-width:680px;line-height:1.65}
+
+/* PILLAR DETAIL */
+.pillar-detail{padding:96px 0;border-top:1px solid var(--line-d)}
+.pillar-detail.cream{border-top:none;border-bottom:1px solid var(--line-l)}
+.pillar-row{display:grid;grid-template-columns:.95fr 1.05fr;gap:80px;align-items:start}
+.pillar-row.reverse{grid-template-columns:1.05fr .95fr}
+.pillar-row.reverse .pillar-text{order:2}
+.pillar-row.reverse .pillar-visual{order:1}
+@media(max-width:980px){.pillar-row,.pillar-row.reverse{grid-template-columns:1fr;gap:48px}.pillar-row.reverse .pillar-text{order:1}.pillar-row.reverse .pillar-visual{order:2}}
+.pillar-text .num{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--gold);letter-spacing:.05em;margin-bottom:16px}
+.pillar-text h2{margin-bottom:22px;font-size:clamp(28px,3.6vw,44px)}
+.pillar-text h2 em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold)}
+.pillar-text > p{font-size:16px;line-height:1.7;margin-bottom:28px}
+.surface-void .pillar-text > p{color:var(--muted-d)}
+.surface-cream .pillar-text > p{color:var(--muted-l)}
+.feat-list{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+.feat-list li{display:flex;gap:14px;align-items:flex-start;font-size:14.5px;line-height:1.6;list-style:none}
+.feat-list li::before{content:'';flex-shrink:0;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-top:9px}
+.surface-cream .feat-list li{color:var(--ink)}
+.feat-list li strong{font-weight:600}
+.feat-list li .badge{display:inline-block;margin-left:6px;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-d);padding:2px 7px;border:1px solid rgba(154,120,64,.4);border-radius:var(--r-pill);vertical-align:middle}
+.surface-void .feat-list li .badge{color:var(--gold-l);border-color:rgba(232,213,176,.3)}
+
+/* visual mockups */
+.viz{border-radius:18px;overflow:hidden;background:linear-gradient(160deg,#15151e 0%,#0c0c12 100%);border:1px solid rgba(201,169,110,.12);box-shadow:0 40px 80px -40px rgba(0,0,0,.6)}
+.surface-cream .viz{background:linear-gradient(160deg,#fff 0%,#f4f1eb 100%);border:1px solid rgba(28,28,40,.08);box-shadow:0 30px 60px -30px rgba(28,28,40,.18)}
+.viz-bar{display:flex;align-items:center;gap:6px;padding:11px 14px;background:rgba(255,255,255,.02);border-bottom:1px solid rgba(255,255,255,.04)}
+.surface-cream .viz-bar{background:rgba(28,28,40,.025);border-bottom:1px solid rgba(28,28,40,.06)}
+.viz-bar i{width:9px;height:9px;border-radius:50%;background:#2a2a35}
+.surface-cream .viz-bar i{background:rgba(28,28,40,.15)}
+.viz-bar span{margin-left:14px;font-size:10px;color:rgba(237,233,225,.32);letter-spacing:.04em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.surface-cream .viz-bar span{color:rgba(28,28,40,.32)}
+.viz-body{padding:24px}
+
+/* Expediente viz */
+.exp-head{display:flex;align-items:center;gap:14px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:20px}
+.surface-cream .exp-head{border-color:rgba(28,28,40,.06)}
+.exp-head .pill{font-size:9px;font-weight:600;letter-spacing:.12em;padding:4px 10px;border-radius:var(--r-pill);background:rgba(201,169,110,.14);color:var(--gold)}
+.exp-head .ref{font-family:ui-monospace,monospace;font-size:10px;color:rgba(237,233,225,.35)}
+.surface-cream .exp-head .ref{color:rgba(28,28,40,.4)}
+.exp-head .title{font-size:14px;font-weight:600;color:var(--cream)}
+.surface-cream .exp-head .title{color:var(--ink)}
+.exp-tabs{display:flex;gap:18px;font-size:11px;font-weight:500;color:rgba(237,233,225,.45);margin-bottom:18px;border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:12px}
+.surface-cream .exp-tabs{color:rgba(28,28,40,.5);border-color:rgba(28,28,40,.06)}
+.exp-tabs .tab{padding:0 0 8px;position:relative}
+.exp-tabs .tab.active{color:var(--gold)}
+.exp-tabs .tab.active::after{content:'';position:absolute;left:0;right:0;bottom:-13px;height:2px;background:var(--gold)}
+.exp-rows{display:flex;flex-direction:column;gap:8px}
+.exp-row{display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:10px;font-size:12px}
+.surface-cream .exp-row{background:#fff;border-color:rgba(28,28,40,.06)}
+.exp-row .icon{width:24px;height:24px;border-radius:6px;background:rgba(201,169,110,.14);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
+.exp-row .name{font-weight:500;color:var(--cream)}
+.surface-cream .exp-row .name{color:var(--ink)}
+.exp-row .meta{font-size:10px;color:rgba(237,233,225,.4);margin-left:auto}
+.surface-cream .exp-row .meta{color:rgba(28,28,40,.4)}
+
+/* Plazos viz */
+.deadline-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px}
+.surface-cream .deadline-row{border-color:rgba(28,28,40,.06)}
+.deadline-row:last-child{border-bottom:0}
+.deadline-row .days{flex-shrink:0;width:56px;height:56px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(201,169,110,.10);color:var(--gold);font-weight:700;font-size:18px;line-height:1;letter-spacing:-.01em}
+.deadline-row .days small{font-size:8px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,169,110,.6);margin-top:3px}
+.deadline-row .days.urgent{background:rgba(255,90,90,.10);color:#ff6a6a}
+.deadline-row .days.urgent small{color:rgba(255,106,106,.6)}
+.deadline-row .info .ttl{font-weight:600;color:var(--cream);margin-bottom:3px}
+.surface-cream .deadline-row .info .ttl{color:var(--ink)}
+.deadline-row .info .sub{font-size:11px;color:rgba(237,233,225,.45)}
+.surface-cream .deadline-row .info .sub{color:rgba(28,28,40,.5)}
+
+/* Captación viz */
+.cap-search{padding:14px 16px;border:1px solid rgba(255,255,255,.06);border-radius:10px;font-size:13px;color:rgba(237,233,225,.55);margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.surface-cream .cap-search{background:#fff;border-color:rgba(28,28,40,.06);color:rgba(28,28,40,.55)}
+.cap-search .icon{color:var(--gold)}
+.cap-search .domain{font-family:ui-monospace,monospace;font-size:11px;color:var(--gold);margin-left:auto}
+.cap-result{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.surface-cream .cap-result{border-color:rgba(28,28,40,.06)}
+.cap-result:last-child{border-bottom:0}
+.cap-result .url{font-size:11px;color:rgba(78,205,196,.7);margin-bottom:4px}
+.cap-result .ttl{font-size:14px;font-weight:600;color:var(--cream);margin-bottom:4px}
+.surface-cream .cap-result .ttl{color:#1a0dab}
+.cap-result .desc{font-size:11.5px;color:rgba(237,233,225,.5);line-height:1.55}
+.surface-cream .cap-result .desc{color:rgba(28,28,40,.6)}
+.cap-result.featured .ttl{color:var(--gold)}
+.cap-result.featured::before{content:'★ ANUNCIO';font-size:9px;font-weight:600;letter-spacing:.14em;color:var(--gold-d);display:block;margin-bottom:5px}
+
+/* ═══ INTEGRATION FLOW ═══════════════════════════════════════════════════ */
+.flow-section{padding:120px 0;background:linear-gradient(180deg,#11111a 0%,#0a0a0f 100%)}
+.flow-head{max-width:680px;margin-bottom:64px}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;align-items:stretch}
+@media(max-width:880px){.flow{grid-template-columns:1fr 1fr;gap:18px}}
+.flow-node{padding:24px 22px;border:1px solid var(--line-d);border-radius:var(--r-md);background:rgba(255,255,255,.02);position:relative;transition:border-color .3s,background .3s}
+.flow-node:hover{border-color:rgba(201,169,110,.4);background:rgba(201,169,110,.04)}
+.flow-node .step{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--gold);margin-bottom:14px;letter-spacing:.05em}
+.flow-node h4{font-size:15px;font-weight:600;color:var(--cream);margin-bottom:10px;letter-spacing:-.01em}
+.flow-node p{font-size:12.5px;color:var(--muted-d);line-height:1.6}
+.flow-node::after{content:'→';position:absolute;right:-20px;top:50%;transform:translateY(-50%);color:var(--gold);font-size:14px;z-index:2;background:#0c0c14;padding:0 4px}
+.flow-node:last-child::after{display:none}
+@media(max-width:880px){.flow-node::after{display:none}}
+
+.flow-callout{margin-top:48px;padding:32px 36px;border:1px solid rgba(201,169,110,.28);border-radius:var(--r-lg);background:linear-gradient(135deg,rgba(201,169,110,.08) 0%,rgba(201,169,110,.01) 100%);display:flex;gap:24px;align-items:center}
+@media(max-width:768px){.flow-callout{flex-direction:column;align-items:flex-start;gap:18px}}
+.flow-callout .label{font-family:var(--serif);font-style:italic;font-size:22px;font-weight:500;color:var(--gold);flex-shrink:0}
+.flow-callout p{font-size:15px;color:var(--cream);line-height:1.65;margin:0}
+.flow-callout p strong{color:var(--gold)}
+
+/* ═══ NOT-US ══════════════════════════════════════════════════════════════ */
+.not-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+@media(max-width:880px){.not-grid{grid-template-columns:1fr}}
+.not-card{padding:28px 26px;border:1px solid rgba(28,28,40,.10);border-radius:var(--r-lg);background:#fff}
+.not-card .x{font-family:var(--serif);font-style:italic;font-size:14px;color:#c44;letter-spacing:.05em;margin-bottom:14px}
+.not-card h3{font-size:18px;font-weight:600;color:var(--ink);margin-bottom:10px;letter-spacing:-.01em}
+.not-card p{font-size:13.5px;color:var(--muted-l);line-height:1.65}
+</style>
+</head>
+<body>
+<div id="grain"></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="/" class="nav-brand">VELIA<span class="product">Legal</span></a>
+  <div class="nav-links">
+    <a href="/sistema.html" class="active">Sistema</a>
+    <a href="/precios.html">Precios</a>
+    <a href="/equipo.html">Equipo</a>
+    <a href="/contacto.html">Contacto</a>
+  </div>
+  <a href="/contacto.html" class="nav-cta">Reservar auditoría</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+    <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><path d="M1 1h16M1 7h16M1 13h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="/sistema.html">Sistema</a>
+  <a href="/precios.html">Precios</a>
+  <a href="/equipo.html">Equipo</a>
+  <a href="/contacto.html">Contacto</a>
+</div>
+
+<!-- HERO -->
+<header class="page-hero surface-void">
+  <div class="hero-glow"></div>
+  <div class="wrap">
+    <div class="eyebrow reveal" style="margin-bottom:24px">El sistema</div>
+    <h1 class="reveal">El sistema completo para que tu despacho <em>funcione solo.</em></h1>
+    <p class="reveal" style="margin-top:24px">Panel de gestión y captación de clientes conectados bajo una sola infraestructura. Lo que en otros sitios son cinco herramientas distintas, aquí es un único sistema construido para abogados.</p>
+  </div>
+</header>
+
+<!-- PILAR 1 — DESPACHO DIGITAL -->
+<section class="pillar-detail surface-cream">
+  <div class="wrap">
+    <div class="pillar-row">
+      <div class="pillar-text reveal">
+        <div class="num">Pilar 01</div>
+        <h2>Tu despacho, <em>digital y ordenado.</em></h2>
+        <p>Panel a medida para abogados, no un CRM genérico adaptado. Todo lo que un despacho necesita gestionar a diario, en un mismo sitio y conectado.</p>
+        <ul class="feat-list">
+          <li><strong>Expedientes</strong> con asignación de abogado responsable, partes, documentos versionados y audit RGPD completo.</li>
+          <li><strong>Contactos y pipeline</strong> de leads desde primera consulta hasta cierre, con seguimiento automático.</li>
+          <li><strong>Plazos procesales</strong> calculados automáticamente según LEC y festivos por CCAA. Avisos por WhatsApp 7/2/1 días antes.</li>
+          <li><strong>Editor de documentos</strong> con plantillas, variables del cliente y export PDF/DOCX server-side.</li>
+          <li><strong>Facturación Verifactu</strong> vía fiskaly SIGN ES, cubriendo también TicketBAI. <span class="badge">Élite</span></li>
+          <li><strong>Portal cliente</strong> con magic link sin login: estado del expediente, próxima audiencia, documentos compartidos.</li>
+          <li><strong>Booking público</strong> integrado en tu web — citas a tu Google Calendar en un click.</li>
+        </ul>
+      </div>
+      <div class="pillar-visual reveal">
+        <div class="viz">
+          <div class="viz-bar"><i></i><i></i><i></i><span>panel · expedientes / MG-2026-0142</span></div>
+          <div class="viz-body">
+            <div class="exp-head">
+              <span class="pill">Laboral</span>
+              <span class="ref">MG-2026-0142</span>
+              <span class="title" style="margin-left:auto">M. García · despido improcedente</span>
+            </div>
+            <div class="exp-tabs">
+              <span class="tab active">Resumen</span>
+              <span class="tab">Documentos · 6</span>
+              <span class="tab">Apuntes</span>
+              <span class="tab">Audit</span>
+            </div>
+            <div class="exp-rows">
+              <div class="exp-row"><span class="icon">D</span><span class="name">Demanda inicial</span><span class="meta">Editado · ayer</span></div>
+              <div class="exp-row"><span class="icon">P</span><span class="name">Poder de representación</span><span class="meta">Firmado · 12 may</span></div>
+              <div class="exp-row"><span class="icon">N</span><span class="name">Notificación Juzgado Social nº 3</span><span class="meta">Recibida · 18 may</span></div>
+              <div class="exp-row"><span class="icon">M</span><span class="name">Minuta cliente — 1ª provisión</span><span class="meta">Pendiente</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILAR 1.5 — PLAZOS (sub-bloque dentro de cream) -->
+<section class="pillar-detail surface-cream" style="padding-top:0">
+  <div class="wrap">
+    <div class="pillar-row reverse">
+      <div class="pillar-text reveal">
+        <div class="num">Lo que más duele</div>
+        <h2>Los plazos procesales <em>nunca se te escapan.</em></h2>
+        <p>21 tipos de plazo seed —civil, penal, laboral, administrativo, contencioso, familia, mercantil— calculados según LEC arts. 130-135 y festivos nacionales + 19 CCAA. Cada plazo dispara avisos automáticos al abogado responsable por WhatsApp.</p>
+        <ul class="feat-list">
+          <li>Avisos a 7, 2 y 1 día antes (configurable por tipo de plazo).</li>
+          <li>Sin duplicar — el sistema lleva la cuenta de qué alertas ya envió.</li>
+          <li>Visible en el expediente y en una vista global del despacho.</li>
+        </ul>
+      </div>
+      <div class="pillar-visual reveal">
+        <div class="viz">
+          <div class="viz-bar"><i></i><i></i><i></i><span>panel · plazos esta semana</span></div>
+          <div class="viz-body">
+            <div class="deadline-row">
+              <div class="days urgent">1<small>día</small></div>
+              <div class="info">
+                <div class="ttl">Recurso reposición · STSJ Aragón</div>
+                <div class="sub">JL-2026-0089 · J. López · vence mañana 14:00</div>
+              </div>
+            </div>
+            <div class="deadline-row">
+              <div class="days">2<small>días</small></div>
+              <div class="info">
+                <div class="ttl">Escrito de acusación particular</div>
+                <div class="sub">AR-2026-0034 · A. Ruiz · viernes</div>
+              </div>
+            </div>
+            <div class="deadline-row">
+              <div class="days">7<small>días</small></div>
+              <div class="info">
+                <div class="ttl">Contestación demanda</div>
+                <div class="sub">MG-2026-0142 · M. García · prox. lunes</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILAR 2 — VISIBILIDAD -->
+<section class="pillar-detail surface-void">
+  <div class="wrap">
+    <div class="pillar-row">
+      <div class="pillar-text reveal">
+        <div class="num">Pilar 02</div>
+        <h2>El abogado de referencia <em>en tu zona.</em></h2>
+        <p>Posicionamiento real, no humo de agencia. Trabajamos para que cuando alguien en tu ciudad busque "abogado laboralista" o "despido improcedente", aparezcas tú — y aparezcas con argumentos.</p>
+        <ul class="feat-list">
+          <li><strong>SEO local</strong> sobre tu web con páginas optimizadas por área de práctica y por municipio.</li>
+          <li><strong>Google Business activo</strong> — perfil completo, fotos, horarios, reseñas gestionadas y publicaciones semanales.</li>
+          <li><strong>Contenido orgánico</strong> mensual: artículos largos que responden a las preguntas reales que la gente busca.</li>
+          <li><strong>Anuncios</strong> en Meta o Google cuando proceda — siempre con tu propio budget, sin markup oculto.</li>
+          <li><strong>Web a medida</strong> que carga rápido, convierte y refleja tu identidad — no una plantilla genérica.</li>
+        </ul>
+      </div>
+      <div class="pillar-visual reveal">
+        <div class="viz">
+          <div class="viz-bar"><i></i><i></i><i></i><span>google.com · abogado laboralista huesca</span></div>
+          <div class="viz-body">
+            <div class="cap-search">
+              <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <span>abogado laboralista huesca</span>
+              <span class="domain">~140 resultados</span>
+            </div>
+            <div class="cap-result featured">
+              <div class="url">consuljuridico.com › derecho-laboral</div>
+              <div class="ttl">Abogado laboralista en Huesca · Cónsul Jurídico</div>
+              <div class="desc">Especialistas en despidos, reclamaciones de cantidad y conflictos laborales. Primera consulta gratuita en 24h.</div>
+            </div>
+            <div class="cap-result">
+              <div class="url">consuljuridico.com › blog › despido-improcedente</div>
+              <div class="ttl">Despido improcedente: indemnización y plazos en 2026</div>
+              <div class="desc">Guía completa actualizada: cálculo de la indemnización, plazos de impugnación y derechos del trabajador despedido.</div>
+            </div>
+            <div class="cap-result">
+              <div class="url">consuljuridico.com › areas › conflicto-colectivo</div>
+              <div class="ttl">Conflictos colectivos y representación sindical</div>
+              <div class="desc">Asesoramiento legal a comités de empresa y representantes sindicales en Aragón y Cataluña.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILAR 3 — INTEGRACIÓN (FLOW) -->
+<section class="flow-section">
+  <div class="wrap">
+    <div class="flow-head">
+      <div class="eyebrow reveal" style="margin-bottom:24px">Pilar 03 · El diferencial</div>
+      <h2 class="reveal">Lo que la competencia <em class="serif" style="color:var(--gold)">no tiene.</em></h2>
+      <p class="reveal" style="font-size:17px;color:var(--muted-d);line-height:1.7;margin-top:18px;max-width:640px">Un lead que entra por Instagram, web o referencia recorre el sistema entero sin intervención manual. Esto es lo que separa una colección de herramientas de un sistema real.</p>
+    </div>
+    <div class="flow">
+      <div class="flow-node reveal">
+        <div class="step">Paso 01</div>
+        <h4>Entra el lead</h4>
+        <p>Instagram, web, Google, referencia. Cada canal etiquetado para medir qué funciona.</p>
+      </div>
+      <div class="flow-node reveal">
+        <div class="step">Paso 02</div>
+        <h4>Cualifica</h4>
+        <p>El panel detecta área, urgencia y datos faltantes. Asigna al abogado adecuado.</p>
+      </div>
+      <div class="flow-node reveal">
+        <div class="step">Paso 03</div>
+        <h4>Responde</h4>
+        <p>Mensaje automático personalizado por WhatsApp o email en menos de 5 minutos.</p>
+      </div>
+      <div class="flow-node reveal">
+        <div class="step">Paso 04</div>
+        <h4>Agenda</h4>
+        <p>Booking directo a tu Google Calendar. Reserva confirmada con Meet incluido.</p>
+      </div>
+      <div class="flow-node reveal">
+        <div class="step">Paso 05</div>
+        <h4>Abre expediente</h4>
+        <p>Si firmáis, el expediente se crea con todos los datos ya cargados. Cero re-tecleo.</p>
+      </div>
+    </div>
+    <div class="flow-callout reveal">
+      <span class="label">El cálculo</span>
+      <p>Lo que normalmente cuesta <strong>5 herramientas separadas (CRM + booking + email marketing + WhatsApp Business + analítica)</strong> rondando los <strong>600-900 €/mes</strong>, en VELIA Legal es <strong>una sola plataforma</strong> mantenida por nosotros — sin que tengas que aprender a usar ninguna.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NOT US -->
+<section class="surface-cream">
+  <div class="wrap">
+    <div style="max-width:680px">
+      <div class="eyebrow on-light reveal">Lo que no somos</div>
+      <h2 class="reveal" style="margin-top:18px;color:var(--ink)">Decir <em class="serif" style="color:var(--gold-d)">qué no</em> también es decir qué sí.</h2>
+    </div>
+    <div class="not-grid">
+      <div class="not-card reveal">
+        <div class="x">— No</div>
+        <h3>No somos software gratis</h3>
+        <p>Si lo que buscas es un Excel mejor por 9 €/mes, no somos para ti. Esto es infraestructura activa que cuesta lo que cuesta operarla bien.</p>
+      </div>
+      <div class="not-card reveal">
+        <div class="x">— No</div>
+        <h3>No somos plantillas legales</h3>
+        <p>No vendemos PDFs ni biblioteca de modelos. Vendemos un sistema que opera tu despacho — las plantillas son una parte minúscula.</p>
+      </div>
+      <div class="not-card reveal">
+        <div class="x">— No</div>
+        <h3>No somos una agencia que se va</h3>
+        <p>No te entregamos un PDF y desaparecemos. Mantenemos el panel, publicamos contenido, vigilamos métricas y respondemos en horas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-band">
+  <div class="wrap">
+    <div class="eyebrow reveal">El siguiente paso</div>
+    <h2 class="reveal">¿Quieres ver el panel <em>en directo</em> con datos de tu despacho?</h2>
+    <a href="/contacto.html" class="btn-primary reveal">Reservar auditoría gratuita <span class="btn-arrow">→</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand">VELIA<span class="product">Legal</span></div>
+        <p>El sistema operativo para despachos de abogados. Construido por VELIA en Madrid y Barcelona.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Producto</h4>
+        <a href="/sistema.html">El sistema</a>
+        <a href="/precios.html">Precios</a>
+        <a href="/contacto.html">Auditoría gratuita</a>
+      </div>
+      <div class="footer-col">
+        <h4>VELIA</h4>
+        <a href="/equipo.html">Equipo</a>
+        <a href="https://www.linkedin.com/company/veliacorp" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:admin@veliacorp.com">admin@veliacorp.com</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="/aviso-legal.html">Aviso legal</a>
+        <a href="/privacidad.html">Privacidad</a>
+        <a href="/cookies.html">Cookies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 VELIA · veliacorp.com</span>
+      <span>Construido en España</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/velia.js"></script>
+</body>
+</html>

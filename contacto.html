@@ -2,479 +2,450 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Háblanos de tu proyecto — VELIA</title>
-<meta name="description" content="Cuéntanos tu situación y evaluamos si podemos ayudarte a crecer con estrategia e IA."/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
+<title>Reserva tu auditoría · VELIA Legal</title>
+<meta name="description" content="Llamada gratuita de 30-45 minutos. Estudiamos tu despacho y te decimos si VELIA Legal encaja contigo, sin compromiso."/>
+<meta name="theme-color" content="#0A0A0F"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://veliacorp.com/contacto.html"/>
+<meta property="og:title" content="Reserva tu auditoría · VELIA Legal"/>
+<meta property="og:description" content="30-45 min, sin compromiso. Te decimos si VELIA Legal encaja con tu despacho."/>
+<meta property="og:image" content="https://veliacorp.com/og/contacto.png"/>
 <link rel="icon" type="image/png" href="./VELIA_isotipo_oscuro.png"/>
+<link rel="canonical" href="https://veliacorp.com/contacto.html"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/velia.css"/>
+
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;background:#EDE9E1;overflow-x:hidden;overflow-y:scroll}
-:root{
-  --void:#0A0A0F;
-  --deep:#1C1C28;
-  --gold:#C9A96E;
-  --gold-l:#E8D5B0;
-  --gold-d:#9A7840;
-  --cream:#EDE9E1;
-  --signal:#9A7840;
-  --pulse:#6C5CE7;
-  --muted:rgba(10,10,15,.5);
-  --border:rgba(10,10,15,.09);
-  --f:'Montserrat',sans-serif;
-}
-body{font-family:var(--f);background:var(--cream);color:var(--void);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+/* ── CONTACTO ───────────────────────────────────────────────────────── */
+.contact-shell{min-height:calc(100vh - 80px);padding:120px 0 60px;display:flex;align-items:center;position:relative;overflow:hidden}
+.contact-shell .hero-glow{top:-300px;right:-300px}
+.contact-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;width:100%;position:relative;align-items:start}
+@media(max-width:980px){.contact-grid{grid-template-columns:1fr;gap:40px}}
 
-/* cursor: sistema — no custom */
+/* Left column — razones */
+.contact-left{position:sticky;top:120px}
+@media(max-width:980px){.contact-left{position:static}}
+.contact-left .eyebrow{margin-bottom:24px}
+.contact-left h1{font-size:clamp(34px,4.4vw,52px);margin-bottom:18px}
+.contact-left h1 em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold)}
+.contact-left > p{font-size:16px;color:var(--muted-d);line-height:1.7;margin-bottom:36px;max-width:440px}
+.reasons{display:flex;flex-direction:column;gap:14px;margin-bottom:36px}
+.reason{display:flex;gap:14px;align-items:flex-start;padding:14px 18px;border:1px solid var(--line-d);background:rgba(255,255,255,.02);border-radius:14px}
+.reason .icon{flex-shrink:0;width:34px;height:34px;border-radius:10px;background:rgba(201,169,110,.10);color:var(--gold);display:flex;align-items:center;justify-content:center}
+.reason .icon svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.reason .body .lbl{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.reason .body .desc{font-size:13.5px;color:var(--cream);line-height:1.55}
 
-/* ═══ GRAIN ═══ */
-#grain{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:99999}
+.contact-alt{padding-top:28px;border-top:1px solid var(--line-d)}
+.contact-alt .label{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted-d);margin-bottom:16px}
+.contact-alt-list{display:flex;flex-direction:column;gap:8px}
+.contact-alt-list a{display:flex;align-items:center;gap:12px;padding:10px 4px;font-size:13.5px;color:var(--cream);text-decoration:none;transition:color .2s,padding .2s var(--ease)}
+.contact-alt-list a:hover{color:var(--gold);padding-left:8px}
+.contact-alt-list a svg{width:14px;height:14px;stroke:var(--gold);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
 
-/* ═══ NAV ═══ */
-nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:64px;background:var(--void);border-bottom:1px solid rgba(201,169,110,.1);transition:border-color .4s}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
-.nav-wordmark{height:26px;width:auto;display:block}
-.nav-logo-sub{font-size:7px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:4px}
-.nav-back{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:8px}
-.nav-back::before{content:'←';font-size:12px}
-.nav-back:hover{color:var(--cream)}
-@media(max-width:720px){nav{padding:0 5vw;height:56px}.nav-logo-sub{display:none}}
+/* Right column — widget */
+.contact-right{background:linear-gradient(160deg,#15151e 0%,#0c0c14 100%);border:1px solid rgba(201,169,110,.18);border-radius:var(--r-lg);padding:36px;min-height:560px;display:flex;flex-direction:column;box-shadow:0 50px 100px -50px rgba(0,0,0,.6)}
+@media(max-width:640px){.contact-right{padding:28px 22px}}
 
-/* ═══ LAYOUT ═══ */
-.page-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;padding-top:64px}
-.page-left{padding:80px 5vw 60px;position:sticky;top:64px;height:calc(100vh - 64px);display:flex;flex-direction:column;justify-content:center;background:var(--deep);border-right:1px solid var(--border);overflow:hidden}
-.page-left-glow{position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(ellipse,rgba(201,169,110,.06) 0%,transparent 70%);pointer-events:none}
-.page-left-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,169,110,.032) 1px,transparent 1px),linear-gradient(90deg,rgba(201,169,110,.032) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 30% 70%,black 0%,transparent 70%)}
-
-/* ═══ LEFT CONTENT ═══ */
-.page-eyebrow{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--signal);margin-bottom:24px;display:flex;align-items:center;gap:12px;position:relative;z-index:1}
-.page-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--signal);flex-shrink:0}
-.page-title{font-family:var(--f);font-size:clamp(42px,4.5vw,76px);font-weight:800;line-height:.92;letter-spacing:-.03em;margin-bottom:24px;position:relative;z-index:1}
-.page-title em{font-style:normal;color:var(--gold)}
-.page-sub{font-size:14px;font-weight:300;line-height:1.85;color:var(--muted);max-width:360px;position:relative;z-index:1;margin-bottom:40px}
-.page-sub strong{color:var(--cream);font-weight:400}
-.info-pills{display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
-.info-pill{display:flex;align-items:center;gap:16px;padding:14px 18px;border:1px solid var(--border);background:rgba(10,10,15,.5);transition:border-color .2s}
-.info-pill:hover{border-color:rgba(201,169,110,.3)}
-.info-pill-icon{width:34px;height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.info-pill-icon svg{width:15px;height:15px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.info-pill-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;font-weight:600}
-.info-pill-val{font-size:12px;font-weight:300;color:var(--cream)}
-
-/* ═══ CHOICE SCREEN ═══ */
-.page-right{padding:80px 5vw;background:var(--void);display:flex;flex-direction:column;justify-content:center}
-.choice-screen{display:flex;flex-direction:column;justify-content:center}
-.choice-title{font-size:clamp(20px,2.2vw,28px);font-weight:700;letter-spacing:-.02em;color:var(--cream);line-height:1.15;margin-bottom:8px}
-.choice-sub{font-size:13px;font-weight:300;color:rgba(237,233,225,.45);line-height:1.75;margin-bottom:32px}
-.choice-btns{display:flex;flex-direction:column;gap:14px}
-.choice-btn{display:flex;align-items:center;gap:18px;padding:22px 24px;border:1.5px solid rgba(237,233,225,.1);background:rgba(237,233,225,.03);border-radius:16px;cursor:pointer;transition:border-color .25s,background .2s,transform .2s,box-shadow .25s;text-align:left;width:100%;font-family:var(--f)}
-.choice-btn:hover{border-color:rgba(201,169,110,.4);background:rgba(201,169,110,.05);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.28)}
-.choice-btn.primary{border-color:rgba(201,169,110,.3);background:rgba(201,169,110,.06)}
-.choice-btn.primary:hover{border-color:rgba(201,169,110,.6);box-shadow:0 8px 32px rgba(201,169,110,.18)}
-.choice-btn-icon{width:46px;height:46px;border-radius:13px;background:rgba(237,233,225,.07);border:1px solid rgba(237,233,225,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s,border-color .2s}
-.choice-btn:hover .choice-btn-icon{background:rgba(201,169,110,.1);border-color:rgba(201,169,110,.3)}
-.choice-btn.primary .choice-btn-icon{background:linear-gradient(135deg,var(--gold),var(--gold-d));border-color:transparent}
-.choice-btn-icon svg{width:19px;height:19px;stroke:rgba(237,233,225,.6);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.choice-btn.primary .choice-btn-icon svg{stroke:#fff}
+/* CHOICE */
+#choice-screen{display:flex;flex-direction:column}
+.choice-title{font-size:20px;font-weight:600;color:var(--cream);margin-bottom:8px;letter-spacing:-.01em}
+.choice-sub{font-size:13.5px;color:var(--muted-d);line-height:1.7;margin-bottom:28px}
+.choice-btns{display:flex;flex-direction:column;gap:12px}
+.choice-btn{display:flex;align-items:center;gap:16px;padding:20px 22px;border:1px solid rgba(237,233,225,.10);background:rgba(237,233,225,.02);border-radius:14px;cursor:pointer;transition:border-color .25s,background .25s,transform .2s var(--ease);text-align:left;width:100%}
+.choice-btn:hover{border-color:rgba(201,169,110,.45);background:rgba(201,169,110,.05);transform:translateY(-2px)}
+.choice-btn.primary{border-color:rgba(201,169,110,.35);background:rgba(201,169,110,.07)}
+.choice-btn.primary:hover{border-color:rgba(201,169,110,.7);box-shadow:0 12px 32px -12px rgba(201,169,110,.3)}
+.choice-btn-icon{flex-shrink:0;width:42px;height:42px;border-radius:12px;background:rgba(237,233,225,.05);display:flex;align-items:center;justify-content:center}
+.choice-btn-icon svg{width:18px;height:18px;stroke:var(--cream);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:.65;transition:opacity .2s,stroke .2s}
+.choice-btn:hover .choice-btn-icon svg{opacity:1;stroke:var(--gold)}
+.choice-btn.primary .choice-btn-icon{background:var(--gold)}
+.choice-btn.primary .choice-btn-icon svg{stroke:var(--void);opacity:1}
 .choice-btn-text{flex:1}
-.choice-btn-label{font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--cream);display:block;margin-bottom:3px}
-.choice-btn-desc{font-size:12px;font-weight:300;color:rgba(237,233,225,.42);line-height:1.5}
-.choice-btn-arrow{font-size:16px;color:var(--gold-d);opacity:.45;flex-shrink:0;transition:opacity .2s,transform .2s}
-.choice-btn:hover .choice-btn-arrow{opacity:1;transform:translateX(3px)}
+.choice-btn-label{display:block;font-size:14.5px;font-weight:600;color:var(--cream);margin-bottom:4px;letter-spacing:-.005em}
+.choice-btn-desc{display:block;font-size:12.5px;color:var(--muted-d);line-height:1.55}
+.choice-btn-arrow{color:var(--muted-d);font-size:18px;transition:color .2s,transform .25s var(--ease)}
+.choice-btn:hover .choice-btn-arrow{color:var(--gold);transform:translateX(3px)}
 
-/* ═══ FORM ═══ */
-.form-wrap-inner{display:none}
-.form-wrap-inner.show{display:block}
-.form-back{background:none;border:none;font-family:var(--f);font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(237,233,225,.35);cursor:pointer;padding:0;display:flex;align-items:center;gap:7px;margin-bottom:28px;transition:color .2s}
-.form-back::before{content:'←';font-size:12px}
-.form-back:hover{color:var(--cream)}
-.form-intro{margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border)}
-.form-intro-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-d);margin-bottom:10px;display:block}
-.form-intro-title{font-size:clamp(20px,2.2vw,28px);font-weight:700;letter-spacing:-.02em;color:var(--cream);line-height:1.15}
-.fg{margin-bottom:16px}
-.fg label{display:block;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.fg input{width:100%;background:var(--deep);border:1px solid var(--border);color:var(--cream);font-family:var(--f);font-size:13px;font-weight:300;padding:14px 16px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none;border-radius:0}
-.fg input::placeholder{color:rgba(237,233,225,.2)}
-.fg input:focus{border-color:rgba(201,169,110,.4)}
-.fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.btn-submit{width:100%;margin-top:8px;background:linear-gradient(135deg,var(--gold) 0%,var(--gold-d) 100%);color:var(--void);border:none;font-family:var(--f);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:16px 32px;border-radius:100px;transition:opacity .2s,transform .15s,box-shadow .2s;box-shadow:0 4px 24px rgba(201,169,110,.28);display:block;cursor:pointer}
-.btn-submit:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 8px 36px rgba(201,169,110,.38)}
-.btn-submit:disabled{opacity:.5;transform:none;box-shadow:none;cursor:default}
-.form-note{font-size:10px;font-weight:300;color:rgba(237,233,225,.28);text-align:center;margin-top:14px;letter-spacing:.04em}
+/* CAL */
+.cal-wrap{display:none;flex-direction:column;height:100%}
+.cal-wrap.show{display:flex}
+.cal-back{align-self:flex-start;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-d);background:none;border:0;padding:6px 10px 6px 4px;cursor:pointer;transition:color .2s;margin-bottom:18px;display:flex;align-items:center;gap:6px}
+.cal-back::before{content:'←'}
+.cal-back:hover{color:var(--gold)}
+.cal-step-label{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;display:block}
+.cal-step-title{font-size:22px;font-weight:600;color:var(--cream);margin-bottom:22px;letter-spacing:-.015em;line-height:1.2}
+.cal-step-title em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold)}
+.cal-loading,.cal-error{font-size:13px;color:var(--muted-d);text-align:center;padding:40px 0}
 
-/* ═══ CALENDAR ═══ */
-.cal-wrap{display:none}
-.cal-wrap.show{display:block}
-.cal-back{background:none;border:none;font-family:var(--f);font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(10,10,15,.35);cursor:pointer;padding:0;display:flex;align-items:center;gap:7px;margin-bottom:24px;transition:color .2s}
-.cal-back::before{content:'←';font-size:12px}
-.cal-back:hover{color:var(--void)}
-.cal-step-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-d);margin-bottom:10px;display:block}
-.cal-step-title{font-size:clamp(18px,2vw,24px);font-weight:700;letter-spacing:-.02em;color:var(--void);margin-bottom:20px;line-height:1.15}
-.cal-loading{text-align:center;padding:40px 0;color:rgba(10,10,15,.35);font-size:12px;letter-spacing:.1em}
-.cal-error{text-align:center;padding:28px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);border-radius:12px;color:rgba(239,68,68,.8);font-size:13px}
-/* Month grid */
-.cal-month-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.cal-month-label{font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--void)}
-.cal-nav-btn{background:none;border:1px solid rgba(10,10,15,.1);border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:14px;color:rgba(10,10,15,.5);transition:border-color .2s,color .2s;display:flex;align-items:center;justify-content:center}
-.cal-nav-btn:hover{border-color:rgba(201,169,110,.4);color:var(--void)}
-.cal-nav-btn:disabled{opacity:.25;cursor:default}
-.cal-dow-row{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px}
-.cal-dow{font-size:9px;font-weight:600;letter-spacing:.08em;text-align:center;color:rgba(10,10,15,.35);text-transform:uppercase;padding:4px 0}
+/* CAL — month grid */
+.cal-month-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.cal-month-label{font-size:14px;font-weight:600;color:var(--cream);letter-spacing:.01em;text-transform:capitalize}
+.cal-nav-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--line-d);color:var(--cream);background:transparent;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s}
+.cal-nav-btn:hover:not(:disabled){background:rgba(201,169,110,.08);border-color:rgba(201,169,110,.4)}
+.cal-nav-btn:disabled{opacity:.3;cursor:not-allowed}
+.cal-dow-row{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:8px}
+.cal-dow{text-align:center;font-size:10px;font-weight:600;color:var(--muted-d);padding:8px 0;letter-spacing:.04em;text-transform:uppercase}
 .cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:12px;font-weight:600;cursor:default;transition:background .15s,color .15s;position:relative}
-.cal-day.empty{background:transparent}
-.cal-day.past{color:rgba(10,10,15,.2)}
-.cal-day.unavail{color:rgba(10,10,15,.22)}
-.cal-day.avail{background:rgba(201,169,110,.1);color:var(--void);cursor:pointer;border:1px solid rgba(201,169,110,.25)}
-.cal-day.avail:hover{background:rgba(201,169,110,.22);border-color:rgba(201,169,110,.5)}
-.cal-day.selected{background:var(--gold-d)!important;color:#fff!important;border-color:transparent!important}
-.cal-day-dot{position:absolute;bottom:3px;width:4px;height:4px;border-radius:50%;background:var(--gold-d);opacity:.6}
-/* Slots */
-.cal-slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
-.cal-slot{padding:9px 4px;text-align:center;border:1.5px solid rgba(10,10,15,.1);border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;transition:border-color .15s,background .15s,color .15s;color:var(--void);background:#fff}
-.cal-slot:hover{border-color:rgba(201,169,110,.5);background:rgba(201,169,110,.06)}
-.cal-slot.selected{border-color:var(--gold-d);background:rgba(154,120,64,.08);color:var(--gold-d)}
-/* Booking form */
-.cal-booking-summary{display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(201,169,110,.07);border:1px solid rgba(201,169,110,.2);border-radius:10px;margin-bottom:20px}
-.cal-booking-icon{width:34px;height:34px;border-radius:9px;background:var(--gold-d);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.cal-booking-icon svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.cal-booking-dt{font-size:12px;font-weight:700;color:var(--void)}
-.cal-booking-dur{font-size:10px;color:rgba(10,10,15,.45);margin-top:2px}
+.cal-day{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:rgba(237,233,225,.45);border-radius:10px;cursor:default;position:relative;transition:background .2s,color .2s}
+.cal-day.empty{visibility:hidden}
+.cal-day.past{color:rgba(237,233,225,.18)}
+.cal-day.unavail{color:rgba(237,233,225,.25)}
+.cal-day.avail{color:var(--cream);cursor:pointer;border:1px solid rgba(201,169,110,.18);background:rgba(201,169,110,.03)}
+.cal-day.avail:hover{background:rgba(201,169,110,.12);border-color:rgba(201,169,110,.5)}
+.cal-day.selected{background:var(--gold)!important;color:var(--void)!important;border-color:var(--gold)!important;font-weight:600}
+.cal-day-dot{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:3px;height:3px;border-radius:50%;background:var(--gold)}
 
-/* ═══ PRE-AUDIT QUESTIONNAIRE ═══ */
-.qa-wrap{display:none;animation:qaFadeIn .4s ease}
-.qa-wrap.show{display:block}
-@keyframes qaFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.qa-header{margin-bottom:28px}
-.qa-badge{display:inline-flex;align-items:center;gap:7px;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-d);margin-bottom:14px}
-.qa-badge::before{content:'';width:22px;height:1px;background:var(--gold)}
-.qa-title{font-size:clamp(20px,2.4vw,28px);font-weight:800;letter-spacing:-.02em;color:var(--void);line-height:1.1;margin-bottom:10px}
-.qa-title em{font-style:normal;color:var(--gold)}
-.qa-desc{font-size:12px;color:rgba(10,10,15,.45);line-height:1.7;margin-bottom:0}
-.qa-progress-bar{height:3px;background:rgba(10,10,15,.08);border-radius:100px;margin-bottom:22px;overflow:hidden}
-.qa-progress-fill{height:100%;background:var(--gold);border-radius:100px;transition:width .35s ease;width:0%}
+/* CAL — slots */
+.cal-slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(max-width:480px){.cal-slots-grid{grid-template-columns:repeat(2,1fr)}}
+.cal-slot{padding:12px 8px;border:1px solid rgba(201,169,110,.22);border-radius:10px;background:rgba(201,169,110,.04);color:var(--cream);font-size:13.5px;font-weight:500;cursor:pointer;transition:background .2s,border-color .2s,transform .15s var(--ease)}
+.cal-slot:hover{background:rgba(201,169,110,.14);border-color:rgba(201,169,110,.55);transform:translateY(-1px)}
+.cal-slot.selected{background:var(--gold);border-color:var(--gold);color:var(--void);font-weight:600}
+
+/* CAL — booking form */
+.cal-booking-summary{display:flex;align-items:center;gap:14px;padding:14px 16px;background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.22);border-radius:12px;margin-bottom:22px}
+.cal-booking-icon{flex-shrink:0;width:36px;height:36px;border-radius:10px;background:rgba(201,169,110,.18);color:var(--gold);display:flex;align-items:center;justify-content:center}
+.cal-booking-icon svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.cal-booking-dt{font-size:13.5px;font-weight:600;color:var(--cream);margin-bottom:2px;text-transform:capitalize}
+.cal-booking-dur{font-size:11.5px;color:var(--muted-d)}
+
+/* FORMS */
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:480px){.fg2{grid-template-columns:1fr}}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fg label{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-d)}
+.fg input,.fg textarea,.qa-textarea,.qa-url-input{font-family:var(--sans);font-size:14px;font-weight:400;color:var(--cream);background:rgba(255,255,255,.03);border:1px solid rgba(237,233,225,.12);border-radius:10px;padding:12px 14px;width:100%;transition:border-color .2s,background .2s}
+.fg input:focus,.fg textarea:focus,.qa-textarea:focus,.qa-url-input:focus{outline:0;border-color:rgba(201,169,110,.55);background:rgba(255,255,255,.05)}
+.fg input::placeholder,.qa-textarea::placeholder,.qa-url-input::placeholder{color:rgba(237,233,225,.3)}
+.btn-submit{width:100%;padding:15px 22px;background:var(--gold);color:var(--void);font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:.01em;border:0;border-radius:var(--r-pill);cursor:pointer;transition:background .2s,transform .2s var(--ease),box-shadow .25s var(--ease);margin-top:16px;box-shadow:0 12px 32px -12px rgba(201,169,110,.5)}
+.btn-submit:hover:not(:disabled){background:var(--gold-l);transform:translateY(-2px);box-shadow:0 18px 44px -14px rgba(201,169,110,.65)}
+.btn-submit:disabled{opacity:.4;cursor:not-allowed}
+.form-note{font-size:11px;color:var(--muted-d);text-align:center;margin-top:12px;letter-spacing:.02em}
+
+/* FORM FALLBACK */
+.form-wrap-inner{display:none;flex-direction:column}
+.form-wrap-inner.show{display:flex}
+.form-back{align-self:flex-start;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-d);background:none;border:0;padding:6px 10px 6px 4px;cursor:pointer;transition:color .2s;margin-bottom:18px;display:flex;align-items:center;gap:6px}
+.form-back::before{content:'←'}
+.form-back:hover{color:var(--gold)}
+.form-intro-label{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:6px}
+.form-intro-title{font-size:22px;font-weight:600;color:var(--cream);margin-bottom:22px;letter-spacing:-.015em;line-height:1.2}
+
+/* QA */
+.qa-wrap{display:none;flex-direction:column}
+.qa-wrap.show{display:flex}
+.qa-badge{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.qa-title{font-size:24px;font-weight:600;color:var(--cream);margin-bottom:10px;letter-spacing:-.015em;line-height:1.2}
+.qa-title em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold)}
+.qa-desc{font-size:13.5px;color:var(--muted-d);line-height:1.65;margin-bottom:24px}
+.qa-progress-bar{height:3px;background:rgba(237,233,225,.08);border-radius:var(--r-pill);overflow:hidden;margin-bottom:28px}
+.qa-progress-fill{height:100%;background:var(--gold);width:0%;transition:width .35s var(--ease)}
 .qa-q{margin-bottom:22px}
-.qa-q-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(10,10,15,.5);margin-bottom:10px}
-.qa-pills{display:flex;flex-wrap:wrap;gap:7px}
-.qa-pill{padding:8px 14px;border:1.5px solid rgba(10,10,15,.12);border-radius:100px;font-family:var(--f);font-size:12px;font-weight:600;color:rgba(10,10,15,.6);background:rgba(255,255,255,.6);cursor:pointer;transition:all .15s;line-height:1}
-.qa-pill:hover{border-color:rgba(201,169,110,.45);color:var(--void)}
-.qa-pill.sel{border-color:var(--gold);background:rgba(201,169,110,.1);color:var(--gold-d)}
-.qa-url-row{display:flex;align-items:center;gap:9px;margin-top:9px}
-.qa-url-input{flex:1;padding:9px 14px;border:1.5px solid rgba(10,10,15,.12);border-radius:10px;font-family:var(--f);font-size:12px;color:var(--void);background:#fff;outline:none;transition:border-color .15s}
-.qa-url-input:focus{border-color:rgba(201,169,110,.45)}
-.qa-url-input::placeholder{color:rgba(10,10,15,.25)}
-.qa-textarea{width:100%;padding:11px 14px;border:1.5px solid rgba(10,10,15,.12);border-radius:10px;font-family:var(--f);font-size:12px;color:var(--void);background:#fff;outline:none;resize:none;transition:border-color .15s;box-sizing:border-box}
-.qa-textarea:focus{border-color:rgba(201,169,110,.45)}
-.qa-textarea::placeholder{color:rgba(10,10,15,.25)}
-.qa-skip{background:none;border:none;font-family:var(--f);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(10,10,15,.3);cursor:pointer;display:block;margin:12px auto 0;transition:color .2s;padding:0}
-.qa-skip:hover{color:rgba(10,10,15,.6)}
+.qa-q-label{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);margin-bottom:12px}
+.qa-pills{display:flex;flex-wrap:wrap;gap:8px}
+.qa-pill{padding:8px 14px;border:1px solid rgba(237,233,225,.14);background:rgba(237,233,225,.02);border-radius:var(--r-pill);font-family:var(--sans);font-size:12.5px;font-weight:500;color:var(--cream);cursor:pointer;transition:border-color .2s,background .2s,color .2s}
+.qa-pill:hover{border-color:rgba(201,169,110,.4);background:rgba(201,169,110,.06)}
+.qa-pill.sel{border-color:var(--gold);background:rgba(201,169,110,.18);color:var(--gold);font-weight:600}
+.qa-url-row{margin-top:10px}
+.qa-textarea{resize:vertical;min-height:80px;font-family:var(--sans)}
+.qa-skip{background:none;border:0;color:var(--muted-d);font-size:12px;text-decoration:underline;cursor:pointer;margin-top:14px;padding:4px}
+.qa-skip:hover{color:var(--cream)}
 
-/* ═══ SUCCESS ═══ */
-.success-state{display:none;text-align:center;padding:80px 20px}
-.success-state.show{display:block}
-.success-sep{width:1px;height:56px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);margin:0 auto 32px;opacity:.5}
-.success-title{font-family:var(--f);font-size:clamp(40px,5vw,72px);font-weight:800;line-height:.9;letter-spacing:-.03em;margin-bottom:16px}
-.success-title em{font-style:normal;color:var(--gold)}
-.success-sub{font-size:14px;font-weight:300;color:var(--muted);line-height:1.85}
-
-/* ═══ RESPONSIVE ═══ */
-@media(max-width:900px){
-  .page-wrap{grid-template-columns:1fr}
-  .page-left{position:relative;top:0;height:auto;padding:80px 5vw 50px}
-  .page-right{padding:50px 5vw 80px;justify-content:flex-start}
-}
-@media(max-width:600px){.fg2{grid-template-columns:1fr}}
-@media(max-width:720px){nav{padding:16px 5vw}}
-
-/* ═══ CREAM THEME OVERRIDES ═══ */
-/* nav: dark void igual que footer */
-nav{border-bottom-color:rgba(201,169,110,.15)}
-.nav-back{color:rgba(237,233,225,.45)}
-.nav-back:hover{color:var(--cream)}
-#cur-ring{border-color:rgba(10,10,15,.18)}
-.page-left{background:#F5F1EA;border-right-color:rgba(10,10,15,.09)}
-.page-title{color:var(--void)}
-.page-sub{color:rgba(10,10,15,.55)}
-.page-sub strong{color:var(--void)}
-.page-eyebrow{color:var(--signal)}
-.page-eyebrow::before{background:var(--signal)}
-.info-pill{background:rgba(255,255,255,.55);border-color:rgba(10,10,15,.09)}
-.info-pill:hover{border-color:rgba(201,169,110,.3)}
-.info-pill-label{color:rgba(10,10,15,.4)}
-.info-pill-val{color:var(--void)}
-.page-right{background:var(--cream)}
-.choice-title{color:var(--void)}
-.choice-sub{color:rgba(10,10,15,.5)}
-.choice-btn{border-color:rgba(10,10,15,.1);background:rgba(255,255,255,.55)}
-.choice-btn:hover{border-color:rgba(201,169,110,.4);background:rgba(201,169,110,.03)}
-.choice-btn.primary{border-color:rgba(201,169,110,.3);background:rgba(201,169,110,.05)}
-.choice-btn.primary:hover{border-color:rgba(201,169,110,.6)}
-.choice-btn-icon{background:rgba(10,10,15,.04);border-color:rgba(10,10,15,.08)}
-.choice-btn:hover .choice-btn-icon{background:rgba(201,169,110,.08);border-color:rgba(201,169,110,.3)}
-.choice-btn-icon svg{stroke:rgba(10,10,15,.45)}
-.choice-btn.primary .choice-btn-icon svg{stroke:#fff}
-.choice-btn-label{color:var(--void)}
-.choice-btn-desc{color:rgba(10,10,15,.48)}
-.choice-btn-arrow{color:var(--gold-d)}
-.form-back{color:rgba(10,10,15,.35)}
-.form-back:hover{color:var(--void)}
-.form-intro{border-bottom-color:rgba(10,10,15,.09)}
-.form-intro-label{color:var(--gold-d)}
-.form-intro-title{color:var(--void)}
-.fg label{color:rgba(10,10,15,.45)}
-.fg input{background:#fff;border-color:rgba(10,10,15,.12);color:var(--void)}
-.fg input::placeholder{color:rgba(10,10,15,.22)}
-.fg input:focus{border-color:rgba(201,169,110,.5)}
-.form-note{color:rgba(10,10,15,.28)}
-/* cal overrides already in cream context above */
-.success-title{color:var(--void)}
-.success-sub{color:rgba(10,10,15,.55)}
-
+/* SUCCESS */
+.success-state{display:none;flex-direction:column;justify-content:center;text-align:center;padding:40px 0;flex:1}
+.success-state.show{display:flex}
+.success-sep{width:48px;height:1px;background:var(--gold);margin:0 auto 24px}
+.success-title{font-size:32px;font-weight:700;letter-spacing:-.025em;line-height:1.05;color:var(--cream);margin-bottom:16px}
+.success-title em{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold)}
+.success-sub{font-size:14.5px;color:var(--muted-d);line-height:1.7}
 </style>
 </head>
 <body>
 <div id="grain"></div>
 
-<nav>
-  <a href="index.html" class="nav-logo">
-    <img src="./VELIA_logotipo_claro.svg" alt="VELIA" class="nav-wordmark"/>
-  </a>
-  <a href="index.html" class="nav-back">Volver</a>
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="/" class="nav-brand">VELIA<span class="product">Legal</span></a>
+  <div class="nav-links">
+    <a href="/sistema.html">Sistema</a>
+    <a href="/precios.html">Precios</a>
+    <a href="/equipo.html">Equipo</a>
+    <a href="/contacto.html" class="active">Contacto</a>
+  </div>
+  <a href="/contacto.html" class="nav-cta">Reservar auditoría</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+    <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><path d="M1 1h16M1 7h16M1 13h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </button>
 </nav>
-
-<div class="page-wrap">
-  <div class="page-left">
-    <div class="page-left-grid"></div>
-    <div class="page-left-glow"></div>
-    <p class="page-eyebrow">Proceso de selección</p>
-    <h1 class="page-title">HÁBLANOS<br>DE TU<br><em>PROYECTO.</em></h1>
-    <p class="page-sub">Antes de empezar queremos entender bien tu negocio.<br><br><strong>Si hay encaje real, te contactamos en menos de 24h.</strong></p>
-    <div class="info-pills">
-      <div class="info-pill">
-        <div class="info-pill-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <div><p class="info-pill-label">Tiempo de respuesta</p><p class="info-pill-val">Menos de 24 horas</p></div>
-      </div>
-      <div class="info-pill">
-        <div class="info-pill-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></div>
-        <div><p class="info-pill-label">Primera auditoría</p><p class="info-pill-val">30 min · Sin compromiso</p></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="page-right">
-    <!-- PANTALLA DE ELECCIÓN -->
-    <div id="choice-screen" class="choice-screen">
-      <p class="choice-title">¿Cómo prefieres<br>que nos pongamos en contacto?</p>
-      <p class="choice-sub">Elige la opción que más te convenga.</p>
-      <div class="choice-btns">
-        <button class="choice-btn primary" onclick="showCalendar()">
-          <div class="choice-btn-icon">
-            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          </div>
-          <div class="choice-btn-text">
-            <span class="choice-btn-label">Agenda tu llamada</span>
-            <span class="choice-btn-desc">Reserva un hueco en nuestro calendario. 30 min, sin compromiso.</span>
-          </div>
-          <span class="choice-btn-arrow">→</span>
-        </button>
-        <button class="choice-btn" onclick="showForm()">
-          <div class="choice-btn-icon">
-            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          </div>
-          <div class="choice-btn-text">
-            <span class="choice-btn-label">Déjanos tu contacto y te llamamos</span>
-            <span class="choice-btn-desc">Rellena tus datos y te contactamos en menos de 24h.</span>
-          </div>
-          <span class="choice-btn-arrow">→</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- CALENDARIO INTERACTIVO -->
-    <div id="calendar-coming" class="cal-wrap">
-      <!-- Step 1: Elige fecha -->
-      <div id="cal-step-date">
-        <button class="cal-back" onclick="showChoice()">Volver</button>
-        <span class="cal-step-label">Paso 1 de 3</span>
-        <p class="cal-step-title">Elige un día<br>disponible.</p>
-        <div id="cal-month-area">
-          <p class="cal-loading">Cargando disponibilidad…</p>
-        </div>
-      </div>
-      <!-- Step 2: Elige hora -->
-      <div id="cal-step-time" style="display:none">
-        <button class="cal-back" onclick="calGoBack('date')">Volver</button>
-        <span class="cal-step-label">Paso 2 de 3</span>
-        <p class="cal-step-title" id="cal-time-title">Elige una hora.</p>
-        <div class="cal-slots-grid" id="cal-slots-grid"></div>
-      </div>
-      <!-- Step 3: Tus datos -->
-      <div id="cal-step-form" style="display:none">
-        <button class="cal-back" onclick="calGoBack('time')">Volver</button>
-        <span class="cal-step-label">Paso 3 de 3</span>
-        <p class="cal-step-title">Confirma tu<br>reserva.</p>
-        <div class="cal-booking-summary">
-          <div class="cal-booking-icon">
-            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          </div>
-          <div>
-            <p class="cal-booking-dt" id="cal-booking-dt-label"></p>
-            <p class="cal-booking-dur">30 min · Auditoría gratuita VELIA</p>
-          </div>
-        </div>
-        <form id="cal-booking-form" onsubmit="submitBooking(event)" novalidate>
-          <div class="fg2">
-            <div class="fg"><label>Nombre *</label><input type="text" name="name" placeholder="Tu nombre" required/></div>
-            <div class="fg"><label>Email *</label><input type="email" name="email" placeholder="tu@empresa.com" required/></div>
-          </div>
-          <div class="fg2">
-            <div class="fg"><label>Teléfono</label><input type="tel" name="phone" placeholder="+34 600 000 000"/></div>
-            <div class="fg"><label>Empresa</label><input type="text" name="company" placeholder="Tu empresa"/></div>
-          </div>
-          <button type="submit" class="btn-submit" id="booking-btn">Confirmar reserva</button>
-          <p class="form-note">Recibirás confirmación por email · Sin compromiso</p>
-        </form>
-      </div>
-    </div>
-
-    <!-- FORMULARIO SIMPLIFICADO -->
-    <div id="form-wrap" class="form-wrap-inner">
-      <button class="form-back" onclick="showChoice()">Volver</button>
-      <div class="form-intro">
-        <span class="form-intro-label">Dejamos tu contacto</span>
-        <p class="form-intro-title">Cuéntanos quién eres<br>y te llamamos nosotros.</p>
-      </div>
-      <form id="contact-form" onsubmit="submitForm(event)" novalidate>
-        <div class="fg2">
-          <div class="fg"><label>Nombre *</label><input type="text" name="nombre" placeholder="Tu nombre" required/></div>
-          <div class="fg"><label>Email *</label><input type="email" name="email" placeholder="tu@empresa.com" required/></div>
-        </div>
-        <div class="fg2">
-          <div class="fg"><label>Teléfono *</label><input type="tel" name="telefono" placeholder="+34 600 000 000" required/></div>
-          <div class="fg"><label>Empresa</label><input type="text" name="empresa" placeholder="Nombre de tu empresa"/></div>
-        </div>
-        <button type="submit" class="btn-submit" id="submit-btn">Enviar mis datos</button>
-        <p class="form-note">Sin compromiso · Te llamamos en menos de 24h</p>
-      </form>
-    </div>
-
-    <!-- PRE-AUDIT QUESTIONNAIRE -->
-    <div id="qa-wrap" class="qa-wrap">
-      <div class="qa-header">
-        <p class="qa-badge">Reserva confirmada</p>
-        <h2 class="qa-title">Prepara tu auditoría<br><em>en 2 minutos.</em></h2>
-        <p class="qa-desc">Mientras te mandamos la confirmación por email, cuéntanos un poco más. VELIA llegará a la reunión con propuestas concretas para ti.</p>
-      </div>
-      <div class="qa-progress-bar"><div class="qa-progress-fill" id="qa-prog"></div></div>
-
-      <div class="qa-q">
-        <p class="qa-q-label">Sector del negocio</p>
-        <div class="qa-pills" id="qa-pills-sector">
-          <button class="qa-pill" onclick="qaSingle('sector',this,'Legal')">Legal</button>
-          <button class="qa-pill" onclick="qaSingle('sector',this,'Dental')">Dental</button>
-          <button class="qa-pill" onclick="qaSingle('sector',this,'Inmobiliaria')">Inmobiliaria</button>
-          <button class="qa-pill" onclick="qaSingle('sector',this,'Clínica')">Clínica</button>
-          <button class="qa-pill" onclick="qaSingle('sector',this,'Hostelería')">Hostelería</button>
-          <button class="qa-pill" onclick="qaSingle('sector',this,'Ecommerce')">Ecommerce</button>
-          <button class="qa-pill" onclick="qaSingle('sector',this,'Otro')">Otro</button>
-        </div>
-      </div>
-
-      <div class="qa-q">
-        <p class="qa-q-label">Número de empleados</p>
-        <div class="qa-pills" id="qa-pills-empleados">
-          <button class="qa-pill" onclick="qaSingle('empleados',this,'Solo')">Solo</button>
-          <button class="qa-pill" onclick="qaSingle('empleados',this,'2–5')">2–5</button>
-          <button class="qa-pill" onclick="qaSingle('empleados',this,'6–15')">6–15</button>
-          <button class="qa-pill" onclick="qaSingle('empleados',this,'16–50')">16–50</button>
-          <button class="qa-pill" onclick="qaSingle('empleados',this,'+50')">+50</button>
-        </div>
-      </div>
-
-      <div class="qa-q">
-        <p class="qa-q-label">Facturación anual aproximada</p>
-        <div class="qa-pills" id="qa-pills-facturacion">
-          <button class="qa-pill" onclick="qaSingle('facturacion',this,'< 100k€')">Menos de 100k€</button>
-          <button class="qa-pill" onclick="qaSingle('facturacion',this,'100k–300k€')">100k–300k€</button>
-          <button class="qa-pill" onclick="qaSingle('facturacion',this,'300k–1M€')">300k–1M€</button>
-          <button class="qa-pill" onclick="qaSingle('facturacion',this,'> 1M€')">Más de 1M€</button>
-        </div>
-      </div>
-
-      <div class="qa-q">
-        <p class="qa-q-label">¿Tenéis página web?</p>
-        <div class="qa-pills" id="qa-pills-web">
-          <button class="qa-pill" onclick="qaSingle('tiene_web',this,'Sí'); document.getElementById('qa-url-row').style.display='flex'">Sí, tenemos web</button>
-          <button class="qa-pill" onclick="qaSingle('tiene_web',this,'No'); document.getElementById('qa-url-row').style.display='none'">No de momento</button>
-        </div>
-        <div class="qa-url-row" id="qa-url-row" style="display:none">
-          <input type="url" id="qa-url" class="qa-url-input" placeholder="https://tunegocio.com"/>
-        </div>
-      </div>
-
-      <div class="qa-q">
-        <p class="qa-q-label">Redes sociales activas <span style="font-weight:300;font-size:10px;text-transform:none;letter-spacing:0">(selecciona todas las que usáis)</span></p>
-        <div class="qa-pills" id="qa-pills-redes">
-          <button class="qa-pill" onclick="qaMulti('redes',this,'Instagram')">Instagram</button>
-          <button class="qa-pill" onclick="qaMulti('redes',this,'LinkedIn')">LinkedIn</button>
-          <button class="qa-pill" onclick="qaMulti('redes',this,'TikTok')">TikTok</button>
-          <button class="qa-pill" onclick="qaMulti('redes',this,'Facebook')">Facebook</button>
-          <button class="qa-pill" onclick="qaMulti('redes',this,'YouTube')">YouTube</button>
-          <button class="qa-pill" onclick="qaMulti('redes',this,'Ninguna')">Ninguna aún</button>
-        </div>
-      </div>
-
-      <div class="qa-q">
-        <p class="qa-q-label">¿Usáis algún CRM o herramienta de gestión?</p>
-        <div class="qa-pills" id="qa-pills-crm">
-          <button class="qa-pill" onclick="qaSingle('crm',this,'No')">No usamos</button>
-          <button class="qa-pill" onclick="qaSingle('crm',this,'Excel / Notion')">Excel / Notion</button>
-          <button class="qa-pill" onclick="qaSingle('crm',this,'HubSpot')">HubSpot</button>
-          <button class="qa-pill" onclick="qaSingle('crm',this,'Salesforce')">Salesforce</button>
-          <button class="qa-pill" onclick="qaSingle('crm',this,'GoHighLevel')">GoHighLevel</button>
-          <button class="qa-pill" onclick="qaSingle('crm',this,'Otro')">Otro</button>
-        </div>
-      </div>
-
-      <div class="qa-q">
-        <p class="qa-q-label">¿Conocéis los sistemas de agentes IA personalizados?</p>
-        <div class="qa-pills" id="qa-pills-ia">
-          <button class="qa-pill" onclick="qaSingle('conoce_ia',this,'Nuevo para mí')">Es nuevo para mí</button>
-          <button class="qa-pill" onclick="qaSingle('conoce_ia',this,'He oído hablar')">He oído hablar</button>
-          <button class="qa-pill" onclick="qaSingle('conoce_ia',this,'Lo he investigado')">Lo estoy investigando</button>
-          <button class="qa-pill" onclick="qaSingle('conoce_ia',this,'Ya usamos IA')">Ya usamos IA</button>
-        </div>
-      </div>
-
-      <div class="qa-q">
-        <p class="qa-q-label">¿Cuál es vuestro mayor reto ahora mismo? <span style="font-weight:300;font-size:10px;text-transform:none;letter-spacing:0">(opcional)</span></p>
-        <textarea id="qa-reto" class="qa-textarea" rows="3" placeholder="Ej: No tenemos tiempo para crear contenido, necesitamos más leads, queremos digitalizar procesos…" maxlength="300"></textarea>
-      </div>
-
-      <button class="btn-submit" id="qa-btn" onclick="submitProfile()" disabled>Enviar y ver confirmación</button>
-      <p class="form-note">Tu reserva ya está confirmada · Esto nos ayuda a preparar mejor la sesión</p>
-      <button class="qa-skip" onclick="showFinalSuccess()">Saltar este paso →</button>
-    </div>
-
-    <div class="success-state" id="success">
-      <div class="success-sep"></div>
-      <h2 class="success-title">SOLICITUD<br><em>RECIBIDA.</em></h2>
-      <p class="success-sub">Hemos recibido tus datos.<br>Te llamamos en menos de 24h.</p>
-    </div>
-  </div>
+<div class="nav-mobile" id="navMobile">
+  <a href="/sistema.html">Sistema</a>
+  <a href="/precios.html">Precios</a>
+  <a href="/equipo.html">Equipo</a>
+  <a href="/contacto.html">Contacto</a>
 </div>
 
-<script>
-(function(){
-  var API_BASE   = 'https://portal.veliacorp.com/api';
-  var GHL_FORM   = 'https://veliacorp.app.n8n.cloud/webhook/velia/pipeline-new-lead';
-  var bookingId  = null;
+<main class="contact-shell surface-void">
+  <div class="hero-glow"></div>
+  <div class="wrap">
+    <div class="contact-grid">
 
-  // ── Cuestionario pre-auditoría ──
-  var qaAnswers = { sector:null, empleados:null, facturacion:null, tiene_web:null, redes:[], crm:null, conoce_ia:null };
-  var qaRequired = ['sector','empleados','facturacion','tiene_web','crm','conoce_ia'];
+      <!-- LEFT — razones + contacto alternativo -->
+      <div class="contact-left">
+        <div class="eyebrow">Auditoría gratuita</div>
+        <h1>30-45 minutos. <em>Sin compromiso.</em> Te decimos si encajamos.</h1>
+        <p>Estudiamos cómo está tu despacho hoy, qué te frena y qué áreas tienen recorrido. Si VELIA Legal no es para ti, te lo decimos en la llamada — y te ahorramos pasos.</p>
+
+        <div class="reasons">
+          <div class="reason">
+            <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="body">
+              <div class="lbl">30-45 min</div>
+              <div class="desc">Una llamada, dos socios al otro lado. Sin presentación corporativa.</div>
+            </div>
+          </div>
+          <div class="reason">
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="body">
+              <div class="lbl">Sin compromiso</div>
+              <div class="desc">Si no encajamos, no avanzamos. No hay propuesta automática ni follow-up agresivo.</div>
+            </div>
+          </div>
+          <div class="reason">
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <div class="body">
+              <div class="lbl">Presupuesto por escrito</div>
+              <div class="desc">Si encajamos, te entregamos presupuesto cerrado de implementación tras la llamada.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-alt">
+          <div class="label">¿Prefieres contacto directo?</div>
+          <div class="contact-alt-list">
+            <a href="mailto:admin@veliacorp.com"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>admin@veliacorp.com</a>
+            <a href="https://wa.me/34634545392" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp · +34 634 545 392</a>
+            <a href="https://www.linkedin.com/company/veliacorp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>VELIA en LinkedIn</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT — widget de booking -->
+      <div class="contact-right">
+
+        <!-- CHOICE -->
+        <div id="choice-screen">
+          <p class="choice-title">Empieza por aquí.</p>
+          <p class="choice-sub">Elige cómo prefieres iniciar la conversación con nosotros.</p>
+          <div class="choice-btns">
+            <button class="choice-btn primary" onclick="showCalendar()">
+              <div class="choice-btn-icon">
+                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div class="choice-btn-text">
+                <span class="choice-btn-label">Reservar hueco directamente</span>
+                <span class="choice-btn-desc">Elige día y hora. La reunión queda agendada en tu Google Calendar.</span>
+              </div>
+              <span class="choice-btn-arrow">→</span>
+            </button>
+            <button class="choice-btn" onclick="showForm()">
+              <div class="choice-btn-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div class="choice-btn-text">
+                <span class="choice-btn-label">Déjanos tu contacto y te llamamos</span>
+                <span class="choice-btn-desc">Te respondemos en menos de 24h laborables.</span>
+              </div>
+              <span class="choice-btn-arrow">→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- CALENDAR (preserva contrato JS de booking) -->
+        <div id="calendar-coming" class="cal-wrap">
+          <div id="cal-step-date">
+            <button class="cal-back" onclick="showChoice()">Volver</button>
+            <span class="cal-step-label">Paso 1 de 3</span>
+            <p class="cal-step-title">Elige un día <em>disponible.</em></p>
+            <div id="cal-month-area"><p class="cal-loading">Cargando disponibilidad…</p></div>
+          </div>
+          <div id="cal-step-time" style="display:none">
+            <button class="cal-back" onclick="calGoBack('date')">Volver</button>
+            <span class="cal-step-label">Paso 2 de 3</span>
+            <p class="cal-step-title" id="cal-time-title">Elige una hora.</p>
+            <div class="cal-slots-grid" id="cal-slots-grid"></div>
+          </div>
+          <div id="cal-step-form" style="display:none">
+            <button class="cal-back" onclick="calGoBack('time')">Volver</button>
+            <span class="cal-step-label">Paso 3 de 3</span>
+            <p class="cal-step-title">Confirma tu <em>reserva.</em></p>
+            <div class="cal-booking-summary">
+              <div class="cal-booking-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+              <div>
+                <p class="cal-booking-dt" id="cal-booking-dt-label"></p>
+                <p class="cal-booking-dur">30-45 min · Auditoría gratuita VELIA Legal</p>
+              </div>
+            </div>
+            <form id="cal-booking-form" onsubmit="submitBooking(event)" novalidate>
+              <div class="fg2">
+                <div class="fg"><label>Nombre *</label><input type="text" name="name" placeholder="Tu nombre" required/></div>
+                <div class="fg"><label>Email *</label><input type="email" name="email" placeholder="tu@despacho.com" required/></div>
+              </div>
+              <div class="fg2">
+                <div class="fg"><label>Teléfono</label><input type="tel" name="phone" placeholder="+34 600 000 000"/></div>
+                <div class="fg"><label>Despacho</label><input type="text" name="company" placeholder="Nombre del despacho"/></div>
+              </div>
+              <button type="submit" class="btn-submit" id="booking-btn">Confirmar reserva</button>
+              <p class="form-note">Recibirás confirmación por email · Sin compromiso</p>
+            </form>
+          </div>
+        </div>
+
+        <!-- FORM FALLBACK -->
+        <div id="form-wrap" class="form-wrap-inner">
+          <button class="form-back" onclick="showChoice()">Volver</button>
+          <span class="form-intro-label">Te llamamos nosotros</span>
+          <p class="form-intro-title">Cuéntanos <em>quién eres</em> y te llamamos.</p>
+          <form id="contact-form" onsubmit="submitForm(event)" novalidate>
+            <div class="fg2">
+              <div class="fg"><label>Nombre *</label><input type="text" name="nombre" placeholder="Tu nombre" required/></div>
+              <div class="fg"><label>Email *</label><input type="email" name="email" placeholder="tu@despacho.com" required/></div>
+            </div>
+            <div class="fg2">
+              <div class="fg"><label>Teléfono *</label><input type="tel" name="telefono" placeholder="+34 600 000 000" required/></div>
+              <div class="fg"><label>Despacho</label><input type="text" name="empresa" placeholder="Nombre del despacho"/></div>
+            </div>
+            <button type="submit" class="btn-submit" id="submit-btn">Enviar mis datos</button>
+            <p class="form-note">Sin compromiso · Te llamamos en menos de 24h laborables</p>
+          </form>
+        </div>
+
+        <!-- PRE-AUDIT QUESTIONNAIRE — adaptado a despacho legal -->
+        <div id="qa-wrap" class="qa-wrap">
+          <p class="qa-badge">Reserva confirmada</p>
+          <h2 class="qa-title">Prepara tu auditoría <em>en 2 minutos.</em></h2>
+          <p class="qa-desc">Mientras te llega la confirmación por email, cuéntanos cuatro cosas más. Así llegamos a la llamada con propuestas concretas para tu despacho.</p>
+          <div class="qa-progress-bar"><div class="qa-progress-fill" id="qa-prog"></div></div>
+
+          <div class="qa-q">
+            <p class="qa-q-label">Abogados en el despacho</p>
+            <div class="qa-pills" id="qa-pills-abogados">
+              <button class="qa-pill" onclick="qaSingle('abogados',this,'Solo yo')">Solo yo</button>
+              <button class="qa-pill" onclick="qaSingle('abogados',this,'2-5')">2–5</button>
+              <button class="qa-pill" onclick="qaSingle('abogados',this,'6-15')">6–15</button>
+              <button class="qa-pill" onclick="qaSingle('abogados',this,'+15')">Más de 15</button>
+            </div>
+          </div>
+
+          <div class="qa-q">
+            <p class="qa-q-label">Áreas principales del despacho <span style="font-weight:300;font-size:10px;text-transform:none;letter-spacing:0">(elige todas las que apliquen)</span></p>
+            <div class="qa-pills" id="qa-pills-areas">
+              <button class="qa-pill" onclick="qaMulti('areas',this,'Civil')">Civil</button>
+              <button class="qa-pill" onclick="qaMulti('areas',this,'Laboral')">Laboral</button>
+              <button class="qa-pill" onclick="qaMulti('areas',this,'Penal')">Penal</button>
+              <button class="qa-pill" onclick="qaMulti('areas',this,'Mercantil')">Mercantil</button>
+              <button class="qa-pill" onclick="qaMulti('areas',this,'Familia')">Familia</button>
+              <button class="qa-pill" onclick="qaMulti('areas',this,'Administrativo')">Administrativo</button>
+              <button class="qa-pill" onclick="qaMulti('areas',this,'Contencioso')">Contencioso</button>
+              <button class="qa-pill" onclick="qaMulti('areas',this,'Extranjería')">Extranjería</button>
+              <button class="qa-pill" onclick="qaMulti('areas',this,'Otra')">Otra</button>
+            </div>
+          </div>
+
+          <div class="qa-q">
+            <p class="qa-q-label">¿Tenéis página web actualmente?</p>
+            <div class="qa-pills" id="qa-pills-web">
+              <button class="qa-pill" onclick="qaSingle('tiene_web',this,'Sí'); document.getElementById('qa-url-row').style.display='block'">Sí, tenemos web</button>
+              <button class="qa-pill" onclick="qaSingle('tiene_web',this,'No'); document.getElementById('qa-url-row').style.display='none'">No de momento</button>
+            </div>
+            <div class="qa-url-row" id="qa-url-row" style="display:none">
+              <input type="url" id="qa-url" class="qa-url-input" placeholder="https://tudespacho.com"/>
+            </div>
+          </div>
+
+          <div class="qa-q">
+            <p class="qa-q-label">Software de gestión actual</p>
+            <div class="qa-pills" id="qa-pills-software">
+              <button class="qa-pill" onclick="qaSingle('software',this,'Ninguno')">Ninguno</button>
+              <button class="qa-pill" onclick="qaSingle('software',this,'Excel / Drive')">Excel / Drive</button>
+              <button class="qa-pill" onclick="qaSingle('software',this,'Aranzadi')">Aranzadi</button>
+              <button class="qa-pill" onclick="qaSingle('software',this,'Lefebvre')">Lefebvre</button>
+              <button class="qa-pill" onclick="qaSingle('software',this,'Iurix')">Iurix</button>
+              <button class="qa-pill" onclick="qaSingle('software',this,'Otro')">Otro</button>
+            </div>
+          </div>
+
+          <div class="qa-q">
+            <p class="qa-q-label">¿Cuál es tu mayor reto ahora mismo? <span style="font-weight:300;font-size:10px;text-transform:none;letter-spacing:0">(opcional)</span></p>
+            <textarea id="qa-reto" class="qa-textarea" rows="3" placeholder="Ej: dependo del boca a boca, no llego a los plazos, perdemos consultas porque tardamos en responder…" maxlength="300"></textarea>
+          </div>
+
+          <button class="btn-submit" id="qa-btn" onclick="submitProfile()" disabled>Enviar y ver confirmación</button>
+          <p class="form-note">Tu reserva ya está confirmada · Esto nos ayuda a preparar mejor la sesión</p>
+          <button class="qa-skip" onclick="showFinalSuccess()">Saltar este paso →</button>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="success-state" id="success">
+          <div class="success-sep"></div>
+          <h2 class="success-title">SOLICITUD <em>recibida.</em></h2>
+          <p class="success-sub">Hemos recibido tus datos.<br>Te llamamos en menos de 24h laborables.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand">VELIA<span class="product">Legal</span></div>
+        <p>El sistema operativo para despachos de abogados. Construido por VELIA en Madrid y Barcelona.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Producto</h4>
+        <a href="/sistema.html">El sistema</a>
+        <a href="/precios.html">Precios</a>
+        <a href="/contacto.html">Auditoría gratuita</a>
+      </div>
+      <div class="footer-col">
+        <h4>VELIA</h4>
+        <a href="/equipo.html">Equipo</a>
+        <a href="https://www.linkedin.com/company/veliacorp" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:admin@veliacorp.com">admin@veliacorp.com</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="/aviso-legal.html">Aviso legal</a>
+        <a href="/privacidad.html">Privacidad</a>
+        <a href="/cookies.html">Cookies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 VELIA · veliacorp.com</span>
+      <span>Construido en España</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/velia.js"></script>
+<script>
+// ═══ BOOKING — preserva contrato con portal.veliacorp.com/api/velia-{slots,book,profile}
+// ═══ y webhook n8n pipeline-new-lead. NO TOCAR endpoints ni nombres de campo.
+(function(){
+  var API_BASE = 'https://portal.veliacorp.com/api';
+  var GHL_FORM = 'https://veliacorp.app.n8n.cloud/webhook/velia/pipeline-new-lead';
+  var bookingId = null;
+
+  // ── Cuestionario pre-auditoría (adaptado vertical legal) ──
+  var qaAnswers = { abogados:null, areas:[], tiene_web:null, software:null };
+  var qaRequired = ['abogados','areas','tiene_web','software'];
 
   window.qaSingle = function(key, btn, val) {
     qaAnswers[key] = val;
@@ -486,30 +457,20 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
 
   window.qaMulti = function(key, btn, val) {
     if (!Array.isArray(qaAnswers[key])) qaAnswers[key] = [];
-    if (val === 'Ninguna') {
-      qaAnswers[key] = ['Ninguna'];
-      btn.closest('.qa-pills').querySelectorAll('.qa-pill').forEach(function(b){ b.classList.remove('sel'); });
-      btn.classList.add('sel');
-    } else {
-      var idx = qaAnswers[key].indexOf(val);
-      var ningIdx = qaAnswers[key].indexOf('Ninguna');
-      if (ningIdx > -1) {
-        qaAnswers[key].splice(ningIdx, 1);
-        btn.closest('.qa-pills').querySelector('.qa-pill:last-child').classList.remove('sel');
-      }
-      if (idx > -1) { qaAnswers[key].splice(idx, 1); btn.classList.remove('sel'); }
-      else { qaAnswers[key].push(val); btn.classList.add('sel'); }
-    }
+    var idx = qaAnswers[key].indexOf(val);
+    if (idx > -1) { qaAnswers[key].splice(idx, 1); btn.classList.remove('sel'); }
+    else { qaAnswers[key].push(val); btn.classList.add('sel'); }
     updateQaProgress();
   };
 
   function updateQaProgress() {
-    var filled = qaRequired.filter(function(k){ return qaAnswers[k] && (Array.isArray(qaAnswers[k]) ? qaAnswers[k].length > 0 : true); }).length;
-    var redes = qaAnswers.redes && qaAnswers.redes.length > 0 ? 1 : 0;
-    var total = qaRequired.length + 1; // +1 for redes
-    var pct = Math.round(((filled + redes) / total) * 100);
+    var filled = qaRequired.filter(function(k){
+      var v = qaAnswers[k];
+      return Array.isArray(v) ? v.length > 0 : !!v;
+    }).length;
+    var pct = Math.round((filled / qaRequired.length) * 100);
     document.getElementById('qa-prog').style.width = Math.min(pct, 100) + '%';
-    document.getElementById('qa-btn').disabled = (filled < 3);
+    document.getElementById('qa-btn').disabled = (filled < 2);
   }
 
   window.submitProfile = function() {
@@ -528,25 +489,24 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
       body: JSON.stringify({ booking_id: bookingId, profile: profile })
     })
     .then(function() { showFinalSuccess(); })
-    .catch(function() { showFinalSuccess(); }); // non-fatal
+    .catch(function() { showFinalSuccess(); });
   };
 
   window.showFinalSuccess = function() {
     document.getElementById('qa-wrap').classList.remove('show');
     document.getElementById('success').innerHTML =
       '<div class="success-sep"></div>'+
-      '<h2 class="success-title">RESERVA<br><em>CONFIRMADA.</em></h2>'+
+      '<h2 class="success-title">RESERVA <em>confirmada.</em></h2>'+
       '<p class="success-sub">Hemos reservado tu auditoría.<br>Recibirás un email de confirmación en breve.</p>';
     document.getElementById('success').classList.add('show');
   };
 
   // ── Carga de slots ──
-  var slotsData = null; // { "2026-05-15": ["2026-05-15T09:00:00.000Z", ...], ... }
+  var slotsData = null;
   var selectedDate = null;
   var selectedSlot = null;
-  var viewMonth = null; // JS Date at day 1 of shown month
+  var viewMonth = null;
 
-  // ── Navegación entre pantallas ──
   function showChoice(){
     document.getElementById('choice-screen').style.display='flex';
     document.getElementById('form-wrap').classList.remove('show');
@@ -580,7 +540,6 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
     document.getElementById('cal-step-form').style.display = step==='form'  ? '' : 'none';
   }
 
-  // ── Carga disponibilidad desde portal API ──
   function loadSlots(){
     document.getElementById('cal-month-area').innerHTML = '<p class="cal-loading">Cargando disponibilidad…</p>';
     fetch(API_BASE+'/velia-slots')
@@ -610,37 +569,26 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
     var now = new Date(); now.setHours(0,0,0,0);
     var yr  = viewMonth.getFullYear();
     var mo  = viewMonth.getMonth();
-    var firstDow = viewMonth.getDay(); // 0=Sun
+    var firstDow = viewMonth.getDay();
     var daysInMonth = new Date(yr, mo+1, 0).getDate();
-
-    // Month name
     var months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
     var dows   = ['Lu','Ma','Mi','Ju','Vi','Sá','Do'];
-
-    // Can nav back?
     var prevMonth = new Date(yr, mo-1, 1);
     var canPrev = prevMonth >= new Date(now.getFullYear(), now.getMonth(), 1);
-
-    // Check if next month has any slots
     var nextMonth = new Date(yr, mo+1, 1);
     var nextMonthStr = nextMonth.getFullYear()+'-'+String(nextMonth.getMonth()+1).padStart(2,'0');
     var canNext = slotsData && Object.keys(slotsData).some(function(d){ return d.startsWith(nextMonthStr); });
-
     var html = '<div class="cal-month-nav">';
-    html += '<button class="cal-nav-btn" onclick="calNavMonth(-1)" '+(canPrev?'':'disabled')+'><span style="margin-top:-2px">‹</span></button>';
+    html += '<button class="cal-nav-btn" onclick="calNavMonth(-1)" '+(canPrev?'':'disabled')+'>‹</button>';
     html += '<span class="cal-month-label">'+months[mo]+' '+yr+'</span>';
-    html += '<button class="cal-nav-btn" onclick="calNavMonth(1)" '+(canNext?'':'disabled')+'><span style="margin-top:-2px">›</span></button>';
+    html += '<button class="cal-nav-btn" onclick="calNavMonth(1)" '+(canNext?'':'disabled')+'>›</button>';
     html += '</div>';
     html += '<div class="cal-dow-row">';
-    // European week starts Monday
     for(var d=0;d<7;d++) html += '<div class="cal-dow">'+dows[d]+'</div>';
     html += '</div>';
     html += '<div class="cal-days">';
-
-    // Offset for Monday-first grid
     var offset = (firstDow === 0) ? 6 : firstDow - 1;
     for(var i=0;i<offset;i++) html += '<div class="cal-day empty"></div>';
-
     for(var day=1;day<=daysInMonth;day++){
       var dateStr = yr+'-'+String(mo+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
       var dateObj = new Date(yr, mo, day);
@@ -670,7 +618,6 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
   window.calSelectDate = function(dateStr){
     selectedDate = dateStr;
     renderMonth();
-    // Show time step
     var slots = slotsData[dateStr] || [];
     var d = new Date(dateStr+'T12:00:00');
     var dayNames = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
@@ -684,27 +631,23 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
       var sel = (selectedSlot === iso) ? ' selected' : '';
       gridHtml += '<button class="cal-slot'+sel+'" onclick="calSelectSlot(\''+iso+'\',\''+hh+'\')">'+hh+'</button>';
     });
-    grid.innerHTML = gridHtml || '<p style="color:rgba(10,10,15,.4);font-size:13px;grid-column:1/-1">No hay huecos disponibles este día.</p>';
+    grid.innerHTML = gridHtml || '<p style="color:rgba(237,233,225,.4);font-size:13px;grid-column:1/-1">No hay huecos disponibles este día.</p>';
     calShowStep('time');
   };
 
   window.calSelectSlot = function(iso, label){
     selectedSlot = iso;
-    // Refresh slot buttons
     var btns = document.querySelectorAll('.cal-slot');
     btns.forEach(function(b){ b.classList.toggle('selected', b.textContent===label); });
-    // Build booking summary label
     var d = new Date(iso);
-    var opts = {weekday:'long',day:'numeric',month:'long',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Madrid'};
     var dtLabel = d.toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',timeZone:'Europe/Madrid'})
       +' · '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit',timeZone:'Europe/Madrid'});
-    // Capitalise first letter
     dtLabel = dtLabel.charAt(0).toUpperCase()+dtLabel.slice(1);
     document.getElementById('cal-booking-dt-label').textContent = dtLabel;
     calShowStep('form');
   };
 
-  // ── Envío del formulario de reserva ──
+  // ── Envío de reserva ──
   window.submitBooking = function(e){
     e.preventDefault();
     var f = e.target;
@@ -730,7 +673,6 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
         }
         throw new Error(data.error);
       }
-      // Reserva OK → mostrar cuestionario pre-auditoría
       bookingId = data.booking_id || null;
       document.getElementById('calendar-coming').classList.remove('show');
       document.getElementById('qa-wrap').classList.add('show');
@@ -741,7 +683,7 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
     });
   };
 
-  // ── Formulario de contacto (fallback) ──
+  // ── Formulario fallback ──
   window.submitForm = function(e){
     e.preventDefault();
     var f=e.target,btn=document.getElementById('submit-btn');
@@ -749,13 +691,12 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
     var email=f.querySelector('[name="email"]').value.trim();
     var telefono=f.querySelector('[name="telefono"]').value.trim();
     if(!nombre||!email||!telefono){return;}
-    var p={nombre:nombre,email:email,telefono:telefono,empresa:f.querySelector('[name="empresa"]').value.trim(),fecha:new Date().toISOString(),origen:'Formulario VELIA'};
+    var p={nombre:nombre,email:email,telefono:telefono,empresa:f.querySelector('[name="empresa"]').value.trim(),fecha:new Date().toISOString(),origen:'Formulario VELIA Legal'};
     btn.textContent='Enviando...';btn.disabled=true;
     fetch(GHL_FORM,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
       .then(function(){document.getElementById('form-wrap').classList.remove('show');document.getElementById('success').classList.add('show');})
       .catch(function(){btn.textContent='Error — inténtalo de nuevo';btn.disabled=false;});
   };
-
 })();
 </script>
 </body>
