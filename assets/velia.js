@@ -25,4 +25,17 @@
   } else {
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
   }
+
+  // FAQ accordion — solo un <details> abierto por grupo .faq-list
+  document.querySelectorAll('.faq-list').forEach(list => {
+    list.querySelectorAll('details.faq-item').forEach(item => {
+      item.addEventListener('toggle', () => {
+        if (item.open) {
+          list.querySelectorAll('details.faq-item[open]').forEach(other => {
+            if (other !== item) other.open = false;
+          });
+        }
+      });
+    });
+  });
 })();
