@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/velia.css?v=2"/>
+<link rel="stylesheet" href="/assets/velia.css?v=3"/>
 
 <script type="application/ld+json">
 {
@@ -94,17 +94,7 @@
 .referrals-card .body h3{font-size:18px;font-weight:600;color:var(--cream);margin-bottom:8px}
 .referrals-card .body p{font-size:14px;color:var(--muted-d);line-height:1.65}
 
-/* FAQ */
-.faq-list{margin-top:56px;border-top:1px solid var(--line-d)}
-.faq-item{border-bottom:1px solid var(--line-d)}
-.faq-item summary{list-style:none;padding:24px 0;display:flex;align-items:center;justify-content:space-between;gap:24px;cursor:pointer;font-size:17px;font-weight:500;color:var(--cream);letter-spacing:-.005em;transition:color .2s}
-.faq-item summary::-webkit-details-marker{display:none}
-.faq-item summary:hover{color:var(--gold)}
-.faq-item summary .icon{position:relative;flex-shrink:0;width:32px;height:32px;border-radius:50%;border:1px solid var(--line-d);display:flex;align-items:center;justify-content:center;transition:transform .3s var(--ease),border-color .3s,background .3s}
-.faq-item summary .icon::before{content:'';width:10px;height:1px;background:currentColor;position:absolute}
-.faq-item summary .icon::after{content:'';width:1px;height:10px;background:currentColor;position:absolute}
-.faq-item[open] summary .icon{transform:rotate(45deg);border-color:rgba(201,169,110,.5);background:rgba(201,169,110,.08)}
-.faq-content{padding:0 56px 24px 0;font-size:15px;color:var(--muted-d);line-height:1.75;max-width:780px}
+/* FAQ — estilos en /assets/velia.css (grid-template-rows animation + JS mutex) */
 </style>
 </head>
 <body>
@@ -302,35 +292,35 @@
     <div class="faq-list">
       <details class="faq-item">
         <summary>¿Por qué la implementación no tiene precio cerrado público?<span class="icon"></span></summary>
-        <div class="faq-content">Porque construimos el sistema a medida del despacho. Las áreas de práctica, las integraciones, el branding, la migración desde Aranzadi o Excel, el número de plantillas y los flujos automatizados varían en cada caso. Te damos un presupuesto cerrado por escrito tras la auditoría inicial gratuita, antes de tocar nada.</div>
+        <div class="faq-content"><div class="faq-content-inner">Porque construimos el sistema a medida del despacho. Las áreas de práctica, las integraciones, el branding, la migración desde Aranzadi o Excel, el número de plantillas y los flujos automatizados varían en cada caso. Te damos un presupuesto cerrado por escrito tras la auditoría inicial gratuita, antes de tocar nada.</div></div>
       </details>
       <details class="faq-item">
         <summary>¿Entra la creación de contenido en la mensualidad?<span class="icon"></span></summary>
-        <div class="faq-content">El paquete inicial de contenido —páginas SEO, posts de GMB, artículos de blog, plantillas de redes— se cierra dentro de la implementación a medida según las áreas de tu despacho. La mensualidad cubre el mantenimiento del sistema, no la producción de contenido recurrente. Si después quieres más contenido cada mes, lo solicitas como upsell desde el propio panel; esta opción estará próximamente disponible.</div>
+        <div class="faq-content"><div class="faq-content-inner">El paquete inicial de contenido —páginas SEO, posts de GMB, artículos de blog, plantillas de redes— se cierra dentro de la implementación a medida según las áreas de tu despacho. La mensualidad cubre el mantenimiento del sistema, no la producción de contenido recurrente. Si después quieres más contenido cada mes, lo solicitas como upsell desde el propio panel; esta opción estará próximamente disponible.</div></div>
       </details>
       <details class="faq-item">
         <summary>¿Los precios incluyen IVA?<span class="icon"></span></summary>
-        <div class="faq-content">No. Las mensualidades (600, 1.200 y 2.500 €) son sin IVA. Al ser un servicio B2B en España se aplica el IVA correspondiente (21%) en la factura.</div>
+        <div class="faq-content"><div class="faq-content-inner">No. Las mensualidades (600, 1.200 y 2.500 €) son sin IVA. Al ser un servicio B2B en España se aplica el IVA correspondiente (21%) en la factura.</div></div>
       </details>
       <details class="faq-item">
         <summary>¿Hay permanencia?<span class="icon"></span></summary>
-        <div class="faq-content">No. La mensualidad se renueva mes a mes. Puedes cancelar cuando quieras avisando con 30 días para cerrar el último ciclo. La implementación se paga una sola vez al inicio, según el presupuesto cerrado.</div>
+        <div class="faq-content"><div class="faq-content-inner">No. La mensualidad se renueva mes a mes. Puedes cancelar cuando quieras avisando con 30 días para cerrar el último ciclo. La implementación se paga una sola vez al inicio, según el presupuesto cerrado.</div></div>
       </details>
       <details class="faq-item">
         <summary>¿Qué pasa si cancelo? ¿Pierdo mis expedientes?<span class="icon"></span></summary>
-        <div class="faq-content">No. Tus expedientes viven siempre en TU Google Drive o OneDrive (Bring Your Own Drive). VELIA Legal almacena metadatos y los conecta — pero los documentos son tuyos desde el primer día. Si cancelas, conservas el acceso completo sin que tengas que pedir exportaciones.</div>
+        <div class="faq-content"><div class="faq-content-inner">No. Tus expedientes viven siempre en TU Google Drive o OneDrive (Bring Your Own Drive). VELIA Legal almacena metadatos y los conecta — pero los documentos son tuyos desde el primer día. Si cancelas, conservas el acceso completo sin que tengas que pedir exportaciones.</div></div>
       </details>
       <details class="faq-item">
         <summary>¿Puedo cambiar de tier más adelante?<span class="icon"></span></summary>
-        <div class="faq-content">Sí. Si tu despacho crece, subes de tier al mes siguiente y solo pagas la diferencia. Si necesitas bajar, también — sin penalización. Los datos y la configuración se conservan.</div>
+        <div class="faq-content"><div class="faq-content-inner">Sí. Si tu despacho crece, subes de tier al mes siguiente y solo pagas la diferencia. Si necesitas bajar, también — sin penalización. Los datos y la configuración se conservan.</div></div>
       </details>
       <details class="faq-item">
         <summary>¿Cobran un porcentaje de los honorarios o de los clientes captados?<span class="icon"></span></summary>
-        <div class="faq-content">No. Cobramos mensualidad fija. Los honorarios que cobras a tus clientes son íntegramente tuyos. No tocamos tu cuenta ni tu facturación más allá del módulo Verifactu (tier Élite) que es solo una herramienta.</div>
+        <div class="faq-content"><div class="faq-content-inner">No. Cobramos mensualidad fija. Los honorarios que cobras a tus clientes son íntegramente tuyos. No tocamos tu cuenta ni tu facturación más allá del módulo Verifactu (tier Élite) que es solo una herramienta.</div></div>
       </details>
       <details class="faq-item">
         <summary>¿El presupuesto de implementación incluye la web del despacho?<span class="icon"></span></summary>
-        <div class="faq-content">Sí. La web a medida (con tu branding, optimizada para SEO y que carga rápido) forma parte de la implementación. Si ya tienes una web que funciona, podemos integrarnos con ella y descontarlo del presupuesto.</div>
+        <div class="faq-content"><div class="faq-content-inner">Sí. La web a medida (con tu branding, optimizada para SEO y que carga rápido) forma parte de la implementación. Si ya tienes una web que funciona, podemos integrarnos con ella y descontarlo del presupuesto.</div></div>
       </details>
     </div>
   </div>
@@ -379,6 +369,6 @@
   </div>
 </footer>
 
-<script src="/assets/velia.js?v=2"></script>
+<script src="/assets/velia.js?v=3"></script>
 </body>
 </html>

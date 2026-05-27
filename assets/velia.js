@@ -26,14 +26,23 @@
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
   }
 
-  // FAQ accordion — solo un <details> abierto por grupo .faq-list
+  // FAQ accordion — interceptamos el click del <summary> para evitar el
+  // snap nativo de <details> y dejar que CSS anime grid-template-rows.
+  // Tambien gestiona el mutex: al abrir uno, los demas del mismo .faq-list
+  // se cierran.
   document.querySelectorAll('.faq-list').forEach(list => {
-    list.querySelectorAll('details.faq-item').forEach(item => {
-      item.addEventListener('toggle', () => {
-        if (item.open) {
+    list.querySelectorAll('details.faq-item > summary').forEach(summary => {
+      summary.addEventListener('click', e => {
+        e.preventDefault();
+        const item = summary.parentElement;
+        const willOpen = !item.hasAttribute('open');
+        if (willOpen) {
           list.querySelectorAll('details.faq-item[open]').forEach(other => {
-            if (other !== item) other.open = false;
+            if (other !== item) other.removeAttribute('open');
           });
+          item.setAttribute('open', '');
+        } else {
+          item.removeAttribute('open');
         }
       });
     });

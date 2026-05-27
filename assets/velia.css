@@ -133,6 +133,32 @@ footer{padding:64px 0 40px;background:var(--void);border-top:1px solid var(--lin
 .footer-col a:hover{color:var(--cream)}
 .footer-bottom{padding-top:32px;border-top:1px solid var(--line-d);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:12px;color:rgba(237,233,225,.4)}
 
+/* ─── FAQ (override grid-trick — anima height auto sin medir) ──────────
+   <details class="faq-item">
+     <summary>…<span class="icon"></span></summary>
+     <div class="faq-content"><div class="faq-content-inner">…</div></div>
+   </details>
+   El display:grid del .faq-content evita que el UA stylesheet de <details>
+   colapse el contenido instantaneamente; la animacion corre sobre la
+   grid-template-rows entre 0fr y 1fr. JS intercepta el click en <summary>
+   para evitar el snap nativo y manejar el mutex del grupo .faq-list. */
+.faq-list{margin-top:56px;border-top:1px solid var(--line-d)}
+.faq-item{border-bottom:1px solid var(--line-d);display:block}
+.faq-item > summary{list-style:none;padding:24px 0;display:flex;align-items:center;justify-content:space-between;gap:24px;cursor:pointer;font-size:17px;font-weight:500;color:var(--cream);letter-spacing:-.005em;transition:color .25s var(--ease)}
+.faq-item > summary::-webkit-details-marker{display:none}
+.faq-item > summary::marker{content:''}
+.faq-item > summary:hover{color:var(--gold)}
+.faq-item[open] > summary{color:var(--gold)}
+.faq-item > summary .icon{position:relative;flex-shrink:0;width:32px;height:32px;border-radius:50%;border:1px solid var(--line-d);display:flex;align-items:center;justify-content:center;transition:transform .4s var(--ease),border-color .3s var(--ease),background .3s var(--ease)}
+.faq-item > summary .icon::before{content:'';width:10px;height:1px;background:currentColor;position:absolute}
+.faq-item > summary .icon::after{content:'';width:1px;height:10px;background:currentColor;position:absolute;transition:transform .4s var(--ease)}
+.faq-item[open] > summary .icon{transform:rotate(180deg);border-color:rgba(201,169,110,.5);background:rgba(201,169,110,.10)}
+.faq-item[open] > summary .icon::after{transform:rotate(90deg)}
+.faq-item > .faq-content{display:grid;grid-template-rows:0fr;transition:grid-template-rows .42s var(--ease)}
+.faq-item[open] > .faq-content{grid-template-rows:1fr}
+.faq-content > .faq-content-inner{overflow:hidden;min-height:0;font-size:15px;color:var(--muted-d);line-height:1.75;max-width:780px;padding:0 56px 0 0;transform:translateY(-4px);opacity:0;transition:opacity .35s var(--ease) .05s,transform .42s var(--ease) .05s,padding .42s var(--ease)}
+.faq-item[open] > .faq-content > .faq-content-inner{transform:translateY(0);opacity:1;padding-bottom:24px}
+
 /* ─── ANIMATIONS ────────────────────────────────────────────────────── */
 @media(prefers-reduced-motion:no-preference){
   .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
