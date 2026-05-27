@@ -62,9 +62,23 @@ section{position:relative;padding:120px 0}
 /* ─── NAV ───────────────────────────────────────────────────────────── */
 .nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:100;display:flex;align-items:center;justify-content:space-between;gap:32px;padding:10px 14px 10px 22px;width:calc(100% - 28px);max-width:980px;background:rgba(10,10,15,.55);backdrop-filter:saturate(140%) blur(18px);-webkit-backdrop-filter:saturate(140%) blur(18px);border:1px solid var(--line-d);border-radius:var(--r-pill);transition:background .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease)}
 .nav.scrolled{background:rgba(10,10,15,.82);border-color:rgba(201,169,110,.22);box-shadow:0 14px 40px -20px rgba(0,0,0,.5)}
-.nav-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0;transition:opacity .2s}
-.nav-logo:hover{opacity:.78}
-.nav-logo img{height:22px;width:auto;display:block}
+/* Dual-logo: cross-fade entre version oscura (sobre fondos claros) y clara
+   (sobre void/deep). Toggle controlado por .nav.on-light desde JS segun la
+   seccion que cruce la franja superior del viewport. */
+.nav-logo{position:relative;display:flex;align-items:center;text-decoration:none;flex-shrink:0;transition:opacity .2s;width:96px;height:22px}
+.nav-logo:hover{opacity:.85}
+.nav-logo img{position:absolute;top:0;left:0;height:22px;width:auto;display:block;transition:opacity .35s var(--ease)}
+.nav-logo .nav-wm-dark{opacity:0}
+.nav-logo .nav-wm-light{opacity:1}
+.nav.on-light .nav-logo .nav-wm-dark{opacity:1}
+.nav.on-light .nav-logo .nav-wm-light{opacity:0}
+/* Cuando el nav esta on-light, ajustamos color de links y bordes para
+   contraste con fondo claro detras */
+.nav.on-light{background:rgba(255,255,255,.75);border-color:rgba(28,28,40,.10)}
+.nav.on-light.scrolled{background:rgba(244,241,235,.92);border-color:rgba(154,120,64,.22);box-shadow:0 14px 40px -20px rgba(28,28,40,.22)}
+.nav.on-light .nav-links a{color:rgba(28,28,40,.55)}
+.nav.on-light .nav-links a:hover,.nav.on-light .nav-links a.active{color:var(--ink)}
+.nav.on-light .nav-toggle{border-color:rgba(28,28,40,.14);color:var(--ink)}
 .nav-links{display:flex;align-items:center;gap:28px}
 .nav-links a{font-size:13px;font-weight:500;color:var(--muted-d);text-decoration:none;transition:color .2s}
 .nav-links a:hover,.nav-links a.active{color:var(--cream)}
@@ -110,8 +124,9 @@ footer{padding:64px 0 40px;background:var(--void);border-top:1px solid var(--lin
 .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
 @media(max-width:820px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}}
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
-.footer-brand .brand-logo{display:block;margin-bottom:16px}
-.footer-brand .brand-logo img{height:24px;width:auto;display:block}
+.footer-brand .brand-logo{display:inline-block;margin-bottom:18px;transition:opacity .2s}
+.footer-brand .brand-logo:hover{opacity:.78}
+.footer-brand .brand-logo img{height:16px;width:auto;display:block}
 .footer-brand p{font-size:13px;line-height:1.7;max-width:300px}
 .footer-col h4{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--cream);margin-bottom:18px}
 .footer-col a{display:block;font-size:13px;color:var(--muted-d);text-decoration:none;padding:5px 0;transition:color .2s}

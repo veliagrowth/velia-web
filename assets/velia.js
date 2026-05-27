@@ -38,4 +38,23 @@
       });
     });
   });
+
+  // Dual-logo nav: alterna entre logo claro (sobre fondos void/deep) y oscuro
+  // (sobre fondos cream/white) detectando que seccion cruza la franja superior
+  // del viewport, justo donde vive el nav fijo. Cualquier <section> o <header>
+  // con clase .surface-cream activa el modo light; el resto deja el modo oscuro.
+  if (nav && 'IntersectionObserver' in window) {
+    const navHeight = 80; // ~nav fixed offset
+    const sections = document.querySelectorAll('section, header.hero, header.page-hero, header.contact-shell, main.contact-shell');
+    const isLight = el => el.classList.contains('surface-cream');
+    const activeLight = new Set();
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && isLight(e.target)) activeLight.add(e.target);
+        else activeLight.delete(e.target);
+      });
+      nav.classList.toggle('on-light', activeLight.size > 0);
+    }, { rootMargin: `-${navHeight}px 0px -${Math.max(window.innerHeight - navHeight - 2, 0)}px 0px`, threshold: 0 });
+    sections.forEach(s => obs.observe(s));
+  }
 })();
