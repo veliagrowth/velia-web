@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/velia.css?v=4"/>
+<link rel="stylesheet" href="/assets/velia.css?v=5"/>
 
 <script type="application/ld+json">
 {
@@ -290,38 +290,38 @@
       <h2 class="reveal" style="margin-top:18px">Lo que más nos <em class="serif">preguntan.</em></h2>
     </div>
     <div class="faq-list">
-      <details class="faq-item">
-        <summary>¿Por qué la implementación no tiene precio cerrado público?<span class="icon"></span></summary>
-        <div class="faq-content"><div class="faq-content-inner">Porque construimos el sistema a medida del despacho. Las áreas de práctica, las integraciones, el branding, la migración desde Aranzadi o Excel, el número de plantillas y los flujos automatizados varían en cada caso. Te damos un presupuesto cerrado por escrito tras la auditoría inicial gratuita, antes de tocar nada.</div></div>
-      </details>
-      <details class="faq-item">
-        <summary>¿Entra la creación de contenido en la mensualidad?<span class="icon"></span></summary>
-        <div class="faq-content"><div class="faq-content-inner">El paquete inicial de contenido —páginas SEO, posts de GMB, artículos de blog, plantillas de redes— se cierra dentro de la implementación a medida según las áreas de tu despacho. La mensualidad cubre el mantenimiento del sistema, no la producción de contenido recurrente. Si después quieres más contenido cada mes, lo solicitas como upsell desde el propio panel; esta opción estará próximamente disponible.</div></div>
-      </details>
-      <details class="faq-item">
-        <summary>¿Los precios incluyen IVA?<span class="icon"></span></summary>
-        <div class="faq-content"><div class="faq-content-inner">No. Las mensualidades (600, 1.200 y 2.500 €) son sin IVA. Al ser un servicio B2B en España se aplica el IVA correspondiente (21%) en la factura.</div></div>
-      </details>
-      <details class="faq-item">
-        <summary>¿Hay permanencia?<span class="icon"></span></summary>
-        <div class="faq-content"><div class="faq-content-inner">No. La mensualidad se renueva mes a mes. Puedes cancelar cuando quieras avisando con 30 días para cerrar el último ciclo. La implementación se paga una sola vez al inicio, según el presupuesto cerrado.</div></div>
-      </details>
-      <details class="faq-item">
-        <summary>¿Qué pasa si cancelo? ¿Pierdo mis expedientes?<span class="icon"></span></summary>
-        <div class="faq-content"><div class="faq-content-inner">No. Tus expedientes viven siempre en TU Google Drive o OneDrive (Bring Your Own Drive). VELIA Legal almacena metadatos y los conecta — pero los documentos son tuyos desde el primer día. Si cancelas, conservas el acceso completo sin que tengas que pedir exportaciones.</div></div>
-      </details>
-      <details class="faq-item">
-        <summary>¿Puedo cambiar de tier más adelante?<span class="icon"></span></summary>
-        <div class="faq-content"><div class="faq-content-inner">Sí. Si tu despacho crece, subes de tier al mes siguiente y solo pagas la diferencia. Si necesitas bajar, también — sin penalización. Los datos y la configuración se conservan.</div></div>
-      </details>
-      <details class="faq-item">
-        <summary>¿Cobran un porcentaje de los honorarios o de los clientes captados?<span class="icon"></span></summary>
-        <div class="faq-content"><div class="faq-content-inner">No. Cobramos mensualidad fija. Los honorarios que cobras a tus clientes son íntegramente tuyos. No tocamos tu cuenta ni tu facturación más allá del módulo Verifactu (tier Élite) que es solo una herramienta.</div></div>
-      </details>
-      <details class="faq-item">
-        <summary>¿El presupuesto de implementación incluye la web del despacho?<span class="icon"></span></summary>
-        <div class="faq-content"><div class="faq-content-inner">Sí. La web a medida (con tu branding, optimizada para SEO y que carga rápido) forma parte de la implementación. Si ya tienes una web que funciona, podemos integrarnos con ella y descontarlo del presupuesto.</div></div>
-      </details>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Por qué la implementación no tiene precio cerrado público?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Porque construimos el sistema a medida del despacho. Las áreas de práctica, las integraciones, el branding, la migración desde Aranzadi o Excel, el número de plantillas y los flujos automatizados varían en cada caso. Te damos un presupuesto cerrado por escrito tras la auditoría inicial gratuita, antes de tocar nada.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Entra la creación de contenido en la mensualidad?<span class="faq-icon">+</span></button>
+        <div class="faq-a">El paquete inicial de contenido —páginas SEO, posts de GMB, artículos de blog, plantillas de redes— se cierra dentro de la implementación a medida según las áreas de tu despacho. La mensualidad cubre el mantenimiento del sistema, no la producción de contenido recurrente. Si después quieres más contenido cada mes, lo solicitas como upsell desde el propio panel; esta opción estará próximamente disponible.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Los precios incluyen IVA?<span class="faq-icon">+</span></button>
+        <div class="faq-a">No. Las mensualidades (600, 1.200 y 2.500 €) son sin IVA. Al ser un servicio B2B en España se aplica el IVA correspondiente (21%) en la factura.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Hay permanencia?<span class="faq-icon">+</span></button>
+        <div class="faq-a">No. La mensualidad se renueva mes a mes. Puedes cancelar cuando quieras avisando con 30 días para cerrar el último ciclo. La implementación se paga una sola vez al inicio, según el presupuesto cerrado.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Qué pasa si cancelo? ¿Pierdo mis expedientes?<span class="faq-icon">+</span></button>
+        <div class="faq-a">No. Tus expedientes viven siempre en TU Google Drive o OneDrive (Bring Your Own Drive). VELIA Legal almacena metadatos y los conecta — pero los documentos son tuyos desde el primer día. Si cancelas, conservas el acceso completo sin que tengas que pedir exportaciones.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Puedo cambiar de tier más adelante?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Sí. Si tu despacho crece, subes de tier al mes siguiente y solo pagas la diferencia. Si necesitas bajar, también — sin penalización. Los datos y la configuración se conservan.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿Cobran un porcentaje de los honorarios o de los clientes captados?<span class="faq-icon">+</span></button>
+        <div class="faq-a">No. Cobramos mensualidad fija. Los honorarios que cobras a tus clientes son íntegramente tuyos. No tocamos tu cuenta ni tu facturación más allá del módulo Verifactu (tier Élite) que es solo una herramienta.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">¿El presupuesto de implementación incluye la web del despacho?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Sí. La web a medida (con tu branding, optimizada para SEO y que carga rápido) forma parte de la implementación. Si ya tienes una web que funciona, podemos integrarnos con ella y descontarlo del presupuesto.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -369,6 +369,6 @@
   </div>
 </footer>
 
-<script src="/assets/velia.js?v=4"></script>
+<script src="/assets/velia.js?v=5"></script>
 </body>
 </html>

@@ -26,27 +26,17 @@
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
   }
 
-  // FAQ accordion — interceptamos el click del <summary> para evitar el
-  // snap nativo de <details> y dejar que CSS anime grid-template-rows.
-  // Tambien gestiona el mutex: al abrir uno, los demas del mismo .faq-list
-  // se cierran.
-  document.querySelectorAll('.faq-list').forEach(list => {
-    list.querySelectorAll('details.faq-item > summary').forEach(summary => {
-      summary.addEventListener('click', e => {
-        e.preventDefault();
-        const item = summary.parentElement;
-        const willOpen = !item.hasAttribute('open');
-        if (willOpen) {
-          list.querySelectorAll('details.faq-item[open]').forEach(other => {
-            if (other !== item) other.removeAttribute('open');
-          });
-          item.setAttribute('open', '');
-        } else {
-          item.removeAttribute('open');
-        }
-      });
-    });
-  });
+  // FAQ — patron 1:1 con veliacorp.com legacy. Mutex global por .faq-list.
+  // CSS hace toda la animacion (transition max-height + padding); JS solo
+  // togglea la clase .open en el .faq-item.
+  window.toggleFaq = function (btn) {
+    const item = btn.closest('.faq-item');
+    if (!item) return;
+    const list = item.closest('.faq-list') || document;
+    const wasOpen = item.classList.contains('open');
+    list.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  };
 
   // Dual-logo nav: alterna entre logo claro (sobre fondos void/deep) y oscuro
   // (sobre fondos cream/white) detectando que seccion cruza la franja superior

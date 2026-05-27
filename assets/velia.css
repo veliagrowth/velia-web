@@ -136,31 +136,26 @@ footer{padding:64px 0 40px;background:var(--void);border-top:1px solid var(--lin
 .footer-col a:hover{color:var(--cream)}
 .footer-bottom{padding-top:32px;border-top:1px solid var(--line-d);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:12px;color:rgba(237,233,225,.4)}
 
-/* ─── FAQ (override grid-trick — anima height auto sin medir) ──────────
-   <details class="faq-item">
-     <summary>…<span class="icon"></span></summary>
-     <div class="faq-content"><div class="faq-content-inner">…</div></div>
-   </details>
-   El display:grid del .faq-content evita que el UA stylesheet de <details>
-   colapse el contenido instantaneamente; la animacion corre sobre la
-   grid-template-rows entre 0fr y 1fr. JS intercepta el click en <summary>
-   para evitar el snap nativo y manejar el mutex del grupo .faq-list. */
-.faq-list{margin-top:56px;border-top:1px solid var(--line-d)}
-.faq-item{border-bottom:1px solid var(--line-d);display:block}
-.faq-item > summary{list-style:none;padding:24px 0;display:flex;align-items:center;justify-content:space-between;gap:24px;cursor:pointer;font-size:17px;font-weight:500;color:var(--cream);letter-spacing:-.005em;transition:color .25s var(--ease)}
-.faq-item > summary::-webkit-details-marker{display:none}
-.faq-item > summary::marker{content:''}
-.faq-item > summary:hover{color:var(--gold)}
-.faq-item[open] > summary{color:var(--gold)}
-.faq-item > summary .icon{position:relative;flex-shrink:0;width:32px;height:32px;border-radius:50%;border:1px solid var(--line-d);display:flex;align-items:center;justify-content:center;transition:transform .4s var(--ease),border-color .3s var(--ease),background .3s var(--ease)}
-.faq-item > summary .icon::before{content:'';width:10px;height:1px;background:currentColor;position:absolute}
-.faq-item > summary .icon::after{content:'';width:1px;height:10px;background:currentColor;position:absolute;transition:transform .4s var(--ease)}
-.faq-item[open] > summary .icon{transform:rotate(180deg);border-color:rgba(201,169,110,.5);background:rgba(201,169,110,.10)}
-.faq-item[open] > summary .icon::after{transform:rotate(90deg)}
-.faq-item > .faq-content{display:grid;grid-template-rows:0fr;transition:grid-template-rows .42s var(--ease)}
-.faq-item[open] > .faq-content{grid-template-rows:1fr}
-.faq-content > .faq-content-inner{overflow:hidden;min-height:0;font-size:15px;color:var(--muted-d);line-height:1.75;max-width:780px;padding:0 56px 0 0;transform:translateY(-4px);opacity:0;transition:opacity .35s var(--ease) .05s,transform .42s var(--ease) .05s,padding .42s var(--ease)}
-.faq-item[open] > .faq-content > .faq-content-inner{transform:translateY(0);opacity:1;padding-bottom:24px}
+/* ─── FAQ (patron portado de veliacorp.com legacy, mismo movimiento) ─────
+   Estructura:
+     <div class="faq-item">
+       <button class="faq-q" onclick="toggleFaq(this)">
+         ¿Pregunta? <span class="faq-icon">+</span>
+       </button>
+       <div class="faq-a">Respuesta.</div>
+     </div>
+   El JS togglea .open en el item, mutex global. La animacion es
+   transition max-height + padding, fluida y predecible. */
+.faq-list{margin-top:56px;border-top:1px solid var(--line-d);display:flex;flex-direction:column}
+.faq-item{border-bottom:1px solid var(--line-d)}
+.faq-q{width:100%;background:none;border:0;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 0;font-family:var(--sans);font-size:17px;font-weight:500;color:var(--cream);text-align:left;letter-spacing:-.005em;cursor:pointer;transition:color .25s var(--ease)}
+.faq-q:hover{color:var(--gold)}
+.faq-item.open .faq-q{color:var(--gold)}
+.faq-icon{flex-shrink:0;width:32px;height:32px;border:1px solid var(--line-d);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:300;line-height:1;color:var(--gold);transition:transform .3s var(--ease),background .25s var(--ease),border-color .25s var(--ease)}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:rgba(201,169,110,.10);border-color:rgba(201,169,110,.45)}
+.faq-a{max-height:0;overflow:hidden;font-size:15px;line-height:1.75;color:var(--muted-d);max-width:780px;padding:0 56px 0 0;transition:max-height .42s var(--ease),padding .42s var(--ease)}
+.faq-item.open .faq-a{max-height:900px;padding-bottom:24px}
+@media(max-width:640px){.faq-a{padding-right:8px}}
 
 /* ─── ANIMATIONS ────────────────────────────────────────────────────── */
 @media(prefers-reduced-motion:no-preference){
