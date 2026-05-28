@@ -91,19 +91,25 @@
   /* ───────── CSS ───────── */
   const css = `
   #velia-chat,#velia-chat *{box-sizing:border-box;font-family:'Montserrat',system-ui,sans-serif}
-  #vc-toggle{position:fixed;bottom:32px;right:32px;z-index:9000;width:60px;height:60px;border-radius:50%;background:#0A0A0F;color:#EDE9E1;border:1px solid rgba(201,169,110,.28);box-shadow:0 8px 28px rgba(0,0,0,.32);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s,border-color .25s,opacity .2s;font-family:'Montserrat',sans-serif;font-weight:800;font-size:24px;letter-spacing:-.02em;padding:0;line-height:1}
+  #vc-toggle{position:fixed;bottom:32px;right:32px;z-index:9000;width:60px;height:60px;border-radius:50%;background:#0A0A0F;border:1px solid rgba(201,169,110,.28);box-shadow:0 8px 28px rgba(0,0,0,.32);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .25s cubic-bezier(.16,1,.3,1),box-shadow .25s,border-color .25s,opacity .2s;padding:0}
+  #vc-toggle svg{width:30px;height:30px;display:block;overflow:visible}
+  #vc-toggle .vc-v-line{fill:none;stroke:#F5F3EE;stroke-width:18;stroke-linecap:round;stroke-opacity:.92}
+  #vc-toggle .vc-v-dot{fill:#C9A96E}
   #vc-toggle:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 14px 38px rgba(0,0,0,.42);border-color:rgba(201,169,110,.52)}
   #vc-toggle .vc-pulse{position:absolute;inset:-2px;border-radius:50%;border:1px solid rgba(201,169,110,.4);animation:vcPulse 2.6s ease-out infinite;pointer-events:none}
   @keyframes vcPulse{0%{transform:scale(1);opacity:.7}80%,100%{transform:scale(1.35);opacity:0}}
   #vc-toggle.is-open{opacity:0;pointer-events:none;transform:scale(.85)}
-  @media(max-width:600px){#vc-toggle{bottom:20px;right:20px;width:56px;height:56px;font-size:22px}}
+  @media(max-width:600px){#vc-toggle{bottom:20px;right:20px;width:56px;height:56px}#vc-toggle svg{width:28px;height:28px}}
 
   #vc-panel{position:fixed;bottom:32px;right:32px;z-index:9001;width:380px;height:580px;max-height:calc(100vh - 64px);background:#F4F1EB;color:#0A0A0F;border-radius:22px;box-shadow:0 22px 60px rgba(0,0,0,.28),0 4px 16px rgba(0,0,0,.12);display:flex;flex-direction:column;overflow:hidden;opacity:0;pointer-events:none;transform:translateY(16px) scale(.96);transform-origin:bottom right;transition:opacity .28s cubic-bezier(.16,1,.3,1),transform .32s cubic-bezier(.16,1,.3,1)}
   #vc-panel.is-open{opacity:1;pointer-events:auto;transform:none}
   @media(max-width:600px){#vc-panel{inset:0;width:100%;height:100%;max-height:100%;border-radius:0;bottom:0;right:0}}
 
   #vc-header{display:flex;align-items:center;gap:12px;padding:14px 16px;background:#0A0A0F;color:#EDE9E1;flex-shrink:0}
-  #vc-avatar{width:38px;height:38px;border-radius:50%;background:#1C1C28;border:1px solid rgba(201,169,110,.32);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;letter-spacing:-.02em;color:#EDE9E1;line-height:1}
+  #vc-avatar{width:38px;height:38px;border-radius:50%;background:#1C1C28;border:1px solid rgba(201,169,110,.32);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  #vc-avatar svg{width:20px;height:20px;display:block;overflow:visible}
+  #vc-avatar .vc-v-line{fill:none;stroke:#F5F3EE;stroke-width:22;stroke-linecap:round;stroke-opacity:.92}
+  #vc-avatar .vc-v-dot{fill:#C9A96E}
   #vc-name{font-size:14px;font-weight:700;letter-spacing:-.005em;line-height:1.1}
   #vc-status{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(237,233,225,.55);margin-top:3px;display:flex;align-items:center;gap:6px}
   #vc-status .vc-dot{width:6px;height:6px;border-radius:50%;background:#34D399;box-shadow:0 0 6px rgba(52,211,153,.6)}
@@ -147,11 +153,13 @@
   /* ───────── DOM ───────── */
   const root = document.createElement('div');
   root.id = 'velia-chat';
+  const V_SVG = '<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line class="vc-v-line" x1="110" y1="110" x2="200" y2="290"/><line class="vc-v-line" x1="200" y1="290" x2="290" y2="110"/><circle class="vc-v-dot" cx="200" cy="290" r="18"/></svg>';
+
   root.innerHTML = `
-    <button id="vc-toggle" type="button" aria-label="Abrir chat con VELIA">V<span class="vc-pulse"></span></button>
+    <button id="vc-toggle" type="button" aria-label="Abrir chat con VELIA">${V_SVG}<span class="vc-pulse"></span></button>
     <div id="vc-panel" role="dialog" aria-modal="false" aria-label="Chat con VELIA">
       <header id="vc-header">
-        <div id="vc-avatar">V</div>
+        <div id="vc-avatar">${V_SVG}</div>
         <div id="vc-header-meta">
           <div id="vc-name">VELIA</div>
           <div id="vc-status"><span class="vc-dot"></span>Asistente IA · en línea</div>
