@@ -4,6 +4,9 @@
   if (window.__veliaChatLoaded) return;
   window.__veliaChatLoaded = true;
 
+  /* ───────── API config ───────── */
+  const API_URL = 'https://portal.veliacorp.com/api/velia-chat';
+
   /* ───────── State ───────── */
   const SKEY = 'velia_chat_v1';
   const sessionId = (function () {
@@ -423,24 +426,104 @@
     }, delayMs || 750);
   }
 
+  /* ───────── API call (Fase B) ───────── */
+  async function callApi(message) {
+    const payload = { session_id: sessionId, message, source_url: location.href };
+    const r = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      credentials: 'omit',
+    });
+    if (!r.ok) {
+      if (r.status === 429) {
+        const j = await r.json().catch(() => ({}));
+        const secs = Math.ceil((j.retry_after_ms || 30000) / 1000);
+        throw { kind: 'rate_limited', message: `Demasiadas preguntas en poco tiempo. Reintenta en ${secs}s.` };
+      }
+      throw { kind: 'api_error', status: r.status };
+    }
+    return r.json();
+  }
+
+  function handleApiResponse(data) {
+    // 1. Add bot text
+    if (data.reply) addMessage('bot', data.reply);
+
+    // 2. Quick replies (LLM-suggested chips)
+    let chips = Array.isArray(data.quick_replies) ? data.quick_replies.slice(0, 6) : [];
+
+    // 3. Redirect (propose_meeting tool) → añade chip prominente
+    if (data.redirect_url) {
+      chips.unshift({ id: 'go-meeting', label: 'Reservar llamada →', url: data.redirect_url });
+    }
+
+    // 4. Lead capturado → mensaje de confirmación + chips minimal
+    if (data.captured_lead) {
+      // Sobreescribe los chips por unos de cierre suave
+      chips = [
+        { id: 'cerrar', label: 'Gracias', __close: true },
+      ];
+    }
+
+    setQuickReplies(chips);
+  }
+
+  async function dispatchToAgent(message) {
+    setQuickReplies([]);
+    showTyping();
+    try {
+      const data = await callApi(message);
+      hideTyping();
+      handleApiResponse(data);
+    } catch (e) {
+      hideTyping();
+      if (e && e.kind === 'rate_limited') {
+        addMessage('bot', e.message);
+        setQuickReplies([{ id: 'menu', label: '↺ Otras opciones' }]);
+      } else {
+        // Offline / 5xx → fallback offline
+        addMessage('bot', 'Tengo un fallo técnico temporal. Mientras lo arreglo, puedes agendar directamente la llamada de 30 min.');
+        setQuickReplies([
+          { id: 'go-meeting', label: 'Ir a contacto →', url: (inSub ? '../' : '') + 'contacto.html?from=chat' },
+          { id: 'retry', label: '↻ Reintentar', __retry: message },
+        ]);
+      }
+    }
+  }
+
   function handleQuickReply(r) {
     addMessage('user', r.label);
-    // url-only chips navigate
+
+    // URL chips (incluido redirect_url del agente y los hardcoded a paginas)
     if (r.url) {
       const url = resolveUrl(r.url);
       setTimeout(() => { window.open(url, r.id && r.id.startsWith('v-') ? '_blank' : '_self'); }, 250);
       return;
     }
-    const res = RESPONSES[r.id] || FALLBACK;
-    botRespond(res.reply, res.replies, 700 + Math.random() * 300);
+
+    // Chip especial "Reintentar" → re-envía el último mensaje
+    if (r.__retry) { dispatchToAgent(r.__retry); return; }
+
+    // Chip especial de cierre → solo limpia chips
+    if (r.__close) { setQuickReplies([]); return; }
+
+    // Hardcoded chips conocidos (menú offline, instantáneos, 0€)
+    if (RESPONSES[r.id]) {
+      const res = RESPONSES[r.id];
+      botRespond(res.reply, res.replies, 600 + Math.random() * 200);
+      return;
+    }
+
+    // Cualquier otro chip → enviar su label como mensaje al agente
+    dispatchToAgent(r.label);
   }
 
   function handleUserMessage(text) {
     if (!text) return;
     addMessage('user', text);
     $input.value = '';
-    // Fase A: respuesta fallback consistente. Fase B: fetch /api/velia-chat.
-    botRespond(FALLBACK.reply, FALLBACK.replies, 900 + Math.random() * 400);
+    dispatchToAgent(text);
   }
 
   /* ───────── Toggle ───────── */
