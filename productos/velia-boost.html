@@ -109,6 +109,22 @@ section{position:relative;z-index:1}
 .hero-note{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;font-size:11px;font-weight:500;color:rgba(237,233,225,.7);background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;font-family:var(--mono);letter-spacing:.02em;position:relative;z-index:1}
 .hero-note .lock{color:var(--pulse-l)}
 
+/* ═══ WHY INSIDER ═══ */
+#why-insider{padding:72px 5vw 24px;position:relative}
+.why-eyebrow{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--pulse-l);text-align:center;margin-bottom:14px}
+.why-h2{font-family:var(--f);font-size:clamp(26px,3.4vw,40px);font-weight:800;line-height:1.12;letter-spacing:-.025em;color:var(--cream);text-align:center;max-width:760px;margin:0 auto 14px;text-wrap:balance}
+.why-h2 em{font-style:italic;font-family:var(--serif);font-weight:400;color:var(--pulse-l)}
+.why-lede{font-size:14px;font-weight:300;line-height:1.65;color:var(--muted);max-width:640px;margin:0 auto 44px;text-align:center}
+.why-lede strong{color:var(--cream);font-weight:500}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1080px;margin:0 auto;opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.why-grid.in{opacity:1;transform:none}
+@media(max-width:820px){.why-grid{grid-template-columns:1fr;gap:14px}}
+.why-card{padding:26px 24px;background:linear-gradient(180deg,rgba(124,92,255,.06) 0%,rgba(20,20,30,.4) 100%);border:1px solid rgba(124,92,255,.18);border-radius:18px}
+.why-num{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.16em;color:var(--pulse-l);margin-bottom:14px}
+.why-card h3{font-family:var(--f);font-size:16px;font-weight:700;color:var(--cream);letter-spacing:-.01em;margin-bottom:8px;line-height:1.25}
+.why-card p{font-size:13px;font-weight:300;line-height:1.6;color:var(--muted)}
+@media(prefers-reduced-motion:reduce){.why-grid{opacity:1;transform:none;transition:none}}
+
 /* ═══ STORE GRID (arcade vibe) ═══ */
 #store{padding:80px 5vw 40px}
 .store-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px;justify-content:center}
@@ -134,6 +150,8 @@ section{position:relative;z-index:1}
 .item .price-row .price{font-family:var(--f);font-size:24px;font-weight:700;color:var(--gold);letter-spacing:-.02em;line-height:1}
 .item .price-row .price.recurring{color:var(--pulse-l)}
 .item .price-row .unit{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.04em}
+.price-tag-insider{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--pulse-l);margin:-8px 0 16px;display:inline-flex;align-items:center;gap:6px}
+.price-tag-insider::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--pulse-l);box-shadow:0 0 8px var(--pulse)}
 .item .btn-buy{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px 18px;font-family:var(--f);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);background:rgba(124,92,255,.12);border:1px solid rgba(124,92,255,.35);border-radius:12px;text-decoration:none;transition:background .2s,border-color .2s,transform .2s var(--ease),color .2s}
 .item .btn-buy:hover{background:var(--pulse);color:var(--cream);border-color:var(--pulse);transform:translateY(-1px)}
 .item .btn-buy .arrow{transition:transform .2s var(--ease)}
@@ -236,6 +254,30 @@ a[href],button:not(:disabled){cursor:pointer}
   </div>
 </section>
 
+<!-- WHY INSIDER -->
+<section id="why-insider">
+  <p class="why-eyebrow">Por qué este precio</p>
+  <h2 class="why-h2">Coste de <em>insider</em>, no descuento.</h2>
+  <p class="why-lede">El equivalente contratado fuera de VELIA cuesta entre <strong>1.500 y 2.500€/mes</strong>. Aquí no. No es una rebaja — es una estructura de costes honesta porque ya eres parte del sistema.</p>
+  <div class="why-grid" id="whyGrid">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <h3>Cero coste de captación</h3>
+      <p>No tenemos que vendértelo de cero. Ya somos tu proveedor, ya conoces el equipo, ya hay confianza. Ese ahorro vuelve a ti.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <h3>Cero setup ni onboarding</h3>
+      <p>Tu sistema VELIA ya está montado. Integramos cualquier add-on sin descubrimiento, sin kickoff, sin curva de aprendizaje. Días en lugar de semanas.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <h3>Margen interno, no comercial</h3>
+      <p>Como ya pagas tu plan base, el add-on se entrega con margen ajustado. No es una venta independiente — es una extensión de lo que ya tienes.</p>
+    </div>
+  </div>
+</section>
+
 <!-- STORE -->
 <section id="store">
   <div class="inner">
@@ -259,6 +301,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price recurring">200€</span>
           <span class="unit">/ mes</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=cerebro" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -272,6 +315,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price">1.500€</span>
           <span class="unit">/ proyecto</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=video-corp" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -285,6 +329,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price">800€</span>
           <span class="unit">/ pieza</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=video-ads" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -298,6 +343,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price">1.200€</span>
           <span class="unit">/ página</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=landing" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -311,6 +357,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price">600€</span>
           <span class="unit">/ integración</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=automatizacion" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -324,6 +371,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price">900€</span>
           <span class="unit">/ sesión</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=fotos" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -337,6 +385,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price recurring">350€</span>
           <span class="unit">/ mes</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=contenido-extra" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -350,6 +399,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price">2.500€</span>
           <span class="unit">/ campaña</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=campana-360" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -363,6 +413,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price recurring">280€</span>
           <span class="unit">/ mes</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=agente-wa" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -376,6 +427,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price recurring">450€</span>
           <span class="unit">/ mes</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=vigilancia-pi" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -389,6 +441,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price recurring">500€</span>
           <span class="unit">/ mes</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=investigacion-juridica" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -402,6 +455,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price recurring">220€</span>
           <span class="unit">/ mes</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=alertas-normativas" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -415,6 +469,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price recurring">380€</span>
           <span class="unit">/ mes</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=pipeline-campanas" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -428,6 +483,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price recurring">290€</span>
           <span class="unit">/ mes</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=reporting-redes" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -441,6 +497,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price recurring">480€</span>
           <span class="unit">/ mes</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=recepcionista-247" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -454,6 +511,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price recurring">320€</span>
           <span class="unit">/ mes</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=reactivacion-dormidos" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -467,6 +525,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price recurring">250€</span>
           <span class="unit">/ mes</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=reputacion-google" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -481,6 +540,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price recurring">380€</span>
           <span class="unit">/ mes</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=notas-voz" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -494,6 +554,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price recurring">240€</span>
           <span class="unit">/ mes</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=email-inteligente" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
 
@@ -507,6 +568,7 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="price recurring">180€</span>
           <span class="unit">/ mes</span>
         </div>
+        <div class="price-tag-insider">Precio cliente VELIA</div>
         <a href="../contacto.html?from=boost&item=archivado-facturas" class="btn-buy">Solicitar <span class="arrow">→</span></a>
       </article>
     </div>
@@ -558,6 +620,17 @@ function toggleNavMenu(){ const m=document.getElementById('nav-menu'); m.classLi
 function openNavMenu(){ document.getElementById('nav-menu').classList.add('open'); document.getElementById('nav-hamburger').classList.add('open'); document.body.style.overflow='hidden'; }
 function closeNavMenu(){ document.getElementById('nav-menu').classList.remove('open'); document.getElementById('nav-hamburger').classList.remove('open'); document.body.style.overflow=''; }
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeNavMenu(); });
+
+// Why insider fade-in
+const whyGrid = document.getElementById('whyGrid');
+if (whyGrid && 'IntersectionObserver' in window) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { whyGrid.classList.add('in'); io.disconnect(); } });
+  }, { threshold: 0.2 });
+  io.observe(whyGrid);
+} else if (whyGrid) {
+  whyGrid.classList.add('in');
+}
 
 // Filtros store
 document.querySelectorAll('.store-chip').forEach(chip => {
