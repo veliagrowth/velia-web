@@ -105,6 +105,7 @@ nav.scrolled{background:rgba(10,10,15,.88);border-color:rgba(201,169,110,.32);bo
 .nav-dd-name{font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--cream);display:flex;align-items:center;gap:8px;text-transform:none}
 .nav-dd-sub{font-size:10px;font-weight:400;letter-spacing:.02em;color:rgba(237,233,225,.48);text-transform:none}
 .nav-dd-pill{display:inline-block;font-size:8.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);padding:2px 8px;border:1px solid rgba(201,169,110,.4);border-radius:100px;background:rgba(201,169,110,.06)}
+.nav-dd-pill.pulse{color:#A28BFF;border-color:rgba(124,92,255,.4);background:rgba(124,92,255,.08)}
 .nav-dd-item.nav-dd-live .nav-dd-name::after{content:'Activo';font-size:8.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#56e3b8;padding:2px 8px;border:1px solid rgba(86,227,184,.35);border-radius:100px;background:rgba(86,227,184,.08)}
 
 /* ═══ MOBILE MENU ═══ */
@@ -183,25 +184,38 @@ section{position:relative;z-index:1}
 
 /* ═══ TESTIMONIO ═══ */
 #testimonial{padding:100px 5vw;background:var(--deep);color:var(--cream)}
-.testimonial-wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-top:48px}
-@media(max-width:880px){.testimonial-wrap{grid-template-columns:1fr;gap:40px}}
-.testimonial-quote{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(22px,2.4vw,30px);line-height:1.4;color:var(--cream);letter-spacing:-.015em}
+.testimonial-top{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-top:48px}
+@media(max-width:980px){.testimonial-top{grid-template-columns:1fr;gap:40px}}
+.testimonial-quote{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(22px,2.4vw,32px);line-height:1.4;color:var(--cream);letter-spacing:-.015em}
 .testimonial-quote::before{content:'«';color:var(--gold);font-size:1.4em;line-height:0;margin-right:6px;vertical-align:-.18em}
 .testimonial-quote::after{content:'»';color:var(--gold);font-size:1.4em;line-height:0;margin-left:4px;vertical-align:-.18em}
 .testimonial-meta{margin-top:28px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .testimonial-meta strong{color:var(--cream);font-weight:600}
 .testimonial-meta .divider{width:24px;height:1px;background:rgba(201,169,110,.4)}
-.metrics{display:flex;flex-direction:column;gap:18px}
-.metric{padding:22px 26px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.02)}
+/* Video placeholder */
+.video-frame{position:relative;aspect-ratio:16/10;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#1a1a26 0%,#0d0d14 100%);border:1px solid rgba(201,169,110,.18);box-shadow:0 30px 80px -30px rgba(0,0,0,.5);cursor:pointer;transition:border-color .35s var(--ease),box-shadow .35s var(--ease),transform .35s var(--ease)}
+.video-frame::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,169,110,.10) 0%,transparent 60%);pointer-events:none}
+.video-frame:hover{border-color:rgba(201,169,110,.4);transform:translateY(-3px);box-shadow:0 40px 90px -30px rgba(201,169,110,.18)}
+.video-frame .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;background:rgba(201,169,110,.95);display:flex;align-items:center;justify-content:center;transition:transform .3s var(--ease),background .25s}
+.video-frame:hover .play{transform:translate(-50%,-50%) scale(1.08);background:var(--gold-l)}
+.video-frame .play svg{margin-left:5px}
+.video-caption{position:absolute;bottom:20px;left:24px;right:24px;display:flex;flex-direction:column;gap:4px}
+.video-caption .ttl{font-size:13px;font-weight:600;color:var(--cream);letter-spacing:-.005em}
+.video-caption .meta{font-size:10px;font-weight:500;color:rgba(237,233,225,.5);letter-spacing:.12em;text-transform:uppercase}
+/* Métricas horizontal abajo */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+@media(max-width:880px){.metrics{grid-template-columns:1fr;gap:14px}}
+.metric{padding:22px 26px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.02);transition:border-color .25s,background .25s}
+.metric:hover{border-color:rgba(201,169,110,.25);background:rgba(255,255,255,.035)}
 .metric .lbl{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
 .metric .val{font-size:30px;font-weight:700;color:var(--gold);letter-spacing:-.02em;line-height:1}
-.metric .val em{font-style:normal;color:var(--cream);font-size:14px;font-weight:500;margin-left:8px}
+.metric .val em{font-style:normal;color:var(--cream);font-size:13px;font-weight:500;margin-left:8px}
 
 /* ═══ PRECIOS ═══ */
 #pricing{padding:120px 5vw;background:var(--void)}
 .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
 @media(max-width:980px){.tiers{grid-template-columns:1fr}}
-.tier{display:flex;flex-direction:column;padding:36px 30px;border:1px solid var(--border);border-radius:18px;background:rgba(255,255,255,.015);transition:border-color .3s,background .3s,transform .3s var(--ease)}
+.tier{display:flex;flex-direction:column;padding:36px 26px;border:1px solid var(--border);border-radius:18px;background:rgba(255,255,255,.015);transition:border-color .3s,background .3s,transform .3s var(--ease)}
 .tier:hover{border-color:rgba(201,169,110,.3);background:rgba(201,169,110,.025);transform:translateY(-4px)}
 .tier.featured{border-color:rgba(201,169,110,.5);background:linear-gradient(180deg,rgba(201,169,110,.08) 0%,rgba(201,169,110,.01) 100%);transform:translateY(-10px);box-shadow:0 30px 80px -30px rgba(201,169,110,.25)}
 @media(max-width:980px){.tier.featured{transform:none}}
@@ -213,7 +227,7 @@ section{position:relative;z-index:1}
 .tier .price .period{font-size:12px;color:var(--muted);font-weight:500}
 .tier .iva{font-size:10px;color:rgba(237,233,225,.4);letter-spacing:.04em;margin-top:8px}
 .tier-features{margin:22px 0 30px;display:flex;flex-direction:column;gap:11px;flex:1;list-style:none}
-.tier-features li{display:flex;gap:11px;align-items:flex-start;font-size:13px;color:var(--cream);line-height:1.55}
+.tier-features li{display:flex;gap:11px;align-items:flex-start;font-size:12.5px;color:var(--cream);line-height:1.6;overflow-wrap:break-word;hyphens:auto;word-break:normal}
 .tier-features li::before{content:'';flex-shrink:0;width:14px;height:14px;border-radius:50%;background:rgba(201,169,110,.14);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 10 10' fill='none'%3E%3Cpath d='M2 5l2 2 4-4' stroke='%23C9A96E' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;margin-top:1px}
 .tier-features li strong{font-weight:600}
 .tier .btn-tier{justify-content:center;width:100%;font-family:var(--f);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:14px 18px;border-radius:100px;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:transform .2s var(--ease),background .2s,border-color .2s,opacity .2s}
@@ -306,6 +320,10 @@ a[href],button:not(:disabled){cursor:pointer}
           <span class="nav-dd-name">VELIA Estate <span class="nav-dd-pill">Early access</span></span>
           <span class="nav-dd-sub">Para inmobiliarias y promotoras</span>
         </a>
+        <a href="velia-boost.html" class="nav-dd-item" role="menuitem">
+          <span class="nav-dd-name">VELIA Boost <span class="nav-dd-pill pulse">Solo clientes</span></span>
+          <span class="nav-dd-sub">Add-ons premium para clientes activos</span>
+        </a>
       </div>
     </div>
     <a href="../index.html#results" class="nav-link">Casos</a>
@@ -333,7 +351,7 @@ a[href],button:not(:disabled){cursor:pointer}
 <section id="hero">
   <div class="hero-glow"></div>
   <p class="hero-eyebrow">VELIA Legal · El sistema operativo del despacho</p>
-  <h1 class="hero-h1">Los despachos que más crecen <em>no trabajan más horas.</em> Tienen un sistema.</h1>
+  <h1 class="hero-h1">Los despachos que más crecen <em style="white-space:nowrap">no trabajan más horas.</em> Tienen un sistema.</h1>
   <p class="hero-sub">Montamos el sistema completo —panel de gestión y captación de clientes integrados— para que tu despacho deje de depender del boca a boca y empiece a recibir consultas de forma predecible.</p>
   <div class="hero-ctas">
     <a href="../contacto.html" class="btn-primary">Reservar auditoría gratuita <span class="btn-arrow">→</span></a>
@@ -395,28 +413,37 @@ a[href],button:not(:disabled){cursor:pointer}
   <div class="inner">
     <p class="s-eyebrow">Caso real</p>
     <h2 class="s-title">Cónsul Jurídico, <em class="serif">primer despacho.</em></h2>
-    <div class="testimonial-wrap">
+    <div class="testimonial-top">
       <div>
-        <p class="testimonial-quote">Antes era el único que cogía el teléfono y respondía consultas a medianoche. Ahora el sistema responde por mí en cuatro minutos y yo me dedico a llevar el caso.</p>
+        <p class="testimonial-quote">Antes era el único que cogía el teléfono y respondía consultas a medianoche. Ahora el sistema responde por mí y yo me dedico a llevar el caso.</p>
         <div class="testimonial-meta">
           <strong>Iván Cónsul Gómez</strong>
           <span class="divider"></span>
           <span>Cónsul Jurídico · Fraga, Huesca</span>
         </div>
       </div>
-      <div class="metrics">
-        <div class="metric">
-          <div class="lbl">Tiempo respuesta a leads</div>
-          <div class="val">4 min<em>media histórica</em></div>
+      <div class="video-frame" role="button" aria-label="Reproducir vídeo testimonio de Iván Cónsul">
+        <div class="play">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#0A0A0F"><path d="M8 5v14l11-7z"/></svg>
         </div>
-        <div class="metric">
-          <div class="lbl">Consultas gestionadas</div>
-          <div class="val">100%<em>sin intervención manual</em></div>
+        <div class="video-caption">
+          <div class="ttl">Iván te lo cuenta en primera persona</div>
+          <div class="meta">Vídeo testimonio próximamente</div>
         </div>
-        <div class="metric">
-          <div class="lbl">Sistema activo desde</div>
-          <div class="val">Mar '26<em>14 meses</em></div>
-        </div>
+      </div>
+    </div>
+    <div class="metrics">
+      <div class="metric">
+        <div class="lbl">Consultas captadas / mes</div>
+        <div class="val">+260%<em>vs antes de VELIA</em></div>
+      </div>
+      <div class="metric">
+        <div class="lbl">Consultas gestionadas</div>
+        <div class="val">100%<em>sin intervención manual</em></div>
+      </div>
+      <div class="metric">
+        <div class="lbl">Sistema activo desde</div>
+        <div class="val">Mar '26<em>14 meses</em></div>
       </div>
     </div>
   </div>
@@ -452,10 +479,10 @@ a[href],button:not(:disabled){cursor:pointer}
         <div class="price"><span class="amount">1.200</span><span class="period">€ / mes</span></div>
         <div class="iva">Sin IVA · sin permanencia</div>
         <ul class="tier-features">
-          <li><strong>Hasta 5 abogados</strong> con accesos y agendas propias</li>
-          <li>Todo Starter, sin límites por área de práctica</li>
+          <li><strong>Hasta 5 abogados</strong> con acceso y agenda propia</li>
+          <li>Todo Starter, sin límite de áreas de práctica</li>
           <li>Anuncios en <strong>Meta o Google</strong> (budget aparte)</li>
-          <li>Automatizaciones de seguimiento a leads en frío</li>
+          <li>Automatizaciones de seguimiento a leads</li>
           <li>1 reunión mensual de estrategia</li>
           <li>Soporte preferente en horario laboral</li>
         </ul>
@@ -469,11 +496,11 @@ a[href],button:not(:disabled){cursor:pointer}
         <ul class="tier-features">
           <li><strong>Abogados ilimitados</strong></li>
           <li>Todo Pro</li>
-          <li>Anuncios en <strong>Meta + Google + LinkedIn</strong> (budget aparte)</li>
+          <li>Anuncios <strong>Meta + Google + LinkedIn</strong> (budget aparte)</li>
           <li>Portal cliente premium con módulos custom</li>
-          <li><strong>Lexnet</strong> · autenticación con tu tarjeta ACA</li>
-          <li><strong>Verifactu + TicketBAI</strong> vía fiskaly SIGN ES</li>
-          <li>Soporte prioritario · respuesta &lt;4h laborables</li>
+          <li><strong>Lexnet</strong> con tu tarjeta ACA</li>
+          <li><strong>Verifactu + TicketBAI</strong> vía fiskaly</li>
+          <li>Soporte prioritario · respuesta &lt;4h</li>
         </ul>
         <a href="../contacto.html" class="btn-tier ghost">Empezar con Élite <span class="btn-arrow">→</span></a>
       </article>

@@ -86,6 +86,7 @@ nav.scrolled{background:rgba(10,10,15,.88);border-color:rgba(201,169,110,.32);bo
 .nav-dd-name{font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--cream);display:flex;align-items:center;gap:8px;text-transform:none}
 .nav-dd-sub{font-size:10px;font-weight:400;letter-spacing:.02em;color:rgba(237,233,225,.48);text-transform:none}
 .nav-dd-pill{display:inline-block;font-size:8.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);padding:2px 8px;border:1px solid rgba(201,169,110,.4);border-radius:100px;background:rgba(201,169,110,.06)}
+.nav-dd-pill.pulse{color:#A28BFF;border-color:rgba(124,92,255,.4);background:rgba(124,92,255,.08)}
 .nav-dd-item.nav-dd-live .nav-dd-name::after{content:'Activo';font-size:8.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#56e3b8;padding:2px 8px;border:1px solid rgba(86,227,184,.35);border-radius:100px;background:rgba(86,227,184,.08)}
 
 /* ═══ MOBILE MENU ═══ */
@@ -134,7 +135,14 @@ section{position:relative;z-index:1}
 .product.featured::before{opacity:.6}
 .product-tag{display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);padding:4px 10px;border:1px solid rgba(201,169,110,.4);border-radius:100px;background:rgba(201,169,110,.08);align-self:flex-start;margin-bottom:22px}
 .product-tag.live{color:#56e3b8;border-color:rgba(86,227,184,.4);background:rgba(86,227,184,.08)}
+.product-tag.pulse{color:#A28BFF;border-color:rgba(124,92,255,.4);background:rgba(124,92,255,.08)}
 .product-tag .dot{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
+.product.boost{background:linear-gradient(160deg,rgba(124,92,255,.08) 0%,rgba(28,28,40,.95) 100%);border-color:rgba(124,92,255,.28)}
+.product.boost::before{background:linear-gradient(90deg,transparent,#A28BFF,transparent);opacity:.6}
+.product.boost:hover{border-color:rgba(124,92,255,.5);background:rgba(124,92,255,.05)}
+.product.boost .legend{color:#A28BFF}
+.product.boost .product-cta{color:#A28BFF}
+.product.boost:hover .product-cta{color:#C9B5FF}
 .product-name{font-size:22px;font-weight:700;letter-spacing:-.015em;color:var(--cream);margin-bottom:10px;display:flex;align-items:baseline;gap:6px}
 .product-name .legend{font-weight:600;color:var(--gold)}
 .product-pitch{font-size:13px;font-weight:300;line-height:1.7;color:var(--muted);margin-bottom:24px;flex:1}
@@ -213,6 +221,10 @@ a[href],button:not(:disabled),[role="button"]{cursor:pointer}
           <span class="nav-dd-name">VELIA Estate <span class="nav-dd-pill">Early access</span></span>
           <span class="nav-dd-sub">Para inmobiliarias y promotoras</span>
         </a>
+        <a href="productos/velia-boost.html" class="nav-dd-item" role="menuitem">
+          <span class="nav-dd-name">VELIA Boost <span class="nav-dd-pill pulse">Solo clientes</span></span>
+          <span class="nav-dd-sub">Add-ons premium para clientes activos</span>
+        </a>
       </div>
     </div>
     <a href="index.html#results" class="nav-link">Casos</a>
@@ -282,6 +294,13 @@ a[href],button:not(:disabled),[role="button"]{cursor:pointer}
         <h3 class="product-name">VELIA <span class="legend">Estate</span></h3>
         <p class="product-pitch">Para inmobiliarias y promotoras que quieren cualificar leads sin perder ninguna oportunidad. Gestión de cartera, agenda de visitas y captación local.</p>
         <span class="product-cta">Apúntate al programa <span class="arrow">→</span></span>
+      </a>
+      <!-- BOOST (solo clientes) -->
+      <a href="productos/velia-boost.html" class="product boost">
+        <span class="product-tag pulse">Solo clientes</span>
+        <h3 class="product-name">VELIA <span class="legend">Boost</span></h3>
+        <p class="product-pitch">Tienda de add-ons premium para clientes activos: producción audiovisual, automatizaciones a medida, agentes IA y campañas elaboradas. Desbloqueado al contratar cualquier plan.</p>
+        <span class="product-cta">Ver la tienda <span class="arrow">→</span></span>
       </a>
       <!-- Card de cierre (visión paraguas) -->
       <div class="product" style="border-style:dashed;background:transparent;cursor:default" onmouseover="this.style.borderColor='rgba(201,169,110,.25)'" onmouseout="this.style.borderColor=''">
