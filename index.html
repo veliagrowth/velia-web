@@ -782,7 +782,7 @@ nav.scrolled .nav-menu-sep{background:rgba(237,233,225,.1)}
 /* ══════════════════════════════════
    CASES PILLS — glassmorphism + shimmer
 ══════════════════════════════════ */
-.cases-nav{display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap;position:relative;padding-bottom:8px}
+.cases-nav{display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap;position:relative;padding-bottom:8px;justify-content:center}
 .case-pill{background:rgba(10,10,15,.06);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(10,10,15,.1);border-radius:100px;padding:10px 22px;font-family:var(--f);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(10,10,15,.6);cursor:pointer!important;position:relative;overflow:hidden;transition:border-color .3s,transform .25s,box-shadow .25s,color .25s,background .25s;white-space:nowrap}
 .case-pill::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,169,110,.3),transparent);transition:left .55s ease;pointer-events:none}
 .case-pill:hover::before{left:110%}
@@ -2174,20 +2174,16 @@ document.getElementById('nav-menu').addEventListener('click', e => {
 async function toggleCasePanel(id, pill) {
   const target = document.getElementById(id);
   if (!target) return;
-  const isOpen = target.classList.contains('open');
-  // Cierra suavemente cualquier .expanded actual (no salta).
+  // No-op si la pill ya esta activa (no cerramos el caso al re-clicar).
+  if (pill.classList.contains('active')) return;
+  // Cierra suavemente cualquier .expanded actual antes del switch.
   const previouslyExpanded = Array.from(document.querySelectorAll('.case.expanded'));
   await Promise.all(previouslyExpanded.map(c => collapseCase(c)));
   document.querySelectorAll('.case.open').forEach(c => c.classList.remove('open'));
   document.querySelectorAll('.case-pill').forEach(p => p.classList.remove('active'));
-  if (!isOpen) {
-    target.classList.add('open');
-    pill.classList.add('active');
-    moveIndicator(pill);
-  } else {
-    const nav = pill.closest('.cases-nav');
-    if (nav) nav.classList.remove('has-active');
-  }
+  target.classList.add('open');
+  pill.classList.add('active');
+  moveIndicator(pill);
 }
 
 // Init indicator + recalibrar en resize
