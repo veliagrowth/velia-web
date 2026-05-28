@@ -1891,7 +1891,7 @@ function collapseCase(caseEl) {
       resolve();
     };
     if (REDUCED_MOTION) { gsap.set(body, { height: 0, opacity: 0 }); finish(); return; }
-    gsap.to(body, { height: 0, opacity: 0, duration: .35, ease: 'power2.in', onComplete: finish });
+    gsap.to(body, { height: 0, opacity: 0, duration: .55, ease: 'power2.inOut', onComplete: finish });
   });
 }
 
@@ -1905,11 +1905,11 @@ function expandCase(caseEl) {
   if (REDUCED_MOTION) { gsap.set(body, { height: 'auto', opacity: 1 }); return; }
   gsap.fromTo(body,
     { height: 0, opacity: 0 },
-    { height: naturalH, opacity: 1, duration: .6, ease: 'expo.out',
+    { height: naturalH, opacity: 1, duration: 1.0, ease: 'expo.out',
       onComplete: () => { gsap.set(body, { height: 'auto' }); } });
   const inner = body.querySelectorAll('.case-carousel, .case-inner > *');
   if (inner.length) {
-    gsap.from(inner, { y: 14, opacity: 0, duration: .55, stagger: .07, ease: 'expo.out', delay: .12 });
+    gsap.from(inner, { y: 18, opacity: 0, duration: .9, stagger: .12, ease: 'expo.out', delay: .25 });
   }
 }
 
