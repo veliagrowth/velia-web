@@ -13,6 +13,7 @@
   })();
   let messages = JSON.parse(sessionStorage.getItem(SKEY + '_messages') || '[]');
   let welcomed = sessionStorage.getItem(SKEY + '_welcomed') === '1';
+  let lastReplies = JSON.parse(sessionStorage.getItem(SKEY + '_replies') || 'null');
   let open = false;
   let typing = false;
 
@@ -28,55 +29,201 @@
     { id: 'agendar',  label: 'Agendar llamada' }
   ];
 
-  const SECTOR_REPLIES = [
-    { id: 'v-legal',  label: 'Legal · activo',          url: 'productos/velia-legal.html' },
-    { id: 'v-ecomm',  label: 'E-commerce · early',      url: 'productos/e-comm.html' },
-    { id: 'v-clinic', label: 'Clínicas · early',        url: 'productos/clinic.html' },
-    { id: 'v-agency', label: 'Agencias · early',        url: 'productos/agency.html' },
-    { id: 'v-estate', label: 'Inmobiliarias · early',   url: 'productos/estate.html' }
-  ];
+  const MENU_CHIP = { id: 'menu', label: '↺ Otras opciones' };
+  const AGENDAR_CHIP = { id: 'agendar', label: 'Agendar auditoría →' };
 
   const RESPONSES = {
+    // ── Nivel 1 ────────────────────────────────────────────────────────────
     'que-es': {
       reply: 'VELIA construye sistemas operativos a medida por sector. Hoy tenemos uno activo —VELIA Legal, para despachos de abogados— y cuatro en early access (E-commerce, Clínicas, Agencias e Inmobiliarias).\n\nLo que nos diferencia: integramos captación, gestión y atención en una sola capa, en lugar de cinco herramientas sueltas que no hablan entre sí.',
-      replies: [{ id: 'sector', label: 'Ver verticales' }, { id: 'precios', label: 'Precios' }, { id: 'agendar', label: 'Agendar llamada' }]
+      replies: [
+        { id: 'sector', label: '¿Para mi sector?' },
+        { id: 'que-incluye', label: '¿Qué incluye el sistema?' },
+        { id: 'diferencia', label: '¿Diferencia con un CRM?' },
+        { id: 'precios', label: 'Precios' },
+        AGENDAR_CHIP
+      ]
     },
-    'precios': {
-      reply: 'Pricing de VELIA Legal (mensual, sin IVA, sin permanencia):\n\n• Starter — 600 €/mes\n• Pro — 1.200 €/mes\n• Élite — 2.500 €/mes\n\nLa implementación se construye a medida y se cierra por escrito tras una auditoría gratuita de 30 minutos. Los verticales en early access tienen condiciones reducidas de por vida para los Design Partners.',
-      replies: [{ id: 'que-incluye', label: '¿Qué incluye cada tier?' }, { id: 'agendar', label: 'Agendar auditoría' }]
+    'diferencia': {
+      reply: 'Un CRM (Clio, MyCase, Aranzadi…) solo te da el panel de gestión. Tú sigues necesitando pagar aparte SEO, contenido, ads, web, Google Business, atención WhatsApp.\n\nVELIA lo monta TODO conectado en una sola capa. Lead que entra por Instagram → CRM en 5 minutos → respuesta automática → cita agendada → expediente abierto. Esto es lo que la competencia no tiene.',
+      replies: [
+        { id: 'precios', label: 'Precios' },
+        { id: 'casos', label: 'Caso real' },
+        AGENDAR_CHIP, MENU_CHIP
+      ]
     },
     'que-incluye': {
-      reply: 'Resumen rápido:\n\n• Starter — 1 abogado, panel completo, booking, SEO local, GMB y 4 piezas de contenido/mes.\n• Pro — hasta 5 abogados, todo Starter + Ads, 8 piezas, automatizaciones y reunión mensual.\n• Élite — abogados ilimitados, todo Pro + integración Lexnet + Verifactu + soporte prioritario.',
-      replies: [{ id: 'agendar', label: 'Agendar auditoría' }, { id: 'casos', label: 'Ver casos' }]
+      reply: 'Tres bloques siempre presentes:\n\n• Gestión — clientes, expedientes, plazos, facturación, audit RGPD.\n• Captación — SEO local, Google Business, contenido orgánico, Meta Ads + web a medida.\n• Atención — WhatsApp + email + booking público integrado.\n\nTodo conectado bajo tu branding.',
+      replies: [
+        { id: 'precios', label: 'Precios' },
+        { id: 'recomendar', label: 'Recomiéndame tier' },
+        AGENDAR_CHIP, MENU_CHIP
+      ]
     },
+
+    // ── Pricing branch ─────────────────────────────────────────────────────
+    'precios': {
+      reply: 'Pricing de VELIA Legal (mensual, sin IVA, sin permanencia):\n\n• Starter — 600 €/mes\n• Pro — 1.200 €/mes\n• Élite — 2.500 €/mes\n\nLa implementación se cierra por escrito tras una auditoría gratuita de 30 minutos. Los verticales en early access tienen condiciones reducidas de por vida para los Design Partners.',
+      replies: [
+        { id: 'detalle-tiers', label: '¿Qué incluye cada tier?' },
+        { id: 'recomendar', label: 'Recomiéndame tier' },
+        { id: 'permanencia', label: '¿Hay permanencia?' },
+        AGENDAR_CHIP
+      ]
+    },
+    'detalle-tiers': {
+      reply: '• Starter (600€/mes) — 1 abogado, panel completo, booking, SEO local, GMB y 4 piezas/mes.\n• Pro (1.200€/mes) — hasta 5 abogados, todo Starter + Ads (Meta o Google), 8 piezas, automatizaciones y reunión mensual de estrategia.\n• Élite (2.500€/mes) — abogados ilimitados, todo Pro + Lexnet + Verifactu + portal cliente premium + soporte prioritario.',
+      replies: [
+        { id: 'recomendar', label: '¿Cuál me toca?' },
+        { id: 'permanencia', label: '¿Permanencia?' },
+        AGENDAR_CHIP, MENU_CHIP
+      ]
+    },
+    'recomendar': {
+      reply: 'Para recomendarte tier necesito una cosa: ¿cuántos abogados sois en el despacho?',
+      replies: [
+        { id: 'tam-1',  label: 'Yo solo' },
+        { id: 'tam-2',  label: '2-5 abogados' },
+        { id: 'tam-3',  label: 'Más de 5' }
+      ]
+    },
+    'tam-1': {
+      reply: 'Para 1 abogado: Starter (600 €/mes) cubre el 100% de lo que necesitas — panel, captación local y atención. Si en 6 meses creces, subes a Pro sin permanencia.',
+      replies: [AGENDAR_CHIP, { id: 'detalle-tiers', label: 'Ver detalle' }, MENU_CHIP]
+    },
+    'tam-2': {
+      reply: 'Para 2-5 abogados: Pro (1.200 €/mes) es la elección. Añade Ads, automatizaciones y reunión mensual de estrategia. Es el tier en el que está la mayoría de despachos pequeños y medianos.',
+      replies: [AGENDAR_CHIP, { id: 'detalle-tiers', label: 'Ver detalle' }, MENU_CHIP]
+    },
+    'tam-3': {
+      reply: 'Para más de 5 abogados: Élite (2.500 €/mes). Cubre abogados ilimitados, integraciones críticas (Lexnet, Verifactu), portal cliente premium y soporte prioritario. Pensado para despachos con varios departamentos.',
+      replies: [AGENDAR_CHIP, { id: 'detalle-tiers', label: 'Ver detalle' }, MENU_CHIP]
+    },
+    'permanencia': {
+      reply: 'No hay permanencia. Mensualidad mes a mes. Si cancelas, tus expedientes siguen en TU Google Drive (modelo BYO-Drive) — conservas el acceso completo a todos los documentos.',
+      replies: [
+        { id: 'cancelar', label: '¿Y si cancelo?' },
+        AGENDAR_CHIP, MENU_CHIP
+      ]
+    },
+    'cancelar': {
+      reply: 'Si cancelas: dejas de pagar el mes siguiente, conservas el acceso a tus expedientes en Drive, y los assets generados (web, contenido, branding) son tuyos. Sin sorpresas ni cláusulas de salida.',
+      replies: [AGENDAR_CHIP, MENU_CHIP]
+    },
+
+    // ── Cómo funciona ──────────────────────────────────────────────────────
     'como': {
       reply: 'Tres pasos:\n\n1. Auditoría gratuita de 30 minutos — evaluamos encaje y proponemos alcance.\n2. Implementación a medida — entre 2 y 6 semanas según el alcance.\n3. Sistema activo — mensualidad fija + evolución continua con el equipo VELIA.',
-      replies: [{ id: 'agendar', label: 'Reservar auditoría' }, { id: 'casos', label: 'Ver casos' }]
+      replies: [
+        { id: 'audit-detalle', label: '¿Qué se evalúa en la auditoría?' },
+        { id: 'tiempo', label: '¿Tan rápido se implanta?' },
+        AGENDAR_CHIP
+      ]
     },
+    'audit-detalle': {
+      reply: 'En los 30 minutos de auditoría revisamos: tu operativa actual (qué herramientas usas), tu fuente de captación (boca a boca, referidos, web), tu volumen y tipología de caso, y dónde se te va el tiempo.\n\nSalimos de la llamada con un diagnóstico claro y un alcance propuesto por escrito en 48 horas.',
+      replies: [AGENDAR_CHIP, MENU_CHIP]
+    },
+    'tiempo': {
+      reply: 'Starter se monta en 2-3 semanas. Pro en 3-4. Élite en 4-6 semanas (por las integraciones Lexnet/Verifactu). Durante ese tiempo seguimos disponibles 1:1 — no te dejamos en cola de soporte.',
+      replies: [AGENDAR_CHIP, MENU_CHIP]
+    },
+
+    // ── Casos ──────────────────────────────────────────────────────────────
     'casos': {
       reply: 'Cónsul Jurídico (Iván Cónsul, despacho legal) es nuestro cliente activo desde marzo 2026.\n\nResultado del primer mes: +260% de consultas captadas y 12 horas/semana recuperadas en gestión interna.\n\nPuedes ver su web en consuljuridico.com.',
-      replies: [{ id: 'agendar', label: 'Agendar llamada' }, { id: 'sector', label: 'Ver verticales' }]
+      replies: [
+        { id: 'ver-cj', label: 'Abrir consuljuridico.com', url: 'https://consuljuridico.com' },
+        { id: 'que-le-cambio', label: '¿Qué le cambió a Iván?' },
+        AGENDAR_CHIP, MENU_CHIP
+      ]
     },
+    'que-le-cambio': {
+      reply: 'Antes: era el único que cogía el teléfono y respondía consultas a medianoche. Sin previsibilidad de leads, sin tiempo para captar.\n\nAhora: el sistema responde por él en menos de 5 minutos, agenda consulta automática, abre expediente. Iván dedica su tiempo a llevar el caso, no a captarlo.',
+      replies: [AGENDAR_CHIP, { id: 'ver-cj', label: 'Ver consuljuridico.com', url: 'https://consuljuridico.com' }, MENU_CHIP]
+    },
+
+    // ── Mi sector ──────────────────────────────────────────────────────────
     'sector': {
-      reply: 'Tenemos sistema para cinco sectores. ¿Cuál es el tuyo? (Al pulsar te llevo a la página del producto.)',
-      replies: SECTOR_REPLIES
+      reply: '¿Cuál es tu sector?',
+      replies: [
+        { id: 's-legal',  label: 'Despacho legal' },
+        { id: 's-ecomm',  label: 'Tienda online / D2C' },
+        { id: 's-clinic', label: 'Clínica / consulta' },
+        { id: 's-agency', label: 'Agencia de servicios' },
+        { id: 's-estate', label: 'Inmobiliaria' },
+        { id: 's-otro',   label: 'Otro' }
+      ]
     },
+    's-legal': {
+      reply: 'VELIA Legal está operativo. Es lo que usa Cónsul Jurídico. Si quieres ver la página del producto con todos los detalles, el botón te lleva. Y si prefieres saltarte el material y verlo en persona, agendamos directamente.',
+      replies: [
+        { id: 'open-legal', label: 'Ver VELIA Legal →', url: 'productos/velia-legal.html' },
+        { id: 'precios', label: 'Precios Legal' },
+        AGENDAR_CHIP, MENU_CHIP
+      ]
+    },
+    's-ecomm': {
+      reply: 'VELIA E-comm está en early access. Buscamos 5 design partners (tiendas online / D2C) con precio reducido de por vida + voz directa en el roadmap. ¿Te interesa entrar como uno de los 5?',
+      replies: [
+        { id: 'agendar', label: 'Sí, agendar diagnóstico' },
+        { id: 'open-ecomm', label: 'Ver página E-comm →', url: 'productos/e-comm.html' },
+        MENU_CHIP
+      ]
+    },
+    's-clinic': {
+      reply: 'VELIA Clinic está en early access. Buscamos 5 clínicas como design partners con precio reducido de por vida. Si gestionas pacientes, agenda y captación local, es para ti.',
+      replies: [
+        { id: 'agendar', label: 'Sí, agendar diagnóstico' },
+        { id: 'open-clinic', label: 'Ver página Clinic →', url: 'productos/clinic.html' },
+        MENU_CHIP
+      ]
+    },
+    's-agency': {
+      reply: 'VELIA Agency está en early access. Buscamos 5 agencias de servicios como design partners. Si te quedaste sin capacidad y no quieres contratar a nadie más, esto es para ti.',
+      replies: [
+        { id: 'agendar', label: 'Sí, agendar diagnóstico' },
+        { id: 'open-agency', label: 'Ver página Agency →', url: 'productos/agency.html' },
+        MENU_CHIP
+      ]
+    },
+    's-estate': {
+      reply: 'VELIA Estate está en early access. Buscamos 5 inmobiliarias o promotoras como design partners. Si generas leads de sobra pero pierdes oportunidades por seguimientos lentos, te encaja.',
+      replies: [
+        { id: 'agendar', label: 'Sí, agendar diagnóstico' },
+        { id: 'open-estate', label: 'Ver página Estate →', url: 'productos/estate.html' },
+        MENU_CHIP
+      ]
+    },
+    's-otro': {
+      reply: 'No tenemos un vertical paquetizado para tu sector todavía, pero si la operativa se parece a la de cualquiera de los 5 (captación + gestión + atención) podemos hablarlo en la auditoría y ver si encaja un sistema a medida.',
+      replies: [AGENDAR_CHIP, MENU_CHIP]
+    },
+
+    // ── Agendar (final funnel) ─────────────────────────────────────────────
     'agendar': {
       reply: 'Perfecto. La auditoría es de 30 minutos y sin compromiso. Te llevo a la página de contacto para que reserves directamente en el calendario.',
       replies: [{ id: 'go-contacto', label: 'Ir a contacto →', url: 'contacto.html?from=chat' }]
     },
-    'go-contacto': { reply: '', replies: [] }
+    'go-contacto': { reply: '', replies: [] },
+
+    // ── Menu helper ────────────────────────────────────────────────────────
+    'menu': {
+      reply: '¿Qué te enseño?',
+      replies: INITIAL_REPLIES
+    }
   };
 
   const FALLBACK = {
-    reply: 'Para responder a esto con el detalle que mereces, lo mejor es una llamada corta con alguien del equipo. ¿Te agendo una auditoría gratuita de 30 minutos?',
-    replies: [{ id: 'agendar', label: 'Sí, agendar' }, { id: 'que-es', label: 'Cuéntame antes qué es VELIA' }]
+    reply: 'Esa pregunta merece una respuesta detallada y específica para tu caso. El asistente conversacional completo lo lanzamos en breve — de momento, lo mejor es una llamada corta de 30 minutos con alguien del equipo. Sin compromiso.',
+    replies: [AGENDAR_CHIP, { id: 'que-es', label: '¿Qué es VELIA?' }, { id: 'precios', label: 'Precios' }, MENU_CHIP]
   };
 
   /* ───────── Persistence ───────── */
   function persist() {
     sessionStorage.setItem(SKEY + '_messages', JSON.stringify(messages.slice(-40)));
     sessionStorage.setItem(SKEY + '_welcomed', welcomed ? '1' : '0');
+    sessionStorage.setItem(SKEY + '_replies', JSON.stringify(lastReplies));
   }
 
   /* ───────── Path helpers ───────── */
@@ -204,12 +351,34 @@
   function renderAll() {
     $msgs.innerHTML = '';
     messages.forEach(renderMessage);
+    // Safety net: si hay conversación previa pero ningún chip persistido, vuelve al menú.
+    if (welcomed && messages.length > 0 && (!lastReplies || lastReplies.length === 0)) {
+      lastReplies = INITIAL_REPLIES;
+      persist();
+    }
+    if (lastReplies && lastReplies.length) {
+      // Re-renderiza chips persistidos sin volver a invocar persist (evita loop).
+      $qr.innerHTML = '';
+      lastReplies.forEach(r => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'vc-chip';
+        b.textContent = r.label;
+        b.dataset.id = r.id;
+        if (r.url) b.dataset.url = r.url;
+        b.addEventListener('click', () => handleQuickReply(r));
+        $qr.appendChild(b);
+      });
+    }
     scrollBottom();
   }
 
   function setQuickReplies(list) {
+    lastReplies = list && list.length ? list : null;
+    persist();
     $qr.innerHTML = '';
-    list.forEach(r => {
+    if (!lastReplies) return;
+    lastReplies.forEach(r => {
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'vc-chip';
@@ -286,7 +455,7 @@
         addMessage('bot', WELCOME);
         setQuickReplies(INITIAL_REPLIES);
       }, 280);
-    } else if (messages.length === 0) {
+    } else if (!lastReplies || lastReplies.length === 0) {
       setQuickReplies(INITIAL_REPLIES);
     }
     setTimeout(() => $input.focus({ preventScroll: true }), 320);
