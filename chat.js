@@ -441,6 +441,12 @@
         const secs = Math.ceil((j.retry_after_ms || 30000) / 1000);
         throw { kind: 'rate_limited', message: `Demasiadas preguntas en poco tiempo. Reintenta en ${secs}s.` };
       }
+      if (r.status === 503) {
+        // El servidor decidió mantenimiento (kill switch o cap diario alcanzado).
+        // Mostramos el mensaje formal-cercano que viene del payload — no distinguimos motivo en UX.
+        const j = await r.json().catch(() => ({}));
+        throw { kind: 'disabled', message: j.message || 'El asistente está en mantenimiento temporal. Reserva directamente en la página de contacto.' };
+      }
       throw { kind: 'api_error', status: r.status };
     }
     return r.json();
@@ -481,6 +487,13 @@
       if (e && e.kind === 'rate_limited') {
         addMessage('bot', e.message);
         setQuickReplies([{ id: 'menu', label: '↺ Otras opciones' }]);
+      } else if (e && e.kind === 'disabled') {
+        // Kill switch o cap diario alcanzado — mensaje del servidor + chips agendar + reintentar con backoff 30s.
+        addMessage('bot', e.message);
+        setQuickReplies([
+          { id: 'go-meeting', label: 'Ir a contacto →', url: (inSub ? '../' : '') + 'contacto.html?from=chat' },
+          { id: 'retry', label: '↻ Reintentar', __retry: message, __retryAfterMs: 30000 },
+        ]);
       } else {
         // Offline / 5xx → fallback offline
         addMessage('bot', 'Tengo un fallo técnico temporal. Mientras lo arreglo, puedes agendar directamente la llamada de 30 min.');
@@ -502,8 +515,18 @@
       return;
     }
 
-    // Chip especial "Reintentar" → re-envía el último mensaje
-    if (r.__retry) { dispatchToAgent(r.__retry); return; }
+    // Chip especial "Reintentar" → re-envía el último mensaje (con backoff opcional)
+    if (r.__retry) {
+      if (r.__retryAfterMs && r.__retryAfterMs > 0) {
+        // Backoff: muestra typing durante el wait para no martillear el endpoint cuando está capped.
+        setQuickReplies([]);
+        showTyping();
+        setTimeout(() => { hideTyping(); dispatchToAgent(r.__retry); }, r.__retryAfterMs);
+      } else {
+        dispatchToAgent(r.__retry);
+      }
+      return;
+    }
 
     // Chip especial de cierre → solo limpia chips
     if (r.__close) { setQuickReplies([]); return; }
