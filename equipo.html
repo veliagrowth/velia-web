@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Equipo — VELIA</title>
-<meta name="description" content="Conoce a las personas detrás de VELIA. Joaquín Paiva y Axel Soto, cofundadores del sistema de captación que trabaja mientras tú duermes."/>
+<meta name="description" content="Conoce a las personas detrás de VELIA. Joaquín Paiva y Axel Soto, cofundadores de la plataforma de IA agéntica por verticales para negocios profesionales."/>
 <link rel="icon" type="image/png" href="./VELIA_isotipo_oscuro.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -267,7 +267,7 @@ a[href],button:not(:disabled),[role="button"],
     <a href="equipo.html" class="nav-link active" aria-current="page">Equipo</a>
     <a href="index.html#faqs" class="nav-link">FAQ</a>
   </div>
-  <a href="contacto.html" class="btn-nav">Trabajemos juntos</a>
+  <button type="button" class="btn-nav" style="border:0;cursor:pointer" onclick="document.getElementById('vc-toggle')?.click()">Prueba el Agente</button>
   <div class="nav-menu-wrap">
     <button class="nav-hamburger" id="nav-hamburger" onclick="toggleNavMenu()" aria-label="Menú">
       <span></span><span></span><span></span>
@@ -281,7 +281,7 @@ a[href],button:not(:disabled),[role="button"],
   <a href="index.html#results" class="nav-menu-link" onclick="closeNavMenu()">Casos</a>
   <a href="equipo.html" class="nav-menu-link" aria-current="page" onclick="closeNavMenu()">Equipo</a>
   <a href="index.html#faqs" class="nav-menu-link" onclick="closeNavMenu()">FAQ</a>
-  <a href="contacto.html" class="nav-menu-cta" onclick="closeNavMenu()">Trabajemos juntos →</a>
+  <button type="button" class="nav-menu-cta" style="border:0;cursor:pointer" onclick="closeNavMenu();setTimeout(()=>document.getElementById('vc-toggle')?.click(),350)">Prueba el Agente →</button>
 </div>
 
 <!-- HERO -->
@@ -327,15 +327,15 @@ a[href],button:not(:disabled),[role="button"],
     <div class="section-header">
       <p class="s-eyebrow">Nuestra forma de trabajar</p>
       <h2 class="s-title">LO QUE<br><em>CREEMOS.</em></h2>
-      <p>No somos una agencia al uso. Somos un equipo pequeño con una postura clara sobre cómo debe funcionar el marketing para un negocio real.</p>
+      <p>No somos una agencia. Somos un equipo pequeño que construye software: una plataforma sobre la que un negocio profesional opera, con una postura clara sobre cómo debe funcionar.</p>
     </div>
     <div class="values-grid">
       <div class="val-card">
         <div class="val-icon">
           <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         </div>
-        <p class="val-title">Sistemas, no tareas sueltas</p>
-        <p class="val-desc">No contratamos campañas aisladas ni posts de redes. Construimos el sistema completo que genera clientes de forma repetible y predecible.</p>
+        <p class="val-title">Una infraestructura, no herramientas sueltas</p>
+        <p class="val-desc">No vendemos campañas aisladas ni posts de redes. Construimos la plataforma completa sobre la que el negocio opera de forma repetible y predecible.</p>
       </div>
       <div class="val-card">
         <div class="val-icon">
@@ -359,12 +359,12 @@ a[href],button:not(:disabled),[role="button"],
 <section id="cta">
   <div class="cta-orb cta-orb-1"></div>
   <div class="cta-orb cta-orb-2"></div>
-  <p class="cta-eyebrow">Primera sesión gratuita</p>
+  <p class="cta-eyebrow">Empieza por aquí</p>
   <h2 class="cta-title">¿HABLAMOS<br>DE TU <em>NEGOCIO?</em></h2>
-  <p class="cta-sub">30 minutos. Sin venta, sin compromiso. Te decimos exactamente qué necesitas para captar más clientes.</p>
+  <p class="cta-sub">Habla con el Agente de VELIA y descubre qué hace la plataforma por tu negocio. Sin venta, sin compromiso.</p>
   <div class="cta-btns">
-    <a href="contacto.html" class="btn-primary">Reservar diagnóstico gratuito</a>
-    <a href="index.html" class="btn-ghost">Volver al inicio</a>
+    <button type="button" class="btn-primary" style="border:0;cursor:pointer" onclick="document.getElementById('vc-toggle')?.click()">Prueba el Agente</button>
+    <a href="contacto.html" class="btn-ghost">Reservar auditoría</a>
   </div>
 </section>
 

@@ -1,0 +1,4 @@
+
+# Archivos de trabajo de video (pesados, no van a git)
+videos/tmp/
+*-orig.mp4

@@ -224,7 +224,7 @@ a[href],button:not(:disabled){cursor:pointer}
     <a href="../equipo.html" class="nav-link">Equipo</a>
     <a href="../index.html#faqs" class="nav-link">FAQ</a>
   </div>
-  <a href="../contacto.html" class="btn-nav">Trabajemos juntos</a>
+  <button type="button" class="btn-nav" style="border:0;cursor:pointer" onclick="document.getElementById('vc-toggle')?.click()">Prueba el Agente</button>
   <div class="nav-menu-wrap">
     <button class="nav-hamburger" id="nav-hamburger" onclick="toggleNavMenu()" aria-label="Menú">
       <span></span><span></span><span></span>
@@ -238,7 +238,7 @@ a[href],button:not(:disabled){cursor:pointer}
   <a href="../index.html#results" class="nav-menu-link" onclick="closeNavMenu()">Casos</a>
   <a href="../equipo.html" class="nav-menu-link" onclick="closeNavMenu()">Equipo</a>
   <a href="../index.html#faqs" class="nav-menu-link" onclick="closeNavMenu()">FAQ</a>
-  <a href="../contacto.html" class="nav-menu-cta" onclick="closeNavMenu()">Trabajemos juntos →</a>
+  <button type="button" class="nav-menu-cta" style="border:0;cursor:pointer" onclick="closeNavMenu();setTimeout(()=>document.getElementById('vc-toggle')?.click(),350)">Prueba el Agente →</button>
 </div>
 
 <!-- HERO -->

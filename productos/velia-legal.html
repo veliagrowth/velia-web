@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>VELIA Legal · El sistema operativo para despachos de abogados</title>
-<meta name="description" content="VELIA Legal monta el sistema completo —panel de gestión + captación de clientes— para que tu despacho deje de depender del boca a boca. Auditoría inicial gratuita."/>
+<meta name="description" content="VELIA Legal: la plataforma sobre la que un despacho opera su software — expedientes, agenda, plazos, Verifactu y captación, en una sola infraestructura. Programa Pioneros abierto. Auditoría gratuita."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://veliacorp.com/productos/velia-legal.html"/>
 <meta property="og:title" content="VELIA Legal · El sistema operativo para despachos de abogados"/>
@@ -330,7 +330,7 @@ a[href],button:not(:disabled){cursor:pointer}
     <a href="../equipo.html" class="nav-link">Equipo</a>
     <a href="../index.html#faqs" class="nav-link">FAQ</a>
   </div>
-  <a href="../contacto.html" class="btn-nav">Trabajemos juntos</a>
+  <button type="button" class="btn-nav" style="border:0;cursor:pointer" onclick="document.getElementById('vc-toggle')?.click()">Prueba el Agente</button>
   <div class="nav-menu-wrap">
     <button class="nav-hamburger" id="nav-hamburger" onclick="toggleNavMenu()" aria-label="Menú">
       <span></span><span></span><span></span>
@@ -344,7 +344,7 @@ a[href],button:not(:disabled){cursor:pointer}
   <a href="../index.html#results" class="nav-menu-link" onclick="closeNavMenu()">Casos</a>
   <a href="../equipo.html" class="nav-menu-link" onclick="closeNavMenu()">Equipo</a>
   <a href="../index.html#faqs" class="nav-menu-link" onclick="closeNavMenu()">FAQ</a>
-  <a href="../contacto.html" class="nav-menu-cta" onclick="closeNavMenu()">Trabajemos juntos →</a>
+  <button type="button" class="nav-menu-cta" style="border:0;cursor:pointer" onclick="closeNavMenu();setTimeout(()=>document.getElementById('vc-toggle')?.click(),350)">Prueba el Agente →</button>
 </div>
 
 <!-- HERO -->
