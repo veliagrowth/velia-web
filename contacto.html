@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Habla con VELIA — Prueba el Agente o pide tu auditoría gratuita</title>
-<meta name="description" content="Cuéntanos tu situación y evaluamos si podemos ayudarte a crecer con estrategia e IA."/>
+<meta name="description" content="Habla con el Agente de VELIA: te explica la plataforma al instante y agenda contigo si encajáis. O reserva una auditoría gratuita de 30 minutos."/>
 <link rel="icon" type="image/png" href="./VELIA_isotipo_oscuro.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -39,6 +39,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10000;display:flex;align-items:c
 .nav-logo-sub{font-size:7px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:4px}
 .nav-back{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:8px}
 .nav-back::before{content:'←';font-size:12px}
+.btn-agent-cta{margin-top:24px;display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--void);font-family:var(--f);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:15px 28px;border-radius:100px;border:0;cursor:pointer;position:relative;z-index:1;transition:background .2s,transform .2s}
+.btn-agent-cta:hover{background:var(--gold-l,#E8D5B0);transform:translateY(-2px)}
 .nav-back:hover{color:var(--cream)}
 @media(max-width:720px){nav{padding:0 5vw;height:56px}.nav-logo-sub{display:none}}
 
@@ -248,9 +250,10 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
   <div class="page-left">
     <div class="page-left-grid"></div>
     <div class="page-left-glow"></div>
-    <p class="page-eyebrow">Proceso de selección</p>
-    <h1 class="page-title">HÁBLANOS<br>DE TU<br><em>PROYECTO.</em></h1>
-    <p class="page-sub">Antes de empezar queremos entender bien tu negocio.<br><br><strong>Si hay encaje real, te contactamos en menos de 24h.</strong></p>
+    <p class="page-eyebrow">Empieza por el Agente</p>
+    <h1 class="page-title">HABLA<br>CON<br><em>VELIA.</em></h1>
+    <p class="page-sub">La forma más rápida de ver qué hace VELIA por tu negocio es preguntárselo al Agente — te responde al instante y, si encajáis, agenda contigo.<br><br><strong>¿Prefieres que te llamemos? Reserva o déjanos tu contacto a la derecha.</strong></p>
+    <button type="button" class="btn-agent-cta" onclick="document.getElementById('vc-toggle')?.click()">Prueba el Agente →</button>
     <div class="info-pills">
       <div class="info-pill">
         <div class="info-pill-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
@@ -758,7 +761,6 @@ nav{border-bottom-color:rgba(201,169,110,.15)}
 
 })();
 </script>
-<script defer src="chat.js"></script>
 <script defer src="chat.js"></script>
 </body>
 </html>
