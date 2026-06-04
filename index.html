@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover"/>
-<title>VELIA · Software con IA para despachos de abogados</title>
-<meta name="description" content="VELIA es el software con IA para tu despacho: un copiloto que organiza expedientes, calcula plazos, redacta documentos y te avisa de los cambios de ley. Pídelo en una demo interactiva."/>
-<meta name="theme-color" content="#0A0A0F"/>
+<title>VELIA · Tu asistenta IA legal para gestionar el despacho</title>
+<meta name="description" content="VELIA es tu asistenta con IA: redacta tus escritos, vigila tus plazos procesales y te avisa de los cambios de ley. Gestiona todo tu despacho con VELIA. Pídela en una demo."/>
+<meta name="theme-color" content="#F4F1EA"/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://veliacorp.com/"/>
-<meta property="og:title" content="VELIA · Software con IA para despachos de abogados"/>
-<meta property="og:description" content="Un copiloto con IA + CRM para tu despacho. Expedientes, plazos, redacción y avisos de los cambios de ley, en un solo sitio."/>
+<meta property="og:title" content="VELIA · Tu asistenta IA legal"/>
+<meta property="og:description" content="Redacta escritos, vigila plazos y entérate de los cambios de ley. Gestiona tu despacho con VELIA."/>
 <meta property="og:locale" content="es_ES"/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -17,328 +17,347 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 
 <style>
-/* ════════════════════════════ Tokens ════════════════════════════ */
+/* ════════════════════════ Tokens (tema crema / claro) ════════════════════════ */
 :root{
-  --void:#0A0A0F; --deep:#14141C; --deep-2:#1C1C28;
-  --gold:#C9A96E; --gold-l:#E8D5B0; --cream:#EDE9E1;
-  --signal:#4ECDC4; --pulse:#6C5CE7;
-  --muted:rgba(237,233,225,.62); --faint:rgba(237,233,225,.40); --hair:rgba(237,233,225,.10);
-  --r:14px; --r-pill:999px;
+  --bg:#F4F1EA; --bg-2:#ECE7DC; --paper:#FFFFFF; --cream:#EDE9E1;
+  --ink:#1C1C28; --ink-2:#14141C;
+  --gold:#C9A96E; --gold-d:#9A7840; --gold-l:#E8D5B0;
+  --signal:#1FA89D; --pulse:#6C5CE7;
+  --muted:rgba(28,28,40,.64); --faint:rgba(28,28,40,.45); --hair:rgba(28,28,40,.10); --hair-2:rgba(28,28,40,.06);
+  --r:16px; --r-pill:999px;
   --ease:cubic-bezier(.16,1,.3,1);
-  --maxw:1180px;
-  --sp-1:8px; --sp-2:16px; --sp-3:24px; --sp-4:32px; --sp-6:48px; --sp-8:80px; --sp-12:120px;
+  --maxw:1160px;
+  --sh-sm:0 2px 10px rgba(28,28,40,.05);
+  --sh:0 18px 44px -18px rgba(28,28,40,.18);
+  --sh-lg:0 50px 100px -40px rgba(28,28,40,.28);
+  --sp-6:48px; --sp-8:80px; --sp-12:120px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{
-  font-family:'Montserrat',system-ui,sans-serif;font-weight:300;
-  background:var(--void);color:var(--cream);line-height:1.6;
-  overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-}
+body{font-family:'Montserrat',system-ui,sans-serif;font-weight:300;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px}
-.eyebrow{font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
-h1,h2,h3{font-weight:700;letter-spacing:-.03em;line-height:1.05}
-.reveal{opacity:0;transform:translateY(24px)}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-d)}
+h1,h2,h3{font-weight:700;letter-spacing:-.03em;line-height:1.06;color:var(--ink-2)}
+.reveal{opacity:0;transform:translateY(22px)}
 
-/* ════════════════════════════ Nav (expand-on-scroll) ════════════════════════════ */
-.nav-shell{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:center;padding:18px 16px;transition:padding .5s var(--ease)}
-.nav-shell.scrolled{padding:10px 16px}
-.nav{
-  width:100%;max-width:var(--maxw);display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;
-  padding:12px 14px 12px 22px;border-radius:var(--r-pill);
-  background:rgba(12,12,18,.55);border:1px solid var(--hair);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  transition:max-width .5s var(--ease),background .4s var(--ease),border-color .4s var(--ease);
+/* ════════════════════════ Nav (compact→expand on scroll, legacy) ════════════════════════ */
+nav{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:1000;
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;column-gap:26px;
+  width:calc(100% - 32px);max-width:960px;height:58px;padding:0 10px 0 22px;
+  background:rgba(255,255,255,.5);border:1px solid var(--hair-2);border-radius:var(--r-pill);
+  backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);
+  box-shadow:0 2px 10px rgba(28,28,40,.04);
+  transition:max-width .9s var(--ease),column-gap .9s var(--ease),background .5s ease,border-color .5s ease,box-shadow .5s ease;
 }
-.nav-shell.scrolled .nav{max-width:760px;background:rgba(12,12,18,.82);border-color:rgba(237,233,225,.14)}
-.nav-logo img{height:22px;width:auto}
-.nav-links{display:flex;gap:30px;justify-self:center}
-.nav-links a{font-size:13.5px;font-weight:500;color:var(--muted);transition:color .25s var(--ease)}
-.nav-links a:hover{color:var(--cream)}
-.nav-cta{font-size:13px;font-weight:600;color:var(--void);background:var(--gold);padding:9px 18px;border-radius:var(--r-pill);white-space:nowrap;transition:transform .15s var(--ease),background .25s var(--ease)}
-.nav-cta:hover{background:var(--gold-l)}
+nav.expanded{max-width:1220px;column-gap:38px;background:rgba(255,255,255,.92);border-color:rgba(201,169,110,.30);box-shadow:0 14px 40px -10px rgba(28,28,40,.18)}
+.nav-logo img{height:23px;width:auto}
+.nav-links{justify-self:center;display:flex;gap:30px}
+.nav-links a{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:color .2s var(--ease)}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{justify-self:end;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--ink-2);height:38px;padding:0 20px;border-radius:var(--r-pill);display:inline-flex;align-items:center;white-space:nowrap;transition:transform .15s var(--ease),background .25s var(--ease)}
+.nav-cta:hover{background:#000}
 .nav-cta:active{transform:scale(.97)}
-.nav-burger{display:none;background:none;border:0;color:var(--cream);cursor:pointer;padding:6px}
-.nav-mobile{position:fixed;inset:0;z-index:99;background:rgba(10,10,15,.96);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;opacity:0;pointer-events:none;transition:opacity .35s var(--ease)}
+.nav-burger{display:none;justify-self:end;background:none;border:0;color:var(--ink);cursor:pointer;padding:6px}
+.nav-mobile{position:fixed;inset:0;z-index:999;background:rgba(244,241,234,.97);backdrop-filter:blur(16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;opacity:0;pointer-events:none;transition:opacity .35s var(--ease)}
 .nav-mobile.open{opacity:1;pointer-events:auto}
-.nav-mobile a{font-size:22px;font-weight:600;color:var(--cream)}
-.nav-mobile .nav-cta{font-size:16px;margin-top:14px}
+.nav-mobile a{font-size:20px;font-weight:600;color:var(--ink)}
+.nav-mobile .nav-cta{color:#fff;font-size:14px;height:46px;margin-top:10px}
+@media(max-width:860px){nav,nav.expanded{max-width:none;column-gap:14px}.nav-links,.nav-cta{display:none}.nav-burger{display:block}}
 
-/* ════════════════════════════ Buttons ════════════════════════════ */
-.btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;border-radius:var(--r-pill);transition:transform .15s var(--ease),background .25s var(--ease),border-color .25s var(--ease);cursor:pointer;white-space:nowrap}
+/* ════════════════════════ Buttons ════════════════════════ */
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;border-radius:var(--r-pill);transition:transform .15s var(--ease),background .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease);cursor:pointer;white-space:nowrap}
 .btn:active{transform:scale(.97)}
-.btn-primary{font-size:15px;color:var(--void);background:var(--gold);padding:15px 28px}
-.btn-primary:hover{background:var(--gold-l)}
-.btn-ghost{font-size:15px;color:var(--cream);background:transparent;border:1px solid var(--hair);padding:14px 26px}
-.btn-ghost:hover{border-color:rgba(237,233,225,.3)}
+.btn-primary{font-size:15px;color:#fff;background:var(--ink-2);padding:15px 28px;box-shadow:0 10px 26px -10px rgba(28,28,40,.5)}
+.btn-primary:hover{background:#000;box-shadow:0 16px 32px -12px rgba(28,28,40,.55)}
+.btn-ghost{font-size:15px;color:var(--ink);background:var(--paper);border:1px solid var(--hair);padding:14px 26px;box-shadow:var(--sh-sm)}
+.btn-ghost:hover{border-color:rgba(28,28,40,.25)}
 .btn .arr{transition:transform .25s var(--ease)}
 .btn:hover .arr{transform:translateX(4px)}
 
-/* ════════════════════════════ Hero ════════════════════════════ */
-.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding:120px 0 72px}
-.orbs{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.orb{position:absolute;border-radius:50%;pointer-events:none}
-.orb-1{width:820px;height:820px;background:radial-gradient(circle,rgba(108,92,231,.13) 0%,transparent 65%);filter:blur(100px);top:-24%;left:-20%;animation:orbF 16s ease-in-out infinite}
-.orb-2{width:620px;height:620px;background:radial-gradient(circle,rgba(78,205,196,.09) 0%,transparent 65%);filter:blur(80px);top:2%;right:-14%;animation:orbF 20s ease-in-out infinite reverse}
-.orb-3{width:720px;height:720px;background:radial-gradient(circle,rgba(201,169,110,.08) 0%,transparent 65%);filter:blur(120px);bottom:-28%;left:18%;animation:orbF 24s ease-in-out infinite .8s}
-@keyframes orbF{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(28px,-22px) scale(1.03)}66%{transform:translate(-22px,18px) scale(.97)}}
-#three-hero{position:absolute;inset:0;z-index:1;pointer-events:none}
+/* ════════════════════════ Hero ════════════════════════ */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding:140px 0 80px}
+.glows{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.glow{position:absolute;border-radius:50%;pointer-events:none}
+.glow-1{width:760px;height:760px;background:radial-gradient(circle,rgba(201,169,110,.20) 0%,transparent 64%);filter:blur(90px);top:-22%;right:-14%;animation:gF 18s ease-in-out infinite}
+.glow-2{width:620px;height:620px;background:radial-gradient(circle,rgba(31,168,157,.12) 0%,transparent 64%);filter:blur(90px);bottom:-26%;left:-12%;animation:gF 22s ease-in-out infinite reverse}
+.glow-3{width:520px;height:520px;background:radial-gradient(circle,rgba(108,92,231,.08) 0%,transparent 64%);filter:blur(100px);top:10%;left:30%;animation:gF 26s ease-in-out infinite .8s}
+@keyframes gF{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(26px,-20px) scale(1.04)}66%{transform:translate(-20px,16px) scale(.97)}}
 .hero .wrap{position:relative;z-index:2}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:26px}
-.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
-.hero h1{font-size:clamp(38px,5.6vw,68px);margin-bottom:24px}
-.hero h1 em{font-style:normal;color:var(--gold)}
-.hero-sub{font-size:clamp(16px,1.5vw,19px);color:var(--muted);max-width:520px;margin-bottom:38px;font-weight:300}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:54px;align-items:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:24px;padding:7px 14px 7px 11px;background:var(--paper);border:1px solid var(--hair);border-radius:var(--r-pill);box-shadow:var(--sh-sm)}
+.hero-eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 10px rgba(31,168,157,.6)}
+.hero h1{font-size:clamp(40px,5.7vw,70px);margin-bottom:22px}
+.hero h1 em{font-style:normal;color:var(--gold-d)}
+.hero-sub{font-size:clamp(16px,1.5vw,19px);color:var(--muted);max-width:500px;margin-bottom:36px;font-weight:300}
 .hero-ctas{display:flex;flex-wrap:wrap;gap:14px}
-.hero-trust{display:flex;align-items:center;gap:10px;margin-top:34px;font-size:12.5px;color:var(--faint)}
-.hero-trust .dot{width:5px;height:5px;border-radius:50%;background:var(--signal);box-shadow:0 0 8px var(--signal)}
-.hero-visual{position:relative;justify-self:end;width:100%;max-width:460px}
+.hero-trust{display:flex;align-items:center;gap:9px;margin-top:32px;font-size:13px;color:var(--faint)}
+.hero-trust .d{width:5px;height:5px;border-radius:50%;background:var(--signal)}
+.hero-visual{position:relative;justify-self:end;width:100%;max-width:480px;perspective:1600px}
 
-/* Mockup del software (Apple-style device) */
-.device{border-radius:18px;overflow:hidden;background:linear-gradient(165deg,#181820 0%,#0e0e15 100%);border:1px solid rgba(201,169,110,.16);box-shadow:0 60px 120px -50px rgba(0,0,0,.85),0 0 0 1px rgba(201,169,110,.06) inset}
-.device-bar{display:flex;align-items:center;gap:6px;padding:11px 14px;background:#0c0c12;border-bottom:1px solid rgba(255,255,255,.04)}
-.device-bar i{width:9px;height:9px;border-radius:50%;background:#34343e;display:block}
-.device-bar span{margin-left:12px;font-size:10px;color:rgba(237,233,225,.34);font-weight:500;letter-spacing:.04em}
-.device-body{display:grid;grid-template-columns:128px 1fr;min-height:300px}
-.device-side{padding:14px 10px;border-right:1px solid rgba(255,255,255,.04);background:#0e0e15}
-.device-side .lbl{font-size:8.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(237,233,225,.3);padding:7px 9px;margin-top:8px}
-.device-side .lbl:first-child{margin-top:0}
-.device-side .it{display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:7px;font-size:11.5px;color:rgba(237,233,225,.6);font-weight:500}
-.device-side .it.on{background:rgba(201,169,110,.12);color:var(--gold)}
-.device-side .it .d{width:4px;height:4px;border-radius:50%;background:currentColor;opacity:.7}
-.device-main{padding:18px 18px}
-.device-main .h{font-size:13.5px;font-weight:600;color:var(--cream)}
-.device-main .m{font-size:10.5px;color:rgba(237,233,225,.42);margin:3px 0 14px}
-.device-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.device-card{padding:12px;border:1px solid rgba(255,255,255,.05);border-radius:10px;background:rgba(255,255,255,.02)}
-.device-card .k{font-size:8px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(237,233,225,.34);margin-bottom:6px}
-.device-card .v{font-size:19px;font-weight:700;color:var(--cream);letter-spacing:-.02em}
-.device-card .v em{font-style:normal;color:var(--gold);font-size:11px;font-weight:600;margin-left:5px}
-.device-rows{display:flex;flex-direction:column;gap:1px;border-radius:9px;overflow:hidden;border:1px solid rgba(255,255,255,.05)}
-.device-row{display:flex;align-items:center;gap:9px;padding:10px 12px;background:#13131c;font-size:10.5px}
-.device-row .pill{font-size:8px;font-weight:600;padding:2px 7px;border-radius:var(--r-pill);background:rgba(201,169,110,.13);color:var(--gold);white-space:nowrap}
-.device-row .n{color:var(--cream);font-weight:500}
-.device-row .t{margin-left:auto;color:rgba(237,233,225,.38);font-size:9px;white-space:nowrap}
-.float-chip{position:absolute;left:-22px;bottom:36px;display:flex;align-items:center;gap:9px;padding:11px 15px;border-radius:13px;background:rgba(20,20,28,.92);border:1px solid rgba(201,169,110,.22);box-shadow:0 24px 50px -20px rgba(0,0,0,.7);font-size:12px;font-weight:500}
-.float-chip .ai{width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 10px var(--signal)}
+/* Mockup del portal (claro, fiel al producto, con profundidad) */
+.app{border-radius:18px;overflow:hidden;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--sh-lg);transform:rotateY(-7deg) rotateX(3deg) translateZ(0);transition:transform .7s var(--ease)}
+.hero-visual:hover .app{transform:rotateY(-3deg) rotateX(1.5deg) translateY(-4px)}
+.app-bar{display:flex;align-items:center;gap:6px;padding:11px 14px;background:#faf8f3;border-bottom:1px solid var(--hair-2)}
+.app-bar i{width:9px;height:9px;border-radius:50%;background:#d9d2c4;display:block}
+.app-bar span{margin-left:12px;font-size:10px;color:var(--faint);font-weight:600;letter-spacing:.03em}
+.app-body{display:grid;grid-template-columns:132px 1fr;min-height:312px}
+.app-side{padding:14px 10px;border-right:1px solid var(--hair-2);background:#faf8f3}
+.app-side .lbl{font-size:8.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);padding:7px 9px;margin-top:9px}
+.app-side .lbl:first-child{margin-top:0}
+.app-side .it{display:flex;align-items:center;gap:9px;padding:8px 9px;border-radius:8px;font-size:11.5px;color:var(--muted);font-weight:500}
+.app-side .it.on{background:rgba(201,169,110,.14);color:var(--gold-d);font-weight:600}
+.app-side .it .d{width:4px;height:4px;border-radius:50%;background:currentColor;opacity:.7}
+.app-main{padding:18px}
+.app-main .h{font-size:14px;font-weight:700;color:var(--ink-2)}
+.app-main .m{font-size:10.5px;color:var(--faint);margin:3px 0 14px}
+.app-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.app-card{padding:13px;border:1px solid var(--hair-2);border-radius:12px;background:#fbf9f5;box-shadow:var(--sh-sm)}
+.app-card .k{font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.app-card .v{font-size:20px;font-weight:700;color:var(--ink-2);letter-spacing:-.02em}
+.app-card .v em{font-style:normal;color:var(--gold-d);font-size:11px;font-weight:600;margin-left:5px}
+.app-rows{display:flex;flex-direction:column;gap:6px}
+.app-row{display:flex;align-items:center;gap:9px;padding:10px 12px;background:#fbf9f5;border:1px solid var(--hair-2);border-radius:10px;font-size:10.5px;box-shadow:var(--sh-sm)}
+.app-row .pill{font-size:8px;font-weight:700;padding:2px 8px;border-radius:var(--r-pill);background:rgba(201,169,110,.16);color:var(--gold-d);white-space:nowrap}
+.app-row .n{color:var(--ink);font-weight:500}
+.app-row .t{margin-left:auto;color:var(--faint);font-size:9px;white-space:nowrap}
+.chip{position:absolute;left:-26px;bottom:30px;display:flex;align-items:center;gap:9px;padding:12px 16px;border-radius:14px;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--sh);font-size:12.5px;font-weight:600;color:var(--ink)}
+.chip .ai{width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 10px rgba(31,168,157,.7)}
 
-/* ════════════════════════════ Sections ════════════════════════════ */
+/* ════════════════════════ Sections ════════════════════════ */
 section{position:relative;padding:var(--sp-12) 0}
+.sec-alt{background:var(--bg-2)}
 .sec-head{max-width:680px;margin-bottom:var(--sp-8)}
-.sec-head .eyebrow{display:block;margin-bottom:18px}
-.sec-head h2{font-size:clamp(30px,4vw,46px);margin-bottom:18px}
+.sec-head .eyebrow{display:block;margin-bottom:16px}
+.sec-head h2{font-size:clamp(30px,4vw,46px);margin-bottom:16px}
 .sec-head p{font-size:clamp(16px,1.4vw,18px);color:var(--muted);font-weight:300;max-width:60ch}
 
-/* Showcase de features */
-.features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.feature{padding:30px 26px;border-radius:var(--r);background:var(--deep);border:1px solid var(--hair)}
-.feature .fi{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(201,169,110,.1);margin-bottom:20px}
-.feature .fi svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.feature h3{font-size:18px;margin-bottom:10px;letter-spacing:-.02em}
-.feature p{font-size:14.5px;color:var(--muted);font-weight:300;line-height:1.6}
+/* Beneficios (necesidad → resultado) */
+.benefits{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.benefit{display:flex;gap:18px;padding:30px 28px;border-radius:var(--r);background:var(--paper);border:1px solid var(--hair-2);box-shadow:var(--sh-sm);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.benefit:hover{transform:translateY(-3px);box-shadow:var(--sh)}
+.benefit .bi{flex-shrink:0;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,#fff,#f1ece1);border:1px solid var(--hair-2)}
+.benefit .bi svg{width:22px;height:22px;stroke:var(--gold-d);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.benefit h3{font-size:18px;margin-bottom:8px;letter-spacing:-.02em}
+.benefit p{font-size:14.5px;color:var(--muted);font-weight:300}
 
-/* Banda showcase con device grande */
-.showcase{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
-.showcase-list{display:flex;flex-direction:column;gap:22px}
+/* Showcase asistente */
+.showcase{display:grid;grid-template-columns:1fr 1.05fr;gap:60px;align-items:center}
+.sc-list{display:flex;flex-direction:column;gap:24px}
 .sc-item{display:flex;gap:16px}
-.sc-item .n{flex-shrink:0;width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:rgba(78,205,196,.1);color:var(--signal);font-size:13px;font-weight:700}
-.sc-item h3{font-size:16.5px;margin-bottom:5px;letter-spacing:-.02em}
-.sc-item p{font-size:14px;color:var(--muted);font-weight:300}
+.sc-item .n{flex-shrink:0;width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--ink-2);color:#fff;font-size:13px;font-weight:700}
+.sc-item h3{font-size:17px;margin-bottom:5px;letter-spacing:-.02em}
+.sc-item p{font-size:14.5px;color:var(--muted);font-weight:300}
+/* chat mockup */
+.chat{border-radius:18px;overflow:hidden;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--sh-lg)}
+.chat-bar{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--hair-2);background:#faf8f3}
+.chat-bar .av{width:30px;height:30px;border-radius:9px;background:rgba(201,169,110,.16);display:flex;align-items:center;justify-content:center}
+.chat-bar .av svg{width:16px;height:16px;stroke:var(--gold-d);fill:none;stroke-width:1.7}
+.chat-bar .t1{font-size:13px;font-weight:700;color:var(--ink-2)}
+.chat-bar .t2{font-size:10.5px;color:var(--faint)}
+.chat-body{padding:18px 16px;display:flex;flex-direction:column;gap:12px;background:#fbf9f5}
+.msg{max-width:80%;padding:11px 14px;border-radius:14px;font-size:13px;line-height:1.5}
+.msg.u{align-self:flex-end;background:var(--ink-2);color:#fff;border-bottom-right-radius:5px}
+.msg.v{align-self:flex-start;background:var(--paper);border:1px solid var(--hair-2);color:var(--ink);border-bottom-left-radius:5px;box-shadow:var(--sh-sm)}
+.msg.v .src{display:inline-block;margin-top:7px;font-size:10px;font-weight:600;color:var(--gold-d);background:rgba(201,169,110,.12);padding:3px 8px;border-radius:6px}
 
-/* ════════════════════════════ Precio único ════════════════════════════ */
+/* ════════════════════════ Precio único ════════════════════════ */
 .pricing{display:flex;justify-content:center}
-.price-card{width:100%;max-width:520px;text-align:center;padding:54px 44px;border-radius:22px;background:linear-gradient(170deg,var(--deep-2) 0%,var(--deep) 100%);border:1px solid rgba(201,169,110,.22);box-shadow:0 50px 110px -50px rgba(0,0,0,.8)}
+.price-card{width:100%;max-width:520px;text-align:center;padding:52px 44px;border-radius:24px;background:var(--paper);border:1px solid rgba(201,169,110,.3);box-shadow:var(--sh-lg)}
 .price-card .eyebrow{display:block;margin-bottom:22px}
 .price-amt{display:flex;align-items:baseline;justify-content:center;gap:6px;margin-bottom:8px}
-.price-amt .num{font-size:64px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.price-amt .num{font-size:62px;font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--ink-2)}
 .price-amt .per{font-size:15px;color:var(--faint);font-weight:400}
 .price-note{font-size:13.5px;color:var(--faint);margin-bottom:30px}
-.price-list{display:flex;flex-direction:column;gap:13px;text-align:left;margin-bottom:34px}
+.price-list{display:flex;flex-direction:column;gap:13px;text-align:left;margin-bottom:32px}
 .price-list li{display:flex;gap:11px;font-size:14.5px;color:var(--muted);font-weight:300;list-style:none}
-.price-list li svg{flex-shrink:0;width:19px;height:19px;stroke:var(--signal);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-top:2px}
+.price-list li svg{flex-shrink:0;width:19px;height:19px;stroke:var(--signal);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;margin-top:2px}
 .price-card .btn-primary{width:100%;justify-content:center}
 
-/* ════════════════════════════ CTA final / onboarding ════════════════════════════ */
-.cta{text-align:center;overflow:hidden}
-.cta .orb{position:absolute}
-.cta-orb-1{width:680px;height:480px;filter:blur(110px);background:radial-gradient(ellipse,rgba(108,92,231,.12),transparent 70%);left:-6%;top:50%;transform:translateY(-50%)}
-.cta-orb-2{width:680px;height:480px;filter:blur(110px);background:radial-gradient(ellipse,rgba(201,169,110,.1),transparent 70%);right:-6%;top:50%;transform:translateY(-50%)}
+/* ════════════════════════ CTA / onboarding ════════════════════════ */
+.cta{text-align:center;overflow:hidden;background:var(--ink-2);color:var(--cream)}
+.cta .glow{position:absolute}
+.cta-g1{width:680px;height:460px;filter:blur(120px);background:radial-gradient(ellipse,rgba(201,169,110,.30),transparent 70%);left:-6%;top:50%;transform:translateY(-50%)}
+.cta-g2{width:620px;height:440px;filter:blur(120px);background:radial-gradient(ellipse,rgba(31,168,157,.18),transparent 70%);right:-6%;top:50%;transform:translateY(-50%)}
 .cta .wrap{position:relative;z-index:2}
-.cta h2{font-size:clamp(32px,4.6vw,54px);margin-bottom:20px}
-.cta h2 em{font-style:normal;color:var(--gold)}
-.cta p{font-size:clamp(16px,1.5vw,18px);color:var(--muted);font-weight:300;max-width:54ch;margin:0 auto 38px}
-.cta-row{display:flex;justify-content:center;flex-wrap:wrap;gap:14px}
+.cta h2{color:#fff;font-size:clamp(32px,4.6vw,54px);margin-bottom:18px}
+.cta h2 em{font-style:normal;color:var(--gold-l)}
+.cta p{font-size:clamp(16px,1.5vw,18px);color:rgba(237,233,225,.72);font-weight:300;max-width:52ch;margin:0 auto 36px}
+.cta .btn-primary{background:var(--gold);color:var(--ink-2);box-shadow:0 16px 40px -12px rgba(201,169,110,.5)}
+.cta .btn-primary:hover{background:var(--gold-l)}
 
-/* ════════════════════════════ Footer ════════════════════════════ */
-footer{border-top:1px solid var(--hair);padding:48px 0 40px}
+/* ════════════════════════ Footer ════════════════════════ */
+footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)}
 .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
 .foot img{height:20px}
 .foot-links{display:flex;gap:26px;font-size:13px;color:var(--muted)}
-.foot-links a:hover{color:var(--cream)}
-.foot-legal{width:100%;margin-top:26px;font-size:11.5px;color:var(--faint);line-height:1.6}
+.foot-links a:hover{color:var(--ink)}
+.foot-legal{width:100%;margin-top:24px;font-size:11.5px;color:var(--faint);line-height:1.6;max-width:70ch}
 
-/* ════════════════════════════ Responsive ════════════════════════════ */
+/* ════════════════════════ Responsive ════════════════════════ */
 @media(max-width:920px){
-  .nav-links{display:none}
-  .nav-burger{display:block;justify-self:end}
-  .nav-shell.scrolled .nav{max-width:var(--maxw)}
-  .hero-grid{grid-template-columns:1fr;gap:48px}
-  .hero-visual{justify-self:center;max-width:440px;order:2}
-  .float-chip{left:8px}
-  .features{grid-template-columns:1fr}
+  .hero-grid{grid-template-columns:1fr;gap:50px}
+  .hero-visual{justify-self:center;max-width:460px;order:2;perspective:none}
+  .app{transform:none}
+  .chip{left:6px}
+  .benefits{grid-template-columns:1fr}
   .showcase{grid-template-columns:1fr;gap:40px}
-  .showcase .hero-visual{order:-1}
+  .showcase .chat{order:-1}
 }
 @media(max-width:560px){
   .wrap{padding:0 20px}
   section{padding:84px 0}
-  .hero{padding:108px 0 56px}
+  .hero{padding:120px 0 60px}
+  .benefit{flex-direction:column;gap:14px;padding:26px 22px}
   .price-card{padding:40px 24px}
   .price-amt .num{font-size:52px}
-  .device-body{grid-template-columns:104px 1fr}
-  .float-chip{left:6px;bottom:14px;font-size:11px;padding:9px 12px}
+  .app-body{grid-template-columns:108px 1fr}
+  .chip{left:6px;bottom:12px;font-size:11px;padding:9px 12px}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;transition-duration:.001ms!important}
-  .reveal{opacity:1;transform:none}
-  .orb{animation:none!important}
+  .reveal{opacity:1;transform:none}.glow{animation:none!important}.app{transform:none}
 }
 </style>
 </head>
 <body>
 
 <!-- ═══════════ NAV ═══════════ -->
-<div class="nav-shell" id="navShell">
-  <nav class="nav">
-    <a href="/" class="nav-logo"><img src="/VELIA_logotipo_claro.svg" alt="VELIA"/></a>
-    <div class="nav-links">
-      <a href="#software">El software</a>
-      <a href="#precio">Precio</a>
-      <a href="#demo">Demo</a>
-    </div>
-    <a href="https://portal.veliacorp.com/prueba-velia" class="nav-cta">Probar VELIA</a>
-    <button class="nav-burger" id="navBurger" aria-label="Menú">
-      <svg width="20" height="14" viewBox="0 0 20 14" fill="none"><path d="M1 1h18M1 7h18M1 13h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
-  </nav>
-</div>
+<nav id="nav">
+  <a href="/" class="nav-logo"><img src="/velia_logotipo.svg" alt="VELIA"/></a>
+  <div class="nav-links">
+    <a href="#software">El software</a>
+    <a href="#asistenta">VELIA</a>
+    <a href="#precio">Precio</a>
+  </div>
+  <a href="https://portal.veliacorp.com/prueba-velia" class="nav-cta">Probar VELIA</a>
+  <button class="nav-burger" id="navBurger" aria-label="Menú">
+    <svg width="20" height="14" viewBox="0 0 20 14" fill="none"><path d="M1 1h18M1 7h18M1 13h18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+  </button>
+</nav>
 <div class="nav-mobile" id="navMobile">
   <a href="#software">El software</a>
+  <a href="#asistenta">VELIA</a>
   <a href="#precio">Precio</a>
-  <a href="#demo">Demo</a>
   <a href="https://portal.veliacorp.com/prueba-velia" class="nav-cta">Probar VELIA</a>
 </div>
 
 <!-- ═══════════ HERO ═══════════ -->
 <header class="hero">
-  <div class="orbs"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
-  <canvas id="three-hero"></canvas>
+  <div class="glows"><div class="glow glow-1"></div><div class="glow glow-2"></div><div class="glow glow-3"></div></div>
   <div class="wrap">
     <div class="hero-grid">
       <div class="reveal">
-        <div class="hero-eyebrow"><span class="eyebrow">Software legal con IA</span></div>
-        <h1>El despacho del futuro <em>no trabaja más.</em> Tiene un copiloto.</h1>
-        <p class="hero-sub">VELIA es el software con inteligencia artificial para tu despacho: organiza expedientes, calcula plazos, redacta documentos y te avisa de los cambios de ley. Todo en un solo sitio.</p>
+        <div class="hero-eyebrow"><span class="eyebrow">VELIA · Asistenta IA legal</span></div>
+        <h1>Gestiona tu despacho <em>con VELIA.</em></h1>
+        <p class="hero-sub">VELIA es tu asistenta con inteligencia artificial: redacta tus escritos, vigila tus plazos procesales y te avisa de los cambios de ley. Tú decides; ella hace el trabajo pesado.</p>
         <div class="hero-ctas">
           <a href="https://portal.veliacorp.com/prueba-velia" class="btn btn-primary">Pide tu demo <span class="arr">→</span></a>
           <a href="#software" class="btn btn-ghost">Ver el software</a>
         </div>
-        <div class="hero-trust"><span class="dot"></span>Hecho para despachos de 1 a 10 abogados</div>
+        <div class="hero-trust"><span class="d"></span>Hecho para despachos de 1 a 10 abogados</div>
       </div>
       <div class="hero-visual reveal">
-        <div class="device">
-          <div class="device-bar"><i></i><i></i><i></i><span>VELIA · despacho</span></div>
-          <div class="device-body">
-            <aside class="device-side">
-              <div class="lbl">VELIA IA</div>
-              <div class="it on"><span class="d"></span>Asistente</div>
-              <div class="it"><span class="d"></span>Alertas BOE</div>
+        <div class="app">
+          <div class="app-bar"><i></i><i></i><i></i><span>VELIA · mi despacho</span></div>
+          <div class="app-body">
+            <aside class="app-side">
+              <div class="lbl">VELIA</div>
+              <div class="it on"><span class="d"></span>Asistenta</div>
+              <div class="it"><span class="d"></span>Alertas de ley</div>
               <div class="lbl">Despacho</div>
               <div class="it"><span class="d"></span>Expedientes</div>
               <div class="it"><span class="d"></span>Plazos</div>
               <div class="it"><span class="d"></span>Documentos</div>
             </aside>
-            <main class="device-main">
-              <div class="h">Asistente VELIA</div>
-              <div class="m">Pregunta, redacta y revisa</div>
-              <div class="device-cards">
-                <div class="device-card"><div class="k">Plazos semana</div><div class="v">3<em>abiertos</em></div></div>
-                <div class="device-card"><div class="k">Novedades BOE</div><div class="v">2<em>nuevas</em></div></div>
+            <main class="app-main">
+              <div class="h">Resumen del despacho</div>
+              <div class="m">Lunes · todo bajo control</div>
+              <div class="app-cards">
+                <div class="app-card"><div class="k">Plazos esta semana</div><div class="v">3<em>abiertos</em></div></div>
+                <div class="app-card"><div class="k">Cambios de ley</div><div class="v">2<em>te afectan</em></div></div>
               </div>
-              <div class="device-rows">
-                <div class="device-row"><span class="pill">Fiscal</span><span class="n">Reglamento IVA</span><span class="t">crítico</span></div>
-                <div class="device-row"><span class="pill">Laboral</span><span class="n">Conv. Seg. Social</span><span class="t">hoy</span></div>
-                <div class="device-row"><span class="pill">Civil</span><span class="n">Burofax · borrador</span><span class="t">IA</span></div>
+              <div class="app-rows">
+                <div class="app-row"><span class="pill">Plazo</span><span class="n">Contestación demanda — 2 días</span><span class="t">M. García</span></div>
+                <div class="app-row"><span class="pill">BOE</span><span class="n">Reforma fiscal · afecta a 4 casos</span><span class="t">hoy</span></div>
+                <div class="app-row"><span class="pill">Borrador</span><span class="n">Burofax reclamación · listo</span><span class="t">VELIA</span></div>
               </div>
             </main>
           </div>
         </div>
-        <div class="float-chip"><span class="ai"></span>«Redáctame un burofax» → listo</div>
+        <div class="chip"><span class="ai"></span>«VELIA, redáctame un burofax» → hecho</div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- ═══════════ EL SOFTWARE ═══════════ -->
-<section id="software">
+<!-- ═══════════ BENEFICIOS / EL SOFTWARE ═══════════ -->
+<section id="software" class="sec-alt">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="eyebrow">El software</span>
-      <h2>Un copiloto con IA, no cinco herramientas sueltas.</h2>
-      <p>VELIA junta la gestión del despacho y la inteligencia artificial en una sola capa. Le hablas en lenguaje natural y trabaja con tus expedientes.</p>
+      <span class="eyebrow">Lo que VELIA hace por ti</span>
+      <h2>Menos tareas de despacho. Más ejercer la abogacía.</h2>
+      <p>VELIA no es una herramienta más. Es tu asistenta: trabaja sobre tus expedientes y te quita de encima lo repetitivo, sin perder el control.</p>
     </div>
-    <div class="features">
-      <div class="feature reveal">
-        <div class="fi"><svg viewBox="0 0 24 24"><path d="M12 3l2.4 5.4 5.6.5-4.2 3.7 1.3 5.6L12 16.8 6.9 18.7l1.3-5.6L4 9.4l5.6-.5z"/></svg></div>
-        <h3>Asistente legal IA</h3>
-        <p>Pregunta una duda, redacta un escrito o revisa un documento. Responde con la fuente a la vista; tu criterio manda.</p>
+    <div class="benefits">
+      <div class="benefit reveal">
+        <div class="bi"><svg viewBox="0 0 24 24"><path d="M4 4h11l5 5v11a0 0 0 0 1 0 0H4z"/><path d="M14 4v5h5M8 13h8M8 17h5"/></svg></div>
+        <div><h3>Redacta tus escritos en minutos</h3><p>Pídeselo en lenguaje natural. VELIA prepara el borrador sobre tu expediente, con tus plantillas. Tú revisas y firmas.</p></div>
       </div>
-      <div class="feature reveal">
-        <div class="fi"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></div>
-        <h3>Expedientes y plazos</h3>
-        <p>Todo el despacho organizado, con el cálculo de plazos procesales (LEC + festivos por CCAA) para no perder ninguno.</p>
+      <div class="benefit reveal">
+        <div class="bi"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></div>
+        <div><h3>No vuelvas a perder un plazo</h3><p>Calcula los plazos procesales (LEC + festivos por CCAA) y te avisa con antelación antes de que venzan.</p></div>
       </div>
-      <div class="feature reveal">
-        <div class="fi"><svg viewBox="0 0 24 24"><path d="M12 22a8 8 0 0 0 8-8c0-4-3-6-8-12C7 8 4 10 4 14a8 8 0 0 0 8 8z"/></svg></div>
-        <h3>Alertas de cambios de ley</h3>
-        <p>VELIA vigila el BOE cada día y te avisa solo de lo que afecta a tus áreas, clasificado por relevancia.</p>
+      <div class="benefit reveal">
+        <div class="bi"><svg viewBox="0 0 24 24"><path d="M12 22a8 8 0 0 0 8-8c0-4-3-6-8-12C7 8 4 10 4 14a8 8 0 0 0 8 8z"/></svg></div>
+        <div><h3>Entérate de cada cambio de ley</h3><p>VELIA vigila el BOE cada día y te avisa solo de lo que afecta a tus áreas, clasificado por relevancia.</p></div>
+      </div>
+      <div class="benefit reveal">
+        <div class="bi"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v16"/></svg></div>
+        <div><h3>Todo tu despacho, ordenado</h3><p>Expedientes, contactos, documentos y un portal para tu cliente con tu marca. En un solo sitio, no en cinco.</p></div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="showcase" style="margin-top:var(--sp-8)">
-      <div class="showcase-list">
-        <div class="sc-item reveal"><div class="n">1</div><div><h3>Le hablas como a un compañero</h3><p>«¿Qué plazos tengo abiertos?» · «Redáctame un burofax de reclamación».</p></div></div>
-        <div class="sc-item reveal"><div class="n">2</div><div><h3>Trabaja sobre tus datos</h3><p>Lee el expediente, usa tus plantillas y crea el borrador dentro del caso.</p></div></div>
-        <div class="sc-item reveal"><div class="n">3</div><div><h3>Tú revisas y firmas</h3><p>Cada salida es un borrador para el letrado, con su fuente. Nunca asesoramiento ciego.</p></div></div>
+<!-- ═══════════ ASISTENTA (showcase) ═══════════ -->
+<section id="asistenta">
+  <div class="wrap">
+    <div class="showcase">
+      <div class="sc-list">
+        <div class="reveal" style="margin-bottom:8px">
+          <span class="eyebrow" style="display:block;margin-bottom:14px">Habla con VELIA</span>
+          <h2 style="font-size:clamp(28px,3.6vw,40px)">Como preguntarle a un compañero senior.</h2>
+        </div>
+        <div class="sc-item reveal"><div class="n">1</div><div><h3>Le preguntas en tu idioma</h3><p>«¿Qué plazos tengo esta semana?» · «Redáctame el escrito de oposición».</p></div></div>
+        <div class="sc-item reveal"><div class="n">2</div><div><h3>Trabaja sobre tus datos reales</h3><p>Lee el expediente, usa tus plantillas y crea el borrador dentro del caso.</p></div></div>
+        <div class="sc-item reveal"><div class="n">3</div><div><h3>Siempre con la fuente</h3><p>Cada respuesta es un borrador para el letrado, citando la norma. Tu criterio manda.</p></div></div>
       </div>
-      <div class="hero-visual reveal" style="max-width:none;justify-self:stretch">
-        <div class="device">
-          <div class="device-bar"><i></i><i></i><i></i><span>VELIA · asistente</span></div>
-          <div class="device-main" style="min-height:280px">
-            <div class="h">Pregunta a VELIA</div>
-            <div class="m">Copiloto del expediente</div>
-            <div class="device-rows">
-              <div class="device-row" style="background:#15151f"><span class="n" style="color:var(--muted);font-weight:300">¿Novedades normativas de esta semana?</span></div>
-              <div class="device-row"><span class="pill">BOE</span><span class="n">3 cambios relevantes para tus áreas</span><span class="t">→</span></div>
-              <div class="device-row" style="background:#15151f"><span class="n" style="color:var(--muted);font-weight:300">Redáctame el escrito de oposición</span></div>
-              <div class="device-row"><span class="pill">Borrador</span><span class="n">Creado en el expediente</span><span class="t">IA</span></div>
-            </div>
-          </div>
+      <div class="chat reveal">
+        <div class="chat-bar">
+          <div class="av"><svg viewBox="0 0 24 24"><path d="M12 3l2.4 5.4 5.6.5-4.2 3.7 1.3 5.6L12 16.8 6.9 18.7l1.3-5.6L4 9.4l5.6-.5z" stroke-linejoin="round"/></svg></div>
+          <div><div class="t1">VELIA</div><div class="t2">Tu asistenta IA legal · en línea</div></div>
+        </div>
+        <div class="chat-body">
+          <div class="msg u">¿Hay novedades normativas que me afecten esta semana?</div>
+          <div class="msg v">Sí. Tres cambios relevantes para tus áreas: reforma del Reglamento del IVA, convenio especial de la Seguridad Social y una modificación del ISD en tu CCAA.<span class="src">Fuente · BOE</span></div>
+          <div class="msg u">Redáctame un burofax de reclamación de cantidad para el caso de M. García.</div>
+          <div class="msg v">Listo. He creado el borrador en el expediente con los datos del caso. Revísalo cuando quieras.<span class="src">Borrador en el expediente</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ PRECIO ÚNICO ═══════════ -->
-<section id="precio">
+<!-- ═══════════ PRECIO ═══════════ -->
+<section id="precio" class="sec-alt">
   <div class="wrap">
     <div class="sec-head reveal" style="text-align:center;margin:0 auto var(--sp-6)">
-      <span class="eyebrow" style="margin-bottom:18px">Precio</span>
+      <span class="eyebrow" style="margin-bottom:16px">Precio</span>
       <h2>Un solo precio. Todo incluido.</h2>
-      <p style="margin:0 auto">Sin módulos sueltos ni sorpresas. Una suscripción que da acceso a todo VELIA.</p>
+      <p style="margin:0 auto">Sin módulos sueltos ni sorpresas. Una suscripción que da acceso a toda VELIA.</p>
     </div>
     <div class="pricing">
       <div class="price-card reveal">
@@ -346,9 +365,9 @@ footer{border-top:1px solid var(--hair);padding:48px 0 40px}
         <div class="price-amt"><span class="num">—</span><span class="per">€ / mes</span></div>
         <p class="price-note">Precio en definición · sin permanencia</p>
         <ul class="price-list">
-          <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Asistente legal con IA, sin límite de uso razonable</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>CRM completo: expedientes, contactos y documentos</li>
-          <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Motor de plazos procesales + alertas del BOE</li>
+          <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>VELIA, tu asistenta IA legal, sin límite de uso razonable</li>
+          <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Gestión completa: expedientes, contactos y documentos</li>
+          <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Plazos procesales + alertas del BOE</li>
           <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Portal del cliente con tu marca</li>
           <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Primer mes gratis</li>
         </ul>
@@ -359,12 +378,12 @@ footer{border-top:1px solid var(--hair);padding:48px 0 40px}
 </section>
 
 <!-- ═══════════ CTA / ONBOARDING ═══════════ -->
-<section id="demo" class="cta">
-  <div class="orb cta-orb-1"></div><div class="orb cta-orb-2"></div>
+<section class="cta">
+  <div class="glow cta-g1"></div><div class="glow cta-g2"></div>
   <div class="wrap">
-    <h2 class="reveal">Ve VELIA con <em>tu propio despacho.</em></h2>
+    <h2 class="reveal">Conoce a VELIA con <em>tu propio despacho.</em></h2>
     <p class="reveal">Responde unas preguntas y te montamos una demo del portal con el contexto de tu despacho. En minutos, no en semanas.</p>
-    <div class="cta-row reveal">
+    <div class="reveal" style="display:flex;justify-content:center">
       <a href="https://portal.veliacorp.com/prueba-velia" class="btn btn-primary">Pide tu demo interactiva <span class="arr">→</span></a>
     </div>
   </div>
@@ -374,9 +393,10 @@ footer{border-top:1px solid var(--hair);padding:48px 0 40px}
 <footer>
   <div class="wrap">
     <div class="foot">
-      <img src="/VELIA_logotipo_claro.svg" alt="VELIA"/>
+      <img src="/velia_logotipo.svg" alt="VELIA"/>
       <div class="foot-links">
         <a href="#software">El software</a>
+        <a href="#asistenta">VELIA</a>
         <a href="#precio">Precio</a>
         <a href="https://portal.veliacorp.com/prueba-velia">Demo</a>
       </div>
@@ -385,81 +405,31 @@ footer{border-top:1px solid var(--hair);padding:48px 0 40px}
   </div>
 </footer>
 
-<!-- ═══════════ Three.js (objeto 3D del hero) + GSAP ═══════════ -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
 
-/* Nav: expand-on-scroll + menú móvil */
-const navShell = document.getElementById('navShell');
-addEventListener('scroll', () => navShell.classList.toggle('scrolled', scrollY > 24), {passive:true});
+/* Nav: compacta arriba → se expande y se vuelve sólida al hacer scroll (legacy) */
+const nav = document.getElementById('nav');
+function onScroll(){ nav.classList.toggle('expanded', scrollY > 8); }
+addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+/* Menú móvil */
 const burger = document.getElementById('navBurger'), mobile = document.getElementById('navMobile');
 burger.addEventListener('click', () => mobile.classList.toggle('open'));
 mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobile.classList.remove('open')));
 
+/* Reveals */
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/* Reveals con GSAP */
 if (!reduce && window.gsap) {
   gsap.registerPlugin(ScrollTrigger);
   gsap.utils.toArray('.reveal').forEach((el, i) => {
-    gsap.to(el, {
-      opacity:1, y:0, duration:.9, ease:'expo.out', delay:(i % 3) * 0.06,
-      scrollTrigger:{ trigger:el, start:'top 88%' }
-    });
+    gsap.to(el, { opacity:1, y:0, duration:.9, ease:'expo.out', delay:(i % 2) * 0.06, scrollTrigger:{ trigger:el, start:'top 90%' } });
   });
 } else {
   document.querySelectorAll('.reveal').forEach(el => { el.style.opacity=1; el.style.transform='none'; });
 }
-
-/* Objeto 3D del hero — icosaedro facetado con aristas doradas (Apple-minimal) */
-(function(){
-  const canvas = document.getElementById('three-hero');
-  if (!window.THREE || !canvas || reduce) return;
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(42, innerWidth/innerHeight, 0.1, 100);
-  camera.position.z = 6;
-  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-  function size(){ renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix(); placeGroup(); }
-
-  const geo = new THREE.IcosahedronGeometry(1.85, 1);
-  const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
-    color:0x14141c, metalness:.9, roughness:.35, flatShading:true,
-    emissive:0x0a0a0f, transparent:true, opacity:.92
-  }));
-  const wire = new THREE.LineSegments(
-    new THREE.EdgesGeometry(geo),
-    new THREE.LineBasicMaterial({ color:0xC9A96E, transparent:true, opacity:.5 })
-  );
-  const group = new THREE.Group(); group.add(mesh); group.add(wire);
-  function placeGroup(){
-    const desk = innerWidth > 920;
-    group.position.x = desk ? 2.6 : 0;
-    group.position.y = desk ? 0.1 : 1.4;
-    group.scale.setScalar(desk ? 1 : 0.6);
-  }
-  scene.add(group);
-  size(); addEventListener('resize', size, {passive:true});
-
-  scene.add(new THREE.AmbientLight(0x404048, 1.1));
-  const key = new THREE.PointLight(0xC9A96E, 60, 30); key.position.set(4,3,6); scene.add(key);
-  const rim = new THREE.PointLight(0x4ECDC4, 40, 30); rim.position.set(-5,-2,3); scene.add(rim);
-  const pulse = new THREE.PointLight(0x6C5CE7, 26, 30); pulse.position.set(0,4,-4); scene.add(pulse);
-
-  let mx=0, my=0;
-  addEventListener('pointermove', e => { mx=(e.clientX/innerWidth-.5); my=(e.clientY/innerHeight-.5); }, {passive:true});
-  const clock = new THREE.Clock();
-  (function loop(){
-    requestAnimationFrame(loop);
-    const t = clock.getElapsedTime();
-    group.rotation.y = t*0.16 + mx*0.5;
-    group.rotation.x = Math.sin(t*0.22)*0.14 + my*0.4;
-    renderer.render(scene, camera);
-  })();
-})();
 </script>
 </body>
 </html>
