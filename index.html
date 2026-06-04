@@ -100,6 +100,7 @@ nav.expanded{max-width:1220px;column-gap:38px;background:rgba(255,255,255,.92);b
 /* Mockup del portal (claro, fiel al producto, con profundidad) */
 .app{border-radius:18px;overflow:hidden;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--sh-lg);transform:rotateY(-7deg) rotateX(3deg) translateZ(0);transition:transform .7s var(--ease)}
 .hero-visual:hover .app{transform:rotateY(-3deg) rotateX(1.5deg) translateY(-4px)}
+.app-shot{display:block;width:100%;height:auto}
 .app-bar{display:flex;align-items:center;gap:6px;padding:11px 14px;background:#faf8f3;border-bottom:1px solid var(--hair-2)}
 .app-bar i{width:9px;height:9px;border-radius:50%;background:#d9d2c4;display:block}
 .app-bar span{margin-left:12px;font-size:10px;color:var(--faint);font-weight:600;letter-spacing:.03em}
@@ -262,30 +263,7 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
       <div class="hero-visual reveal">
         <div class="app">
           <div class="app-bar"><i></i><i></i><i></i><span>VELIA · mi despacho</span></div>
-          <div class="app-body">
-            <aside class="app-side">
-              <div class="lbl">VELIA</div>
-              <div class="it on"><span class="d"></span>Asistenta</div>
-              <div class="it"><span class="d"></span>Alertas de ley</div>
-              <div class="lbl">Despacho</div>
-              <div class="it"><span class="d"></span>Expedientes</div>
-              <div class="it"><span class="d"></span>Plazos</div>
-              <div class="it"><span class="d"></span>Documentos</div>
-            </aside>
-            <main class="app-main">
-              <div class="h">Resumen del despacho</div>
-              <div class="m">Lunes · todo bajo control</div>
-              <div class="app-cards">
-                <div class="app-card"><div class="k">Plazos esta semana</div><div class="v">3<em>abiertos</em></div></div>
-                <div class="app-card"><div class="k">Cambios de ley</div><div class="v">2<em>te afectan</em></div></div>
-              </div>
-              <div class="app-rows">
-                <div class="app-row"><span class="pill">Plazo</span><span class="n">Contestación demanda — 2 días</span><span class="t">M. García</span></div>
-                <div class="app-row"><span class="pill">BOE</span><span class="n">Reforma fiscal · afecta a 4 casos</span><span class="t">hoy</span></div>
-                <div class="app-row"><span class="pill">Borrador</span><span class="n">Burofax reclamación · listo</span><span class="t">VELIA</span></div>
-              </div>
-            </main>
-          </div>
+          <img src="/img/product/expedientes.png" class="app-shot" alt="Panel de VELIA con los expedientes del despacho" loading="lazy"/>
         </div>
         <div class="chip"><span class="ai"></span>«VELIA, redáctame un burofax» → hecho</div>
       </div>
