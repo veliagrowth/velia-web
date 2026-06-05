@@ -152,18 +152,15 @@ section{position:relative;padding:var(--sp-12) 0}
 .sc-item .n{flex-shrink:0;width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--ink-2);color:#fff;font-size:13px;font-weight:700}
 .sc-item h3{font-size:17px;margin-bottom:5px;letter-spacing:-.02em}
 .sc-item p{font-size:14.5px;color:var(--muted);font-weight:300}
-/* chat mockup */
-.chat{border-radius:18px;overflow:hidden;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--sh-lg)}
-.chat-bar{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--hair-2);background:#faf8f3}
-.chat-bar .av{width:30px;height:30px;border-radius:9px;background:rgba(201,169,110,.16);display:flex;align-items:center;justify-content:center}
-.chat-bar .av svg{width:16px;height:16px;stroke:var(--gold-d);fill:none;stroke-width:1.7}
-.chat-bar .t1{font-size:13px;font-weight:700;color:var(--ink-2)}
-.chat-bar .t2{font-size:10.5px;color:var(--faint)}
-.chat-body{padding:18px 16px;display:flex;flex-direction:column;gap:12px;background:#fbf9f5}
-.msg{max-width:80%;padding:11px 14px;border-radius:14px;font-size:13px;line-height:1.5}
-.msg.u{align-self:flex-end;background:var(--ink-2);color:#fff;border-bottom-right-radius:5px}
-.msg.v{align-self:flex-start;background:var(--paper);border:1px solid var(--hair-2);color:var(--ink);border-bottom-left-radius:5px;box-shadow:var(--sh-sm)}
-.msg.v .src{display:inline-block;margin-top:7px;font-size:10px;font-weight:600;color:var(--gold-d);background:rgba(201,169,110,.12);padding:3px 8px;border-radius:6px}
+/* showcase visual: ventana del producto (captura real — plano con profundidad por sombra, sin 3D slop) */
+.sc-visual{position:relative}
+.showcase .app{transform:none}
+.showcase .app:hover{transform:translateY(-5px)}
+.showcase.reverse{grid-template-columns:1.05fr 1fr}
+.showcase.reverse .sc-visual{order:-1}
+.sc-tag{position:absolute;right:-18px;bottom:26px;display:flex;align-items:center;gap:9px;padding:11px 15px;border-radius:13px;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--sh);font-size:12px;font-weight:600;color:var(--ink)}
+.sc-tag.l{right:auto;left:-18px}
+.sc-tag .ai{width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 10px rgba(31,168,157,.7)}
 
 /* ════════════════════════ Precio único ════════════════════════ */
 .pricing{display:flex;justify-content:center}
@@ -205,8 +202,8 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
   .app{transform:none}
   .chip{left:6px}
   .benefits{grid-template-columns:1fr}
-  .showcase{grid-template-columns:1fr;gap:40px}
-  .showcase .chat{order:-1}
+  .showcase,.showcase.reverse{grid-template-columns:1fr;gap:40px}
+  .showcase.reverse .sc-visual{order:1}
 }
 @media(max-width:560px){
   .wrap{padding:0 20px}
@@ -217,6 +214,7 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
   .price-amt .num{font-size:52px}
   .app-body{grid-template-columns:108px 1fr}
   .chip{left:6px;bottom:12px;font-size:11px;padding:9px 12px}
+  .sc-tag,.sc-tag.l{left:auto;right:8px;bottom:10px;font-size:11px;padding:9px 12px}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;transition-duration:.001ms!important}
@@ -314,24 +312,43 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
         <div class="sc-item reveal"><div class="n">2</div><div><h3>Trabaja sobre tus datos reales</h3><p>Lee el expediente, usa tus plantillas y crea el borrador dentro del caso.</p></div></div>
         <div class="sc-item reveal"><div class="n">3</div><div><h3>Siempre con la fuente</h3><p>Cada respuesta es un borrador para el letrado, citando la norma. Tu criterio manda.</p></div></div>
       </div>
-      <div class="chat reveal">
-        <div class="chat-bar">
-          <div class="av"><svg viewBox="0 0 24 24"><path d="M12 3l2.4 5.4 5.6.5-4.2 3.7 1.3 5.6L12 16.8 6.9 18.7l1.3-5.6L4 9.4l5.6-.5z" stroke-linejoin="round"/></svg></div>
-          <div><div class="t1">VELIA</div><div class="t2">Tu asistenta IA legal · en línea</div></div>
+      <div class="sc-visual reveal">
+        <div class="app">
+          <div class="app-bar"><i></i><i></i><i></i><span>VELIA · Asistenta legal</span></div>
+          <img src="/img/product/asistenta.png" class="app-shot" alt="VELIA, la asistenta IA legal, dentro de un expediente: pregunta en lenguaje natural, redacta escritos y vigila los cambios de ley" loading="lazy"/>
         </div>
-        <div class="chat-body">
-          <div class="msg u">¿Hay novedades normativas que me afecten esta semana?</div>
-          <div class="msg v">Sí. Tres cambios relevantes para tus áreas: reforma del Reglamento del IVA, convenio especial de la Seguridad Social y una modificación del ISD en tu CCAA.<span class="src">Fuente · BOE</span></div>
-          <div class="msg u">Redáctame un burofax de reclamación de cantidad para el caso de M. García.</div>
-          <div class="msg v">Listo. He creado el borrador en el expediente con los datos del caso. Revísalo cuando quieras.<span class="src">Borrador en el expediente</span></div>
+        <div class="sc-tag"><span class="ai"></span>Dentro de cada expediente</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PLAZOS (showcase) ═══════════ -->
+<section class="sec-alt">
+  <div class="wrap">
+    <div class="showcase reverse">
+      <div class="sc-visual reveal">
+        <div class="app">
+          <div class="app-bar"><i></i><i></i><i></i><span>VELIA · Plazos procesales</span></div>
+          <img src="/img/product/plazos.png" class="app-shot" alt="Motor de plazos procesales de VELIA: cada plazo del expediente con su fecha de inicio y vencimiento" loading="lazy"/>
         </div>
+        <div class="sc-tag l"><span class="ai"></span>Vence en 4 días · te aviso antes</div>
+      </div>
+      <div class="sc-list">
+        <div class="reveal" style="margin-bottom:8px">
+          <span class="eyebrow" style="display:block;margin-bottom:14px">Nunca más un plazo en riesgo</span>
+          <h2 style="font-size:clamp(28px,3.6vw,40px)">El plazo lo vigila VELIA, no tu memoria.</h2>
+        </div>
+        <div class="sc-item reveal"><div class="n">✓</div><div><h3>Cálculo automático</h3><p>Días hábiles según la LEC y los festivos de tu comunidad. Sin contar a mano.</p></div></div>
+        <div class="sc-item reveal"><div class="n">✓</div><div><h3>Aviso con antelación</h3><p>VELIA te avisa antes de que venza, en el portal y donde tú trabajas.</p></div></div>
+        <div class="sc-item reveal"><div class="n">✓</div><div><h3>Cada plazo en su expediente</h3><p>Con su estado, su cómputo y su fecha. Todo a la vista, sin hojas de cálculo.</p></div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ═══════════ PRECIO ═══════════ -->
-<section id="precio" class="sec-alt">
+<section id="precio">
   <div class="wrap">
     <div class="sec-head reveal" style="text-align:center;margin:0 auto var(--sp-6)">
       <span class="eyebrow" style="margin-bottom:16px">Precio</span>
