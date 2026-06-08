@@ -155,8 +155,9 @@ nav.expanded{max-width:1220px;column-gap:38px;background:rgba(255,255,255,.92);b
 .ld-mbrowser .bar i{width:8px;height:8px;border-radius:50%;background:#d9d2c4}
 .ld-mbrowser .bar i:nth-child(1){background:#e7b9ab}.ld-mbrowser .bar i:nth-child(2){background:#ecd6a3}.ld-mbrowser .bar i:nth-child(3){background:#bcd8b0}
 .ld-mbrowser img{display:block;width:100%;height:auto}
-.ld-mphone{position:absolute;right:-8px;bottom:-32px;width:40%;max-width:150px;border-radius:26px;background:#1C1C28;padding:5px;box-shadow:0 30px 60px -22px rgba(0,0,0,.55)}
+.ld-mphone{position:absolute;right:-8px;bottom:-32px;width:40%;max-width:150px;border-radius:26px;background:#1C1C28;padding:5px;box-shadow:0 30px 60px -22px rgba(0,0,0,.55);animation:ldFloat 4.2s ease-in-out infinite;will-change:transform}
 .ld-mphone img{display:block;width:100%;border-radius:21px}
+@keyframes ldFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 .ld-note{position:relative;z-index:1;text-align:center;font-size:12.5px;color:rgba(237,233,225,.42);margin-top:18px}
 
 /* ════════════════════════ Sections ════════════════════════ */
@@ -228,13 +229,15 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
 
 /* ════════════════════════ Responsive ════════════════════════ */
 @media(max-width:920px){
-  .hero-grid{grid-template-columns:1fr;gap:50px}
-  .hero-visual{justify-self:center;max-width:280px;order:2}
-  /* En móvil el visual del hero es el teléfono (la asistenta); el navegador y el chip sobran */
-  .browser{display:none}
-  .chip{display:none}
-  .phone{display:block;position:static;width:100%;max-width:240px;right:auto;bottom:auto;margin:0 auto}
-  /* Móvil: fuera el iframe interactivo; mockup estático (panel + teléfono) tipo Holded */
+  /* Hero móvil: solo el texto, centrado (estilo Holded). El mockup llega justo después, al hacer scroll. */
+  .hero{text-align:center}
+  .hero-grid{grid-template-columns:1fr;gap:0}
+  .hero .hero-eyebrow{margin-left:auto;margin-right:auto}
+  .hero-sub{margin-left:auto;margin-right:auto}
+  .hero-ctas{justify-content:center}
+  .hero-trust{justify-content:center}
+  .hero-visual{display:none}
+  /* "VELIA por dentro": fuera el iframe; mockup estático (panel + teléfono flotante) tipo Holded */
   .ld-frame{display:none}
   .ld-mockup{display:block}
   .benefits{grid-template-columns:1fr}
@@ -248,14 +251,11 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
   .benefit{flex-direction:column;gap:14px;padding:26px 22px}
   .price-card{padding:40px 24px}
   .price-amt .num{font-size:52px}
-  .hero-visual{max-width:220px}
-  .phone{max-width:200px;border-radius:26px;padding:5px}
-  .phone img{border-radius:21px}
   .sc-tag,.sc-tag.l{left:auto;right:8px;bottom:10px;font-size:11px;padding:9px 12px}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;transition-duration:.001ms!important}
-  .reveal{opacity:1;transform:none}.glow{animation:none!important}.browser,.phone{transform:none}
+  .reveal{opacity:1;transform:none}.glow,.ld-mphone{animation:none!important}.browser,.phone,.ld-mphone{transform:none}
 }
 </style>
 </head>
@@ -289,7 +289,7 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
       <div class="reveal">
         <div class="hero-eyebrow"><span class="eyebrow">VELIA · Asistenta IA legal</span></div>
         <h1>Gestiona tu despacho <em>con VELIA.</em></h1>
-        <p class="hero-sub">VELIA es tu asistenta con inteligencia artificial: redacta tus escritos, vigila tus plazos procesales y te avisa de los cambios de ley. Tú decides; ella hace el trabajo pesado.</p>
+        <p class="hero-sub">VELIA es tu asistenta con inteligencia artificial para gestionar el despacho, en cualquier momento y desde cualquier lugar: redacta tus escritos, vigila tus plazos procesales y te avisa de los cambios de ley. Tú decides; ella hace el trabajo pesado.</p>
         <div class="hero-ctas">
           <a href="https://portal.veliacorp.com/prueba-velia" class="btn btn-primary">Pide tu demo <span class="arr">→</span></a>
           <a href="#software" class="btn btn-ghost">Ver el software</a>
