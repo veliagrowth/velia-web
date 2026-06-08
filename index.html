@@ -108,7 +108,7 @@ nav.expanded{max-width:1220px;column-gap:38px;background:rgba(255,255,255,.92);b
 .browser-bar i:nth-child(3){background:#bcd8b0}
 .browser-bar .url{margin:0 auto;font-size:11px;color:var(--faint);font-weight:500;background:#fff;border:1px solid var(--hair-2);border-radius:8px;padding:4px 18px}
 .app-shot{display:block;width:100%;height:auto}
-.phone{position:absolute;z-index:2;right:-26px;bottom:-38px;width:172px;border-radius:30px;background:#1C1C28;padding:6px;box-shadow:0 34px 70px -24px rgba(28,28,40,.5);transition:transform .6s var(--ease)}
+.phone{display:none;position:absolute;z-index:2;right:-26px;bottom:-38px;width:172px;border-radius:30px;background:#1C1C28;padding:6px;box-shadow:0 34px 70px -24px rgba(28,28,40,.5);transition:transform .6s var(--ease)}
 .phone img{display:block;width:100%;height:auto;border-radius:24px}
 .hero-visual:hover .phone{transform:translateY(-6px)}
 .app-body{display:grid;grid-template-columns:132px 1fr;min-height:312px}
@@ -133,6 +133,24 @@ nav.expanded{max-width:1220px;column-gap:38px;background:rgba(255,255,255,.92);b
 .app-row .t{margin-left:auto;color:var(--faint);font-size:9px;white-space:nowrap}
 .chip{position:absolute;z-index:3;left:-28px;top:104px;display:flex;align-items:center;gap:9px;padding:12px 16px;border-radius:14px;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--sh);font-size:12.5px;font-weight:600;color:var(--ink)}
 .chip .ai{width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 10px rgba(31,168,157,.7)}
+
+/* ════════════════════════ Demo interactiva (iframe real del portal) ════════════════════════ */
+.livedemo{background:var(--bg-2)}
+.ld-head{max-width:680px;margin:0 auto var(--sp-8);text-align:center}
+.ld-head .eyebrow{display:block;margin-bottom:16px}
+.ld-head h2{font-size:clamp(30px,4vw,46px);margin-bottom:16px}
+.ld-head p{font-size:clamp(16px,1.4vw,18px);color:var(--muted);font-weight:300;max-width:58ch;margin:0 auto}
+.ld-frame{border-radius:16px;overflow:hidden;border:1px solid var(--hair);box-shadow:var(--sh-lg);background:var(--paper)}
+.ld-stage{position:relative;width:100%;height:720px;background:#fff}
+.ld-stage iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+.ld-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.ld-stage::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,28,40,0),rgba(28,28,40,.28));pointer-events:none}
+.ld-stage.on::after{display:none}
+.ld-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:var(--r-pill);background:var(--gold);color:var(--ink-2);font-size:15px;font-weight:700;box-shadow:0 18px 44px -14px rgba(201,169,110,.7);cursor:pointer;transition:transform .25s var(--ease),background .25s var(--ease)}
+.ld-play:hover{transform:translate(-50%,-50%) scale(1.04);background:var(--gold-l)}
+.ld-play-ic{font-size:12px}
+.ld-note{text-align:center;font-size:13px;color:var(--faint);margin-top:18px}
+.ld-mobile{display:none}
 
 /* ════════════════════════ Sections ════════════════════════ */
 section{position:relative;padding:var(--sp-12) 0}
@@ -204,9 +222,14 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
 /* ════════════════════════ Responsive ════════════════════════ */
 @media(max-width:920px){
   .hero-grid{grid-template-columns:1fr;gap:50px}
-  .hero-visual{justify-self:center;max-width:440px;order:2}
-  .phone{width:132px;right:-12px;bottom:-26px}
-  .chip{left:-8px;top:62px}
+  .hero-visual{justify-self:center;max-width:280px;order:2}
+  /* En móvil el visual del hero es el teléfono (la asistenta); el navegador y el chip sobran */
+  .browser{display:none}
+  .chip{display:none}
+  .phone{display:block;position:static;width:100%;max-width:240px;right:auto;bottom:auto;margin:0 auto}
+  /* La demo embebida (iframe de escritorio) no funciona bien en móvil → botón */
+  .ld-frame,.ld-note{display:none}
+  .ld-mobile{display:flex;justify-content:center}
   .benefits{grid-template-columns:1fr}
   .showcase,.showcase.reverse{grid-template-columns:1fr;gap:40px}
   .showcase.reverse .sc-visual{order:1}
@@ -218,9 +241,9 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
   .benefit{flex-direction:column;gap:14px;padding:26px 22px}
   .price-card{padding:40px 24px}
   .price-amt .num{font-size:52px}
-  .phone{width:104px;right:-4px;bottom:-16px;border-radius:24px;padding:5px}
-  .phone img{border-radius:19px}
-  .chip{left:-4px;top:46px;bottom:auto;font-size:11px;padding:9px 12px}
+  .hero-visual{max-width:220px}
+  .phone{max-width:200px;border-radius:26px;padding:5px}
+  .phone img{border-radius:21px}
   .sc-tag,.sc-tag.l{left:auto;right:8px;bottom:10px;font-size:11px;padding:9px 12px}
 }
 @media(prefers-reduced-motion:reduce){
@@ -281,6 +304,30 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
     </div>
   </div>
 </header>
+
+<!-- ═══════════ DEMO INTERACTIVA (iframe real del portal) ═══════════ -->
+<section class="livedemo">
+  <div class="wrap">
+    <div class="ld-head reveal">
+      <span class="eyebrow">Demo en vivo · sin registrarte</span>
+      <h2>Pruébalo tú mismo</h2>
+      <p>Esto es VELIA de verdad, no un vídeo. Haz clic, abre un expediente, mira los plazos, habla con la asistenta. Es un despacho de ejemplo para que lo toques.</p>
+    </div>
+    <div class="ld-frame reveal">
+      <div class="browser-bar"><i></i><i></i><i></i><span class="url">portal.veliacorp.com</span></div>
+      <div class="ld-stage" id="ldStage">
+        <img src="/img/product/expedientes.png" class="ld-poster" alt="Vista previa del panel de VELIA"/>
+        <button type="button" class="ld-play" id="ldPlay" aria-label="Cargar la demo interactiva">
+          <span class="ld-play-ic">▶</span> Probar la demo en vivo
+        </button>
+      </div>
+    </div>
+    <p class="ld-note">Datos ficticios. En tu cuenta verás tu despacho, con tu marca.</p>
+    <div class="ld-mobile">
+      <a href="https://portal.veliacorp.com/api/demo/enter" target="_blank" rel="noopener" class="btn btn-primary">Abre la demo interactiva <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
 
 <!-- ═══════════ BENEFICIOS / EL SOFTWARE ═══════════ -->
 <section id="software" class="sec-alt">
@@ -423,6 +470,17 @@ addEventListener('scroll', onScroll, {passive:true}); onScroll();
 const burger = document.getElementById('navBurger'), mobile = document.getElementById('navMobile');
 burger.addEventListener('click', () => mobile.classList.toggle('open'));
 mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobile.classList.remove('open')));
+/* Demo en vivo: el iframe del portal se carga SOLO al pulsar (evita crear una sesión de demo por cada visita) */
+const ldPlay = document.getElementById('ldPlay');
+if (ldPlay) ldPlay.addEventListener('click', () => {
+  const stage = document.getElementById('ldStage');
+  const f = document.createElement('iframe');
+  f.src = 'https://portal.veliacorp.com/api/demo/enter';
+  f.title = 'Demo interactiva de VELIA';
+  stage.innerHTML = '';
+  stage.classList.add('on');
+  stage.appendChild(f);
+});
 </script>
 </body>
 </html>
