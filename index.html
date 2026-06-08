@@ -142,95 +142,12 @@ nav.expanded{max-width:1220px;column-gap:38px;background:rgba(255,255,255,.92);b
 .ld-head h2 em{font-style:normal;color:var(--gold-l)}
 .ld-head p{font-size:clamp(15px,1.4vw,18px);color:rgba(237,233,225,.6);font-weight:300;max-width:52ch;margin:0 auto}
 .ld-frame{position:relative;z-index:1;max-width:1080px;margin:0 auto;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 44px 100px -34px rgba(0,0,0,.75)}
-.demo-app{display:grid;grid-template-columns:60px 1fr;height:612px;background:#FBFAF6}
-/* Barra lateral CLARA, solo iconos + nombre en tooltip al pasar el ratón (fiel al portal colapsado) */
-.demo-side{background:#F4F1E9;border-right:1px solid rgba(28,28,40,.07);padding:13px 0;display:flex;flex-direction:column;align-items:center;gap:3px}
-.demo-av{width:32px;height:32px;border-radius:9px;background:var(--gold);color:#1C1C28;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-bottom:9px;flex-shrink:0}
-.demo-nav{position:relative;width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:rgba(28,28,40,.42);cursor:pointer;border:0;background:none;transition:background .18s,color .18s}
-.demo-nav:hover{background:rgba(28,28,40,.05);color:rgba(28,28,40,.82)}
-.demo-nav.on{background:rgba(201,169,110,.17);color:var(--gold-d)}
-.demo-nav svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.demo-nav .tip{position:absolute;left:calc(100% + 11px);top:50%;transform:translateY(-50%);background:#1C1C28;color:#fff;font-size:11px;font-weight:600;padding:5px 11px;border-radius:7px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .16s;z-index:6;box-shadow:0 8px 22px -8px rgba(0,0,0,.35)}
-.demo-nav .tip::before{content:"";position:absolute;right:100%;top:50%;transform:translateY(-50%);border:5px solid transparent;border-right-color:#1C1C28}
-.demo-nav:hover .tip{opacity:1}
-.demo-sp{flex:1}
-.demo-foot{color:rgba(28,28,40,.3);margin-bottom:2px}
-.demo-foot svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-/* Contenido */
-.demo-main{padding:24px 26px;overflow-y:auto;overflow-x:hidden}
-.dv{display:none}
-.dv.on{display:block;animation:dfade .34s var(--ease)}
-@keyframes dfade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.dv-eye{font-size:10px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-d);margin-bottom:5px}
-.dv-top{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:20px}
-.dv-h{font-size:26px;font-weight:700;color:var(--ink-2);letter-spacing:-.02em;line-height:1.05}
-.dv-new{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:#fff;font-size:12.5px;font-weight:600;padding:9px 15px;border-radius:10px;white-space:nowrap;flex-shrink:0;box-shadow:0 8px 20px -8px rgba(201,169,110,.6)}
-/* KPIs — numeros grandes y finos, como el portal */
-.dk{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:20px}
-.dk-c{padding:17px 18px;border:1px solid var(--hair-2);border-radius:14px;background:var(--paper)}
-.dk-c.eyetop{display:flex;flex-direction:column}
-.dk-c .v{font-size:33px;font-weight:300;color:var(--ink-2);letter-spacing:-.02em;line-height:1}
-.dk-c .v.gold{color:var(--gold-d)}.dk-c .v.teal{color:#16a093}.dk-c .v.pulse{color:#6C5CE7}
-.dk-c .k{font-size:11px;color:var(--faint);margin-top:9px}
-.dk-c.eyetop .k{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-d);margin:0 0 11px}
-/* Buscador + filtros */
-.dtools{display:flex;align-items:center;gap:9px;margin-bottom:14px;flex-wrap:wrap}
-.dsearch{flex:1;min-width:170px;display:flex;align-items:center;gap:8px;background:var(--paper);border:1px solid var(--hair-2);border-radius:10px;padding:9px 13px;color:var(--faint);font-size:12px}
-.dsearch svg{width:14px;height:14px;stroke:var(--faint);fill:none;stroke-width:2}
-.dfilter{display:inline-flex;align-items:center;gap:6px;background:var(--paper);border:1px solid var(--hair-2);border-radius:10px;padding:9px 11px;color:var(--muted);font-size:11.5px;white-space:nowrap}
-.dfilter::after{content:"▾";font-size:8px;opacity:.5}
-.dcount{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:11px}
-/* Tarjetas de expediente */
-.ecards{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.ecard{background:var(--paper);border:1px solid var(--hair-2);border-radius:14px;padding:16px 17px;box-shadow:var(--sh-sm);transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
-.ecard:hover{transform:translateY(-2px);box-shadow:var(--sh)}
-.ecard .top{display:flex;align-items:center;gap:9px;margin-bottom:11px}
-.ecard .num{font-size:10px;font-family:ui-monospace,monospace;color:var(--faint)}
-.ecard .area{font-size:10.5px;color:var(--faint)}
-.ecard .prio{margin-left:auto;font-size:10px;font-weight:700}
-.ecard .prio.alta{color:#c0443c}.ecard .prio.normal{color:rgba(28,28,40,.38)}
-.ecard h4{font-size:15px;font-weight:700;color:var(--ink-2);letter-spacing:-.01em;margin-bottom:16px}
-.ecard .who{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}
-.ecard .who svg{width:15px;height:15px;stroke:var(--faint);fill:none;stroke-width:1.6}
-.ecard .date{text-align:right;font-size:11px;color:var(--faint);margin-top:9px}
-/* Tarjetas dashboard */
-.dcard{background:var(--paper);border:1px solid var(--hair-2);border-radius:14px;padding:18px 20px}
-.dcard .lbl{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-d);margin-bottom:13px}
-.dclock{text-align:center;margin-bottom:13px}
-.dclock .z{font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--faint)}
-.dclock .t{font-size:30px;font-weight:300;color:var(--ink-2);letter-spacing:.02em;margin:4px 0 2px}
-.dclock .d{font-size:11px;color:var(--faint)}
-.dgrid2{display:grid;grid-template-columns:1.4fr 1fr;gap:13px}
-.dgrid2 .col{display:flex;flex-direction:column;gap:13px}
-.dempty{color:var(--faint);font-size:12.5px}
-.dbig{font-size:30px;font-weight:300;color:#6C5CE7;line-height:1}
-.dsub{font-size:11px;color:var(--faint);margin-top:3px}
-.dlink{font-size:11.5px;color:var(--gold-d);font-weight:600;margin-top:11px;display:inline-block}
-.dquick{display:flex;flex-direction:column;gap:10px}
-.dquick span{color:var(--gold-d);font-size:12.5px;font-weight:600}
-/* Plazos / agenda — lista de tarjetas */
-.dlist{display:flex;flex-direction:column;gap:9px}
-.drow{display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--hair-2);border-radius:12px;padding:13px 15px;box-shadow:var(--sh-sm)}
-.drow .ic{width:30px;height:30px;border-radius:8px;background:rgba(201,169,110,.12);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.drow .ti{font-size:13px;font-weight:600;color:var(--ink-2)}
-.drow .su{font-size:11px;color:var(--faint);margin-top:1px}
-.drow .rt{margin-left:auto;display:flex;align-items:center;gap:10px;flex-shrink:0}
-.drow .dd{font-size:11px;color:var(--faint);white-space:nowrap}
-/* pills (paleta VELIA) */
-.pill{font-size:10px;font-weight:700;padding:3px 10px;border-radius:var(--r-pill);white-space:nowrap;display:inline-block}
-.pill.gold{background:rgba(201,169,110,.18);color:var(--gold-d)}
-.pill.teal{background:rgba(78,205,196,.2);color:#0f8a7f}
-.pill.gray{background:rgba(28,28,40,.06);color:rgba(28,28,40,.5)}
-.pill.red{background:rgba(224,86,78,.12);color:#c0443c}
-/* Asistenta chat */
-.dchat{display:flex;flex-direction:column;gap:11px;max-width:600px}
-.dmsg{padding:12px 15px;border-radius:14px;font-size:12.5px;line-height:1.55}
-.dmsg.u{align-self:flex-end;background:#1C1C28;color:#EDE9E1;border-bottom-right-radius:5px;max-width:82%}
-.dmsg.a{align-self:flex-start;background:var(--paper);border:1px solid var(--hair-2);color:var(--ink);border-bottom-left-radius:5px;box-shadow:var(--sh-sm)}
-.dmsg.a .src{margin-top:9px;font-size:10.5px;color:var(--gold-d);font-weight:600;display:flex;align-items:center;gap:6px}
-.dmsg.a .src::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--signal)}
-.dchat-in{display:flex;align-items:center;gap:9px;margin-top:6px;max-width:600px;padding:11px 14px;background:var(--paper);border:1px solid var(--hair-2);border-radius:12px;color:var(--faint);font-size:12px;box-shadow:var(--sh-sm)}
-.dchat-in .snd{margin-left:auto;width:26px;height:26px;border-radius:8px;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+/* App: iframe del portal demo REAL (modo demo, solo lectura) */
+.ld-bar{display:flex;align-items:center;gap:7px;padding:11px 16px;background:#f4f1ea;border-bottom:1px solid rgba(28,28,40,.08)}
+.ld-bar i{width:10px;height:10px;border-radius:50%;background:#d9d2c4;display:block}
+.ld-bar i:nth-child(1){background:#e7b9ab}.ld-bar i:nth-child(2){background:#ecd6a3}.ld-bar i:nth-child(3){background:#bcd8b0}
+.ld-bar .url{margin:0 auto;font-size:11px;color:var(--faint);font-weight:500;background:#fff;border:1px solid rgba(28,28,40,.08);border-radius:8px;padding:4px 18px}
+.ld-iframe{display:block;width:100%;height:680px;border:0;background:#FBFAF6}
 .ld-note{position:relative;z-index:1;text-align:center;font-size:12.5px;color:rgba(237,233,225,.42);margin-top:18px}
 
 /* ════════════════════════ Sections ════════════════════════ */
@@ -308,14 +225,9 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
   .browser{display:none}
   .chip{display:none}
   .phone{display:block;position:static;width:100%;max-width:240px;right:auto;bottom:auto;margin:0 auto}
-  /* Móvil: sin menú interactivo (solo el Panel), en una columna */
-  .demo-app{grid-template-columns:1fr;height:auto}
-  .demo-side{display:none}
-  .demo-main{padding:18px}
-  .dv-new{display:none}
-  .dk{grid-template-columns:1fr 1fr}
-  .ecards,.dgrid2{grid-template-columns:1fr}
+  /* Móvil: el iframe del portal se ve responsive */
   .ld-frame{max-width:none}
+  .ld-iframe{height:560px}
   .benefits{grid-template-columns:1fr}
   .showcase,.showcase.reverse{grid-template-columns:1fr;gap:40px}
   .showcase.reverse .sc-visual{order:1}
@@ -400,111 +312,8 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
       <p>Esto es lo que ve tu despacho cada mañana. Pasa el ratón por el menú, entra en cada sección y muévete a tu aire.</p>
     </div>
     <div class="ld-frame reveal">
-      <div class="demo-app">
-        <aside class="demo-side">
-          <div class="demo-av">BN</div>
-          <button class="demo-nav on" data-v="panel"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="tip">Panel</span></button>
-          <button class="demo-nav" data-v="contactos"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.6 6-5.6s6 2.3 6 5.6"/><path d="M16 5.4a3 3 0 0 1 0 5.9M21 20c0-2.5-1.2-4.3-3.2-5.1"/></svg><span class="tip">Contactos</span></button>
-          <button class="demo-nav" data-v="expedientes"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="tip">Expedientes</span></button>
-          <button class="demo-nav" data-v="agenda"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg><span class="tip">Agenda y plazos</span></button>
-          <button class="demo-nav" aria-disabled="true"><svg viewBox="0 0 24 24"><path d="M4 5h11a2 2 0 0 1 2 2v13H6a2 2 0 0 1-2-2z"/><path d="M17 7h3v11a2 2 0 0 1-2 2h-1"/></svg><span class="tip">Biblioteca</span></button>
-          <button class="demo-nav" aria-disabled="true"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></svg><span class="tip">Informes</span></button>
-          <button class="demo-nav" data-v="asistenta"><svg viewBox="0 0 24 24"><path d="M12 3l1.7 4.5L18 9l-4.3 1.5L12 15l-1.7-4.5L6 9l4.3-1.5z"/></svg><span class="tip">Asistenta IA</span></button>
-          <div class="demo-sp"></div>
-          <button class="demo-nav demo-foot" aria-disabled="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-2.7-1.1l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 4.6 14H4a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 5.2 7.3l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 11 4.6V4a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8z"/></svg><span class="tip">Configuración</span></button>
-        </aside>
-        <div class="demo-main">
-          <!-- Panel / Portal -->
-          <div class="dv on" data-v="panel">
-            <div style="margin-bottom:20px"><div class="dv-eye">Portal</div><div class="dv-h">Bienvenido, Matthew</div></div>
-            <div class="dcard" style="margin-bottom:14px">
-              <div class="lbl" style="text-align:left">Hora mundial</div>
-              <div class="dclock"><div class="z">ES · Madrid</div><div class="t">19:59<span style="font-size:16px;color:var(--faint)">:27</span></div><div class="d">lun, 8 jun</div></div>
-            </div>
-            <div class="dk">
-              <div class="dk-c eyetop"><div class="k">Contactos</div><div class="v">32</div></div>
-              <div class="dk-c eyetop"><div class="k">Leads activos</div><div class="v gold">5</div></div>
-              <div class="dk-c eyetop"><div class="k">Deals en pipeline</div><div class="v">3</div></div>
-              <div class="dk-c eyetop"><div class="k">Cierres</div><div class="v teal">8</div></div>
-            </div>
-            <div class="dgrid2">
-              <div class="dcard">
-                <div class="lbl">Actividad reciente</div>
-                <div class="dlist" style="gap:11px">
-                  <div style="font-size:12.5px;color:var(--muted)">Nuevo plazo en <b style="color:var(--ink-2);font-weight:600">Pérez vs. Construcciones</b> · hace 2 h</div>
-                  <div style="font-size:12.5px;color:var(--muted)">Documento firmado por <b style="color:var(--ink-2);font-weight:600">M. Soto</b> · ayer</div>
-                  <div style="font-size:12.5px;color:var(--muted)">Cita confirmada con <b style="color:var(--ink-2);font-weight:600">Javier Ruiz</b> · ayer</div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="dcard"><div class="lbl">Expedientes</div><div class="dbig">5</div><div class="dsub">abiertos</div><span class="dlink">Ver expedientes →</span></div>
-                <div class="dcard"><div class="lbl">Acceso rápido</div><div class="dquick"><span>+ Nuevo contacto</span><span>+ Nuevo expediente</span><span>+ Nueva cita</span></div></div>
-              </div>
-            </div>
-          </div>
-          <!-- Expedientes (tarjetas, datos reales) -->
-          <div class="dv" data-v="expedientes">
-            <div class="dv-top">
-              <div><div class="dv-eye">Jurídico</div><div class="dv-h">Expedientes</div></div>
-              <span class="dv-new">+ Nuevo expediente</span>
-            </div>
-            <div class="dk">
-              <div class="dk-c"><div class="v">3</div><div class="k">Abiertos</div></div>
-              <div class="dk-c"><div class="v">2</div><div class="k">En proceso</div></div>
-              <div class="dk-c"><div class="v">0</div><div class="k">Vencidos</div></div>
-              <div class="dk-c"><div class="v gold">—</div><div class="k">Honorarios</div></div>
-            </div>
-            <div class="dtools">
-              <div class="dsearch"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Buscar por nombre, nº expediente, DNI, casuística…</div>
-              <span class="dfilter">Todos los estados</span>
-              <span class="dfilter">Todas las áreas</span>
-            </div>
-            <div class="dcount">5 expedientes</div>
-            <div class="ecards">
-              <div class="ecard"><div class="top"><span class="pill gold">Abierto</span><span class="num">LAB-2026-019</span><span class="area">Laboral</span><span class="prio alta">Alta</span></div><h4>Impugnación de despido objetivo</h4><div class="who"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/></svg>María García López</div><div class="date">04 jun 26</div></div>
-              <div class="ecard"><div class="top"><span class="pill gold">Abierto</span><span class="num">MER-2026-008</span><span class="area">Mercantil</span><span class="prio normal">Normal</span></div><h4>Revisión de contrato de arrendamiento</h4><div class="who"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/></svg>Inmobiliaria Vallés S.L.</div><div class="date">02 jun 26</div></div>
-              <div class="ecard"><div class="top"><span class="pill gold">Abierto</span><span class="num">CIV-2026-031</span><span class="area">Civil</span><span class="prio normal">Normal</span></div><h4>Reclamación de cantidad</h4><div class="who"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/></svg>Javier Ruiz Méndez</div><div class="date">31 may 26</div></div>
-              <div class="ecard"><div class="top"><span class="pill teal">En proceso</span><span class="num">LAB-2026-014</span><span class="area">Laboral</span><span class="prio alta">Alta</span></div><h4>Despido improcedente — M. García</h4><div class="who"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/></svg>María García López</div><div class="date">24 may 26</div></div>
-              <div class="ecard"><div class="top"><span class="pill teal">En proceso</span><span class="num">FAM-2026-022</span><span class="area">Familia</span><span class="prio normal">Normal</span></div><h4>Divorcio de mutuo acuerdo</h4><div class="who"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6"/></svg>Carlos Ortega Pérez</div><div class="date">16 may 26</div></div>
-            </div>
-          </div>
-          <!-- Agenda -->
-          <div class="dv" data-v="agenda">
-            <div style="margin-bottom:8px"><div class="dv-eye">Jurídico</div><div class="dv-h">Agenda y plazos</div></div>
-            <p style="font-size:12px;color:var(--faint);margin:0 0 18px">Cálculo automático según la LEC + festivos de tu comunidad.</p>
-            <div class="dlist">
-              <div class="drow"><div class="ic">⚖️</div><div><div class="ti">Contestación a la demanda</div><div class="su">Pérez vs. Construcciones del Sur · art. 404 LEC</div></div><div class="rt"><span class="dd">vie 12 jun</span><span class="pill red">3 días</span></div></div>
-              <div class="drow"><div class="ic">📄</div><div><div class="ti">Recurso de apelación</div><div class="su">Herederos de J. Romero</div></div><div class="rt"><span class="dd">mié 17 jun</span><span class="pill gold">5 días</span></div></div>
-              <div class="drow"><div class="ic">🗣️</div><div><div class="ti">Vista oral</div><div class="su">Despido · M. García · Sala 3</div></div><div class="rt"><span class="dd">lun 22 jun</span><span class="pill gray">10 días</span></div></div>
-              <div class="drow"><div class="ic">📎</div><div><div class="ti">Presentación de pruebas</div><div class="su">Divorcio de mutuo acuerdo</div></div><div class="rt"><span class="dd">jue 25 jun</span><span class="pill gray">13 días</span></div></div>
-            </div>
-          </div>
-          <!-- Contactos -->
-          <div class="dv" data-v="contactos">
-            <div class="dv-top">
-              <div><div class="dv-eye">CRM</div><div class="dv-h">Contactos</div></div>
-              <span class="dv-new">+ Nuevo contacto</span>
-            </div>
-            <div class="dlist">
-              <div class="drow"><div class="ic" style="background:rgba(201,169,110,.16);color:var(--gold-d);font-size:11px;font-weight:700">MG</div><div><div class="ti">María García López</div><div class="su">maria.garcia@gmail.com</div></div><div class="rt"><span class="pill teal">Cliente</span></div></div>
-              <div class="drow"><div class="ic" style="background:rgba(201,169,110,.16);color:var(--gold-d);font-size:11px;font-weight:700">JR</div><div><div class="ti">Javier Ruiz Méndez</div><div class="su">jruiz@gmail.com</div></div><div class="rt"><span class="pill teal">Cliente</span></div></div>
-              <div class="drow"><div class="ic" style="background:rgba(201,169,110,.16);color:var(--gold-d);font-size:11px;font-weight:700">CO</div><div><div class="ti">Carlos Ortega Pérez</div><div class="su">c.ortega@outlook.es</div></div><div class="rt"><span class="pill teal">Cliente</span></div></div>
-              <div class="drow"><div class="ic" style="background:rgba(201,169,110,.16);color:var(--gold-d);font-size:11px;font-weight:700">IV</div><div><div class="ti">Inmobiliaria Vallés S.L.</div><div class="su">legal@inmovalles.com</div></div><div class="rt"><span class="pill gold">Lead</span></div></div>
-            </div>
-          </div>
-          <!-- Asistenta -->
-          <div class="dv" data-v="asistenta">
-            <div style="margin-bottom:18px"><div class="dv-eye">Asistenta IA</div><div class="dv-h">VELIA</div></div>
-            <div class="dchat">
-              <div class="dmsg u">¿Qué plazo tengo para contestar a la demanda del expediente Pérez?</div>
-              <div class="dmsg a">El plazo para contestar a la demanda en juicio ordinario es de <strong>20 días hábiles</strong> desde el emplazamiento. En el expediente Pérez vs. Construcciones del Sur consta emplazamiento el 15 de mayo, por lo que vence el <strong>viernes 12 de junio</strong>.<div class="src">Fuente: art. 404 LEC · Expediente MER-2026-008</div></div>
-              <div class="dmsg u">Redáctame un borrador de la contestación</div>
-              <div class="dmsg a">Listo. He preparado un borrador de contestación a la demanda y lo he guardado en Documentos del expediente para que lo revises y completes los hechos.<div class="src">Borrador para revisión del letrado · no es asesoramiento</div></div>
-            </div>
-            <div class="dchat-in">Escribe a VELIA…<span class="snd">↑</span></div>
-          </div>
-        </div>
-      </div>
+      <div class="ld-bar"><i></i><i></i><i></i><span class="url">portal.veliacorp.com</span></div>
+      <iframe class="ld-iframe" src="https://portal.veliacorp.com/api/demo/enter" title="VELIA por dentro — el CRM real en modo demo" loading="lazy"></iframe>
     </div>
     <p class="ld-note">Datos de ejemplo · en tu cuenta lo verás con tu marca y tus expedientes.</p>
   </div>
@@ -651,16 +460,6 @@ addEventListener('scroll', onScroll, {passive:true}); onScroll();
 const burger = document.getElementById('navBurger'), mobile = document.getElementById('navMobile');
 burger.addEventListener('click', () => mobile.classList.toggle('open'));
 mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobile.classList.remove('open')));
-/* CRM-maqueta interactivo: cambia de vista al pulsar el menú (instantáneo, sin backend) */
-document.querySelectorAll('.demo-nav').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const v = btn.dataset.v;
-    if (!v) return; // iconos decorativos (Biblioteca/Informes/Configuración) → sin vista
-    document.querySelectorAll('.demo-nav[data-v]').forEach(b => b.classList.toggle('on', b === btn));
-    document.querySelectorAll('.dv').forEach(p => p.classList.toggle('on', p.dataset.v === v));
-    document.querySelector('.demo-main').scrollTop = 0;
-  });
-});
 </script>
 </body>
 </html>
