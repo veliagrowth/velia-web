@@ -96,15 +96,21 @@ nav.expanded{max-width:1220px;column-gap:38px;background:rgba(255,255,255,.92);b
 .hero-ctas{display:flex;flex-wrap:wrap;gap:14px}
 .hero-trust{display:flex;align-items:center;gap:9px;margin-top:32px;font-size:13px;color:var(--faint)}
 .hero-trust .d{width:5px;height:5px;border-radius:50%;background:var(--signal)}
-.hero-visual{position:relative;justify-self:end;width:100%;max-width:600px;perspective:1800px}
+.hero-visual{position:relative;justify-self:end;width:100%;max-width:600px}
 
-/* Mockup del portal (claro, fiel al producto, con profundidad) */
-.app{border-radius:18px;overflow:hidden;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--sh-lg);transform:rotateY(-4deg) rotateX(2deg) translateZ(0);transition:transform .7s var(--ease)}
-.hero-visual:hover .app{transform:rotateY(-1.5deg) rotateX(1deg) translateY(-5px)}
+/* Mockup en capas (estilo Holded, en crema): navegador + teléfono superpuesto */
+.browser{position:relative;z-index:1;border-radius:16px;overflow:hidden;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--sh-lg);transition:transform .6s var(--ease)}
+.hero-visual:hover .browser{transform:translateY(-4px)}
+.browser-bar{display:flex;align-items:center;gap:7px;padding:11px 16px;background:#faf8f3;border-bottom:1px solid var(--hair-2)}
+.browser-bar i{width:10px;height:10px;border-radius:50%;background:#dcd5c7;display:block}
+.browser-bar i:nth-child(1){background:#e7b9ab}
+.browser-bar i:nth-child(2){background:#ecd6a3}
+.browser-bar i:nth-child(3){background:#bcd8b0}
+.browser-bar .url{margin:0 auto;font-size:11px;color:var(--faint);font-weight:500;background:#fff;border:1px solid var(--hair-2);border-radius:8px;padding:4px 18px}
 .app-shot{display:block;width:100%;height:auto}
-.app-bar{display:flex;align-items:center;gap:6px;padding:11px 14px;background:#faf8f3;border-bottom:1px solid var(--hair-2)}
-.app-bar i{width:9px;height:9px;border-radius:50%;background:#d9d2c4;display:block}
-.app-bar span{margin-left:12px;font-size:10px;color:var(--faint);font-weight:600;letter-spacing:.03em}
+.phone{position:absolute;z-index:2;right:-26px;bottom:-38px;width:172px;border-radius:30px;background:#1C1C28;padding:6px;box-shadow:0 34px 70px -24px rgba(28,28,40,.5);transition:transform .6s var(--ease)}
+.phone img{display:block;width:100%;height:auto;border-radius:24px}
+.hero-visual:hover .phone{transform:translateY(-6px)}
 .app-body{display:grid;grid-template-columns:132px 1fr;min-height:312px}
 .app-side{padding:14px 10px;border-right:1px solid var(--hair-2);background:#faf8f3}
 .app-side .lbl{font-size:8.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);padding:7px 9px;margin-top:9px}
@@ -125,7 +131,7 @@ nav.expanded{max-width:1220px;column-gap:38px;background:rgba(255,255,255,.92);b
 .app-row .pill{font-size:8px;font-weight:700;padding:2px 8px;border-radius:var(--r-pill);background:rgba(201,169,110,.16);color:var(--gold-d);white-space:nowrap}
 .app-row .n{color:var(--ink);font-weight:500}
 .app-row .t{margin-left:auto;color:var(--faint);font-size:9px;white-space:nowrap}
-.chip{position:absolute;left:-26px;bottom:30px;display:flex;align-items:center;gap:9px;padding:12px 16px;border-radius:14px;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--sh);font-size:12.5px;font-weight:600;color:var(--ink)}
+.chip{position:absolute;z-index:3;left:-28px;top:104px;display:flex;align-items:center;gap:9px;padding:12px 16px;border-radius:14px;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--sh);font-size:12.5px;font-weight:600;color:var(--ink)}
 .chip .ai{width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 10px rgba(31,168,157,.7)}
 
 /* ════════════════════════ Sections ════════════════════════ */
@@ -198,9 +204,9 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
 /* ════════════════════════ Responsive ════════════════════════ */
 @media(max-width:920px){
   .hero-grid{grid-template-columns:1fr;gap:50px}
-  .hero-visual{justify-self:center;max-width:460px;order:2;perspective:none}
-  .app{transform:none}
-  .chip{left:6px}
+  .hero-visual{justify-self:center;max-width:440px;order:2}
+  .phone{width:132px;right:-12px;bottom:-26px}
+  .chip{left:-8px;top:62px}
   .benefits{grid-template-columns:1fr}
   .showcase,.showcase.reverse{grid-template-columns:1fr;gap:40px}
   .showcase.reverse .sc-visual{order:1}
@@ -212,13 +218,14 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
   .benefit{flex-direction:column;gap:14px;padding:26px 22px}
   .price-card{padding:40px 24px}
   .price-amt .num{font-size:52px}
-  .app-body{grid-template-columns:108px 1fr}
-  .chip{left:6px;bottom:12px;font-size:11px;padding:9px 12px}
+  .phone{width:104px;right:-4px;bottom:-16px;border-radius:24px;padding:5px}
+  .phone img{border-radius:19px}
+  .chip{left:-4px;top:46px;bottom:auto;font-size:11px;padding:9px 12px}
   .sc-tag,.sc-tag.l{left:auto;right:8px;bottom:10px;font-size:11px;padding:9px 12px}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;transition-duration:.001ms!important}
-  .reveal{opacity:1;transform:none}.glow{animation:none!important}.app{transform:none}
+  .reveal{opacity:1;transform:none}.glow{animation:none!important}.browser,.phone{transform:none}
 }
 </style>
 </head>
@@ -260,9 +267,14 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
         <div class="hero-trust"><span class="d"></span>Hecho para despachos de 1 a 10 abogados</div>
       </div>
       <div class="hero-visual reveal">
-        <div class="app">
-          <div class="app-bar"><i></i><i></i><i></i><span>VELIA · mi despacho</span></div>
+        <!-- Navegador con el panel del despacho (la gestión) -->
+        <div class="browser">
+          <div class="browser-bar"><i></i><i></i><i></i><span class="url">portal.veliacorp.com</span></div>
           <img src="/img/product/expedientes.png" class="app-shot" alt="Panel de VELIA con los expedientes del despacho" loading="lazy"/>
+        </div>
+        <!-- Teléfono con la asistenta VELIA (la IA), superpuesto -->
+        <div class="phone">
+          <img src="/img/product/asistenta-mobile.png" alt="VELIA, la asistenta IA legal, en el móvil del despacho" loading="lazy"/>
         </div>
         <div class="chip"><span class="ai"></span>«VELIA, redáctame un burofax» → hecho</div>
       </div>
