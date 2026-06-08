@@ -144,19 +144,19 @@ nav.expanded{max-width:1220px;column-gap:38px;background:rgba(255,255,255,.92);b
 .ld-frame{position:relative;z-index:1;max-width:1060px;margin:0 auto;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 44px 100px -34px rgba(0,0,0,.75);background:#fff}
 .demo-app{display:grid;grid-template-columns:62px 1fr;height:600px;background:#FAFAF7}
 /* Barra lateral comprimida — solo iconos, nombre en tooltip al pasar el ratón (como Holded) */
-.demo-side{background:#fff;border-right:1px solid var(--hair-2);padding:14px 0;display:flex;flex-direction:column;align-items:center;gap:4px}
-.demo-logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(150deg,#26263a,#15151f);display:flex;align-items:center;justify-content:center;margin-bottom:11px;flex-shrink:0}
-.demo-logo svg{width:15px;height:15px;stroke:var(--gold-l);fill:none;stroke-width:1.6}
-.demo-nav{position:relative;width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#9499a5;cursor:pointer;border:0;background:none;transition:background .18s,color .18s}
-.demo-nav:hover{background:#f2f0ea;color:var(--ink-2)}
-.demo-nav.on{background:#1C1C28;color:#fff}
+.demo-side{background:#1C1C28;border-right:1px solid rgba(255,255,255,.06);padding:14px 0;display:flex;flex-direction:column;align-items:center;gap:4px}
+.demo-logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(150deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;margin-bottom:11px;flex-shrink:0}
+.demo-logo svg{width:15px;height:15px;stroke:#1C1C28;fill:none;stroke-width:1.7}
+.demo-nav{position:relative;width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;color:rgba(237,233,225,.55);cursor:pointer;border:0;background:none;transition:background .18s,color .18s}
+.demo-nav:hover{background:rgba(255,255,255,.06);color:rgba(237,233,225,1)}
+.demo-nav.on{background:rgba(201,169,110,.18);color:var(--gold-l)}
 .demo-nav svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .demo-nav .tip{position:absolute;left:calc(100% + 11px);top:50%;transform:translateY(-50%);background:#1C1C28;color:#fff;font-size:11px;font-weight:600;padding:5px 11px;border-radius:7px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .16s;z-index:6;box-shadow:0 8px 22px -8px rgba(0,0,0,.4)}
 .demo-nav .tip::before{content:"";position:absolute;right:100%;top:50%;transform:translateY(-50%);border:5px solid transparent;border-right-color:#1C1C28}
 .demo-nav:hover .tip{opacity:1}
 .demo-sp{flex:1}
-.demo-av{width:32px;height:32px;border-radius:50%;background:#1C1C28;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;position:relative;flex-shrink:0}
-.demo-av::after{content:"";position:absolute;right:-1px;bottom:-1px;width:9px;height:9px;border-radius:50%;background:var(--signal);border:2px solid #fff}
+.demo-av{width:32px;height:32px;border-radius:50%;background:var(--gold);color:#1C1C28;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;position:relative;flex-shrink:0}
+.demo-av::after{content:"";position:absolute;right:-1px;bottom:-1px;width:9px;height:9px;border-radius:50%;background:var(--signal);border:2px solid #1C1C28}
 .demo-main{padding:22px 24px;overflow-y:auto;overflow-x:hidden}
 .dv{display:none}
 .dv.on{display:block;animation:dfade .34s var(--ease)}
@@ -164,7 +164,7 @@ nav.expanded{max-width:1220px;column-gap:38px;background:rgba(255,255,255,.92);b
 .dv-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:18px}
 .dv-h{font-size:17px;font-weight:700;color:var(--ink-2);letter-spacing:-.02em}
 .dv-s{font-size:12px;color:var(--faint);margin-top:2px}
-.dv-new{display:inline-flex;align-items:center;gap:6px;background:#1C1C28;color:#fff;font-size:12px;font-weight:600;padding:8px 13px;border-radius:9px;white-space:nowrap;flex-shrink:0}
+.dv-new{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:#1C1C28;font-size:12px;font-weight:700;padding:8px 13px;border-radius:9px;white-space:nowrap;flex-shrink:0}
 .dk{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:18px}
 .dk-c{padding:13px 14px;border:1px solid var(--hair-2);border-radius:12px;background:#fff;box-shadow:var(--sh-sm)}
 .dk-c .k{font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
@@ -187,15 +187,13 @@ nav.expanded{max-width:1220px;column-gap:38px;background:rgba(255,255,255,.92);b
 .t-agenda>div{grid-template-columns:1.7fr 1fr 70px}
 .t-cont>div{grid-template-columns:1.4fr 1fr 84px}
 .t-plazos>div{grid-template-columns:1.7fr 1fr 86px}
+/* Pills con la paleta VELIA: Gold #C9A96E, Signal/Teal #4ECDC4, Pulse #6C5CE7 */
 .pill{font-size:9.5px;font-weight:700;padding:3px 9px;border-radius:var(--r-pill);white-space:nowrap;display:inline-block}
-.pill.blue{background:#e9effb;color:#2a62c9}
-.pill.purp{background:#efeafc;color:#7a52d6}
-.pill.orng{background:#fcefe1;color:#cf7320}
-.pill.teal{background:#e3f5f1;color:#15897f}
 .pill.gold{background:rgba(201,169,110,.18);color:var(--gold-d)}
-.pill.gray{background:#eef0f2;color:#6b7280}
-.pill.red{background:#fbe9e7;color:#c0443c}
-.pill.green{background:#e6f6ea;color:#1f9d54}
+.pill.teal{background:rgba(78,205,196,.2);color:#0f8a7f}
+.pill.pulse{background:rgba(108,92,231,.13);color:#5a4bd0}
+.pill.gray{background:rgba(28,28,40,.06);color:rgba(28,28,40,.55)}
+.pill.red{background:rgba(224,86,78,.12);color:#c0443c}
 .dchat{display:flex;flex-direction:column;gap:11px;max-width:600px}
 .dmsg{padding:12px 15px;border-radius:14px;font-size:12.5px;line-height:1.55}
 .dmsg.u{align-self:flex-end;background:#1C1C28;color:#EDE9E1;border-bottom-right-radius:5px;max-width:82%}
@@ -414,9 +412,9 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
             </div>
             <div class="dtable t-exp">
               <div class="th"><span>Expediente</span><span>Cliente</span><span>Área</span><span>Estado</span></div>
-              <div class="tr"><div class="nm"><span class="em">👨‍👩‍👧</span><b>Divorcio contencioso</b></div><div class="mut">Marta Soto · FAM-2026-014</div><div><span class="pill blue">Familia</span></div><div><span class="pill teal">En proceso</span></div></div>
-              <div class="tr"><div class="nm"><span class="em">📑</span><b>Reclamación de cantidad</b></div><div class="mut">Pérez S.L. · MER-2026-031</div><div><span class="pill purp">Mercantil</span></div><div><span class="pill teal">En proceso</span></div></div>
-              <div class="tr"><div class="nm"><span class="em">💼</span><b>Despido improcedente</b></div><div class="mut">M. Castillo · LAB-2026-022</div><div><span class="pill orng">Laboral</span></div><div><span class="pill gray">Abierto</span></div></div>
+              <div class="tr"><div class="nm"><span class="em">👨‍👩‍👧</span><b>Divorcio contencioso</b></div><div class="mut">Marta Soto · FAM-2026-014</div><div><span class="pill gold">Familia</span></div><div><span class="pill teal">En proceso</span></div></div>
+              <div class="tr"><div class="nm"><span class="em">📑</span><b>Reclamación de cantidad</b></div><div class="mut">Pérez S.L. · MER-2026-031</div><div><span class="pill pulse">Mercantil</span></div><div><span class="pill teal">En proceso</span></div></div>
+              <div class="tr"><div class="nm"><span class="em">💼</span><b>Despido improcedente</b></div><div class="mut">M. Castillo · LAB-2026-022</div><div><span class="pill teal">Laboral</span></div><div><span class="pill gray">Abierto</span></div></div>
               <div class="tr"><div class="nm"><span class="em">🏛️</span><b>Herencia y partición</b></div><div class="mut">Familia Romero · CIV-2026-009</div><div><span class="pill gold">Civil</span></div><div><span class="pill teal">En proceso</span></div></div>
               <div class="tr"><div class="nm"><span class="em">🏠</span><b>Compraventa de inmueble</b></div><div class="mut">J. Aranda · CIV-2026-041</div><div><span class="pill gold">Civil</span></div><div><span class="pill gray">Abierto</span></div></div>
             </div>
@@ -442,9 +440,9 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
             </div>
             <div class="dtable t-cont">
               <div class="th"><span>Nombre</span><span>Email</span><span>Estado</span></div>
-              <div class="tr"><div class="nm"><span class="av">MS</span><b>Marta Soto</b></div><div class="mut">marta.soto@gmail.com</div><div><span class="pill green">Cliente</span></div></div>
-              <div class="tr"><div class="nm"><span class="av">JR</span><b>Javier Romero</b></div><div class="mut">jromero@romerosl.es</div><div><span class="pill green">Cliente</span></div></div>
-              <div class="tr"><div class="nm"><span class="av">MC</span><b>Miguel Castillo</b></div><div class="mut">m.castillo@outlook.es</div><div><span class="pill green">Cliente</span></div></div>
+              <div class="tr"><div class="nm"><span class="av">MS</span><b>Marta Soto</b></div><div class="mut">marta.soto@gmail.com</div><div><span class="pill teal">Cliente</span></div></div>
+              <div class="tr"><div class="nm"><span class="av">JR</span><b>Javier Romero</b></div><div class="mut">jromero@romerosl.es</div><div><span class="pill teal">Cliente</span></div></div>
+              <div class="tr"><div class="nm"><span class="av">MC</span><b>Miguel Castillo</b></div><div class="mut">m.castillo@outlook.es</div><div><span class="pill teal">Cliente</span></div></div>
               <div class="tr"><div class="nm"><span class="av">LA</span><b>Lucía Andrade</b></div><div class="mut">lucia.andrade@gmail.com</div><div><span class="pill gold">Lead</span></div></div>
               <div class="tr"><div class="nm"><span class="av">PV</span><b>Pablo Vidal</b></div><div class="mut">pablo@vidalasoc.com</div><div><span class="pill gold">Lead</span></div></div>
             </div>
