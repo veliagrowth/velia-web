@@ -87,7 +87,7 @@ nav.expanded{max-width:1220px;column-gap:38px;background:rgba(255,255,255,.92);b
 .glow-3{width:520px;height:520px;background:radial-gradient(circle,rgba(108,92,231,.08) 0%,transparent 64%);filter:blur(100px);top:10%;left:30%;animation:gF 26s ease-in-out infinite .8s}
 @keyframes gF{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(26px,-20px) scale(1.04)}66%{transform:translate(-20px,16px) scale(.97)}}
 .hero .wrap{position:relative;z-index:2}
-.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:54px;align-items:center}
+.hero-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:44px;align-items:center}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:24px;padding:7px 14px 7px 11px;background:var(--paper);border:1px solid var(--hair);border-radius:var(--r-pill);box-shadow:var(--sh-sm)}
 .hero-eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 10px rgba(31,168,157,.6)}
 .hero h1{font-size:clamp(40px,5.7vw,70px);margin-bottom:22px}
@@ -96,11 +96,11 @@ nav.expanded{max-width:1220px;column-gap:38px;background:rgba(255,255,255,.92);b
 .hero-ctas{display:flex;flex-wrap:wrap;gap:14px}
 .hero-trust{display:flex;align-items:center;gap:9px;margin-top:32px;font-size:13px;color:var(--faint)}
 .hero-trust .d{width:5px;height:5px;border-radius:50%;background:var(--signal)}
-.hero-visual{position:relative;justify-self:end;width:100%;max-width:480px;perspective:1600px}
+.hero-visual{position:relative;justify-self:end;width:100%;max-width:600px;perspective:1800px}
 
 /* Mockup del portal (claro, fiel al producto, con profundidad) */
-.app{border-radius:18px;overflow:hidden;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--sh-lg);transform:rotateY(-7deg) rotateX(3deg) translateZ(0);transition:transform .7s var(--ease)}
-.hero-visual:hover .app{transform:rotateY(-3deg) rotateX(1.5deg) translateY(-4px)}
+.app{border-radius:18px;overflow:hidden;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--sh-lg);transform:rotateY(-4deg) rotateX(2deg) translateZ(0);transition:transform .7s var(--ease)}
+.hero-visual:hover .app{transform:rotateY(-1.5deg) rotateX(1deg) translateY(-5px)}
 .app-shot{display:block;width:100%;height:auto}
 .app-bar{display:flex;align-items:center;gap:6px;padding:11px 14px;background:#faf8f3;border-bottom:1px solid var(--hair-2)}
 .app-bar i{width:9px;height:9px;border-radius:50%;background:#d9d2c4;display:block}
