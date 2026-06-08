@@ -134,23 +134,56 @@ nav.expanded{max-width:1220px;column-gap:38px;background:rgba(255,255,255,.92);b
 .chip{position:absolute;z-index:3;left:-28px;top:104px;display:flex;align-items:center;gap:9px;padding:12px 16px;border-radius:14px;background:var(--paper);border:1px solid var(--hair);box-shadow:var(--sh);font-size:12.5px;font-weight:600;color:var(--ink)}
 .chip .ai{width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 10px rgba(31,168,157,.7)}
 
-/* ════════════════════════ Demo interactiva (iframe real del portal) ════════════════════════ */
+/* ════════════════════════ Demo interactiva (CRM-maqueta fiel, sin iframe) ════════════════════════ */
 .livedemo{background:var(--bg-2)}
 .ld-head{max-width:680px;margin:0 auto var(--sp-8);text-align:center}
 .ld-head .eyebrow{display:block;margin-bottom:16px}
 .ld-head h2{font-size:clamp(30px,4vw,46px);margin-bottom:16px}
 .ld-head p{font-size:clamp(16px,1.4vw,18px);color:var(--muted);font-weight:300;max-width:58ch;margin:0 auto}
 .ld-frame{border-radius:16px;overflow:hidden;border:1px solid var(--hair);box-shadow:var(--sh-lg);background:var(--paper)}
-.ld-stage{position:relative;width:100%;height:720px;background:#fff}
-.ld-stage iframe{display:block;width:100%;height:100%;border:0;background:#fff}
-.ld-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
-.ld-stage::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,28,40,0),rgba(28,28,40,.28));pointer-events:none}
-.ld-stage.on::after{display:none}
-.ld-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:var(--r-pill);background:var(--gold);color:var(--ink-2);font-size:15px;font-weight:700;box-shadow:0 18px 44px -14px rgba(201,169,110,.7);cursor:pointer;transition:transform .25s var(--ease),background .25s var(--ease)}
-.ld-play:hover{transform:translate(-50%,-50%) scale(1.04);background:var(--gold-l)}
-.ld-play-ic{font-size:12px}
+/* CRM-maqueta interactivo (fiel al portal, datos de ejemplo, sin iframe ni login) */
+.demo-app{display:grid;grid-template-columns:216px 1fr;height:592px;background:#FAFAF7}
+.demo-side{background:#1C1C28;padding:15px 11px;display:flex;flex-direction:column;gap:2px;overflow:hidden}
+.demo-brand{display:flex;align-items:center;gap:9px;padding:5px 7px 15px;margin-bottom:6px;border-bottom:1px solid rgba(255,255,255,.07)}
+.demo-brand .lg{width:27px;height:27px;border-radius:7px;background:linear-gradient(150deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;color:#1C1C28;font-weight:800;font-size:13px;flex-shrink:0}
+.demo-brand b{color:#EDE9E1;font-size:12.5px;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.demo-brand b span{display:block;font-size:9px;color:rgba(237,233,225,.4);font-weight:500;letter-spacing:0}
+.demo-nav{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;font-size:12.5px;font-weight:500;color:rgba(237,233,225,.55);cursor:pointer;transition:background .2s,color .2s;border:0;background:none;text-align:left;width:100%;font-family:inherit}
+.demo-nav:hover{background:rgba(255,255,255,.05);color:rgba(237,233,225,.92)}
+.demo-nav.on{background:rgba(201,169,110,.16);color:var(--gold-l);font-weight:600}
+.demo-nav svg{width:16px;height:16px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.demo-main{padding:22px 24px;overflow-y:auto}
+.dv{display:none}
+.dv.on{display:block;animation:dfade .34s var(--ease)}
+@keyframes dfade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.dv-h{font-size:17px;font-weight:700;color:var(--ink-2);letter-spacing:-.02em}
+.dv-s{font-size:12px;color:var(--faint);margin:2px 0 18px}
+.dk{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:20px}
+.dk-c{padding:13px 14px;border:1px solid var(--hair-2);border-radius:12px;background:#fff;box-shadow:var(--sh-sm)}
+.dk-c .k{font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+.dk-c .v{font-size:23px;font-weight:700;color:var(--ink-2);letter-spacing:-.02em}
+.dk-c .v em{font-style:normal;font-size:10.5px;color:var(--gold-d);font-weight:600;margin-left:4px}
+.dv-lbl{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin:0 0 9px}
+.dl{display:flex;flex-direction:column;gap:7px}
+.dl-row{display:flex;align-items:center;gap:12px;padding:11px 14px;background:#fff;border:1px solid var(--hair-2);border-radius:11px;box-shadow:var(--sh-sm);font-size:12.5px}
+.dl-row .ti{font-weight:600;color:var(--ink)}
+.dl-row .su{color:var(--faint);font-size:11px;margin-top:1px}
+.dl-row .rt{margin-left:auto;display:flex;align-items:center;gap:9px;flex-shrink:0}
+.pill{font-size:9.5px;font-weight:700;padding:3px 9px;border-radius:var(--r-pill);white-space:nowrap}
+.pill.g{background:rgba(201,169,110,.16);color:var(--gold-d)}
+.pill.t{background:rgba(31,168,157,.15);color:#178a80}
+.pill.r{background:rgba(224,86,78,.12);color:#c0443c}
+.pill.n{background:rgba(28,28,40,.06);color:rgba(28,28,40,.55)}
+.dl-row .d{font-size:11px;color:var(--faint);white-space:nowrap}
+.dchat{display:flex;flex-direction:column;gap:11px;max-width:580px}
+.dmsg{padding:12px 15px;border-radius:14px;font-size:12.5px;line-height:1.55}
+.dmsg.u{align-self:flex-end;background:#1C1C28;color:#EDE9E1;border-bottom-right-radius:5px;max-width:82%}
+.dmsg.a{align-self:flex-start;background:#fff;border:1px solid var(--hair-2);color:var(--ink);border-bottom-left-radius:5px;box-shadow:var(--sh-sm)}
+.dmsg.a .src{margin-top:9px;font-size:10.5px;color:var(--gold-d);font-weight:600;display:flex;align-items:center;gap:6px}
+.dmsg.a .src::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--signal)}
+.dchat-in{display:flex;align-items:center;gap:9px;margin-top:5px;max-width:580px;padding:11px 14px;background:#fff;border:1px solid var(--hair-2);border-radius:12px;color:var(--faint);font-size:12px;box-shadow:var(--sh-sm)}
+.dchat-in .snd{margin-left:auto;width:26px;height:26px;border-radius:8px;background:var(--gold);color:#1C1C28;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
 .ld-note{text-align:center;font-size:13px;color:var(--faint);margin-top:18px}
-.ld-mobile{display:none}
 
 /* ════════════════════════ Sections ════════════════════════ */
 section{position:relative;padding:var(--sp-12) 0}
@@ -227,9 +260,13 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
   .browser{display:none}
   .chip{display:none}
   .phone{display:block;position:static;width:100%;max-width:240px;right:auto;bottom:auto;margin:0 auto}
-  /* La demo embebida (iframe de escritorio) no funciona bien en móvil → botón */
-  .ld-frame,.ld-note{display:none}
-  .ld-mobile{display:flex;justify-content:center}
+  /* CRM-maqueta en móvil: barra lateral → pestañas horizontales arriba */
+  .demo-app{grid-template-columns:1fr;height:auto}
+  .demo-side{flex-direction:row;overflow-x:auto;gap:5px;padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.07);-webkit-overflow-scrolling:touch}
+  .demo-brand{display:none}
+  .demo-nav{width:auto;white-space:nowrap;padding:7px 12px}
+  .demo-main{min-height:440px}
+  .dk{grid-template-columns:1fr 1fr}
   .benefits{grid-template-columns:1fr}
   .showcase,.showcase.reverse{grid-template-columns:1fr;gap:40px}
   .showcase.reverse .sc-visual{order:1}
@@ -305,27 +342,81 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
   </div>
 </header>
 
-<!-- ═══════════ DEMO INTERACTIVA (iframe real del portal) ═══════════ -->
+<!-- ═══════════ DEMO INTERACTIVA (CRM-maqueta fiel, sin iframe ni login) ═══════════ -->
 <section class="livedemo">
   <div class="wrap">
     <div class="ld-head reveal">
-      <span class="eyebrow">Demo en vivo · sin registrarte</span>
-      <h2>Pruébalo tú mismo</h2>
-      <p>Esto es VELIA de verdad, no un vídeo. Haz clic, abre un expediente, mira los plazos, habla con la asistenta. Es un despacho de ejemplo para que lo toques.</p>
+      <span class="eyebrow">El producto · no un vídeo</span>
+      <h2>Tócalo tú mismo</h2>
+      <p>Una representación fiel de VELIA con un despacho de ejemplo. Cambia de vista, mira los expedientes y los plazos, habla con la asistenta. Sin registrarte.</p>
     </div>
     <div class="ld-frame reveal">
       <div class="browser-bar"><i></i><i></i><i></i><span class="url">portal.veliacorp.com</span></div>
-      <div class="ld-stage" id="ldStage">
-        <img src="/img/product/expedientes.png" class="ld-poster" alt="Vista previa del panel de VELIA"/>
-        <button type="button" class="ld-play" id="ldPlay" aria-label="Cargar la demo interactiva">
-          <span class="ld-play-ic">▶</span> Probar la demo en vivo
-        </button>
+      <div class="demo-app">
+        <aside class="demo-side">
+          <div class="demo-brand"><div class="lg">N</div><b>Nelson &amp; Murdock<span>VELIA Legal</span></b></div>
+          <button class="demo-nav on" data-v="panel"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Panel</button>
+          <button class="demo-nav" data-v="expedientes"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Expedientes</button>
+          <button class="demo-nav" data-v="agenda"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>Agenda</button>
+          <button class="demo-nav" data-v="asistenta"><svg viewBox="0 0 24 24"><path d="M12 3l1.7 4.5L18 9l-4.3 1.5L12 15l-1.7-4.5L6 9l4.3-1.5z"/></svg>Asistenta IA</button>
+        </aside>
+        <div class="demo-main">
+          <!-- Panel -->
+          <div class="dv on" data-v="panel">
+            <div class="dv-h">Panel</div>
+            <div class="dv-s">Bienvenido, Matthew · Bufete Nelson &amp; Murdock</div>
+            <div class="dk">
+              <div class="dk-c"><div class="k">Expedientes</div><div class="v">18</div></div>
+              <div class="dk-c"><div class="k">Plazos · 7 días</div><div class="v">4 <em>2 urgentes</em></div></div>
+              <div class="dk-c"><div class="k">Clientes</div><div class="v">32</div></div>
+              <div class="dk-c"><div class="k">Tareas</div><div class="v">7</div></div>
+            </div>
+            <div class="dv-lbl">Próximos plazos</div>
+            <div class="dl">
+              <div class="dl-row"><div><div class="ti">Contestación a la demanda</div><div class="su">Pérez vs. Construcciones del Sur S.L.</div></div><div class="rt"><span class="pill r">Vence en 3 días</span></div></div>
+              <div class="dl-row"><div><div class="ti">Recurso de apelación</div><div class="su">Herederos de J. Romero</div></div><div class="rt"><span class="pill g">5 días</span></div></div>
+              <div class="dl-row"><div><div class="ti">Presentación de pruebas</div><div class="su">Laboral · M. Castillo</div></div><div class="rt"><span class="pill n">9 días</span></div></div>
+            </div>
+          </div>
+          <!-- Expedientes -->
+          <div class="dv" data-v="expedientes">
+            <div class="dv-h">Expedientes</div>
+            <div class="dv-s">18 activos · 4 áreas de práctica</div>
+            <div class="dl">
+              <div class="dl-row"><div><div class="ti">Divorcio contencioso — M. Soto</div><div class="su">FAM-2026-014</div></div><div class="rt"><span class="pill g">Familia</span><span class="pill t">En proceso</span></div></div>
+              <div class="dl-row"><div><div class="ti">Reclamación de cantidad — Pérez S.L.</div><div class="su">MER-2026-031</div></div><div class="rt"><span class="pill g">Mercantil</span><span class="pill t">En proceso</span></div></div>
+              <div class="dl-row"><div><div class="ti">Despido improcedente — M. Castillo</div><div class="su">LAB-2026-022</div></div><div class="rt"><span class="pill g">Laboral</span><span class="pill n">Abierto</span></div></div>
+              <div class="dl-row"><div><div class="ti">Herencia — Familia Romero</div><div class="su">CIV-2026-009</div></div><div class="rt"><span class="pill g">Civil</span><span class="pill t">En proceso</span></div></div>
+              <div class="dl-row"><div><div class="ti">Compraventa de inmueble — Aranda</div><div class="su">CIV-2026-041</div></div><div class="rt"><span class="pill g">Civil</span><span class="pill n">Abierto</span></div></div>
+            </div>
+          </div>
+          <!-- Agenda -->
+          <div class="dv" data-v="agenda">
+            <div class="dv-h">Agenda y plazos</div>
+            <div class="dv-s">Cálculo automático según la LEC + festivos de tu comunidad</div>
+            <div class="dl">
+              <div class="dl-row"><div><div class="ti">Contestación a la demanda</div><div class="su">Pérez vs. Construcciones del Sur · art. 404 LEC</div></div><div class="rt"><span class="d">vie 12 jun</span><span class="pill r">3 días</span></div></div>
+              <div class="dl-row"><div><div class="ti">Recurso de apelación</div><div class="su">Herederos de J. Romero</div></div><div class="rt"><span class="d">mié 17 jun</span><span class="pill g">5 días</span></div></div>
+              <div class="dl-row"><div><div class="ti">Vista oral</div><div class="su">Despido · M. Castillo · Sala 3</div></div><div class="rt"><span class="d">lun 22 jun</span><span class="pill n">10 días</span></div></div>
+              <div class="dl-row"><div><div class="ti">Presentación de pruebas</div><div class="su">Divorcio · M. Soto</div></div><div class="rt"><span class="d">jue 25 jun</span><span class="pill n">13 días</span></div></div>
+            </div>
+          </div>
+          <!-- Asistenta -->
+          <div class="dv" data-v="asistenta">
+            <div class="dv-h">Asistenta VELIA</div>
+            <div class="dv-s">Pregunta, redacta y consulta — siempre con la fuente</div>
+            <div class="dchat">
+              <div class="dmsg u">¿Qué plazo tengo para contestar a la demanda del expediente Pérez?</div>
+              <div class="dmsg a">El plazo para contestar a la demanda en juicio ordinario es de <strong>20 días hábiles</strong> desde el emplazamiento. En el expediente Pérez vs. Construcciones del Sur consta emplazamiento el 15 de mayo, por lo que vence el <strong>viernes 12 de junio</strong>.<div class="src">Fuente: art. 404 LEC · Expediente MER-2026-031</div></div>
+              <div class="dmsg u">Redáctame un borrador de la contestación</div>
+              <div class="dmsg a">Listo. He preparado un borrador de contestación a la demanda y lo he guardado en Documentos del expediente para que lo revises y completes los hechos.<div class="src">Borrador para revisión del letrado · no es asesoramiento</div></div>
+            </div>
+            <div class="dchat-in">Escribe a VELIA…<span class="snd">↑</span></div>
+          </div>
+        </div>
       </div>
     </div>
-    <p class="ld-note">Datos ficticios. En tu cuenta verás tu despacho, con tu marca.</p>
-    <div class="ld-mobile">
-      <a href="https://portal.veliacorp.com/api/demo/enter" target="_blank" rel="noopener" class="btn btn-primary">Abre la demo interactiva <span class="arr">→</span></a>
-    </div>
+    <p class="ld-note">Datos ficticios. En tu cuenta verás tu despacho, con tu marca y tus expedientes.</p>
   </div>
 </section>
 
@@ -470,16 +561,14 @@ addEventListener('scroll', onScroll, {passive:true}); onScroll();
 const burger = document.getElementById('navBurger'), mobile = document.getElementById('navMobile');
 burger.addEventListener('click', () => mobile.classList.toggle('open'));
 mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobile.classList.remove('open')));
-/* Demo en vivo: el iframe del portal se carga SOLO al pulsar (evita crear una sesión de demo por cada visita) */
-const ldPlay = document.getElementById('ldPlay');
-if (ldPlay) ldPlay.addEventListener('click', () => {
-  const stage = document.getElementById('ldStage');
-  const f = document.createElement('iframe');
-  f.src = 'https://portal.veliacorp.com/api/demo/enter';
-  f.title = 'Demo interactiva de VELIA';
-  stage.innerHTML = '';
-  stage.classList.add('on');
-  stage.appendChild(f);
+/* CRM-maqueta interactivo: cambia de vista al pulsar el menú (instantáneo, sin backend) */
+document.querySelectorAll('.demo-nav').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const v = btn.dataset.v;
+    document.querySelectorAll('.demo-nav').forEach(b => b.classList.toggle('on', b === btn));
+    document.querySelectorAll('.dv').forEach(p => p.classList.toggle('on', p.dataset.v === v));
+    document.querySelector('.demo-main').scrollTop = 0;
+  });
 });
 </script>
 </body>
