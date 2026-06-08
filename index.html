@@ -148,6 +148,15 @@ nav.expanded{max-width:1220px;column-gap:38px;background:rgba(255,255,255,.92);b
 .ld-bar i:nth-child(1){background:#e7b9ab}.ld-bar i:nth-child(2){background:#ecd6a3}.ld-bar i:nth-child(3){background:#bcd8b0}
 .ld-bar .url{margin:0 auto;font-size:11px;color:var(--faint);font-weight:500;background:#fff;border:1px solid rgba(28,28,40,.08);border-radius:8px;padding:4px 18px}
 .ld-iframe{display:block;width:100%;height:680px;border:0;background:#FBFAF6}
+/* Móvil: mockup estático (panel + teléfono) tipo Holded — sin iframe */
+.ld-mockup{display:none;position:relative;z-index:1;max-width:430px;margin:0 auto 46px}
+.ld-mbrowser{border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 30px 70px -28px rgba(0,0,0,.6);background:#fff}
+.ld-mbrowser .bar{display:flex;align-items:center;gap:6px;padding:9px 13px;background:#f4f1ea;border-bottom:1px solid rgba(28,28,40,.06)}
+.ld-mbrowser .bar i{width:8px;height:8px;border-radius:50%;background:#d9d2c4}
+.ld-mbrowser .bar i:nth-child(1){background:#e7b9ab}.ld-mbrowser .bar i:nth-child(2){background:#ecd6a3}.ld-mbrowser .bar i:nth-child(3){background:#bcd8b0}
+.ld-mbrowser img{display:block;width:100%;height:auto}
+.ld-mphone{position:absolute;right:-8px;bottom:-32px;width:40%;max-width:150px;border-radius:26px;background:#1C1C28;padding:5px;box-shadow:0 30px 60px -22px rgba(0,0,0,.55)}
+.ld-mphone img{display:block;width:100%;border-radius:21px}
 .ld-note{position:relative;z-index:1;text-align:center;font-size:12.5px;color:rgba(237,233,225,.42);margin-top:18px}
 
 /* ════════════════════════ Sections ════════════════════════ */
@@ -225,9 +234,9 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
   .browser{display:none}
   .chip{display:none}
   .phone{display:block;position:static;width:100%;max-width:240px;right:auto;bottom:auto;margin:0 auto}
-  /* Móvil: el iframe del portal se ve responsive */
-  .ld-frame{max-width:none}
-  .ld-iframe{height:560px}
+  /* Móvil: fuera el iframe interactivo; mockup estático (panel + teléfono) tipo Holded */
+  .ld-frame{display:none}
+  .ld-mockup{display:block}
   .benefits{grid-template-columns:1fr}
   .showcase,.showcase.reverse{grid-template-columns:1fr;gap:40px}
   .showcase.reverse .sc-visual{order:1}
@@ -309,11 +318,22 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
   <div class="wrap">
     <div class="ld-head reveal">
       <h2>VELIA <em>por dentro.</em></h2>
-      <p>Esto es lo que ve tu despacho cada mañana. Pasa el ratón por el menú, entra en cada sección y muévete a tu aire.</p>
+      <p>Esto es lo que ve tu despacho cada mañana: expedientes, plazos y tu asistenta IA, en un solo sitio.</p>
     </div>
+    <!-- Escritorio: CRM real interactivo embebido -->
     <div class="ld-frame reveal">
       <div class="ld-bar"><i></i><i></i><i></i><span class="url">portal.veliacorp.com</span></div>
       <iframe class="ld-iframe" src="https://portal.veliacorp.com/api/demo/enter" title="VELIA por dentro — el CRM real en modo demo" loading="lazy"></iframe>
+    </div>
+    <!-- Móvil: mockup estático (panel + teléfono), no interactivo -->
+    <div class="ld-mockup reveal">
+      <div class="ld-mbrowser">
+        <div class="bar"><i></i><i></i><i></i></div>
+        <img src="/img/product/expedientes.png" alt="Panel de VELIA en el escritorio" loading="lazy"/>
+      </div>
+      <div class="ld-mphone">
+        <img src="/img/product/asistenta-mobile.png" alt="VELIA en el móvil del despacho" loading="lazy"/>
+      </div>
     </div>
     <p class="ld-note">Datos de ejemplo · en tu cuenta lo verás con tu marca y tus expedientes.</p>
   </div>
