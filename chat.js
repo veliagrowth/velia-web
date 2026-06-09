@@ -5,7 +5,7 @@
   window.__veliaChatLoaded = true;
 
   /* ───────── API config ───────── */
-  const API_URL = 'https://portal.veliacorp.com/api/velia-chat';
+  const API_URL = 'https://app.veliacorp.com/api/velia-chat';
 
   /* ───────── State ───────── */
   const SKEY = 'velia_chat_v1';
