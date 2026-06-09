@@ -478,6 +478,8 @@ footer{border-top:1px solid var(--hair);padding:46px 0 40px;background:var(--bg)
 
 <script>
 document.documentElement.classList.add('js');
+/* Failsafe (lección d74d8a67): pase lo que pase, nada queda oculto a los 2.6s */
+setTimeout(function(){ document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); }); }, 2600);
 document.getElementById('yr').textContent = new Date().getFullYear();
 
 /* Nav: compacta arriba → se expande y se vuelve sólida al hacer scroll */
