@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Claro editorial — reglas Impeccable: flat por defecto, motion mínima, prose 68ch */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-cream text-void antialiased;
+  font-weight: 400;
+}
+
+::selection {
+  background: rgba(201, 169, 110, 0.35);
+}
+
+/* Entradas sutiles (solo transform+opacity, expo-out, <300ms percibido) */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: none; }
+  }
+}
+
+/* Botón: feedback táctil (Emil: 100ms press) */
+a.btn, button.btn {
+  transition: transform 100ms cubic-bezier(0.16, 1, 0.3, 1), opacity 150ms ease;
+}
+a.btn:active, button.btn:active {
+  transform: scale(0.97);
+}
