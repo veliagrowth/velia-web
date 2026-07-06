@@ -3,11 +3,12 @@
 import { useState } from 'react'
 
 /**
- * Formulario de captación → webhook pipeline-new-lead del n8n SELF-HOST
- * (n8n.veliacorp.com — la web v2 apuntaba al Cloud decomisionado: lead loss).
+ * Formulario de captación → webhook web-form-lead del n8n SELF-HOST
+ * (inserta en velia_web_leads + notifica al equipo vía notify-new-lead).
+ * OJO: pipeline-new-lead NO vale aquí — exige tenant_id y rechazaba este payload con 400.
  * Errores SIEMPRE visibles (regla anti fallo-silencioso).
  */
-const LEAD_WEBHOOK = 'https://n8n.veliacorp.com/webhook/velia/pipeline-new-lead'
+const LEAD_WEBHOOK = 'https://n8n.veliacorp.com/webhook/velia/web-form-lead'
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: '', firm: '', email: '', phone: '', message: '' })
