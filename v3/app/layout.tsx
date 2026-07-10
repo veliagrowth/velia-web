@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://veliacorp.com'),
   title: 'VELIA — El software con el que tu despacho funciona solo',
   description:
-    'La plataforma sobre la que un despacho español opera el 100% de su software: CRM, IA legal con fuentes oficiales, plazos, facturación Verifactu y web, en una suscripción.',
+    'La plataforma sobre la que los despachos españoles operan el 100% de su software: CRM, IA legal con fuentes oficiales, plazos, facturación Verifactu y web, en una suscripción.',
   openGraph: {
     title: 'VELIA — El software con el que tu despacho funciona solo',
     description:

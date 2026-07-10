@@ -8,7 +8,7 @@ export default function Footer() {
         <div>
           <Image src="/VELIA_logotipo_claro.svg" alt="VELIA" width={104} height={26} className="h-[20px] w-auto mb-4" />
           <p className="text-xs leading-relaxed max-w-[36ch]">
-            La plataforma sobre la que un despacho español opera el 100% de su software.
+            La plataforma sobre la que los despachos españoles operan el 100% de su software.
           </p>
         </div>
         <div className="text-xs space-y-2.5">

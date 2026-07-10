@@ -15,7 +15,7 @@ export default function Home() {
             Un solo software.
           </h1>
           <p className="mt-7 text-lg md:text-xl text-void/60 leading-relaxed max-w-prose">
-            VELIA es la plataforma sobre la que un despacho español opera el 100% de su
+            VELIA es la plataforma sobre la que los despachos españoles operan el 100% de su
             software: clientes, expedientes, plazos, escritos con IA, facturación Verifactu
             y web — en una suscripción, sin piezas sueltas.
           </p>
