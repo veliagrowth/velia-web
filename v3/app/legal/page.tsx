@@ -10,26 +10,31 @@ export const metadata: Metadata = {
 const DAY = [
   {
     time: '08:30',
+    slug: 'puesta-al-dia',
     title: 'Entras y VELIA ya te ha puesto al día',
     body: 'Nada de repasar cinco pantallas: plazos que vencen, citas del día, mensajes pendientes y documentos recién llegados, en un parte de un vistazo. Lo primero que ves cada mañana.',
   },
   {
     time: '09:10',
+    slug: 'plazos',
     title: 'Un plazo, calculado según la LEC',
     body: 'VELIA computa los plazos procesales con las reglas reales — días inhábiles, agosto, prórroga del 133.4 — y te avisa con margen. Los vencimientos dejan de vivir en tu cabeza.',
   },
   {
     time: '11:00',
+    slug: 'escritos',
     title: 'Un escrito, redactado con fuentes',
     body: 'Pides una contestación o un informe y VELIA lo prepara citando el texto oficial del BOE artículo por artículo, con tus escritos anteriores como estilo. Tú revisas y firmas: el criterio siempre es tuyo.',
   },
   {
     time: '13:30',
+    slug: 'documentacion',
     title: 'La documentación llega sola',
     body: 'El cliente recibe su checklist en su portal, sube los documentos desde el móvil y VELIA los persigue por email hasta completarla. Se acabó el "te lo mando mañana".',
   },
   {
     time: '17:00',
+    slug: 'facturacion',
     title: 'La factura, conforme a Verifactu',
     body: 'Minutas y facturas emitidas desde el propio expediente, cumpliendo la normativa española de facturación. Sin exportar a otro programa.',
   },
@@ -54,7 +59,7 @@ export default function LegalPage() {
       <section className="mx-auto max-w-6xl px-6 pb-20">
         <ol className="relative border-l border-void/15 ml-3 space-y-12 md:space-y-14">
           {DAY.map(item => (
-            <li key={item.time} className="pl-8 md:pl-12 relative">
+            <li key={item.time} id={item.slug} className="pl-8 md:pl-12 relative scroll-mt-24">
               <span className="absolute -left-[5px] top-1.5 w-[9px] h-[9px] rounded-full bg-gold" />
               <p className="text-[11px] font-700 tracking-[0.18em] text-void/40 mb-1.5">{item.time}</p>
               <h2 className="text-xl md:text-2xl font-700 tracking-[-0.01em]">{item.title}</h2>
