@@ -123,16 +123,10 @@ export default function Nav() {
           ))}
           <a
             href={TRIAL_URL}
-            className="btn hidden lg:inline-block border border-void/20 text-void text-[11px] font-700 tracking-[0.1em] uppercase rounded-full px-5 py-2.5 hover:border-void/50 transition-colors whitespace-nowrap"
+            className="btn text-[11px] font-700 tracking-[0.1em] uppercase bg-void text-cream rounded-full px-5 py-2.5 hover:opacity-85 whitespace-nowrap"
           >
             Prueba gratis — 15 días
           </a>
-          <Link
-            href="/contacto"
-            className="btn text-[11px] font-700 tracking-[0.1em] uppercase bg-void text-cream rounded-full px-5 py-2.5 hover:opacity-85 whitespace-nowrap"
-          >
-            Agenda una demo
-          </Link>
         </div>
 
         {/* Móvil */}
@@ -247,21 +241,14 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
-          <div className="pt-2 flex flex-wrap gap-2">
+          <div className="pt-2">
             <a
               href={TRIAL_URL}
               onClick={() => setOpen(false)}
-              className="btn inline-block text-[11px] font-700 tracking-[0.1em] uppercase border border-void/20 text-void rounded-full px-5 py-2.5"
+              className="btn inline-block text-[11px] font-700 tracking-[0.1em] uppercase bg-void text-cream rounded-full px-5 py-2.5"
             >
               Prueba gratis — 15 días
             </a>
-            <Link
-              href="/contacto"
-              onClick={() => setOpen(false)}
-              className="btn inline-block text-[11px] font-700 tracking-[0.1em] uppercase bg-void text-cream rounded-full px-5 py-2.5"
-            >
-              Agenda una demo
-            </Link>
           </div>
         </div>
       )}

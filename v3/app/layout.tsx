@@ -12,19 +12,19 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://veliacorp.com'),
-  title: 'VELIA — El software con el que tu despacho funciona solo',
+  title: 'VELIA — Software para despachos de abogados con IA',
   description:
-    'La plataforma sobre la que los despachos españoles operan el 100% de su software: CRM, IA legal con fuentes oficiales, plazos, facturación Verifactu y web, en una suscripción.',
+    'Software de gestión para despachos de abogados en España: expedientes, plazos LEC, escritos con IA citando el BOE y facturación Verifactu. Prueba gratis 15 días.',
+  alternates: { canonical: 'https://veliacorp.com' },
   openGraph: {
-    title: 'VELIA — El software con el que tu despacho funciona solo',
+    title: 'VELIA — Software para despachos de abogados con IA',
     description:
-      'CRM, IA legal, plazos procesales, facturación Verifactu y web. Todo tu despacho en una plataforma, 199€/mes.',
+      'CRM jurídico, IA legal con fuentes oficiales, plazos procesales, facturación Verifactu y web del despacho. Todo en una plataforma desde 199€/mes.',
     url: 'https://veliacorp.com',
     siteName: 'VELIA',
     locale: 'es_ES',
     type: 'website',
   },
-  icons: { icon: '/favicon.svg' },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
