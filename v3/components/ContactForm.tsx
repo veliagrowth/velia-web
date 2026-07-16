@@ -105,7 +105,7 @@ export default function ContactForm() {
             className="mt-0.5 h-4 w-4 shrink-0 rounded border-void/25 accent-[#9A7840]"
           />
           <span className="text-[13px] leading-relaxed text-void/60">
-            He leído y acepto la <Link href="/privacidad" className="underline text-void/80 hover:text-gold-dark" target="_blank">política de privacidad</Link>.
+            He leído y acepto la <Link href="/privacidad" className="underline text-void/80 hover:text-gold-dark" target="_blank" rel="noopener noreferrer">política de privacidad</Link>.
           </span>
         </label>
         {consentError && (
