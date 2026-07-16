@@ -28,64 +28,78 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
       />
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-6xl px-6 pt-20 md:pt-32 pb-20">
-        <div className="max-w-3xl rise">
-          <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-6">
-            Plataforma de software legal
-          </p>
-          <h1 className="text-4xl md:text-6xl font-800 leading-[1.05] tracking-[-0.03em]">
-            Todo tu despacho.
-            <br />
-            Un solo software.
-          </h1>
-          <p className="mt-7 text-lg md:text-xl text-void/60 leading-relaxed max-w-prose">
-            VELIA es la plataforma sobre la que los despachos españoles operan el 100% de su
-            software: clientes, expedientes, plazos, escritos con IA, facturación Verifactu
-            y web — en una suscripción, sin piezas sueltas. Del abogado independiente al
-            gran bufete.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <Link
-              href="/contacto"
-              className="btn bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85"
-            >
-              Agenda una demo
-            </Link>
-            <Link
-              href="/precios#fundadores"
-              className="btn border border-void/20 text-void text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:border-void/50 transition-colors"
-            >
-              Hazte Fundador — 149€/mes
-            </Link>
+      {/* ── Hero — texto+CTAs a la izquierda, vídeo en loop a la derecha ──── */}
+      <section className="mx-auto max-w-6xl px-6 pt-16 md:pt-24 pb-20">
+        <div className="grid gap-12 md:grid-cols-[1.05fr_1fr] md:items-center">
+          <div className="rise">
+            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-6">
+              Plataforma de software legal
+            </p>
+            <h1 className="text-4xl md:text-[3.4rem] font-800 leading-[1.05] tracking-[-0.03em]">
+              Todo tu despacho.
+              <br />
+              Un solo software.
+            </h1>
+            <p className="mt-7 text-lg text-void/60 leading-relaxed max-w-prose">
+              VELIA es la plataforma sobre la que los despachos españoles operan el 100% de
+              su software: clientes, expedientes, plazos, escritos con IA, facturación
+              Verifactu y web — en una suscripción, sin piezas sueltas. Del abogado
+              independiente al gran bufete.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Link
+                href="/contacto"
+                className="btn bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85"
+              >
+                Agenda una demo
+              </Link>
+              <Link
+                href="/precios#fundadores"
+                className="btn border border-void/20 text-void text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:border-void/50 transition-colors"
+              >
+                Hazte Fundador — 149€/mes
+              </Link>
+            </div>
+          </div>
+
+          {/* Vídeo en loop (Mixkit, licencia libre) — la abogacía de siempre,
+              el software de ahora. Muted+playsInline para autoplay en móvil. */}
+          <div className="rise">
+            <video
+              className="w-full rounded-2xl border border-void/10 object-cover aspect-[4/3] md:aspect-[5/4]"
+              src="/videos/hero-abogacia.mp4"
+              poster="/videos/hero-abogacia-poster.jpg"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label="Un letrado firmando una resolución"
+            />
           </div>
         </div>
 
-        {/* Mock del cerebro: enseñar el producto, no ilustraciones abstractas */}
-        <div className="mt-16 md:mt-20 rounded-2xl border border-void/10 bg-deep p-4 md:p-6 shadow-none max-w-4xl">
-          <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-gold/60 mb-4 px-2">
-            VELIA · Tu puesta al día — hoy
-          </p>
-          <div className="space-y-3 px-2 pb-2">
-            <div className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 max-w-[52ch]">
-              <p className="text-cream/85 text-sm leading-relaxed">
-                Buenos días. Tienes <span className="text-gold">un plazo que vence el jueves</span> (contestación,
-                Juzgado nº 2), dos citas hoy y un cliente ha subido la documentación que
-                le pediste. ¿Preparo el borrador de la contestación?
-              </p>
-            </div>
-            <div className="flex justify-end">
-              <div className="rounded-xl bg-gold/15 px-4 py-3">
-                <p className="text-cream text-sm">Sí, prepáralo con los documentos del expediente.</p>
-              </div>
-            </div>
-            <div className="rounded-xl bg-white/5 border border-white/10 px-4 py-3 max-w-[52ch]">
-              <p className="text-cream/85 text-sm leading-relaxed">
-                Hecho: borrador listo en el expediente, con las fuentes citadas artículo por
-                artículo. Te lo dejo para revisar antes de presentar.
-              </p>
-            </div>
+        {/* Demo interactiva — tócala sin registro (escaparate solo lectura) */}
+        <div className="mt-16 md:mt-20 rounded-2xl border border-void/10 bg-deep px-8 py-8 md:px-10 md:py-9 grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
+          <div>
+            <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-gold/60 mb-2">
+              Demo interactiva
+            </p>
+            <p className="text-xl md:text-2xl font-700 tracking-[-0.01em] text-cream max-w-[30ch]">
+              No te lo contamos: tócalo.
+            </p>
+            <p className="mt-2 text-sm text-cream/55 leading-[1.6] max-w-[52ch]">
+              Entra en un despacho de demostración real y recorre VELIA por dentro —
+              expedientes, plazos, agenda y facturación. Sin registro y sin tocar nada:
+              es un escaparate de solo lectura.
+            </p>
           </div>
+          <Link
+            href="/demo"
+            className="btn justify-self-start md:justify-self-end bg-gold text-void text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85 whitespace-nowrap"
+          >
+            Abrir la demo
+          </Link>
         </div>
       </section>
 

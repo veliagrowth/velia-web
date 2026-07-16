@@ -26,11 +26,21 @@ body {
     to   { opacity: 1; transform: none; }
   }
 
-  /* Mega-menú del nav: entrada corta desde el trigger (Emil: dropdowns 200-300ms) */
+  /* Mega-menú del nav: se DESPLIEGA de arriba a abajo desde el trigger —
+     scaleY con origin top (el panel "se abre") + el contenido entra un pelín
+     después. Solo transform+opacity, expo-out, <300ms (Emil). */
   .menu-in {
-    animation: menuIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+    transform-origin: top center;
+    animation: menuIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   @keyframes menuIn {
+    from { opacity: 0; transform: translateY(-8px) scaleY(0.92); }
+    to   { opacity: 1; transform: none; }
+  }
+  .menu-in > * {
+    animation: menuContent 0.34s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes menuContent {
     from { opacity: 0; transform: translateY(-6px); }
     to   { opacity: 1; transform: none; }
   }

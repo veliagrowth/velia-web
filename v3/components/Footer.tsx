@@ -15,6 +15,7 @@ export default function Footer() {
         <div className="text-xs space-y-2.5">
           <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-cream/35 mb-3">Plataforma</p>
           <Link href="/legal" className="block hover:text-cream transition-colors">VELIA Legal</Link>
+          <Link href="/demo" className="block hover:text-cream transition-colors">Demo interactiva</Link>
           <Link href="/precios" className="block hover:text-cream transition-colors">Precios</Link>
           <Link href="/seguridad" className="block hover:text-cream transition-colors">Seguridad</Link>
           <Link href="/novedades" className="block hover:text-cream transition-colors">Novedades</Link>

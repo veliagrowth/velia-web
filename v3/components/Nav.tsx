@@ -35,6 +35,7 @@ const PRODUCT = [
 ]
 
 const LINKS = [
+  { href: '/demo', label: 'Demo' },
   { href: '/precios', label: 'Precios' },
   { href: '/seguridad', label: 'Seguridad' },
   { href: '/contacto', label: 'Contacto' },
