@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 
 /**
  * Formulario de captación → webhook web-form-lead del n8n SELF-HOST
@@ -12,11 +13,16 @@ const LEAD_WEBHOOK = 'https://n8n.veliacorp.com/webhook/velia/web-form-lead'
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: '', firm: '', email: '', phone: '', message: '' })
+  const [consent, setConsent] = useState(false)
+  const [consentError, setConsentError] = useState(false)
   const [state, setState] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle')
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (state === 'sending') return
+    // RGPD: doble guard junto al `required` nativo — error siempre visible.
+    if (!consent) { setConsentError(true); return }
+    setConsentError(false)
     setState('sending')
     try {
       const res = await fetch(LEAD_WEBHOOK, {
@@ -29,6 +35,8 @@ export default function ContactForm() {
           phone: form.phone,
           message: form.message,
           source: 'web-v3-contacto',
+          consent: true,
+          consent_at: new Date().toISOString(),
         }),
       })
       if (!res.ok) throw new Error()
@@ -86,6 +94,27 @@ export default function ContactForm() {
           className={`${input} resize-none`}
           placeholder="Cuéntanos cómo trabajáis hoy o qué quieres ver en la demo…"
         />
+      </div>
+      <div>
+        <label className="flex items-start gap-2.5 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            required
+            checked={consent}
+            onChange={e => { setConsent(e.target.checked); if (e.target.checked) setConsentError(false) }}
+            className="mt-0.5 h-4 w-4 shrink-0 rounded border-void/25 accent-[#9A7840]"
+          />
+          <span className="text-[13px] leading-relaxed text-void/60">
+            He leído y acepto la <Link href="/privacidad" className="underline text-void/80 hover:text-gold-dark" target="_blank">política de privacidad</Link>.
+          </span>
+        </label>
+        {consentError && (
+          <p className="mt-2 text-xs text-red-600">Necesitamos tu consentimiento para responderte.</p>
+        )}
+        <p className="mt-3 text-[11px] leading-relaxed text-void/40">
+          Responsable: VELIA Marketing SL · Finalidad: responder a tu solicitud y agendar la
+          demo · Derechos: acceso, rectificación y supresión en admin@veliacorp.com.
+        </p>
       </div>
       <div className="flex items-center gap-4">
         <button

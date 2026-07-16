@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { FOUNDERS_SEATS_LABEL } from '@/lib/constants'
 
 const INCLUDED = [
   'VELIA, tu asistente: escritos, informes y consultas con fuentes oficiales (BOE)',
@@ -12,7 +13,7 @@ const INCLUDED = [
   'Persecución automática de documentación al cliente',
   'Facturación conforme a Verifactu',
   'Web del despacho a medida — gratis de por vida',
-  'Inbox unificado: email, WhatsApp y mensajes del portal',
+  'Inbox unificado: email y mensajes del portal',
   'Datos alojados en la UE · aislamiento por despacho (RLS)',
 ]
 
@@ -115,7 +116,7 @@ export default function PricingPlans() {
               y voz en la hoja de ruta.
             </p>
             <p className="mt-4 text-[12px] font-700 tracking-[0.08em] uppercase text-gold-dark">
-              Quedan 4 de 5 plazas
+              Quedan {FOUNDERS_SEATS_LABEL}
             </p>
             <Link
               href="/contacto"

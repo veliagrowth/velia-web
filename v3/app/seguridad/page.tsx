@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: 'Seguridad — VELIA',
   description:
     'Cómo protege VELIA los datos de los despachos: aislamiento multi-tenant con Row Level Security, datos alojados en la UE, política de no entrenamiento de IA y cumplimiento RGPD.',
+  alternates: { canonical: 'https://veliacorp.com/seguridad' },
 }
 
 const PILLARS = [

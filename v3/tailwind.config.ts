@@ -16,6 +16,17 @@ export default {
       fontFamily: {
         sans: ['var(--font-montserrat)', 'sans-serif'],
       },
+      /* Escala numérica de pesos (spec tipográfica VELIA: 300 body, 600 labels,
+         700 H1/H2, 800 display). Sin esto, TODAS las clases font-NNN del markup
+         eran clases muertas y la web entera renderizaba a 400 (bug cazado 2026-07-16). */
+      fontWeight: {
+        '300': '300',
+        '400': '400',
+        '500': '500',
+        '600': '600',
+        '700': '700',
+        '800': '800',
+      },
       maxWidth: {
         prose: '68ch',
       },

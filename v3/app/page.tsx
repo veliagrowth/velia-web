@@ -1,8 +1,31 @@
 import Link from 'next/link'
+import LiveUpdates from '@/components/LiveUpdates'
+import { FOUNDERS_SEATS_LABEL, APP_URL, SITE_URL } from '@/lib/constants'
+
+const softwareJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'VELIA',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  url: SITE_URL,
+  description:
+    'Software de gestión para despachos de abogados en España: expedientes, plazos LEC, escritos con IA citando el BOE y facturación Verifactu.',
+  offers: {
+    '@type': 'Offer',
+    price: '199',
+    priceCurrency: 'EUR',
+    description: '199€/mes por despacho con un abogado incluido. Prueba gratis de 15 días.',
+  },
+}
 
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
+      />
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-6xl px-6 pt-20 md:pt-32 pb-20">
         <div className="max-w-3xl rise">
@@ -17,7 +40,8 @@ export default function Home() {
           <p className="mt-7 text-lg md:text-xl text-void/60 leading-relaxed max-w-prose">
             VELIA es la plataforma sobre la que los despachos españoles operan el 100% de su
             software: clientes, expedientes, plazos, escritos con IA, facturación Verifactu
-            y web — en una suscripción, sin piezas sueltas.
+            y web — en una suscripción, sin piezas sueltas. Del abogado independiente al
+            gran bufete.
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Link
@@ -160,10 +184,9 @@ export default function Home() {
                 que ves está dentro.
               </p>
               <div className="mt-8 inline-flex items-center gap-3 rounded-2xl border border-gold/30 bg-gold/10 px-5 py-4">
-                <span className="text-2xl">⚖️</span>
                 <p className="text-sm text-cream/85">
                   <strong className="font-700 text-gold-light">Programa Fundadores:</strong> 149€/mes
-                  congelado de por vida · quedan <strong className="font-700">4 de 5 plazas</strong>
+                  congelado de por vida · quedan <strong className="font-700">{FOUNDERS_SEATS_LABEL}</strong>
                 </p>
               </div>
             </div>
@@ -182,6 +205,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Producto vivo (novedades) — fallo seguro: null si el feed no responde */}
+      <LiveUpdates />
+
       {/* ── Descarga la app ──────────────────────────────────────────────── */}
       <section className="mx-auto max-w-6xl px-6 py-20 md:py-28">
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
@@ -198,7 +224,7 @@ export default function Home() {
               en la instalación — son 10 segundos.
             </p>
             <a
-              href="https://app.veliacorp.com/configuracion/app"
+              href={`${APP_URL}/instalar`}
               className="btn inline-block mt-7 bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85"
             >
               Instalar la app

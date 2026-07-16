@@ -4,6 +4,7 @@ import ContactForm from '@/components/ContactForm'
 export const metadata: Metadata = {
   title: 'Contacto — VELIA',
   description: 'Agenda una demo de VELIA Legal o pregúntanos lo que necesites. Respondemos en el día.',
+  alternates: { canonical: 'https://veliacorp.com/contacto' },
 }
 
 export default function ContactoPage() {

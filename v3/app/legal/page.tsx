@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: 'VELIA Legal — el día a día del despacho, resuelto',
   description:
     'Cómo trabaja un abogado con VELIA: puesta al día automática, plazos LEC, escritos con IA citando el BOE, persecución de documentación y facturación Verifactu.',
+  alternates: { canonical: 'https://veliacorp.com/legal' },
 }
 
 const DAY = [

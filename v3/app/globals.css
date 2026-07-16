@@ -43,3 +43,28 @@ a.btn, button.btn {
 a.btn:active, button.btn:active {
   transform: scale(0.97);
 }
+
+/* Prosa legal (aviso legal, privacidad, cookies, términos) — legible y flat */
+.legal-prose h1 {
+  @apply text-3xl md:text-4xl font-700 tracking-[-0.02em];
+}
+.legal-prose .legal-meta {
+  @apply mt-3 text-[12px] font-600 tracking-[0.08em] uppercase text-void/40;
+}
+.legal-prose h2 {
+  @apply mt-12 text-xl font-700 tracking-[-0.01em];
+}
+.legal-prose p {
+  @apply mt-4 text-[15px] text-void/70;
+  line-height: 1.6;
+}
+.legal-prose ul {
+  @apply mt-4 space-y-2 pl-5 list-disc text-[15px] text-void/70;
+  line-height: 1.6;
+}
+.legal-prose a {
+  @apply underline text-void/80 hover:text-gold-dark transition-colors;
+}
+.legal-prose strong {
+  @apply font-700 text-void;
+}

@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import { SITE_URL, CONTACT_EMAIL } from '@/lib/constants'
 import './globals.css'
 
 const montserrat = Montserrat({
@@ -27,13 +29,32 @@ export const metadata: Metadata = {
   },
 }
 
+/* JSON-LD de marca: VELIA es la PLATAFORMA (posicionamiento sutil, decisión
+   2026-07-16); el vertical legal es el contenido comercial de la web. */
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'VELIA',
+  legalName: 'VELIA Marketing SL',
+  url: SITE_URL,
+  logo: `${SITE_URL}/velia_logotipo.svg`,
+  email: CONTACT_EMAIL,
+  description:
+    'Plataforma de software con IA para despachos profesionales. Su primer vertical, VELIA Legal, es el software sobre el que los despachos de abogados españoles operan el 100% de su trabajo.',
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={montserrat.variable}>
       <body className="font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <Nav />
         <main>{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   )
