@@ -29,9 +29,10 @@ export default function ProductShot({
         <Image
           src={src}
           alt={alt}
-          width={1727}
-          height={923}
-          sizes="(max-width: 768px) 100vw, 1024px"
+          width={2200}
+          height={1375}
+          sizes="(max-width: 768px) 100vw, 1120px"
+          quality={90}
           className="w-full h-auto"
         />
       </div>
