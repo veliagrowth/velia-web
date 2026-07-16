@@ -17,8 +17,8 @@ export default function CookiesPage() {
       <h2>1. Lo esencial, primero</h2>
       <p>
         Este sitio web (veliacorp.com) <strong>no utiliza cookies de publicidad, de
-        seguimiento ni de perfilado</strong>. Por eso no verás un banner de cookies: no hay
-        nada que aceptar.
+        seguimiento ni de perfilado</strong>. Por eso el aviso que ves al llegar es solo
+        informativo: no hay ningún consentimiento que aceptar.
       </p>
 
       <h2>2. Analítica sin cookies</h2>

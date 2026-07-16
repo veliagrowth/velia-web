@@ -3,6 +3,7 @@ import { Montserrat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import CookieNotice from '@/components/CookieNotice'
 import { SITE_URL, CONTACT_EMAIL } from '@/lib/constants'
 import './globals.css'
 
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         <main>{children}</main>
         <Footer />
+        <CookieNotice />
         <Analytics />
       </body>
     </html>
