@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import ProductShot from '@/components/ProductShot'
 
 export const metadata: Metadata = {
   title: 'VELIA Legal — el día a día del despacho, resuelto',
@@ -68,6 +69,24 @@ export default function LegalPage() {
             </li>
           ))}
         </ol>
+      </section>
+
+      {/* Captura real: el expediente por dentro (tenant demo, datos ficticios) */}
+      <section className="mx-auto max-w-6xl px-6 pb-20">
+        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-3">
+          El expediente, por dentro
+        </p>
+        <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em] max-w-[24ch]">
+          Documentos, plazos, apuntes, auditoría y la economía del asunto — en una ficha.
+        </h2>
+        <p className="mt-4 mb-10 text-sm text-void/60 leading-[1.6] max-w-prose">
+          Cada expediente reúne al cliente, el abogado a cargo, la documentación, los
+          vencimientos y lo cobrado y por cobrar. Y desde ahí mismo se factura.
+        </p>
+        <ProductShot
+          src="/screenshots/expediente-detalle.webp"
+          alt="Ficha real de expediente en VELIA: cliente, abogado a cargo, documentos, plazos y economía del expediente"
+        />
       </section>
 
       <section className="bg-white border-y border-void/10">

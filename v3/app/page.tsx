@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import LiveUpdates from '@/components/LiveUpdates'
+import ProductShot from '@/components/ProductShot'
+import TestimonialVideo from '@/components/TestimonialVideo'
 import { FOUNDERS_SEATS_LABEL, APP_URL, SITE_URL } from '@/lib/constants'
 
 const softwareJsonLd = {
@@ -126,6 +128,25 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Producto real (captura del tenant demo) ─────────────────────── */}
+      <section className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-3">
+          Así se ve por dentro
+        </p>
+        <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[24ch]">
+          Tus expedientes, con todo lo que importa a la vista.
+        </h2>
+        <p className="mt-5 mb-10 text-sm text-void/60 leading-[1.6] max-w-prose">
+          Estado, área, prioridad, cliente y vencimientos de cada asunto — y un control
+          de conflicto de intereses antes de aceptar nada. Esto no es un mockup: es la
+          pantalla real del producto.
+        </p>
+        <ProductShot
+          src="/screenshots/expedientes.webp"
+          alt="Vista real de Expedientes en VELIA: asuntos con estado, área, prioridad y cliente"
+        />
+      </section>
+
       {/* ── Caso real ────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-6xl px-6 py-20 md:py-28">
         <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-center">
@@ -166,6 +187,9 @@ export default function Home() {
           </dl>
         </div>
       </section>
+
+      {/* ── Testimonio en vídeo (oculto tras flag hasta tener el máster) ── */}
+      <TestimonialVideo />
 
       {/* ── Pricing resumido ─────────────────────────────────────────────── */}
       <section className="bg-void text-cream">
