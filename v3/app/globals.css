@@ -26,23 +26,24 @@ body {
     to   { opacity: 1; transform: none; }
   }
 
-  /* Mega-menú del nav: se DESPLIEGA de arriba a abajo desde el trigger —
-     scaleY con origin top (el panel "se abre") + el contenido entra un pelín
-     después. Solo transform+opacity, expo-out, <300ms (Emil). */
+  /* Mega-menú del nav: despliegue top→bottom SUTIL — el protagonista es el
+     FADE; el movimiento es mínimo (scaleY 0.98 + 3px) para que se sienta
+     smooth, no teatral. Contenido en fade puro con un pelín de retardo.
+     Solo transform+opacity, expo-out (Emil). */
   .menu-in {
     transform-origin: top center;
-    animation: menuIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: menuIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   @keyframes menuIn {
-    from { opacity: 0; transform: translateY(-8px) scaleY(0.92); }
+    from { opacity: 0; transform: translateY(-3px) scaleY(0.98); }
     to   { opacity: 1; transform: none; }
   }
   .menu-in > * {
-    animation: menuContent 0.34s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: menuContent 0.38s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
   }
   @keyframes menuContent {
-    from { opacity: 0; transform: translateY(-6px); }
-    to   { opacity: 1; transform: none; }
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
 }
 
