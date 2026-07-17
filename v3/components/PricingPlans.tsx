@@ -76,7 +76,10 @@ export default function PricingPlans() {
               {plan.price}
               <span className="text-lg font-600 text-void/45">/mes</span>
             </p>
-            <p className="text-sm text-void/50">por despacho · 1 abogado incluido · {plan.extra}</p>
+            <p className="text-sm text-void/50">
+              por despacho · 1 abogado incluido ·{' '}
+              <span className="inline-block">{plan.extra}</span>
+            </p>
           </div>
           {plan.note && (
             <p className="mt-3 text-[12px] font-600 tracking-[0.04em] text-gold-dark">{plan.note}</p>
@@ -112,8 +115,9 @@ export default function PricingPlans() {
             )}
             <p className="mt-3 text-sm text-void/65 leading-[1.6]">
               Congelado <strong className="font-700">de por vida</strong> para los 5 primeros
-              despachos. Mismo producto completo, acceso directo al equipo que lo construye
-              y voz en la hoja de ruta.
+              despachos.{' '}
+              <span className="inline-block">Mismo producto completo, acceso directo al
+              equipo que lo construye y voz en la hoja de ruta.</span>
             </p>
             <p className="mt-4 text-[12px] font-700 tracking-[0.08em] uppercase text-gold-dark">
               Quedan {FOUNDERS_SEATS_LABEL}

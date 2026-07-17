@@ -34,8 +34,9 @@ export default function DemoPage() {
             <p className="mt-4 text-lg text-void/60 leading-relaxed max-w-prose">
               Esto no es un vídeo ni son capturas: es la última versión de VELIA con un
               despacho de demostración dentro. Haz clic donde quieras — expedientes,
-              plazos, agenda, facturación. Es un escaparate de solo lectura: puedes verlo
-              todo, no puedes romper nada.
+              plazos, agenda, facturación.{' '}
+              <span className="inline-block">Es un escaparate de solo lectura:</span>{' '}
+              <span className="inline-block">puedes verlo todo, no puedes romper nada.</span>
             </p>
           </div>
           <a
@@ -70,7 +71,9 @@ export default function DemoPage() {
         </div>
         <p className="mt-3 text-[12px] text-void/45 leading-relaxed">
           Despacho ficticio de demostración. Los datos son inventados y el modo es de solo
-          lectura — para trabajar con tus propios asuntos, empieza tu prueba gratuita.
+          lectura —{' '}
+          <span className="inline-block">para trabajar con tus propios asuntos, empieza tu
+          prueba gratuita.</span>
         </p>
       </section>
 
@@ -81,8 +84,9 @@ export default function DemoPage() {
             ¿Te encaja? Pruébalo con tus casos.
           </h2>
           <p className="mt-3 text-sm text-void/55 max-w-[46ch] mx-auto leading-relaxed">
-            15 días gratis con tus propios tipos de asuntos, sin tarjeta. O agenda una
-            demo de 30 minutos y te lo enseñamos nosotros.
+            15 días gratis con tus propios tipos de asuntos, sin tarjeta.{' '}
+            <span className="inline-block">O agenda una demo de 30 minutos y te lo
+            enseñamos nosotros.</span>
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <a

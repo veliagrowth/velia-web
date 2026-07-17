@@ -12,10 +12,13 @@ export const metadata: Metadata = {
 /* Única fuente de las FAQ: alimenta el render Y el JSON-LD FAQPage.
    La respuesta de permanencia está pendiente de ratificar con Axel (decisión
    2026-07-16) — si cambia, se edita aquí y queda coherente en ambos sitios. */
-const FAQS = [
+/* a + closer: el cierre se pinta como unidad inseparable (inline-block) para
+   que la última frase nunca quede partida a mitad. El JSON-LD une ambos. */
+const FAQS: { q: string; a: string; closer?: string }[] = [
   {
     q: '¿Hay permanencia?',
-    a: '6 meses iniciales — el tiempo real que tarda un despacho en operar entero sobre la plataforma. Después, mes a mes.',
+    a: '6 meses iniciales — el tiempo real que tarda un despacho en operar entero sobre la plataforma.',
+    closer: 'Después, mes a mes.',
   },
   {
     q: '¿La web es de verdad gratis?',
@@ -23,7 +26,8 @@ const FAQS = [
   },
   {
     q: '¿Dónde se guardan mis expedientes y documentos?',
-    a: 'En infraestructura de la Unión Europea, con aislamiento por despacho en el propio motor de base de datos y documentos en almacenamiento privado. Tu despacho es el titular de sus datos: VELIA solo los trata para prestarte el servicio, con acuerdo de encargo (DPA) disponible. La conexión con el Drive del propio despacho está en la hoja de ruta.',
+    a: 'En infraestructura de la Unión Europea, con aislamiento por despacho en el propio motor de base de datos y documentos en almacenamiento privado. Tu despacho es el titular de sus datos: VELIA solo los trata para prestarte el servicio, con acuerdo de encargo (DPA) disponible.',
+    closer: 'La conexión con el Drive del propio despacho está en la hoja de ruta.',
   },
   {
     q: '¿Y mis datos si me voy?',
@@ -41,7 +45,7 @@ const faqJsonLd = {
   mainEntity: FAQS.map(f => ({
     '@type': 'Question',
     name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
+    acceptedAnswer: { '@type': 'Answer', text: f.closer ? `${f.a} ${f.closer}` : f.a },
   })),
 }
 
@@ -59,7 +63,8 @@ export default function PreciosPage() {
         </h1>
         <p className="mt-6 text-lg text-void/60 leading-relaxed max-w-prose">
           Sin módulos, sin sorpresas y sin permanencias escondidas: 6 meses iniciales y
-          después mes a mes. Se paga con un caso al mes.
+          después mes a mes.{' '}
+          <span className="inline-block">Se paga con un caso al mes.</span>
         </p>
       </section>
 
@@ -75,6 +80,11 @@ export default function PreciosPage() {
                 <h3 className="text-sm font-700 mb-2">{f.q}</h3>
                 <p className="text-sm text-void/60 leading-[1.6]">
                   {f.a}
+                  {f.closer && (
+                    <>
+                      {' '}<span className="inline-block">{f.closer}</span>
+                    </>
+                  )}
                   {f.q === '¿Y mis datos si me voy?' && (
                     <>
                       {' '}Detalle en la página de{' '}

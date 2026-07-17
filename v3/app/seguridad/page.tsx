@@ -23,26 +23,33 @@ const PILLARS = [
   },
 ]
 
-const MEASURES = [
+/* body + closer: el cierre se pinta como unidad inseparable (inline-block)
+   para que la última frase nunca quede partida a mitad — regla de wrapping. */
+const MEASURES: { title: string; body: string; closer?: string }[] = [
   {
     title: 'Datos alojados en la Unión Europea',
-    body: 'La base de datos y las funciones de la aplicación se ejecutan en infraestructura de región europea. El tratamiento se realiza dentro del marco RGPD.',
+    body: 'La base de datos y las funciones de la aplicación se ejecutan en infraestructura de región europea.',
+    closer: 'El tratamiento se realiza dentro del marco RGPD.',
   },
   {
     title: 'Cifrado en tránsito',
-    body: 'Todas las comunicaciones entre tu navegador, la plataforma y los servicios que la componen viajan cifradas por HTTPS/TLS. Sin excepciones.',
+    body: 'Todas las comunicaciones entre tu navegador, la plataforma y los servicios que la componen viajan cifradas por HTTPS/TLS.',
+    closer: 'Sin excepciones.',
   },
   {
     title: 'Documentos en almacenamiento privado',
-    body: 'Los documentos del despacho se guardan en almacenamiento privado. Solo son accesibles mediante enlaces firmados temporales — nunca de forma pública.',
+    body: 'Los documentos del despacho se guardan en almacenamiento privado. Solo son accesibles mediante enlaces firmados temporales —',
+    closer: 'nunca de forma pública.',
   },
   {
     title: 'Control de acceso',
-    body: 'Autenticación por sesión, acceso por roles dentro del despacho y registro de auditoría en las acciones sensibles. Cada acción relevante deja rastro.',
+    body: 'Autenticación por sesión, acceso por roles dentro del despacho y registro de auditoría en las acciones sensibles.',
+    closer: 'Cada acción relevante deja rastro.',
   },
   {
     title: 'RGPD y tus derechos',
-    body: 'El despacho mantiene la titularidad de sus datos y puede ejercer sus derechos: acceso, rectificación, supresión y portabilidad. Acuerdo de tratamiento de datos disponible.',
+    body: 'El despacho mantiene la titularidad de sus datos y puede ejercer sus derechos: acceso, rectificación, supresión y portabilidad.',
+    closer: 'Acuerdo de tratamiento de datos disponible.',
   },
   {
     title: 'Facturación conforme a Verifactu',
@@ -63,7 +70,8 @@ export default function SeguridadPage() {
         <p className="mt-6 text-lg text-void/60 leading-relaxed max-w-prose">
           El día a día de un despacho está hecho de información que no puede salir de él.
           VELIA parte de esa premisa: cada despacho aislado del resto, datos alojados en
-          la Unión Europea y una regla simple — tus datos son de tu despacho.
+          la Unión Europea y una regla simple —{' '}
+          <span className="inline-block">tus datos son de tu despacho.</span>
         </p>
       </section>
 
@@ -95,7 +103,10 @@ export default function SeguridadPage() {
           {MEASURES.map(m => (
             <div key={m.title}>
               <h3 className="text-sm font-700 mb-2">{m.title}</h3>
-              <p className="text-sm text-void/60 leading-[1.6]">{m.body}</p>
+              <p className="text-sm text-void/60 leading-[1.6]">
+                {m.body}
+                {m.closer && <> <span className="inline-block">{m.closer}</span></>}
+              </p>
             </div>
           ))}
         </div>

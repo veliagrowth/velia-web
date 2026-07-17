@@ -17,7 +17,7 @@ export default function ContactoPage() {
         </h1>
         <p className="mt-6 text-lg text-void/60 leading-relaxed max-w-prose">
           Cuéntanos cómo trabajáis hoy y te enseñamos VELIA con tus propios tipos de
-          asuntos. 30 minutos, sin compromiso.
+          asuntos. <span className="inline-block">30 minutos, sin compromiso.</span>
         </p>
         <ul className="mt-8 space-y-2.5 text-sm text-void/60">
           <li className="flex items-start gap-2.5"><span className="text-gold-dark shrink-0">✓</span> Respondemos en el día laborable</li>

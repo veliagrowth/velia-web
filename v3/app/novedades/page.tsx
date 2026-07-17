@@ -25,7 +25,8 @@ export default async function NovedadesPage() {
       </h1>
       <p className="mt-6 text-lg text-void/60 leading-relaxed max-w-prose">
         VELIA no es un software congelado: cada semana incorpora mejoras que todos los
-        despachos reciben sin hacer nada. Esta es la lista, con fechas reales.
+        despachos reciben sin hacer nada.{' '}
+        <span className="inline-block">Esta es la lista, con fechas reales.</span>
       </p>
 
       {updates.length === 0 ? (

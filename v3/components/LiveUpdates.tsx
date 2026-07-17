@@ -61,8 +61,9 @@ export default async function LiveUpdates() {
               VELIA mejora cada semana.
             </h2>
             <p className="mt-5 text-sm text-void/60 leading-[1.6] max-w-prose">
-              No compras un software congelado: compras un equipo que lo hace crecer.
-              Esto es lo último que ya tienen todos los despachos, con su fecha.
+              No compras un software congelado: compras un equipo que lo hace crecer.{' '}
+              <span className="inline-block">Esto es lo último que ya tienen todos los
+              despachos, con su fecha.</span>
             </p>
           </div>
           <Link

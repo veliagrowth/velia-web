@@ -91,8 +91,9 @@ export default function Home() {
             </p>
             <p className="mt-2 text-sm text-cream/55 leading-[1.6] max-w-[52ch]">
               Entra en un despacho de demostración real y recorre VELIA por dentro —
-              expedientes, plazos, agenda y facturación. Sin registro y sin tocar nada:
-              es un escaparate de solo lectura.
+              expedientes, plazos, agenda y facturación.{' '}
+              <span className="inline-block">Sin registro y sin tocar nada:</span>{' '}
+              <span className="inline-block">es un escaparate de solo lectura.</span>
             </p>
           </div>
           <Link
@@ -118,9 +119,9 @@ export default function Home() {
             <div className="md:pr-4">
               <h3 className="text-lg font-700 mb-3">Todo dentro</h3>
               <p className="text-sm text-void/60 leading-[1.6]">
-                Clientes, expedientes, agenda, plazos, documentos, facturación y tu web.
-                Deja de pagar y pegar cinco programas: VELIA es uno solo, y las piezas
-                se hablan entre sí.
+                Clientes, expedientes, agenda, plazos, documentos, facturación y tu web.{' '}
+                <span className="inline-block">Deja de pagar y pegar cinco programas:</span>{' '}
+                <span className="inline-block">VELIA es uno solo, y las piezas se hablan entre sí.</span>
               </p>
             </div>
             <div className="md:border-l md:border-void/10 md:pl-10">
@@ -135,8 +136,8 @@ export default function Home() {
               <h3 className="text-lg font-700 mb-3">Hecho para España</h3>
               <p className="text-sm text-void/60 leading-[1.6]">
                 Texto oficial del BOE, cómputo de plazos según la LEC, facturación conforme
-                a Verifactu y datos alojados en la Unión Europea. No es un software genérico
-                traducido.
+                a Verifactu y datos alojados en la Unión Europea.{' '}
+                <span className="inline-block">No es un software genérico traducido.</span>
               </p>
             </div>
           </div>
@@ -153,8 +154,8 @@ export default function Home() {
         </h2>
         <p className="mt-5 mb-10 text-sm text-void/60 leading-[1.6] max-w-prose">
           Estado, área, prioridad, cliente y vencimientos de cada asunto — y un control
-          de conflicto de intereses antes de aceptar nada. Esto no es un mockup: es la
-          pantalla real del producto.
+          de conflicto de intereses antes de aceptar nada.{' '}
+          <span className="inline-block">Esto no es un mockup: es la pantalla real del producto.</span>
         </p>
         <ProductShot
           src="/screenshots/expedientes.webp"
@@ -173,9 +174,10 @@ export default function Home() {
               Un despacho de Fraga. Cero presencia digital. 60 días después:
             </h2>
             <p className="mt-5 text-sm text-void/60 leading-[1.6] max-w-prose">
-              Cónsul Jurídico empezó sin web, sin sistema y sin captación. Hoy opera
-              entero sobre VELIA: los clientes llegan, la documentación se persigue sola
-              y cada consulta queda registrada en su expediente.
+              Cónsul Jurídico empezó sin web, sin sistema y sin captación.{' '}
+              <span className="inline-block">Hoy opera entero sobre VELIA:</span> los
+              clientes llegan, la documentación se persigue sola y cada consulta queda
+              registrada en su expediente.
             </p>
             <Link
               href="/legal"
@@ -219,13 +221,14 @@ export default function Home() {
               </h2>
               <p className="mt-5 text-sm text-cream/55 leading-[1.6] max-w-prose">
                 199€ al mes por despacho, con un abogado incluido y +49€ por abogado
-                adicional. Web a medida gratis de por vida. Sin módulos ocultos: todo lo
-                que ves está dentro.
+                adicional. <span className="inline-block">Web a medida gratis de por vida.</span>{' '}
+                <span className="inline-block">Sin módulos ocultos: todo lo que ves está dentro.</span>
               </p>
               <div className="mt-8 inline-flex items-center gap-3 rounded-2xl border border-gold/30 bg-gold/10 px-5 py-4">
                 <p className="text-sm text-cream/85">
                   <strong className="font-700 text-gold-light">Programa Fundadores:</strong> 149€/mes
-                  congelado de por vida · quedan <strong className="font-700">{FOUNDERS_SEATS_LABEL}</strong>
+                  congelado de por vida ·{' '}
+                  <span className="inline-block">quedan <strong className="font-700">{FOUNDERS_SEATS_LABEL}</strong></span>
                 </p>
               </div>
             </div>
@@ -259,8 +262,9 @@ export default function Home() {
             </h2>
             <p className="mt-5 text-sm text-void/60 leading-[1.6] max-w-prose">
               VELIA se instala como una app: icono en tu pantalla de inicio, pantalla
-              completa y tu asistente a un toque. Entra desde el móvil y VELIA te guía
-              en la instalación — son 10 segundos.
+              completa y tu asistente a un toque.{' '}
+              <span className="inline-block">Entra desde el móvil y VELIA te guía en la
+              instalación — son 10 segundos.</span>
             </p>
             <a
               href={`${APP_URL}/instalar`}
@@ -299,8 +303,8 @@ export default function Home() {
             Ve VELIA con tus propios casos.
           </h2>
           <p className="mt-4 text-sm text-void/55 max-w-[46ch] mx-auto leading-relaxed">
-            Una demo de 30 minutos con tu tipo de asuntos. Sin compromiso y sin
-            preparación por tu parte.
+            Una demo de 30 minutos con tu tipo de asuntos.{' '}
+            <span className="inline-block">Sin compromiso y sin preparación por tu parte.</span>
           </p>
           <Link
             href="/contacto"

@@ -158,8 +158,8 @@ export default function Nav() {
                 El sistema operativo del despacho.
               </p>
               <p className="mt-3 text-sm text-void/55 leading-[1.6] max-w-[34ch]">
-                CRM, IA con fuentes oficiales, plazos, facturación y web — en una
-                sola suscripción.
+                CRM, IA con fuentes oficiales, plazos, facturación y web —{' '}
+                <span className="inline-block">en una sola suscripción.</span>
               </p>
               <Link
                 href="/legal"
