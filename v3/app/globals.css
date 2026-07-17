@@ -12,6 +12,17 @@ body {
   font-weight: 400;
 }
 
+/* Wrapping tipográfico global — los titulares se reparten en líneas
+   equilibradas (nada de una palabra descolgada en la última línea) y los
+   párrafos evitan huérfanas y cortes feos. Progressive enhancement: donde
+   el navegador no lo soporta, cae al wrap normal sin romper nada. */
+h1, h2, h3, h4 {
+  text-wrap: balance;
+}
+p, li, dd, figcaption {
+  text-wrap: pretty;
+}
+
 ::selection {
   background: rgba(201, 169, 110, 0.35);
 }

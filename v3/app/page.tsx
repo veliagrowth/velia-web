@@ -42,9 +42,10 @@ export default function Home() {
             </h1>
             <p className="mt-7 text-lg text-void/60 leading-relaxed max-w-prose">
               VELIA es la plataforma sobre la que los despachos españoles operan el 100% de
-              su software: clientes, expedientes, plazos, escritos con IA, facturación
-              Verifactu y web — en una suscripción, sin piezas sueltas. Del abogado
-              independiente al gran bufete.
+              su software: clientes, expedientes, plazos, escritos con IA,{' '}
+              <span className="whitespace-nowrap">facturación Verifactu</span> y web — en una
+              suscripción, sin piezas sueltas.{' '}
+              <span className="inline-block">Del abogado independiente al gran bufete.</span>
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
