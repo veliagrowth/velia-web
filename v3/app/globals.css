@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Claro editorial — reglas Impeccable: flat por defecto, motion mínima, prose 68ch */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-cream text-void antialiased;
+  font-weight: 400;
+}
+
+::selection {
+  background: rgba(201, 169, 110, 0.35);
+}
+
+/* Entradas sutiles (solo transform+opacity, expo-out, <300ms percibido) */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* Mega-menú del nav: despliegue top→bottom SUTIL — el protagonista es el
+     FADE; el movimiento es mínimo (scaleY 0.98 + 3px) para que se sienta
+     smooth, no teatral. Contenido en fade puro con un pelín de retardo.
+     Solo transform+opacity, expo-out (Emil). */
+  .menu-in {
+    transform-origin: top center;
+    animation: menuIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes menuIn {
+    from { opacity: 0; transform: translateY(-3px) scaleY(0.98); }
+    to   { opacity: 1; transform: none; }
+  }
+  .menu-in > * {
+    animation: menuContent 0.38s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+  }
+  @keyframes menuContent {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+}
+
+/* Botón: feedback táctil (Emil: 100ms press) */
+a.btn, button.btn {
+  transition: transform 100ms cubic-bezier(0.16, 1, 0.3, 1), opacity 150ms ease;
+}
+a.btn:active, button.btn:active {
+  transform: scale(0.97);
+}
+
+/* Prosa legal (aviso legal, privacidad, cookies, términos) — legible y flat */
+.legal-prose h1 {
+  @apply text-3xl md:text-4xl font-700 tracking-[-0.02em];
+}
+.legal-prose .legal-meta {
+  @apply mt-3 text-[12px] font-600 tracking-[0.08em] uppercase text-void/40;
+}
+.legal-prose h2 {
+  @apply mt-12 text-xl font-700 tracking-[-0.01em];
+}
+.legal-prose p {
+  @apply mt-4 text-[15px] text-void/70;
+  line-height: 1.6;
+}
+.legal-prose ul {
+  @apply mt-4 space-y-2 pl-5 list-disc text-[15px] text-void/70;
+  line-height: 1.6;
+}
+.legal-prose a {
+  @apply underline text-void/80 hover:text-gold-dark transition-colors;
+}
+.legal-prose strong {
+  @apply font-700 text-void;
+}
