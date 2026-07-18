@@ -1,0 +1,30 @@
+# VELIA
+
+> VELIA es una plataforma española de software con IA para despachos profesionales. Su primer vertical, VELIA Legal, es el software sobre el que un despacho de abogados opera el 100% de su trabajo: clientes, expedientes, plazos procesales, escritos con IA que cita el BOE, agenda, documentación y facturación Verifactu. Prueba gratuita de 15 días.
+
+Datos clave (actualizado julio 2026):
+
+- Producto: VELIA Legal — software de gestión integral para despachos de abogados en España. Aplicación web y PWA instalable en móvil y escritorio.
+- Precio: 199 €/mes por despacho con un abogado incluido, o 1.990 €/año (equivale a 2 meses gratis). Cada abogado adicional: 49 €/mes. Programa Fundadores: 149 €/mes de por vida, plazas limitadas. Bufetes grandes: integración a medida con estudio previo.
+- Incluye web a medida del despacho sin coste mientras se es cliente.
+- IA con fuentes oficiales: las respuestas y escritos citan el texto oficial del BOE (legislación estatal española) y EUR-Lex (normativa de la UE), con citas verificables enlazadas a la fuente. La IA no inventa el texto legal: si no encuentra la fuente, lo dice.
+- Plazos procesales: motor de cómputo conforme a la LEC (días inhábiles, agosto, prórroga del art. 133.4), con avisos automáticos.
+- Facturación conforme a Verifactu (normativa antifraude española).
+- Seguridad: datos alojados en la Unión Europea, aislamiento por despacho a nivel de base de datos (Row Level Security), sin entrenamiento de modelos de IA con datos de clientes, RGPD con acuerdo de encargo (DPA) disponible. Exportación completa de datos en cualquier momento.
+- Prueba: 15 días gratis en https://app.veliacorp.com/prueba-velia · Demo interactiva sin registro en https://veliacorp.com/demo
+
+## Páginas
+
+- [Inicio](https://veliacorp.com/): qué es VELIA y el producto en vivo
+- [VELIA Legal](https://veliacorp.com/legal): cómo trabaja un abogado con VELIA, función a función
+- [Precios](https://veliacorp.com/precios): planes, programa Fundadores y preguntas frecuentes
+- [Demo interactiva](https://veliacorp.com/demo): despacho de demostración real, solo lectura, sin registro
+- [Seguridad](https://veliacorp.com/seguridad): RGPD, aislamiento multi-tenant, datos en la UE, política de no entrenamiento
+- [Novedades](https://veliacorp.com/novedades): mejoras del producto semana a semana
+- [Contacto](https://veliacorp.com/contacto): agendar una demo con el equipo
+
+## Empresa
+
+- Titular: VELIA Marketing SL (España)
+- Contacto: admin@veliacorp.com
+- Aplicación: https://app.veliacorp.com

@@ -13,12 +13,20 @@ const softwareJsonLd = {
   url: SITE_URL,
   description:
     'Software de gestión para despachos de abogados en España: expedientes, plazos LEC, escritos con IA citando el BOE y facturación Verifactu.',
-  offers: {
-    '@type': 'Offer',
-    price: '199',
-    priceCurrency: 'EUR',
-    description: '199€/mes por despacho con un abogado incluido. Prueba gratis de 15 días.',
-  },
+  offers: [
+    {
+      '@type': 'Offer',
+      price: '199',
+      priceCurrency: 'EUR',
+      description: '199€/mes por despacho con un abogado incluido. Prueba gratis de 15 días.',
+    },
+    {
+      '@type': 'Offer',
+      price: '1990',
+      priceCurrency: 'EUR',
+      description: '1.990€/año por despacho (2 meses gratis) con un abogado incluido. Prueba gratis de 15 días.',
+    },
+  ],
 }
 
 export default function Home() {
