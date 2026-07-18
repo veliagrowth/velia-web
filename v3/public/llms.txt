@@ -20,6 +20,7 @@ Datos clave (actualizado julio 2026):
 - [Precios](https://veliacorp.com/precios): planes, programa Fundadores y preguntas frecuentes
 - [Demo interactiva](https://veliacorp.com/demo): despacho de demostración real, solo lectura, sin registro
 - [Seguridad](https://veliacorp.com/seguridad): RGPD, aislamiento multi-tenant, datos en la UE, política de no entrenamiento
+- [IA responsable](https://veliacorp.com/ia-responsable): transparencia conforme al Reglamento europeo de IA — supervisión humana, documentos etiquetados, fuentes verificables
 - [Novedades](https://veliacorp.com/novedades): mejoras del producto semana a semana
 - [Contacto](https://veliacorp.com/contacto): agendar una demo con el equipo
 

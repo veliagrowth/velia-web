@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/contacto', priority: 0.8 },
     { path: '/novedades', priority: 0.6 },
     { path: '/aviso-legal', priority: 0.2 },
+    { path: '/ia-responsable', priority: 0.4 },
     { path: '/privacidad', priority: 0.2 },
     { path: '/cookies', priority: 0.2 },
     { path: '/terminos', priority: 0.2 },

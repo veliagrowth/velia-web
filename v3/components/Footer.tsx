@@ -33,6 +33,7 @@ export default function Footer() {
           <Link href="/privacidad" className="block hover:text-cream transition-colors">Privacidad</Link>
           <Link href="/cookies" className="block hover:text-cream transition-colors">Cookies</Link>
           <Link href="/terminos" className="block hover:text-cream transition-colors">Términos del servicio</Link>
+          <Link href="/ia-responsable" className="block hover:text-cream transition-colors">IA responsable</Link>
         </div>
       </div>
       <div className="border-t border-white/10">
