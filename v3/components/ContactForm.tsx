@@ -16,10 +16,14 @@ export default function ContactForm() {
   const [consent, setConsent] = useState(false)
   const [consentError, setConsentError] = useState(false)
   const [state, setState] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle')
+  const [hp, setHp] = useState('')
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (state === 'sending') return
+    // Honeypot anti-bot: un humano nunca rellena el campo oculto — si viene
+    // con valor, fingimos éxito sin enviar nada (bots reales 19-jul).
+    if (hp.trim()) { setState('ok'); return }
     // RGPD: doble guard junto al `required` nativo — error siempre visible.
     if (!consent) { setConsentError(true); return }
     setConsentError(false)
@@ -64,6 +68,17 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={onSubmit} className="rounded-3xl border border-void/10 bg-white p-8 md:p-10 space-y-5 self-start w-full">
+      {/* Honeypot anti-bot: invisible para humanos */}
+      <input
+        type="text"
+        value={hp}
+        onChange={e => setHp(e.target.value)}
+        name="empresa_web"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={{ position: 'absolute', left: -9999, top: -9999, height: 1, width: 1, opacity: 0, pointerEvents: 'none' }}
+      />
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={label}>Nombre</label>
