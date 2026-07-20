@@ -56,6 +56,46 @@ p, li, dd, figcaption {
     from { opacity: 0; }
     to   { opacity: 1; }
   }
+
+  /* Cerebro VELIA — respiración lenta del núcleo + luz viajando por dos
+     líneas. Nada de esto corre con reduced-motion: el SVG queda fijo en su
+     frame de reposo (opacidad estática, sin keyframes aplicados). */
+  .velia-brain-core {
+    animation: brainCore 4.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    transform-origin: 110px 110px;
+  }
+  .velia-brain-core-ring {
+    animation: brainRing 4.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    transform-origin: 110px 110px;
+  }
+  @keyframes brainCore {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50%      { opacity: 1;    transform: scale(1.08); }
+  }
+  @keyframes brainRing {
+    0%, 100% { opacity: 0.35; transform: scale(1); }
+    50%      { opacity: 0;    transform: scale(1.9); }
+  }
+  .velia-brain-beam {
+    stroke-dasharray: 10 120;
+    animation: brainBeam 3.2s linear infinite;
+  }
+  .velia-brain-beam--delay {
+    animation-delay: 1.6s;
+  }
+  @keyframes brainBeam {
+    from { stroke-dashoffset: 130; opacity: 0; }
+    10%  { opacity: 0.9; }
+    90%  { opacity: 0.9; }
+    to   { stroke-dashoffset: 0; opacity: 0; }
+  }
+  /* Estado "activo" (sección en viewport): pulso ligeramente más vivo */
+  .velia-brain--active .velia-brain-core {
+    animation-duration: 2.6s;
+  }
+  .velia-brain--active .velia-brain-beam {
+    animation-duration: 1.9s;
+  }
 }
 
 /* Botón: feedback táctil (Emil: 100ms press) */

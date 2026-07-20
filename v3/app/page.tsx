@@ -2,7 +2,44 @@ import Link from 'next/link'
 import LiveUpdates from '@/components/LiveUpdates'
 import ProductShot from '@/components/ProductShot'
 import TestimonialVideo from '@/components/TestimonialVideo'
+import VeliaBrain from '@/components/VeliaBrain'
 import { FOUNDERS_SEATS_LABEL, APP_URL, SITE_URL } from '@/lib/constants'
+
+const BRAIN_CAPABILITIES = [
+  {
+    title: 'Entiende el contexto',
+    body: 'No empiezas de cero en cada consulta. VELIA trabaja sobre la información ya disponible en el expediente: quién es el cliente, qué se ha hablado, qué documentos hay.',
+  },
+  {
+    title: 'Analiza',
+    body: 'Resume la documentación incorporada y ayuda a ordenar expedientes complejos, citando la fuente oficial cuando corresponde.',
+  },
+  {
+    title: 'Prepara',
+    body: 'Genera primeros borradores de escritos e informes citando el texto oficial del BOE artículo por artículo.',
+  },
+  {
+    title: 'Organiza',
+    body: 'Relaciona plazos, tareas, documentos y clientes para que cada expediente esté al día sin repasarlo pieza por pieza.',
+  },
+]
+
+const COMPARISON = {
+  before: [
+    'Registra expedientes.',
+    'Almacena documentos.',
+    'Muestra tareas pendientes.',
+    'La IA vive en otra pestaña, aparte.',
+    'El contexto queda repartido entre herramientas.',
+  ],
+  velia: [
+    'Conecta expedientes, documentos y agenda entre sí.',
+    'La IA trabaja dentro del flujo, no al lado.',
+    'Usa el contexto de cada expediente para ayudar.',
+    'Prepara borradores citando fuentes oficiales.',
+    'Todo en una sola suscripción, sin piezas sueltas.',
+  ],
+}
 
 const softwareJsonLd = {
   '@context': 'https://schema.org',
@@ -152,6 +189,50 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── El Cerebro VELIA ─────────────────────────────────────────────── */}
+      <section id="cerebro" className="bg-void text-cream scroll-mt-16">
+        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+          <div className="grid gap-12 md:grid-cols-[0.9fr_1.1fr] md:items-center">
+            <div className="justify-self-center md:justify-self-start order-2 md:order-1">
+              <VeliaBrain state="active" className="w-full max-w-[280px] text-cream" />
+            </div>
+            <div className="order-1 md:order-2">
+              <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold/70 mb-4">
+                El Cerebro VELIA
+              </p>
+              <h2 className="text-3xl md:text-4xl font-800 tracking-[-0.02em] max-w-[18ch]">
+                No es un chatbot dentro de un CRM.
+              </h2>
+              <p className="mt-5 text-sm text-cream/60 leading-[1.6] max-w-prose">
+                Es la inteligencia que vive dentro del despacho. Trabaja con el contexto de
+                cada expediente para ayudarte a encontrar lo que necesitas, entender la
+                documentación y preparar los siguientes pasos —{' '}
+                <span className="inline-block">sin que tengas que explicárselo todo de nuevo cada vez.</span>
+              </p>
+              <Link
+                href="/legal"
+                className="inline-block mt-6 text-[12px] font-700 tracking-[0.1em] uppercase text-gold hover:text-gold-light transition-colors"
+              >
+                Ver un día completo con VELIA →
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-16 md:mt-20 grid gap-x-10 gap-y-10 md:grid-cols-4 border-t border-white/10 pt-12">
+            {BRAIN_CAPABILITIES.map(c => (
+              <div key={c.title}>
+                <h3 className="text-sm font-700 text-gold-light mb-2.5">{c.title}</h3>
+                <p className="text-[13px] text-cream/55 leading-[1.6]">{c.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-14 text-lg md:text-xl font-700 tracking-[-0.01em] text-cream/90 max-w-[26ch]">
+            VELIA prepara. Tú supervisas y decides.
+          </p>
+        </div>
+      </section>
+
       {/* ── Producto real (captura del tenant demo) ─────────────────────── */}
       <section className="mx-auto max-w-6xl px-6 py-20 md:py-28">
         <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-3">
@@ -213,8 +294,117 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Comparación editorial — sin tabla agresiva, sin competidores ── */}
+      <section className="bg-white border-y border-void/10">
+        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+          <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/40 mb-3">
+            La diferencia real
+          </p>
+          <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[22ch]">
+            Los CRM guardan información.{' '}
+            <span className="text-void/40">VELIA te ayuda a trabajar con ella.</span>
+          </h2>
+          <div className="mt-14 grid gap-10 md:grid-cols-2 max-w-4xl">
+            <div>
+              <p className="text-[11px] font-700 tracking-[0.18em] uppercase text-void/35 mb-5">
+                Un CRM tradicional
+              </p>
+              <ul className="space-y-3.5">
+                {COMPARISON.before.map(item => (
+                  <li key={item} className="text-sm text-void/45 leading-[1.6]">{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="md:border-l md:border-void/10 md:pl-10">
+              <p className="text-[11px] font-700 tracking-[0.18em] uppercase text-gold-dark mb-5">
+                VELIA
+              </p>
+              <ul className="space-y-3.5">
+                {COMPARISON.velia.map(item => (
+                  <li key={item} className="flex items-start gap-2.5 text-sm text-void/75 leading-[1.6]">
+                    <span className="text-gold-dark mt-0.5 shrink-0">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Testimonio en vídeo (oculto tras flag hasta tener el máster) ── */}
       <TestimonialVideo />
+
+      {/* ── Desarrollada en España ───────────────────────────────────────── */}
+      <section id="espana" className="mx-auto max-w-6xl px-6 py-20 md:py-28 scroll-mt-16">
+        <div className="grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-start">
+          <div>
+            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-3">
+              Tecnología desarrollada en España
+            </p>
+            <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[20ch]">
+              Hecha aquí. Pensada para cómo trabajan los despachos de aquí.
+            </h2>
+            <p className="mt-5 text-sm text-void/60 leading-[1.6] max-w-prose">
+              VELIA se ha diseñado y desarrollado en España, junto al primer despacho que
+              la usa cada día.{' '}
+              <span className="inline-block">No es un software genérico traducido:</span>{' '}
+              entiende el BOE, la LEC y Verifactu porque nació para ellos.
+            </p>
+          </div>
+          <ul className="grid gap-4 content-start">
+            {[
+              'Desarrollada en España',
+              'Validada junto a un despacho real',
+              'Pensada para el marco jurídico español',
+            ].map(item => (
+              <li key={item} className="flex items-center gap-3 rounded-2xl border border-void/10 bg-white px-5 py-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-gold-dark shrink-0" />
+                <span className="text-sm font-600 text-void/75">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ── Confianza y seguridad — puente a /seguridad, solo claims verificados ── */}
+      <section className="bg-white border-y border-void/10">
+        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+          <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
+            <div>
+              <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/40 mb-3">
+                Confianza
+              </p>
+              <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[22ch]">
+                Tus expedientes exigen algo más que innovación.{' '}
+                <span className="text-void/40">Exigen confianza.</span>
+              </h2>
+              <p className="mt-5 text-sm text-void/60 leading-[1.6] max-w-prose">
+                VELIA asiste al profesional.{' '}
+                <span className="inline-block">El criterio y la decisión jurídica permanecen siempre bajo su control.</span>
+              </p>
+            </div>
+            <Link
+              href="/seguridad"
+              className="btn justify-self-start md:justify-self-end bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85 whitespace-nowrap"
+            >
+              Ver seguridad al detalle
+            </Link>
+          </div>
+          <div className="mt-12 grid gap-8 md:grid-cols-3 border-t border-void/10 pt-10">
+            {[
+              { title: 'Aislamiento por despacho', body: 'Cada despacho es un inquilino aislado — Row Level Security en el propio motor de base de datos.' },
+              { title: 'Tu información no entrena ninguna IA', body: 'Política contractual del proveedor de la API que usamos, no una promesa nuestra.' },
+              { title: 'Diseñada para la abogacía', body: 'El deber de secreto profesional guía cada decisión de arquitectura, desde el primer día.' },
+            ].map(p => (
+              <div key={p.title}>
+                <h3 className="text-sm font-700 mb-2">{p.title}</h3>
+                <p className="text-[13px] text-void/55 leading-[1.6]">{p.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── Pricing resumido ─────────────────────────────────────────────── */}
       <section className="bg-void text-cream">
