@@ -61,7 +61,7 @@ export default function SeguridadPage() {
   return (
     <>
       <section className="mx-auto max-w-6xl px-6 pt-20 md:pt-28 pb-16">
-        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-6">
+        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-6">
           Seguridad y confianza
         </p>
         <h1 className="text-4xl md:text-5xl font-800 leading-[1.08] tracking-[-0.03em] max-w-[18ch]">
@@ -77,7 +77,7 @@ export default function SeguridadPage() {
 
       <section className="bg-white border-y border-void/10">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
-          <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/40 mb-3">Los tres pilares</p>
+          <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/60 mb-3">Los tres pilares</p>
           <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em] max-w-[24ch]">
             Tres decisiones de arquitectura que no dependen de la buena voluntad de nadie.
           </h2>
@@ -93,7 +93,7 @@ export default function SeguridadPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-16 md:py-20">
-        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-3">Medidas concretas</p>
+        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">Medidas concretas</p>
         <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em]">El detalle técnico.</h2>
         <p className="mt-4 text-sm text-void/60 max-w-prose leading-[1.6]">
           Lo que un despacho — o su responsable de protección de datos — querrá saber antes
@@ -114,7 +114,7 @@ export default function SeguridadPage() {
 
       <section className="bg-white border-t border-void/10">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
-          <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/40 mb-3">Mejora continua</p>
+          <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/60 mb-3">Mejora continua</p>
           <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em]">Lo que viene después.</h2>
           <div className="mt-6 space-y-4 max-w-prose">
             <p className="text-sm text-void/60 leading-[1.6]">

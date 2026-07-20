@@ -22,7 +22,7 @@ export default function ProductShot({
           <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden />
           <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden />
           <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden />
-          <span className="ml-3 rounded-md bg-white/5 px-3 py-1 text-[10px] tracking-[0.06em] text-cream/40">
+          <span className="ml-3 rounded-md bg-white/5 px-3 py-1 text-[10px] tracking-[0.06em] text-cream/60">
             app.veliacorp.com
           </span>
         </div>
@@ -37,7 +37,7 @@ export default function ProductShot({
         />
       </div>
       {caption && (
-        <figcaption className="mt-3 text-[12px] text-void/45 leading-relaxed">
+        <figcaption className="mt-3 text-[12px] text-void/60 leading-relaxed">
           {caption}
         </figcaption>
       )}

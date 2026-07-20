@@ -25,7 +25,7 @@ export default function DemoPage() {
       <section className="mx-auto max-w-6xl px-6 pt-14 md:pt-20 pb-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-4">
+            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-4">
               Demo interactiva
             </p>
             <h1 className="text-3xl md:text-5xl font-800 leading-[1.08] tracking-[-0.03em] max-w-[20ch]">
@@ -43,7 +43,7 @@ export default function DemoPage() {
             href={DEMO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[12px] font-700 tracking-[0.1em] uppercase text-gold-dark hover:text-void transition-colors whitespace-nowrap"
+            className="text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors whitespace-nowrap"
           >
             Abrir a pantalla completa →
           </a>
@@ -57,7 +57,7 @@ export default function DemoPage() {
             <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden />
             <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden />
             <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden />
-            <span className="ml-3 rounded-md bg-white/5 px-3 py-1 text-[10px] tracking-[0.06em] text-cream/40">
+            <span className="ml-3 rounded-md bg-white/5 px-3 py-1 text-[10px] tracking-[0.06em] text-cream/60">
               demo.app.veliacorp.com · solo lectura
             </span>
           </div>
@@ -69,7 +69,7 @@ export default function DemoPage() {
             allow="clipboard-write"
           />
         </div>
-        <p className="mt-3 text-[12px] text-void/45 leading-relaxed">
+        <p className="mt-3 text-[12px] text-void/60 leading-relaxed">
           Despacho ficticio de demostración. Los datos son inventados y el modo es de solo
           lectura —{' '}
           <span className="inline-block">para trabajar con tus propios asuntos, empieza tu
@@ -83,7 +83,7 @@ export default function DemoPage() {
           <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em]">
             ¿Te encaja? Pruébalo con tus casos.
           </h2>
-          <p className="mt-3 text-sm text-void/55 max-w-[46ch] mx-auto leading-relaxed">
+          <p className="mt-3 text-sm text-void/60 max-w-[46ch] mx-auto leading-relaxed">
             15 días gratis con tus propios tipos de asuntos, sin tarjeta.{' '}
             <span className="inline-block">O agenda una demo de 30 minutos y te lo
             enseñamos nosotros.</span>

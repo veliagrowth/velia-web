@@ -32,7 +32,6 @@ export default function CookieNotice() {
 
   return (
     <aside
-      role="status"
       aria-label="Aviso de cookies"
       className="rise fixed bottom-4 left-4 z-50 max-w-[21rem] rounded-2xl border border-white/10 bg-deep px-4 py-3.5 shadow-[0_16px_40px_-20px_rgba(10,10,15,0.5)]"
     >

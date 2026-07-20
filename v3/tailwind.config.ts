@@ -10,6 +10,10 @@ export default {
         gold: '#C9A96E',
         'gold-light': '#E8D5B0',
         'gold-dark': '#9A7840',
+        /* Variante SOLO para texto sobre fondo claro — gold-dark da 3.38:1 sobre
+           cream/white (falla WCAG AA 4.5:1). #7b6033 da 4.87:1/5.89:1. No tocar
+           gold-dark (bordes, botones, decoración): sigue siendo el dorado de marca. */
+        'gold-ink': '#7b6033',
         cream: '#EDE9E1',
         signal: '#4ECDC4',
       },

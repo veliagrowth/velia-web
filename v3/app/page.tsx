@@ -3,6 +3,9 @@ import LiveUpdates from '@/components/LiveUpdates'
 import ProductShot from '@/components/ProductShot'
 import TestimonialVideo from '@/components/TestimonialVideo'
 import VeliaBrain from '@/components/VeliaBrain'
+import HeroVideo from '@/components/HeroVideo'
+import TrackedLink from '@/components/TrackedLink'
+import SectionViewMarker from '@/components/SectionViewMarker'
 import { FOUNDERS_SEATS_LABEL, APP_URL, SITE_URL } from '@/lib/constants'
 
 const BRAIN_CAPABILITIES = [
@@ -77,7 +80,7 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-6 pt-16 md:pt-24 pb-20">
         <div className="grid gap-12 md:grid-cols-[1.05fr_1fr] md:items-center">
           <div className="rise">
-            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-6">
+            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-6">
               Plataforma de software legal
             </p>
             <h1 className="text-4xl md:text-[3.4rem] font-800 leading-[1.05] tracking-[-0.03em]">
@@ -93,12 +96,13 @@ export default function Home() {
               <span className="inline-block">Del abogado independiente al gran bufete.</span>
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
-              <Link
+              <TrackedLink
                 href="/contacto"
+                event="hero_demo_click"
                 className="btn bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85"
               >
                 Agenda una demo
-              </Link>
+              </TrackedLink>
               <Link
                 href="/precios#fundadores"
                 className="btn border border-void/20 text-void text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:border-void/50 transition-colors"
@@ -109,18 +113,13 @@ export default function Home() {
           </div>
 
           {/* Vídeo en loop (Mixkit, licencia libre) — la abogacía de siempre,
-              el software de ahora. Muted+playsInline para autoplay en móvil. */}
+              el software de ahora. Muted+playsInline para autoplay en móvil.
+              Control de pausa accesible: WCAG 2.2.2 (HeroVideo.tsx). */}
           <div className="rise">
-            <video
-              className="w-full rounded-2xl border border-void/10 object-cover aspect-[4/3] md:aspect-[5/4]"
+            <HeroVideo
               src="/videos/hero-abogacia.mp4"
               poster="/videos/hero-abogacia-poster.jpg"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              aria-label="Un letrado firmando una resolución"
+              ariaLabel="Un letrado firmando una resolución"
             />
           </div>
         </div>
@@ -128,7 +127,9 @@ export default function Home() {
         {/* Demo interactiva — tócala sin registro (escaparate solo lectura) */}
         <div className="mt-16 md:mt-20 rounded-2xl border border-void/10 bg-deep px-8 py-8 md:px-10 md:py-9 grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
           <div>
-            <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-gold/60 mb-2">
+            {/* gold/80 no gold/70: este bloque va sobre bg-deep (más claro que
+                bg-void), donde /70 da 4.37:1 (falla AA 4.5) — cazado por Lighthouse. */}
+            <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-gold/80 mb-2">
               Demo interactiva
             </p>
             <p className="text-xl md:text-2xl font-700 tracking-[-0.01em] text-cream max-w-[30ch]">
@@ -141,19 +142,20 @@ export default function Home() {
               <span className="inline-block">es un escaparate de solo lectura.</span>
             </p>
           </div>
-          <Link
+          <TrackedLink
             href="/demo"
+            event="product_demo_click"
             className="btn justify-self-start md:justify-self-end bg-gold text-void text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85 whitespace-nowrap"
           >
             Abrir la demo
-          </Link>
+          </TrackedLink>
         </div>
       </section>
 
       {/* ── Tres bloques de valor ────────────────────────────────────────── */}
       <section className="bg-white border-y border-void/10">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-3">
+          <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
             Qué hace por ti
           </p>
           <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[24ch]">
@@ -191,6 +193,7 @@ export default function Home() {
 
       {/* ── El Cerebro VELIA ─────────────────────────────────────────────── */}
       <section id="cerebro" className="bg-void text-cream scroll-mt-16">
+        <SectionViewMarker event="brain_section_view" />
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <div className="grid gap-12 md:grid-cols-[0.9fr_1.1fr] md:items-center">
             <div className="justify-self-center md:justify-self-start order-2 md:order-1">
@@ -235,7 +238,7 @@ export default function Home() {
 
       {/* ── Producto real (captura del tenant demo) ─────────────────────── */}
       <section className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-3">
+        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
           Así se ve por dentro
         </p>
         <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[24ch]">
@@ -256,7 +259,7 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-6 py-20 md:py-28">
         <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-center">
           <div>
-            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-3">
+            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
               Caso real
             </p>
             <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[22ch]">
@@ -270,7 +273,7 @@ export default function Home() {
             </p>
             <Link
               href="/legal"
-              className="inline-block mt-7 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-dark hover:text-void transition-colors"
+              className="inline-block mt-7 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
             >
               Ver cómo funciona →
             </Link>
@@ -286,7 +289,7 @@ export default function Home() {
                 <dt className="sr-only">{s.d}</dt>
                 <dd>
                   <span className="block text-3xl font-800 tracking-[-0.02em]">{s.n}</span>
-                  <span className="block text-[12px] text-void/50 mt-1.5">{s.d}</span>
+                  <span className="block text-[12px] text-void/60 mt-1.5">{s.d}</span>
                 </dd>
               </div>
             ))}
@@ -297,32 +300,32 @@ export default function Home() {
       {/* ── Comparación editorial — sin tabla agresiva, sin competidores ── */}
       <section className="bg-white border-y border-void/10">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/40 mb-3">
+          <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/60 mb-3">
             La diferencia real
           </p>
           <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[22ch]">
             Los CRM guardan información.{' '}
-            <span className="text-void/40">VELIA te ayuda a trabajar con ella.</span>
+            <span className="text-void/60">VELIA te ayuda a trabajar con ella.</span>
           </h2>
           <div className="mt-14 grid gap-10 md:grid-cols-2 max-w-4xl">
             <div>
-              <p className="text-[11px] font-700 tracking-[0.18em] uppercase text-void/35 mb-5">
+              <p className="text-[11px] font-700 tracking-[0.18em] uppercase text-void/60 mb-5">
                 Un CRM tradicional
               </p>
               <ul className="space-y-3.5">
                 {COMPARISON.before.map(item => (
-                  <li key={item} className="text-sm text-void/45 leading-[1.6]">{item}</li>
+                  <li key={item} className="text-sm text-void/60 leading-[1.6]">{item}</li>
                 ))}
               </ul>
             </div>
             <div className="md:border-l md:border-void/10 md:pl-10">
-              <p className="text-[11px] font-700 tracking-[0.18em] uppercase text-gold-dark mb-5">
+              <p className="text-[11px] font-700 tracking-[0.18em] uppercase text-gold-ink mb-5">
                 VELIA
               </p>
               <ul className="space-y-3.5">
                 {COMPARISON.velia.map(item => (
                   <li key={item} className="flex items-start gap-2.5 text-sm text-void/75 leading-[1.6]">
-                    <span className="text-gold-dark mt-0.5 shrink-0">✓</span>
+                    <span className="text-gold-ink mt-0.5 shrink-0">✓</span>
                     {item}
                   </li>
                 ))}
@@ -339,7 +342,7 @@ export default function Home() {
       <section id="espana" className="mx-auto max-w-6xl px-6 py-20 md:py-28 scroll-mt-16">
         <div className="grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-start">
           <div>
-            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-3">
+            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
               Tecnología desarrollada en España
             </p>
             <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[20ch]">
@@ -372,12 +375,12 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
             <div>
-              <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/40 mb-3">
+              <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/60 mb-3">
                 Confianza
               </p>
               <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[22ch]">
                 Tus expedientes exigen algo más que innovación.{' '}
-                <span className="text-void/40">Exigen confianza.</span>
+                <span className="text-void/60">Exigen confianza.</span>
               </h2>
               <p className="mt-5 text-sm text-void/60 leading-[1.6] max-w-prose">
                 VELIA asiste al profesional.{' '}
@@ -399,7 +402,7 @@ export default function Home() {
             ].map(p => (
               <div key={p.title}>
                 <h3 className="text-sm font-700 mb-2">{p.title}</h3>
-                <p className="text-[13px] text-void/55 leading-[1.6]">{p.body}</p>
+                <p className="text-[13px] text-void/60 leading-[1.6]">{p.body}</p>
               </div>
             ))}
           </div>
@@ -408,6 +411,7 @@ export default function Home() {
 
       {/* ── Pricing resumido ─────────────────────────────────────────────── */}
       <section className="bg-void text-cream">
+        <SectionViewMarker event="pricing_section_view" />
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <div className="grid gap-12 md:grid-cols-[1fr_auto] md:items-end">
             <div>
@@ -452,7 +456,7 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-6 py-20 md:py-28">
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
           <div>
-            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-3">
+            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
               VELIA en tu móvil
             </p>
             <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[18ch]">
@@ -474,7 +478,7 @@ export default function Home() {
           {/* Mock móvil sobrio */}
           <div className="justify-self-center w-[240px] rounded-[2rem] border border-void/15 bg-deep p-3">
             <div className="rounded-[1.6rem] bg-void px-4 py-6 space-y-3">
-              <p className="text-[9px] font-700 tracking-[0.22em] uppercase text-gold/60">VELIA</p>
+              <p className="text-[9px] font-700 tracking-[0.22em] uppercase text-gold/70">VELIA</p>
               <div className="rounded-lg bg-white/5 border border-white/10 px-3 py-2.5">
                 <p className="text-cream/80 text-[11px] leading-relaxed">
                   Mañana a las 10:00 tienes la vista del expediente MER-2026-008. Te he
@@ -487,7 +491,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="h-8 rounded-full border border-white/10 flex items-center px-3">
-                <span className="text-cream/30 text-[10px]">Pregunta a VELIA…</span>
+                <span className="text-cream/55 text-[10px]">Pregunta a VELIA…</span>
               </div>
             </div>
           </div>
@@ -500,7 +504,7 @@ export default function Home() {
           <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em]">
             Ve VELIA con tus propios casos.
           </h2>
-          <p className="mt-4 text-sm text-void/55 max-w-[46ch] mx-auto leading-relaxed">
+          <p className="mt-4 text-sm text-void/60 max-w-[46ch] mx-auto leading-relaxed">
             Una demo de 30 minutos con tu tipo de asuntos.{' '}
             <span className="inline-block">Sin compromiso y sin preparación por tu parte.</span>
           </p>

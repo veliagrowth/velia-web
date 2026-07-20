@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
+import { APP_URL } from '@/lib/constants'
+import { trackEvent } from '@/lib/analytics'
 
 /* Mega-menú "Producto": cada item ancla a su momento del día en /legal
    (patrón "enseña el producto en el nav" — referencia analizada: lexroom.ai). */
@@ -101,7 +103,7 @@ export default function Nav() {
             aria-expanded={productOpen}
             aria-haspopup="true"
             className={`flex items-center gap-1.5 text-[11px] font-600 tracking-[0.18em] uppercase transition-colors ${
-              productOpen ? 'text-void' : 'text-void/55 hover:text-void'
+              productOpen ? 'text-void' : 'text-void/60 hover:text-void'
             }`}
           >
             Producto
@@ -117,11 +119,19 @@ export default function Nav() {
             <Link
               key={l.href}
               href={l.href}
-              className="text-[11px] font-600 tracking-[0.18em] uppercase text-void/55 hover:text-void transition-colors"
+              onClick={() => { if (l.href === '/demo') trackEvent('nav_demo_click') }}
+              className="text-[11px] font-600 tracking-[0.18em] uppercase text-void/60 hover:text-void transition-colors"
             >
               {l.label}
             </Link>
           ))}
+          <a
+            href={APP_URL}
+            onClick={() => trackEvent('login_click')}
+            className="text-[11px] font-600 tracking-[0.18em] uppercase text-void/60 hover:text-void transition-colors whitespace-nowrap"
+          >
+            Iniciar sesión
+          </a>
           <a
             href={TRIAL_URL}
             className="btn text-[11px] font-700 tracking-[0.1em] uppercase bg-void text-cream rounded-full px-5 py-2.5 hover:opacity-85 whitespace-nowrap"
@@ -151,20 +161,20 @@ export default function Nav() {
           <div className="mx-auto max-w-6xl px-6 py-10 grid gap-10 lg:grid-cols-[1fr_1.15fr_1fr] md:grid-cols-[1fr_1.3fr]">
             {/* Editorial */}
             <div>
-              <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-4">
+              <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-4">
                 VELIA Legal
               </p>
               <p className="text-2xl font-800 leading-[1.15] tracking-[-0.02em] max-w-[16ch]">
                 El sistema operativo del despacho.
               </p>
-              <p className="mt-3 text-sm text-void/55 leading-[1.6] max-w-[34ch]">
+              <p className="mt-3 text-sm text-void/60 leading-[1.6] max-w-[34ch]">
                 CRM, IA con fuentes oficiales, plazos, facturación y web —{' '}
                 <span className="inline-block">en una sola suscripción.</span>
               </p>
               <Link
                 href="/legal"
                 onClick={() => setProductOpen(false)}
-                className="inline-block mt-5 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-dark hover:text-void transition-colors"
+                className="inline-block mt-5 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
               >
                 Ver un día con VELIA →
               </Link>
@@ -180,7 +190,7 @@ export default function Nav() {
                     className="block rounded-xl px-4 py-3 -mx-4 md:mx-0 hover:bg-void/[0.04] transition-colors"
                   >
                     <span className="block text-sm font-700">{p.title}</span>
-                    <span className="block mt-0.5 text-[13px] text-void/55 leading-[1.5]">{p.desc}</span>
+                    <span className="block mt-0.5 text-[13px] text-void/60 leading-[1.5]">{p.desc}</span>
                   </Link>
                 </li>
               ))}
@@ -189,7 +199,8 @@ export default function Nav() {
             {/* Mock real del producto (el cerebro), no ilustración */}
             <div className="hidden lg:block">
               <div className="rounded-2xl bg-deep p-4">
-                <p className="text-[9px] font-700 tracking-[0.22em] uppercase text-gold/60 mb-3">
+                {/* gold/80 no gold/70: mismo caso de bg-deep que el hero — /70 falla AA aquí. */}
+                <p className="text-[9px] font-700 tracking-[0.22em] uppercase text-gold/80 mb-3">
                   VELIA · Tu puesta al día
                 </p>
                 <div className="space-y-2.5">
@@ -205,13 +216,13 @@ export default function Nav() {
                     </div>
                   </div>
                   <div className="h-8 rounded-full border border-white/10 flex items-center px-3">
-                    <span className="text-cream/30 text-[10px]">Pregunta a VELIA…</span>
+                    <span className="text-cream/55 text-[10px]">Pregunta a VELIA…</span>
                   </div>
                 </div>
               </div>
               <a
                 href={TRIAL_URL}
-                className="block mt-3 text-center text-[11px] font-700 tracking-[0.1em] uppercase text-void/55 hover:text-void transition-colors"
+                className="block mt-3 text-center text-[11px] font-700 tracking-[0.1em] uppercase text-void/60 hover:text-void transition-colors"
               >
                 Pruébalo gratis 15 días →
               </a>
@@ -221,7 +232,7 @@ export default function Nav() {
           {/* Franja de confianza */}
           <div className="border-t border-void/10">
             <div className="mx-auto max-w-6xl px-6 py-3.5">
-              <p className="text-[10px] font-600 tracking-[0.18em] uppercase text-void/40">
+              <p className="text-[10px] font-600 tracking-[0.18em] uppercase text-void/60">
                 Texto oficial del BOE · Plazos según la LEC · Verifactu · Datos alojados en la UE
               </p>
             </div>
@@ -236,12 +247,19 @@ export default function Nav() {
             <Link
               key={l.href}
               href={l.href}
-              onClick={() => setOpen(false)}
+              onClick={() => { setOpen(false); if (l.href === '/demo') trackEvent('nav_demo_click') }}
               className="block py-2.5 text-sm font-600 text-void/70"
             >
               {l.label}
             </Link>
           ))}
+          <a
+            href={APP_URL}
+            onClick={() => { setOpen(false); trackEvent('login_click') }}
+            className="block py-2.5 text-sm font-600 text-void/70"
+          >
+            Iniciar sesión
+          </a>
           <div className="pt-2">
             <a
               href={TRIAL_URL}

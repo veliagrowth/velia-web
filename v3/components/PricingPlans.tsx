@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { FOUNDERS_SEATS_LABEL } from '@/lib/constants'
+import { trackEvent } from '@/lib/analytics'
+import { useSectionView } from '@/lib/useSectionView'
 
 const INCLUDED = [
   'VELIA, tu asistente: escritos, informes y consultas con fuentes oficiales (BOE)',
@@ -36,6 +38,7 @@ export default function PricingPlans() {
   const [annual, setAnnual] = useState(false)
   const plan = annual ? PLAN.annual : PLAN.monthly
   const founders = annual ? FOUNDERS.annual : FOUNDERS.monthly
+  const foundersRef = useSectionView<HTMLDivElement>('founders_program_view')
 
   return (
     <section className="mx-auto max-w-6xl px-6 pb-20">
@@ -44,26 +47,26 @@ export default function PricingPlans() {
         <div className="inline-flex items-center rounded-full border border-void/15 bg-white p-1 overflow-hidden">
           <button
             type="button"
-            onClick={() => setAnnual(false)}
+            onClick={() => { setAnnual(false); trackEvent('pricing_toggle_monthly') }}
             aria-pressed={!annual}
             className={`btn rounded-full px-5 py-2 text-[11px] font-700 tracking-[0.1em] uppercase whitespace-nowrap transition-colors duration-200 ease-in-out ${
-              !annual ? 'bg-void text-cream' : 'text-void/55 hover:text-void'
+              !annual ? 'bg-void text-cream' : 'text-void/60 hover:text-void'
             }`}
           >
             Mensual
           </button>
           <button
             type="button"
-            onClick={() => setAnnual(true)}
+            onClick={() => { setAnnual(true); trackEvent('pricing_toggle_annual') }}
             aria-pressed={annual}
             className={`btn rounded-full px-5 py-2 text-[11px] font-700 tracking-[0.1em] uppercase whitespace-nowrap transition-colors duration-200 ease-in-out ${
-              annual ? 'bg-void text-cream' : 'text-void/55 hover:text-void'
+              annual ? 'bg-void text-cream' : 'text-void/60 hover:text-void'
             }`}
           >
             Anual
           </button>
         </div>
-        <p className={`text-[11px] font-700 tracking-[0.08em] uppercase whitespace-nowrap transition-colors duration-200 ${annual ? 'text-gold-dark' : 'text-void/40'}`}>
+        <p className={`text-[11px] font-700 tracking-[0.08em] uppercase whitespace-nowrap transition-colors duration-200 ${annual ? 'text-gold-ink' : 'text-void/60'}`}>
           Anual: 2 meses gratis
         </p>
       </div>
@@ -74,26 +77,27 @@ export default function PricingPlans() {
           <div className="flex flex-wrap items-baseline gap-3">
             <p className="text-5xl font-800 tracking-[-0.03em]">
               {plan.price}
-              <span className="text-lg font-600 text-void/45">/mes</span>
+              <span className="text-lg font-600 text-void/60">/mes</span>
             </p>
-            <p className="text-sm text-void/50">
+            <p className="text-sm text-void/60">
               por despacho · 1 abogado incluido ·{' '}
               <span className="inline-block">{plan.extra}</span>
             </p>
           </div>
           {plan.note && (
-            <p className="mt-3 text-[12px] font-600 tracking-[0.04em] text-gold-dark">{plan.note}</p>
+            <p className="mt-3 text-[12px] font-600 tracking-[0.04em] text-gold-ink">{plan.note}</p>
           )}
           <ul className="mt-8 grid gap-3 md:grid-cols-2">
             {INCLUDED.map(item => (
               <li key={item} className="flex items-start gap-2.5 text-sm text-void/70 leading-snug">
-                <span className="text-gold-dark mt-0.5 shrink-0">✓</span>
+                <span className="text-gold-ink mt-0.5 shrink-0">✓</span>
                 {item}
               </li>
             ))}
           </ul>
           <Link
             href="/contacto"
+            onClick={() => trackEvent(annual ? 'pricing_annual_demo_click' : 'pricing_monthly_demo_click')}
             className="btn inline-block mt-9 bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85"
           >
             Empezar — agenda una demo
@@ -102,16 +106,16 @@ export default function PricingPlans() {
 
         <div className="space-y-6">
           {/* Fundadores */}
-          <div id="fundadores" className="rounded-3xl border border-gold/40 bg-gold/10 p-8 scroll-mt-24">
-            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-3">
+          <div ref={foundersRef} id="fundadores" className="rounded-3xl border border-gold/40 bg-gold/10 p-8 scroll-mt-24">
+            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
               Programa Fundadores
             </p>
             <p className="text-4xl font-800 tracking-[-0.03em]">
               {founders.price}
-              <span className="text-base font-600 text-void/45">/mes</span>
+              <span className="text-base font-600 text-void/60">/mes</span>
             </p>
             {founders.note && (
-              <p className="mt-2 text-[12px] font-600 tracking-[0.04em] text-gold-dark">{founders.note}</p>
+              <p className="mt-2 text-[12px] font-600 tracking-[0.04em] text-gold-ink">{founders.note}</p>
             )}
             <p className="mt-3 text-sm text-void/65 leading-[1.6]">
               Congelado <strong className="font-700">de por vida</strong> para los 5 primeros
@@ -119,11 +123,12 @@ export default function PricingPlans() {
               <span className="inline-block">Mismo producto completo, acceso directo al
               equipo que lo construye y voz en la hoja de ruta.</span>
             </p>
-            <p className="mt-4 text-[12px] font-700 tracking-[0.08em] uppercase text-gold-dark">
+            <p className="mt-4 text-[12px] font-700 tracking-[0.08em] uppercase text-gold-ink">
               Quedan {FOUNDERS_SEATS_LABEL}
             </p>
             <Link
               href="/contacto"
+              onClick={() => trackEvent('founders_program_click')}
               className="btn inline-block mt-5 bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-6 py-3 hover:opacity-85"
             >
               Solicitar plaza
@@ -132,14 +137,14 @@ export default function PricingPlans() {
 
           {/* Bufetes grandes */}
           <div className="rounded-3xl border border-void/10 bg-white p-8">
-            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/40 mb-3">
+            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/60 mb-3">
               Bufetes grandes
             </p>
             <p className="text-sm text-void/65 leading-[1.6]">
               Sin tarifa de catálogo: onboarding y estudio de integración a medida según
               la infraestructura que haya que manejar.
             </p>
-            <Link href="/contacto" className="inline-block mt-4 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-dark hover:text-void transition-colors">
+            <Link href="/contacto" className="inline-block mt-4 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors">
               Hablar con el equipo →
             </Link>
           </div>

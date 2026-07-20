@@ -17,9 +17,13 @@ export type ProductUpdate = {
   published_at: string
 }
 
+/* Colores de texto de "novedad" y "mejora" oscurecidos frente al tono base de
+   marca (Signal #4ECDC4 / Gold #9A7840): a 10px sobre su propio fondo tintado
+   daban 3.76:1 / 3.64:1 (fallan AA 4.5:1, cazado por Lighthouse). Los otros
+   dos ya pasaban. */
 export const CATEGORY_STYLE: Record<ProductUpdate['category'], { label: string; cls: string }> = {
-  novedad:    { label: 'Novedad',    cls: 'bg-[rgba(78,205,196,0.14)] text-[#0E8C82]' },
-  mejora:     { label: 'Mejora',     cls: 'bg-[rgba(201,169,110,0.16)] text-[#9A7840]' },
+  novedad:    { label: 'Novedad',    cls: 'bg-[rgba(78,205,196,0.14)] text-[#0b736b]' },
+  mejora:     { label: 'Mejora',     cls: 'bg-[rgba(201,169,110,0.16)] text-gold-ink' },
   seguridad:  { label: 'Seguridad',  cls: 'bg-[rgba(108,92,231,0.14)] text-[#5B4BC4]' },
   correccion: { label: 'Corrección', cls: 'bg-[rgba(28,28,40,0.07)] text-[#1C1C28]' },
 }
@@ -54,7 +58,7 @@ export default async function LiveUpdates() {
       <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-3">
+            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
               Producto vivo
             </p>
             <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[22ch]">
@@ -68,7 +72,7 @@ export default async function LiveUpdates() {
           </div>
           <Link
             href="/novedades"
-            className="text-[12px] font-700 tracking-[0.1em] uppercase text-gold-dark hover:text-void transition-colors"
+            className="text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
           >
             Ver todas las novedades →
           </Link>
@@ -83,7 +87,7 @@ export default async function LiveUpdates() {
                   <span className={`inline-block rounded-full px-2.5 py-1 text-[10px] font-700 tracking-[0.08em] uppercase ${cat.cls}`}>
                     {cat.label}
                   </span>
-                  <span className="text-[11px] text-void/40">{formatUpdateDate(u.published_at)}</span>
+                  <span className="text-[11px] text-void/60">{formatUpdateDate(u.published_at)}</span>
                 </div>
                 <h3 className="mt-3 text-base font-700 leading-snug">{u.title}</h3>
                 <p className="mt-2 text-sm text-void/60 leading-[1.6] line-clamp-3">{u.body}</p>

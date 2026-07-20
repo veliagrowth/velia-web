@@ -57,7 +57,7 @@ export default function PreciosPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <section className="mx-auto max-w-6xl px-6 pt-20 md:pt-28 pb-16">
-        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-6">Precios</p>
+        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-6">Precios</p>
         <h1 className="text-4xl md:text-5xl font-800 leading-[1.08] tracking-[-0.03em] max-w-[20ch]">
           Un precio. Todo dentro.
         </h1>

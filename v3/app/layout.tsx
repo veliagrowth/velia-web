@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import CookieNotice from '@/components/CookieNotice'
+import ScrollDepthTracker from '@/components/ScrollDepthTracker'
 import { SITE_URL, CONTACT_EMAIL } from '@/lib/constants'
 import './globals.css'
 
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <Footer />
         <CookieNotice />
+        <ScrollDepthTracker />
         <Analytics />
       </body>
     </html>

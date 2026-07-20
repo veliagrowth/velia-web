@@ -17,7 +17,7 @@ export default async function NovedadesPage() {
 
   return (
     <section className="mx-auto max-w-3xl px-6 pt-20 md:pt-28 pb-20">
-      <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-dark mb-6">
+      <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-6">
         Producto vivo
       </p>
       <h1 className="text-4xl md:text-5xl font-800 leading-[1.08] tracking-[-0.03em]">
@@ -48,7 +48,7 @@ export default async function NovedadesPage() {
                   <span className={`inline-block rounded-full px-2.5 py-1 text-[10px] font-700 tracking-[0.08em] uppercase ${cat.cls}`}>
                     {cat.label}
                   </span>
-                  <span className="text-[11px] text-void/40">{formatUpdateDate(u.published_at)}</span>
+                  <span className="text-[11px] text-void/60">{formatUpdateDate(u.published_at)}</span>
                 </div>
                 <h2 className="mt-3 text-lg font-700 leading-snug">{u.title}</h2>
                 <p className="mt-2 text-sm text-void/60 leading-[1.6] max-w-prose">{u.body}</p>

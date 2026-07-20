@@ -13,7 +13,7 @@ export default function Footer() {
           </p>
         </div>
         <div className="text-xs space-y-2.5">
-          <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-cream/35 mb-3">Plataforma</p>
+          <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-cream/50 mb-3">Plataforma</p>
           <Link href="/legal" className="block hover:text-cream transition-colors">VELIA Legal</Link>
           <Link href="/demo" className="block hover:text-cream transition-colors">Demo interactiva</Link>
           <Link href="/precios" className="block hover:text-cream transition-colors">Precios</Link>
@@ -21,14 +21,15 @@ export default function Footer() {
           <Link href="/novedades" className="block hover:text-cream transition-colors">Novedades</Link>
         </div>
         <div className="text-xs space-y-2.5">
-          <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-cream/35 mb-3">Contacto</p>
+          <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-cream/50 mb-3">Contacto</p>
+          <Link href="/sobre-velia" className="block hover:text-cream transition-colors">Sobre VELIA</Link>
           <Link href="/contacto" className="block hover:text-cream transition-colors">Agenda una demo</Link>
           <a href={APP_URL} className="block hover:text-cream transition-colors">Acceso clientes</a>
           <a href={`${APP_URL}/instalar`} className="block hover:text-cream transition-colors">Instalar la app</a>
           <a href={`mailto:${CONTACT_EMAIL}`} className="block hover:text-cream transition-colors">{CONTACT_EMAIL}</a>
         </div>
         <div className="text-xs space-y-2.5">
-          <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-cream/35 mb-3">Legal</p>
+          <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-cream/50 mb-3">Legal</p>
           <Link href="/aviso-legal" className="block hover:text-cream transition-colors">Aviso legal</Link>
           <Link href="/privacidad" className="block hover:text-cream transition-colors">Privacidad</Link>
           <Link href="/cookies" className="block hover:text-cream transition-colors">Cookies</Link>
@@ -38,8 +39,8 @@ export default function Footer() {
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-6xl px-6 py-5 flex flex-wrap items-center justify-between gap-2">
-          <p className="text-[11px] text-cream/35">© {new Date().getFullYear()} VELIA Marketing SL · Datos alojados en la UE</p>
-          <p className="text-[11px] text-cream/35">veliacorp.com</p>
+          <p className="text-[11px] text-cream/50">© {new Date().getFullYear()} VELIA Marketing SL · Datos alojados en la UE</p>
+          <p className="text-[11px] text-cream/50">veliacorp.com</p>
         </div>
       </div>
     </footer>

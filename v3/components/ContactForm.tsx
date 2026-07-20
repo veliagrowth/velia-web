@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import Link from 'next/link'
+import { trackEvent } from '@/lib/analytics'
 
 /**
  * Formulario de captación → webhook web-form-lead del n8n SELF-HOST
@@ -17,15 +18,24 @@ export default function ContactForm() {
   const [consentError, setConsentError] = useState(false)
   const [state, setState] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle')
   const [hp, setHp] = useState('')
+  const started = useRef(false)
+
+  function markStarted() {
+    if (!started.current) {
+      started.current = true
+      trackEvent('demo_form_start')
+    }
+  }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (state === 'sending') return
     // Honeypot anti-bot: un humano nunca rellena el campo oculto — si viene
-    // con valor, fingimos éxito sin enviar nada (bots reales 19-jul).
+    // con valor, fingimos éxito sin enviar nada (bots reales 19-jul). No se
+    // trackea como envío real para no ensuciar la analítica con bots.
     if (hp.trim()) { setState('ok'); return }
     // RGPD: doble guard junto al `required` nativo — error siempre visible.
-    if (!consent) { setConsentError(true); return }
+    if (!consent) { setConsentError(true); trackEvent('demo_form_error', { reason: 'consent' }); return }
     setConsentError(false)
     setState('sending')
     try {
@@ -45,8 +55,10 @@ export default function ContactForm() {
       })
       if (!res.ok) throw new Error()
       setState('ok')
+      trackEvent('demo_form_submit')
     } catch {
       setState('error')
+      trackEvent('demo_form_error', { reason: 'network' })
     }
   }
 
@@ -67,7 +79,7 @@ export default function ContactForm() {
   const label = 'block text-[11px] font-600 tracking-[0.28em] uppercase text-void/60 mb-1.5'
 
   return (
-    <form onSubmit={onSubmit} className="rounded-3xl border border-void/10 bg-white p-8 md:p-10 space-y-5 self-start w-full">
+    <form onSubmit={onSubmit} onFocus={markStarted} className="rounded-3xl border border-void/10 bg-white p-8 md:p-10 space-y-5 self-start w-full">
       {/* Honeypot anti-bot: invisible para humanos */}
       <input
         type="text"
@@ -95,7 +107,7 @@ export default function ContactForm() {
           <input id="email" type="email" required value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} className={input} placeholder="tu@despacho.com" />
         </div>
         <div>
-          <label htmlFor="phone" className={label}>Teléfono <span className="normal-case tracking-normal text-void/35">(opcional)</span></label>
+          <label htmlFor="phone" className={label}>Teléfono <span className="normal-case tracking-normal text-void/60">(opcional)</span></label>
           <input id="phone" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} className={input} placeholder="+34 …" />
         </div>
       </div>
@@ -120,13 +132,13 @@ export default function ContactForm() {
             className="mt-0.5 h-4 w-4 shrink-0 rounded border-void/25 accent-[#9A7840]"
           />
           <span className="text-[13px] leading-relaxed text-void/60">
-            He leído y acepto la <Link href="/privacidad" className="underline text-void/80 hover:text-gold-dark" target="_blank" rel="noopener noreferrer">política de privacidad</Link>.
+            He leído y acepto la <Link href="/privacidad" className="underline text-void/80 hover:text-gold-ink" target="_blank" rel="noopener noreferrer">política de privacidad</Link>.
           </span>
         </label>
         {consentError && (
           <p className="mt-2 text-xs text-red-600">Necesitamos tu consentimiento para responderte.</p>
         )}
-        <p className="mt-3 text-[11px] leading-relaxed text-void/40">
+        <p className="mt-3 text-[11px] leading-relaxed text-void/60">
           Responsable: VELIA Marketing SL · Finalidad: responder a tu solicitud y agendar la
           demo · Derechos: acceso, rectificación y supresión en admin@veliacorp.com.
         </p>
