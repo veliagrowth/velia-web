@@ -279,12 +279,17 @@ export default function Home() {
               Ver cómo funciona →
             </Link>
           </div>
+          {/* Solo cifras REALES y documentadas de Cónsul Jurídico (velia-chat es
+             la fuente): +260% consultas, <5 min de respuesta, 12 h/semana
+             recuperadas, <60 días. Se retiraron "+85% nuevos clientes" y
+             "−70% tiempo en gestión" (sin respaldo en ningún sitio) — el brief
+             de Axel §29 prohíbe métricas no verificadas. */}
           <dl className="grid grid-cols-2 gap-px bg-void/10 border border-void/10 rounded-2xl overflow-hidden">
             {[
               { n: '+260%', d: 'consultas captadas al mes' },
-              { n: '+85%', d: 'nuevos clientes' },
-              { n: '−70%', d: 'tiempo en gestión' },
-              { n: '<60', d: 'días hasta resultados' },
+              { n: '<5 min', d: 'en responder cada consulta' },
+              { n: '12 h', d: 'recuperadas cada semana' },
+              { n: '<60', d: 'días hasta los primeros resultados' },
             ].map(s => (
               <div key={s.d} className="bg-white px-6 py-8">
                 <dt className="sr-only">{s.d}</dt>
