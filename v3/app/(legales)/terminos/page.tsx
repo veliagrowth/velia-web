@@ -9,15 +9,15 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://veliacorp.com/terminos' },
 }
 
-/* TODO (Axel): confirmar la permanencia inicial de 6 meses (§4) — hoy replica lo
-   publicado en /precios; viene del pricing anterior y está pendiente de ratificar.
-   Revisión legal en paralelo — v1.0. */
+/* Pricing modelo Axel (decidido 2026-07-21): plan 99€/mes, 2 usuarios, +29€,
+   permanencia 3 meses, Programa Fundadores = web premium con plan anual (20 plazas).
+   Revisión legal de estos términos en paralelo — v1.1. */
 
 export default function TerminosPage() {
   return (
     <>
       <h1>Términos del servicio</h1>
-      <p className="legal-meta">Versión 1.0 · Última actualización: 16 de julio de 2026</p>
+      <p className="legal-meta">Versión 1.1 · Última actualización: 21 de julio de 2026</p>
 
       <h2>1. Objeto</h2>
       <p>
@@ -38,12 +38,15 @@ export default function TerminosPage() {
       <h2>3. Planes y precios</h2>
       <ul>
         <li>
-          <strong>Plan despacho:</strong> 199€/mes por despacho con un abogado incluido, y
-          49€/mes por abogado adicional. Pago anual: dos meses gratis (1.990€/año).
+          <strong>VELIA Despacho:</strong> 99€/mes por despacho con dos usuarios incluidos, y
+          29€/mes por usuario adicional. Pago anual: dos meses gratis (990€/año, equivalente a
+          82,50€/mes).
         </li>
         <li>
-          <strong>Programa Fundadores:</strong> 149€/mes congelado de por vida para los cinco
-          primeros despachos, mientras la suscripción se mantenga activa.
+          <strong>Programa Fundadores:</strong> mismo precio para los primeros veinte despachos
+          que contraten en modalidad anual, con el precio de lanzamiento congelado y la web
+          premium de lanzamiento incluida (según el alcance descrito en la web), mientras la
+          suscripción se mantenga activa.
         </li>
         <li>
           <strong>Bufetes grandes:</strong> sin tarifa de catálogo — onboarding y estudio de
@@ -51,18 +54,18 @@ export default function TerminosPage() {
         </li>
       </ul>
       <p>
-        Los precios se muestran sin IVA. La web del despacho incluida en el plan se diseña a
-        medida y permanece incluida mientras la suscripción esté activa, sin coste de
-        mantenimiento aparte.
+        Los precios se muestran sin IVA. La web del despacho, cuando esté incluida (Programa
+        Fundadores anual) o contratada como añadido, se diseña a medida y permanece disponible
+        mientras la suscripción esté activa, sin coste de mantenimiento aparte.
       </p>
 
       <h2>4. Duración y baja</h2>
       <p>
-        La suscripción tiene una permanencia inicial de 6 meses — el tiempo real que tarda un
-        despacho en operar por completo sobre la plataforma — y después se renueva mes a mes.
-        Puedes comunicar la baja en cualquier momento a{' '}
-        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> con efectos al final del
-        periodo en curso.
+        El pago mensual tiene un compromiso inicial de 3 meses — el tiempo real que tarda un
+        despacho en completar la puesta en marcha y adoptar la plataforma — y después se
+        renueva mes a mes, con 30 días de preaviso para la baja. El plan anual da acceso durante
+        12 meses con renovación anual. Puedes comunicar la baja a{' '}
+        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
       </p>
 
       <h2>5. Los datos de tu despacho</h2>

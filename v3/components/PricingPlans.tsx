@@ -2,10 +2,13 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { FOUNDERS_SEATS_LABEL } from '@/lib/constants'
+import { PRICING, ANNUAL_SAVING, ANNUAL_FREE_MONTHS, FOUNDERS_SEATS_LABEL, eur } from '@/lib/pricing'
 import { trackEvent } from '@/lib/analytics'
 import { useSectionView } from '@/lib/useSectionView'
 
+/* Lo que incluye el plan único "VELIA Despacho". La web del despacho ya NO va
+   en el plan base (modelo Axel 2026-07-21): es incentivo del Programa Fundadores
+   anual o un añadido opcional. */
 const INCLUDED = [
   'VELIA, tu asistente: escritos, informes y consultas con fuentes oficiales (BOE)',
   'Puesta al día automática cada mañana (plazos, citas, mensajes, documentos)',
@@ -14,35 +17,29 @@ const INCLUDED = [
   'Portal del cliente: su caso en lenguaje llano, subida de documentos, pagos y citas',
   'Persecución automática de documentación al cliente',
   'Facturación conforme a Verifactu',
-  'Web del despacho a medida — gratis de por vida',
   'Inbox unificado: email y mensajes del portal',
+  '2 usuarios incluidos',
   'Datos alojados en la UE · aislamiento por despacho (RLS)',
+  'Onboarding inicial y soporte',
 ]
 
-/* Anual = 2 meses gratis (paga 10, usa 12). Decisión 2026-07-10:
-   199 → 1.990€/año (equiv. 166€/mes) · Fundadores 149 → 1.490€/año (equiv. 124€/mes). */
-const PLAN = {
-  monthly: { price: '199€', extra: '+49€/mes por abogado adicional', note: null },
-  annual: {
-    price: '166€',
-    extra: '+490€/año por abogado adicional',
-    note: 'Facturado anualmente: 1.990€/año — 2 meses gratis.',
-  },
-}
-const FOUNDERS = {
-  monthly: { price: '149€', note: null },
-  annual: { price: '124€', note: 'Facturado anualmente: 1.490€/año — 2 meses gratis.' },
-}
-
 export default function PricingPlans() {
-  const [annual, setAnnual] = useState(false)
-  const plan = annual ? PLAN.annual : PLAN.monthly
-  const founders = annual ? FOUNDERS.annual : FOUNDERS.monthly
+  // Anual seleccionado por defecto (modelo Axel), pero el mensual se ve y se
+  // cambia sin trucos — nunca escondemos el precio mensual.
+  const [annual, setAnnual] = useState(true)
   const foundersRef = useSectionView<HTMLDivElement>('founders_program_view')
+
+  const price = annual ? eur(PRICING.annualPerMonth) : eur(PRICING.monthly)
+  const extra = annual
+    ? `+${eur(PRICING.extraUserAnnual)}/año por usuario adicional`
+    : `+${eur(PRICING.extraUserMonthly)}/mes por usuario adicional`
+  const note = annual
+    ? `Facturado anualmente: ${eur(PRICING.annualTotal)}/año — ${ANNUAL_FREE_MONTHS} meses gratis.`
+    : `Compromiso inicial de ${PRICING.commitmentMonths} meses. Después, cancela con 30 días de preaviso.`
 
   return (
     <section className="mx-auto max-w-6xl px-6 pb-20">
-      {/* Toggle mensual / anual */}
+      {/* Toggle mensual / anual — anual por defecto, mensual siempre accesible */}
       <div className="mb-8 flex flex-wrap items-center gap-4">
         <div className="inline-flex items-center rounded-full border border-void/15 bg-white p-1 overflow-hidden">
           <button
@@ -67,26 +64,27 @@ export default function PricingPlans() {
           </button>
         </div>
         <p className={`text-[11px] font-700 tracking-[0.08em] uppercase whitespace-nowrap transition-colors duration-200 ${annual ? 'text-gold-ink' : 'text-void/60'}`}>
-          Anual: 2 meses gratis
+          Anual: {ANNUAL_FREE_MONTHS} meses gratis · ahorra {eur(ANNUAL_SAVING)}
         </p>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr] items-start">
         {/* Plan principal */}
         <div className="rounded-3xl border border-void/10 bg-white p-8 md:p-10">
+          <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-4">
+            VELIA Despacho · Precio de lanzamiento
+          </p>
           <div className="flex flex-wrap items-baseline gap-3">
             <p className="text-5xl font-800 tracking-[-0.03em]">
-              {plan.price}
+              {price}
               <span className="text-lg font-600 text-void/60">/mes</span>
             </p>
             <p className="text-sm text-void/60">
-              por despacho · 1 abogado incluido ·{' '}
-              <span className="inline-block">{plan.extra}</span>
+              + IVA · por despacho · {PRICING.usersIncluded} usuarios incluidos ·{' '}
+              <span className="inline-block">{extra}</span>
             </p>
           </div>
-          {plan.note && (
-            <p className="mt-3 text-[12px] font-600 tracking-[0.04em] text-gold-ink">{plan.note}</p>
-          )}
+          <p className="mt-3 text-[12px] font-600 tracking-[0.04em] text-gold-ink">{note}</p>
           <ul className="mt-8 grid gap-3 md:grid-cols-2">
             {INCLUDED.map(item => (
               <li key={item} className="flex items-start gap-2.5 text-sm text-void/70 leading-snug">
@@ -100,28 +98,25 @@ export default function PricingPlans() {
             onClick={() => trackEvent(annual ? 'pricing_annual_demo_click' : 'pricing_monthly_demo_click')}
             className="btn inline-block mt-9 bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85"
           >
-            Empezar — agenda una demo
+            Solicitar demo
           </Link>
+          <p className="mt-3 text-[12px] text-void/60">Conoce VELIA antes de contratar.</p>
         </div>
 
         <div className="space-y-6">
-          {/* Fundadores */}
+          {/* Fundadores — mismo precio, la ventaja es la web premium (solo anual) */}
           <div ref={foundersRef} id="fundadores" className="rounded-3xl border border-gold/40 bg-gold/10 p-8 scroll-mt-24">
             <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
               Programa Fundadores
             </p>
-            <p className="text-4xl font-800 tracking-[-0.03em]">
-              {founders.price}
-              <span className="text-base font-600 text-void/60">/mes</span>
+            <p className="text-2xl font-800 tracking-[-0.02em] leading-[1.15] max-w-[18ch]">
+              Web premium de lanzamiento incluida.
             </p>
-            {founders.note && (
-              <p className="mt-2 text-[12px] font-600 tracking-[0.04em] text-gold-ink">{founders.note}</p>
-            )}
-            <p className="mt-3 text-sm text-void/65 leading-[1.6]">
-              Congelado <strong className="font-700">de por vida</strong> para los 5 primeros
-              despachos.{' '}
-              <span className="inline-block">Mismo producto completo, acceso directo al
-              equipo que lo construye y voz en la hoja de ruta.</span>
+            <p className="mt-3 text-sm text-void/70 leading-[1.6]">
+              Los primeros despachos que contraten VELIA en modalidad anual acceden a una
+              presencia digital nueva, a la altura de su trabajo —{' '}
+              <span className="inline-block">incluida con el plan anual.</span> Mismo precio,
+              precio de lanzamiento congelado y voz en la hoja de ruta.
             </p>
             <p className="mt-4 text-[12px] font-700 tracking-[0.08em] uppercase text-gold-ink">
               Quedan {FOUNDERS_SEATS_LABEL}
@@ -131,7 +126,7 @@ export default function PricingPlans() {
               onClick={() => trackEvent('founders_program_click')}
               className="btn inline-block mt-5 bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-6 py-3 hover:opacity-85"
             >
-              Solicitar plaza
+              Solicitar acceso fundador
             </Link>
           </div>
 

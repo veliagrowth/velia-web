@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'VELIA — Software para despachos de abogados con IA',
     description:
-      'CRM jurídico, IA legal con fuentes oficiales, plazos procesales, facturación Verifactu y web del despacho. Todo en una plataforma desde 199€/mes.',
+      'CRM jurídico, IA legal con fuentes oficiales, plazos procesales y facturación Verifactu. Todo en una plataforma desde 99€/mes.',
     url: 'https://veliacorp.com',
     siteName: 'VELIA',
     locale: 'es_ES',

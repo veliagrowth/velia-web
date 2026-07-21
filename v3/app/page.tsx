@@ -7,6 +7,7 @@ import HeroVideo from '@/components/HeroVideo'
 import TrackedLink from '@/components/TrackedLink'
 import SectionViewMarker from '@/components/SectionViewMarker'
 import { FOUNDERS_SEATS_LABEL, APP_URL, SITE_URL } from '@/lib/constants'
+import { PRICING, ANNUAL_FREE_MONTHS, eur } from '@/lib/pricing'
 
 const BRAIN_CAPABILITIES = [
   {
@@ -56,15 +57,15 @@ const softwareJsonLd = {
   offers: [
     {
       '@type': 'Offer',
-      price: '199',
+      price: String(PRICING.monthly),
       priceCurrency: 'EUR',
-      description: '199€/mes por despacho con un abogado incluido. Prueba gratis de 15 días.',
+      description: `${eur(PRICING.monthly)}/mes por despacho con ${PRICING.usersIncluded} usuarios incluidos. Prueba gratis de 15 días.`,
     },
     {
       '@type': 'Offer',
-      price: '1990',
+      price: String(PRICING.annualTotal),
       priceCurrency: 'EUR',
-      description: '1.990€/año por despacho (2 meses gratis) con un abogado incluido. Prueba gratis de 15 días.',
+      description: `${eur(PRICING.annualTotal)}/año por despacho (${ANNUAL_FREE_MONTHS} meses gratis) con ${PRICING.usersIncluded} usuarios incluidos. Prueba gratis de 15 días.`,
     },
   ],
 }
@@ -104,10 +105,10 @@ export default function Home() {
                 Agenda una demo
               </TrackedLink>
               <Link
-                href="/precios#fundadores"
+                href="/demo"
                 className="btn border border-void/20 text-void text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:border-void/50 transition-colors"
               >
-                Hazte Fundador — 149€/mes
+                Ver VELIA en acción
               </Link>
             </div>
           </div>
@@ -422,21 +423,22 @@ export default function Home() {
                 Se paga con un caso al mes.
               </h2>
               <p className="mt-5 text-sm text-cream/55 leading-[1.6] max-w-prose">
-                199€ al mes por despacho, con un abogado incluido y +49€ por abogado
-                adicional. <span className="inline-block">Web a medida gratis de por vida.</span>{' '}
+                {eur(PRICING.monthly)} al mes por despacho, con {PRICING.usersIncluded} usuarios
+                incluidos y +{eur(PRICING.extraUserMonthly)} por usuario adicional.{' '}
+                <span className="inline-block">En anual, {ANNUAL_FREE_MONTHS} meses gratis.</span>{' '}
                 <span className="inline-block">Sin módulos ocultos: todo lo que ves está dentro.</span>
               </p>
               <div className="mt-8 inline-flex items-center gap-3 rounded-2xl border border-gold/30 bg-gold/10 px-5 py-4">
                 <p className="text-sm text-cream/85">
-                  <strong className="font-700 text-gold-light">Programa Fundadores:</strong> 149€/mes
-                  congelado de por vida ·{' '}
+                  <strong className="font-700 text-gold-light">Programa Fundadores:</strong> web
+                  premium incluida con el plan anual ·{' '}
                   <span className="inline-block">quedan <strong className="font-700">{FOUNDERS_SEATS_LABEL}</strong></span>
                 </p>
               </div>
             </div>
             <div className="flex flex-col items-start gap-3">
               <p className="text-5xl md:text-6xl font-800 tracking-[-0.03em]">
-                199€<span className="text-xl font-600 text-cream/50">/mes</span>
+                {eur(PRICING.monthly)}<span className="text-xl font-600 text-cream/50">/mes</span>
               </p>
               <Link
                 href="/precios"

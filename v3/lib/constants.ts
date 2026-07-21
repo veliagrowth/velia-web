@@ -1,14 +1,12 @@
 /**
  * Constantes compartidas de la web pública.
  *
- * FOUNDERS_SEATS es la ÚNICA fuente de verdad de las plazas del Programa
- * Fundadores en toda la web (home + precios). Cuando firme un Fundador nuevo,
- * actualizar `left` aquí y redesplegar — nada más que tocar.
+ * Los precios y las plazas del Programa Fundadores viven en `lib/pricing.ts`
+ * (SSoT única). Se re-exporta FOUNDERS_SEATS_LABEL aquí por compatibilidad con
+ * los imports existentes.
  */
 
-export const FOUNDERS_SEATS = { total: 5, left: 4 } as const
-
-export const FOUNDERS_SEATS_LABEL = `${FOUNDERS_SEATS.left} de ${FOUNDERS_SEATS.total} plazas` as const
+export { FOUNDERS_SEATS_LABEL, FOUNDERS, PRICING, ANNUAL_SAVING, ANNUAL_FREE_MONTHS, eur } from './pricing'
 
 export const SITE_URL = 'https://veliacorp.com'
 export const APP_URL = 'https://app.veliacorp.com'

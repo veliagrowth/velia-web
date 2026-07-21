@@ -5,24 +5,26 @@ import PricingPlans from '@/components/PricingPlans'
 export const metadata: Metadata = {
   title: 'Precios — VELIA',
   description:
-    'VELIA Legal: 199€/mes por despacho (o 1.990€/año — 2 meses gratis) con un abogado incluido, +49€ por abogado adicional. Programa Fundadores: 149€/mes de por vida. Web a medida gratis de por vida.',
+    'VELIA Despacho: 99€/mes por despacho (o 990€/año — 2 meses gratis) con 2 usuarios incluidos, +29€ por usuario adicional. Programa Fundadores: web premium incluida con el plan anual.',
   alternates: { canonical: 'https://veliacorp.com/precios' },
 }
 
-/* Única fuente de las FAQ: alimenta el render Y el JSON-LD FAQPage.
-   La respuesta de permanencia está pendiente de ratificar con Axel (decisión
-   2026-07-16) — si cambia, se edita aquí y queda coherente en ambos sitios. */
+/* Única fuente de las FAQ: alimenta el render Y el JSON-LD FAQPage. */
 /* a + closer: el cierre se pinta como unidad inseparable (inline-block) para
    que la última frase nunca quede partida a mitad. El JSON-LD une ambos. */
 const FAQS: { q: string; a: string; closer?: string }[] = [
   {
     q: '¿Hay permanencia?',
-    a: '6 meses iniciales — el tiempo real que tarda un despacho en operar entero sobre la plataforma.',
-    closer: 'Después, mes a mes.',
+    a: 'El pago mensual tiene un compromiso inicial de 3 meses — el tiempo real para completar la puesta en marcha y adoptar el sistema. Después, cancelas con 30 días de preaviso.',
+    closer: 'El plan anual da 12 meses de acceso y un ahorro de 2 mensualidades.',
   },
   {
-    q: '¿La web es de verdad gratis?',
-    a: 'Sí: diseño a medida para tu despacho, incluida mientras seas cliente, sin coste de mantenimiento aparte.',
+    q: '¿Cuántos usuarios incluye?',
+    a: 'El plan incluye 2 usuarios. Puedes añadir más según el tamaño del despacho: 29€/mes (o 290€/año) por usuario adicional.',
+  },
+  {
+    q: '¿Y la web del despacho?',
+    a: 'La presencia digital premium está incluida para los despachos del Programa Fundadores que contratan en modalidad anual. Para el resto de planes, es un añadido opcional.',
   },
   {
     q: '¿Dónde se guardan mis expedientes y documentos?',
@@ -62,8 +64,8 @@ export default function PreciosPage() {
           Un precio. Todo dentro.
         </h1>
         <p className="mt-6 text-lg text-void/60 leading-relaxed max-w-prose">
-          Sin módulos, sin sorpresas y sin permanencias escondidas: 6 meses iniciales y
-          después mes a mes.{' '}
+          Sin módulos, sin sorpresas y sin permanencias escondidas: 3 meses iniciales en
+          el pago mensual y después, mes a mes.{' '}
           <span className="inline-block">Se paga con un caso al mes.</span>
         </p>
       </section>
