@@ -1,0 +1,17 @@
+# Cloudflare Tunnel (Fase 2 migración Coolify) — conector del túnel `velia-hetzner`.
+# Expone las webs servidas por Traefik (coolify-proxy) a través del túnel,
+# sin abrir puertos ni exponer la IP del box.
+# TUNNEL_TOKEN se inyecta como variable de entorno desde Coolify — NUNCA en el repo.
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    networks:
+      - coolify
+
+networks:
+  coolify:
+    external: true
