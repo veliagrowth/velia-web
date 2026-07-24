@@ -85,8 +85,8 @@ export default function DemoPage() {
           </h2>
           <p className="mt-3 text-sm text-void/60 max-w-[46ch] mx-auto leading-relaxed">
             15 días gratis con tus propios tipos de asuntos, sin tarjeta.{' '}
-            <span className="inline-block">O agenda una demo de 30 minutos y te lo
-            enseñamos nosotros.</span>
+            <span className="inline-block">Montamos tu VELIA con el contexto de tu
+            despacho en 2 minutos.</span>
           </p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <a
@@ -99,7 +99,7 @@ export default function DemoPage() {
               href="/contacto"
               className="btn border border-void/20 text-void text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:border-void/50 transition-colors"
             >
-              Agenda una demo
+              Otras formas de empezar
             </Link>
           </div>
         </div>

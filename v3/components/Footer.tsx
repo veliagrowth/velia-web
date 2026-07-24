@@ -23,7 +23,7 @@ export default function Footer() {
         <div className="text-xs space-y-2.5">
           <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-cream/50 mb-3">Contacto</p>
           <Link href="/sobre-velia" className="block hover:text-cream transition-colors">Sobre VELIA</Link>
-          <Link href="/contacto" className="block hover:text-cream transition-colors">Agenda una demo</Link>
+          <Link href="/contacto" className="block hover:text-cream transition-colors">Empieza con VELIA</Link>
           <a href={APP_URL} className="block hover:text-cream transition-colors">Acceso clientes</a>
           <a href={`${APP_URL}/instalar`} className="block hover:text-cream transition-colors">Instalar la app</a>
           <a href={`mailto:${CONTACT_EMAIL}`} className="block hover:text-cream transition-colors">{CONTACT_EMAIL}</a>

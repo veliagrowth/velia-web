@@ -4,6 +4,7 @@ import ProductShot from '@/components/ProductShot'
 import TestimonialVideo from '@/components/TestimonialVideo'
 import VeliaBrain from '@/components/VeliaBrain'
 import HeroVideo from '@/components/HeroVideo'
+import PhoneShot from '@/components/PhoneShot'
 import TrackedLink from '@/components/TrackedLink'
 import SectionViewMarker from '@/components/SectionViewMarker'
 import { FOUNDERS_SEATS_LABEL, APP_URL, SITE_URL } from '@/lib/constants'
@@ -98,11 +99,11 @@ export default function Home() {
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <TrackedLink
-                href="/contacto"
-                event="hero_demo_click"
+                href={`${APP_URL}/prueba-velia`}
+                event="hero_trial_click"
                 className="btn bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85"
               >
-                Agenda una demo
+                Prueba VELIA gratis
               </TrackedLink>
               <Link
                 href="/demo"
@@ -113,14 +114,16 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Vídeo en loop (Mixkit, licencia libre) — la abogacía de siempre,
-              el software de ahora. Muted+playsInline para autoplay en móvil.
-              Control de pausa accesible: WCAG 2.2.2 (HeroVideo.tsx). */}
+          {/* Vídeo en loop (Mixkit, licencia libre): la Dama de la Justicia con
+              la balanza — inconfundiblemente abogacía. Bucle permanente y SIN
+              interfaz de pausa (decisión Joaquín 24-jul); reduced-motion se
+              respeta a nivel de SO en HeroVideo.tsx. Muted+playsInline para
+              autoplay en móvil. Recorte 4:3 hecho en origen (960x720, 467KB). */}
           <div className="rise">
             <HeroVideo
-              src="/videos/hero-abogacia.mp4"
-              poster="/videos/hero-abogacia-poster.jpg"
-              ariaLabel="Un letrado firmando una resolución"
+              src="/videos/hero-justicia.mp4"
+              poster="/videos/hero-justicia-poster.jpg"
+              ariaLabel="La Dama de la Justicia sosteniendo la balanza"
             />
           </div>
         </div>
@@ -482,25 +485,13 @@ export default function Home() {
               Instalar la app
             </a>
           </div>
-          {/* Mock móvil sobrio */}
-          <div className="justify-self-center w-[240px] rounded-[2rem] border border-void/15 bg-deep p-3">
-            <div className="rounded-[1.6rem] bg-void px-4 py-6 space-y-3">
-              <p className="text-[9px] font-700 tracking-[0.22em] uppercase text-gold/70">VELIA</p>
-              <div className="rounded-lg bg-white/5 border border-white/10 px-3 py-2.5">
-                <p className="text-cream/80 text-[11px] leading-relaxed">
-                  Mañana a las 10:00 tienes la vista del expediente MER-2026-008. Te he
-                  dejado el resumen preparado.
-                </p>
-              </div>
-              <div className="flex justify-end">
-                <div className="rounded-lg bg-gold/15 px-3 py-2">
-                  <p className="text-cream text-[11px]">Perfecto, imprímelo.</p>
-                </div>
-              </div>
-              <div className="h-8 rounded-full border border-white/10 flex items-center px-3">
-                <span className="text-cream/55 text-[10px]">Pregunta a VELIA…</span>
-              </div>
-            </div>
+          {/* Captura REAL de la app en móvil (no un mock): la pantalla de VELIA
+              con la puesta al día del día. Feedback Joaquín 24-jul. */}
+          <div className="justify-self-center">
+            <PhoneShot
+              src="/screenshots/movil-cerebro.webp"
+              alt="La app de VELIA en el móvil: VELIA da la puesta al día del despacho (plazos, tareas, documentos y agenda)"
+            />
           </div>
         </div>
       </section>
@@ -512,15 +503,16 @@ export default function Home() {
             Ve VELIA con tus propios casos.
           </h2>
           <p className="mt-4 text-sm text-void/60 max-w-[46ch] mx-auto leading-relaxed">
-            Una demo de 30 minutos con tu tipo de asuntos.{' '}
-            <span className="inline-block">Sin compromiso y sin preparación por tu parte.</span>
+            Monta tu VELIA en 2 minutos con el contexto de tu despacho.{' '}
+            <span className="inline-block">15 días gratis, sin tarjeta y sin compromiso.</span>
           </p>
-          <Link
-            href="/contacto"
+          <TrackedLink
+            href={`${APP_URL}/prueba-velia`}
+            event="footer_cta_trial_click"
             className="btn inline-block mt-8 bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-8 py-4 hover:opacity-85"
           >
-            Agenda una demo
-          </Link>
+            Prueba VELIA gratis
+          </TrackedLink>
         </div>
       </section>
     </>
