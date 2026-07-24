@@ -227,8 +227,9 @@ export default function Home() {
             </div>
           </div>
 
-          <p className="mt-12 text-lg md:text-xl font-700 tracking-[-0.01em] text-cream/90 max-w-[26ch]">
-            VELIA prepara. Tú supervisas y decides.
+          <p className="mt-12 text-lg md:text-xl font-700 tracking-[-0.01em] text-cream/90 max-w-[26ch] text-balance">
+            <span className="inline-block">VELIA prepara.</span>{' '}
+            <span className="inline-block">Tú supervisas y decides.</span>
           </p>
         </div>
       </section>
