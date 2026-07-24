@@ -4,11 +4,20 @@ import { useEffect, useRef } from 'react'
 import { trackEvent } from '@/lib/analytics'
 
 /**
- * Vídeo de fondo del hero: SIEMPRE en bucle y sin ninguna interfaz de
- * pausa/reproducción (decisión Joaquín 2026-07-24 — el clip es ambiental).
- * Accesibilidad sin UI: si el usuario tiene `prefers-reduced-motion`
- * activado a nivel de sistema, el vídeo queda quieto en el poster
- * (WCAG 2.2.2 se respeta vía preferencia del SO, no con botones).
+ * Vídeo del hero: SIEMPRE en bucle, sin ninguna interfaz de pausa/play
+ * (decisión Joaquín 2026-07-24). El clip es ambiental y mudo.
+ *
+ * Robustez iOS (bug 24-jul: "no se reproduce en móvil"):
+ *  - `muted` se fija además por PROPIEDAD antes de `play()`: iOS Safari a veces
+ *    ignora el atributo y bloquea el autoplay si no ve la propiedad puesta.
+ *  - `play()` IMPERATIVO en el mount (el atributo `autoplay` solo no basta en
+ *    iOS cuando el vídeo entra en el DOM vía hidratación de React).
+ *  - Reintento al volver la pestaña a primer plano y al primer gesto del
+ *    usuario (Bajo Consumo / Ahorro de datos bloquean el autoplay hasta que
+ *    hay interacción). El listener se autodestruye tras el primer intento OK.
+ *  - NO se pausa por `prefers-reduced-motion`: al no haber botón de play,
+ *    pausar dejaba el vídeo congelado para siempre sin forma de arrancarlo
+ *    (era la causa del "no se reproduce" en móviles con Reducir Movimiento).
  */
 export default function HeroVideo({
   src,
@@ -23,9 +32,36 @@ export default function HeroVideo({
   const playTracked = useRef(false)
 
   useEffect(() => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduced && videoRef.current) {
-      videoRef.current.pause()
+    const v = videoRef.current
+    if (!v) return
+
+    const tryPlay = () => {
+      // iOS: la propiedad manda sobre el atributo para permitir autoplay.
+      v.muted = true
+      const p = v.play()
+      if (p && typeof p.catch === 'function') p.catch(() => { /* reintentos abajo */ })
+    }
+
+    tryPlay()
+
+    const onVisible = () => { if (!document.hidden && v.paused) tryPlay() }
+    const onGesture = () => {
+      if (v.paused) tryPlay()
+      window.removeEventListener('touchstart', onGesture)
+      window.removeEventListener('click', onGesture)
+      window.removeEventListener('scroll', onGesture)
+    }
+
+    document.addEventListener('visibilitychange', onVisible)
+    window.addEventListener('touchstart', onGesture, { passive: true, once: false })
+    window.addEventListener('click', onGesture)
+    window.addEventListener('scroll', onGesture, { passive: true })
+
+    return () => {
+      document.removeEventListener('visibilitychange', onVisible)
+      window.removeEventListener('touchstart', onGesture)
+      window.removeEventListener('click', onGesture)
+      window.removeEventListener('scroll', onGesture)
     }
   }, [])
 
@@ -41,7 +77,9 @@ export default function HeroVideo({
       playsInline
       disablePictureInPicture
       controls={false}
-      preload="metadata"
+      // `auto` (no `metadata`): en iOS con `metadata` el primer play puede
+      // quedarse esperando datos y el autoplay se descarta silenciosamente.
+      preload="auto"
       aria-label={ariaLabel}
       onPlay={() => {
         if (!playTracked.current) {

@@ -114,16 +114,17 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Vídeo en loop (Mixkit, licencia libre): la Dama de la Justicia con
-              la balanza — inconfundiblemente abogacía. Bucle permanente y SIN
-              interfaz de pausa (decisión Joaquín 24-jul); reduced-motion se
-              respeta a nivel de SO en HeroVideo.tsx. Muted+playsInline para
-              autoplay en móvil. Recorte 4:3 hecho en origen (960x720, 467KB). */}
+          {/* Vídeo del PRODUCTO REAL en bucle (decisión Joaquín 24-jul: que
+              represente lo que ES y HACE VELIA, no iconografía genérica de
+              justicia). Montado desde capturas reales del CRM (tenant demo
+              ficticio): el asistente VELIA dando la puesta al día →
+              expedientes → ficha del expediente. Bucle permanente, sin
+              controles. 1000x750, h264 Main + yuv420p (compat. iOS). */}
           <div className="rise">
             <HeroVideo
-              src="/videos/hero-justicia.mp4"
-              poster="/videos/hero-justicia-poster.jpg"
-              ariaLabel="La Dama de la Justicia sosteniendo la balanza"
+              src="/videos/hero-velia-producto.mp4"
+              poster="/videos/hero-velia-producto-poster.jpg"
+              ariaLabel="VELIA por dentro: el asistente resume el día del despacho, los expedientes y la ficha de un asunto"
             />
           </div>
         </div>
