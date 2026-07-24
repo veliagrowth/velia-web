@@ -1,14 +1,23 @@
 import Link from 'next/link'
 import LiveUpdates from '@/components/LiveUpdates'
-import ProductShot from '@/components/ProductShot'
 import TestimonialVideo from '@/components/TestimonialVideo'
 import VeliaBrain from '@/components/VeliaBrain'
 import HeroVideo from '@/components/HeroVideo'
+import DemoEmbed from '@/components/DemoEmbed'
 import PhoneShot from '@/components/PhoneShot'
 import TrackedLink from '@/components/TrackedLink'
 import SectionViewMarker from '@/components/SectionViewMarker'
 import { FOUNDERS_SEATS_LABEL, APP_URL, SITE_URL } from '@/lib/constants'
 import { PRICING, ANNUAL_FREE_MONTHS, eur } from '@/lib/pricing'
+
+// Señales de confianza que un abogado escanea en segundos (strip bajo el hero).
+const TRUST = [
+  { k: 'Cita el BOE, con enlace', v: 'Texto oficial artículo por artículo. Si no lo encuentra, lo dice — nunca se lo inventa.' },
+  { k: 'Tus datos no entrenan ninguna IA', v: 'Por contrato con el proveedor de la IA, no es una promesa nuestra.' },
+  { k: 'Alojado en la Unión Europea', v: 'Cifrado y aislado por despacho (RLS). El secreto profesional guía la arquitectura.' },
+  { k: 'Facturación Verifactu', v: 'Minutas y facturas conforme a la normativa española, desde el expediente.' },
+  { k: 'Hecho en España', v: 'Entiende el BOE, la LEC y Verifactu porque nació para ellos. No es software traducido.' },
+]
 
 const BRAIN_CAPABILITIES = [
   {
@@ -91,10 +100,9 @@ export default function Home() {
               Un solo software.
             </h1>
             <p className="mt-7 text-lg text-void/60 leading-relaxed max-w-prose">
-              VELIA es la plataforma sobre la que los despachos españoles operan el 100% de
-              su software: clientes, expedientes, plazos, escritos con IA,{' '}
-              <span className="whitespace-nowrap">facturación Verifactu</span> y web — en una
-              suscripción, sin piezas sueltas.{' '}
+              Clientes, expedientes, plazos, escritos con IA y{' '}
+              <span className="whitespace-nowrap">facturación Verifactu</span> — en un solo
+              sitio, en una sola suscripción.{' '}
               <span className="inline-block">Del abogado independiente al gran bufete.</span>
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
@@ -129,69 +137,51 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Demo interactiva — tócala sin registro (escaparate solo lectura) */}
-        <div className="mt-16 md:mt-20 rounded-2xl border border-void/10 bg-deep px-8 py-8 md:px-10 md:py-9 grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
-          <div>
-            {/* gold/80 no gold/70: este bloque va sobre bg-deep (más claro que
-                bg-void), donde /70 da 4.37:1 (falla AA 4.5) — cazado por Lighthouse. */}
-            <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-gold/80 mb-2">
-              Demo interactiva
-            </p>
-            <p className="text-xl md:text-2xl font-700 tracking-[-0.01em] text-cream max-w-[30ch]">
-              No te lo contamos: tócalo.
-            </p>
-            <p className="mt-2 text-sm text-cream/55 leading-[1.6] max-w-[52ch]">
-              Entra en un despacho de demostración real y recorre VELIA por dentro —
-              expedientes, plazos, agenda y facturación.{' '}
-              <span className="inline-block">Sin registro y sin tocar nada:</span>{' '}
-              <span className="inline-block">es un escaparate de solo lectura.</span>
-            </p>
+        {/* Strip de confianza — lo que un abogado necesita ver en 3 segundos.
+            Móvil: carrusel deslizable (pan-x, sin scrollbar). Escritorio: fila. */}
+        <div className="mt-12 md:mt-16 -mx-6 px-6 md:mx-0 md:px-0">
+          <div className="flex gap-3 overflow-x-auto overflow-y-hidden snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [touch-action:pan-x] md:grid md:grid-cols-5 md:overflow-visible">
+            {TRUST.map(t => (
+              <div key={t.k} className="snap-start shrink-0 w-[78%] sm:w-[46%] md:w-auto rounded-2xl border border-void/10 bg-white px-5 py-5">
+                <p className="text-sm font-700 leading-snug">{t.k}</p>
+                <p className="mt-2 text-[13px] text-void/55 leading-[1.55]">{t.v}</p>
+              </div>
+            ))}
           </div>
-          <TrackedLink
-            href="/demo"
-            event="product_demo_click"
-            className="btn justify-self-start md:justify-self-end bg-gold text-void text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85 whitespace-nowrap"
-          >
-            Abrir la demo
-          </TrackedLink>
         </div>
       </section>
 
-      {/* ── Tres bloques de valor ────────────────────────────────────────── */}
+      {/* ── Demo EN VIVO — el producto real, aquí mismo ─────────────────────
+          "No es otra herramienta: es el sistema operativo del despacho." Se ve
+          en la home, no escondida en /demo. El iframe se carga al llegar. */}
       <section className="bg-white border-y border-void/10">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
-            Qué hace por ti
-          </p>
-          <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[24ch]">
-            No es otra herramienta. Es el sistema operativo del despacho.
-          </h2>
-
-          <div className="mt-14 grid gap-12 md:grid-cols-3 md:gap-10">
-            <div className="md:pr-4">
-              <h3 className="text-lg font-700 mb-3">Todo dentro</h3>
-              <p className="text-sm text-void/60 leading-[1.6]">
-                Clientes, expedientes, agenda, plazos, documentos, facturación y tu web.{' '}
-                <span className="inline-block">Deja de pagar y pegar cinco programas:</span>{' '}
-                <span className="inline-block">VELIA es uno solo, y las piezas se hablan entre sí.</span>
-              </p>
-            </div>
-            <div className="md:border-l md:border-void/10 md:pl-10">
-              <h3 className="text-lg font-700 mb-3">Agentes que ejecutan</h3>
-              <p className="text-sm text-void/60 leading-[1.6]">
-                VELIA no es un chatbot que opina: redacta escritos con tu estilo, calcula
-                plazos procesales, prepara informes citando la fuente oficial y persigue
-                la documentación del cliente por ti.
-              </p>
-            </div>
-            <div className="md:border-l md:border-void/10 md:pl-10">
-              <h3 className="text-lg font-700 mb-3">Hecho para España</h3>
-              <p className="text-sm text-void/60 leading-[1.6]">
-                Texto oficial del BOE, cómputo de plazos según la LEC, facturación conforme
-                a Verifactu y datos alojados en la Unión Europea.{' '}
-                <span className="inline-block">No es un software genérico traducido.</span>
-              </p>
-            </div>
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+          <div className="max-w-2xl">
+            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
+              VELIA por dentro, sin registro
+            </p>
+            <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[22ch]">
+              No es otra herramienta. Es el sistema operativo del despacho.
+            </h2>
+            <p className="mt-4 text-sm text-void/60 leading-[1.6] max-w-prose">
+              Esto no es un vídeo ni son capturas: es VELIA de verdad, con un despacho de
+              demostración dentro. Toca donde quieras — expedientes, plazos, agenda,
+              facturación. No puedes romper nada.
+            </p>
+          </div>
+          <div className="mt-8">
+            <DemoEmbed />
+          </div>
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+            <p className="text-[12px] text-void/50">Despacho ficticio · datos inventados · solo lectura.</p>
+            <a
+              href="https://demo.app.veliacorp.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors whitespace-nowrap"
+            >
+              Abrir a pantalla completa →
+            </a>
           </div>
         </div>
       </section>
@@ -226,38 +216,21 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-16 md:mt-20 grid gap-x-10 gap-y-10 md:grid-cols-4 border-t border-white/10 pt-12">
-            {BRAIN_CAPABILITIES.map(c => (
-              <div key={c.title}>
-                <h3 className="text-sm font-700 text-gold-light mb-2.5">{c.title}</h3>
-                <p className="text-[13px] text-cream/55 leading-[1.6]">{c.body}</p>
-              </div>
-            ))}
+          <div className="mt-14 md:mt-20 border-t border-white/10 pt-10 md:pt-12 -mx-6 px-6 md:mx-0 md:px-0">
+            <div className="flex gap-4 overflow-x-auto overflow-y-hidden snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [touch-action:pan-x] md:grid md:grid-cols-4 md:gap-x-10 md:overflow-visible">
+              {BRAIN_CAPABILITIES.map(c => (
+                <div key={c.title} className="snap-start shrink-0 w-[74%] sm:w-[44%] md:w-auto">
+                  <h3 className="text-sm font-700 text-gold-light mb-2.5">{c.title}</h3>
+                  <p className="text-[13px] text-cream/55 leading-[1.6]">{c.body}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <p className="mt-14 text-lg md:text-xl font-700 tracking-[-0.01em] text-cream/90 max-w-[26ch]">
+          <p className="mt-12 text-lg md:text-xl font-700 tracking-[-0.01em] text-cream/90 max-w-[26ch]">
             VELIA prepara. Tú supervisas y decides.
           </p>
         </div>
-      </section>
-
-      {/* ── Producto real (captura del tenant demo) ─────────────────────── */}
-      <section className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
-          Así se ve por dentro
-        </p>
-        <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[24ch]">
-          Tus expedientes, con todo lo que importa a la vista.
-        </h2>
-        <p className="mt-5 mb-10 text-sm text-void/60 leading-[1.6] max-w-prose">
-          Estado, área, prioridad, cliente y vencimientos de cada asunto — y un control
-          de conflicto de intereses antes de aceptar nada.{' '}
-          <span className="inline-block">Esto no es un mockup: es la pantalla real del producto.</span>
-        </p>
-        <ProductShot
-          src="/screenshots/expedientes.webp"
-          alt="Vista real de Expedientes en VELIA: asuntos con estado, área, prioridad y cliente"
-        />
       </section>
 
       {/* ── Caso real ────────────────────────────────────────────────────── */}
@@ -265,22 +238,27 @@ export default function Home() {
         <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-center">
           <div>
             <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
-              Caso real
+              Un despacho real, no un caso de laboratorio
             </p>
             <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[22ch]">
-              Un despacho de Fraga. Cero presencia digital. 60 días después:
+              Sin web, sin sistema, sin captación. 60 días después:
             </h2>
             <p className="mt-5 text-sm text-void/60 leading-[1.6] max-w-prose">
-              Cónsul Jurídico empezó sin web, sin sistema y sin captación.{' '}
-              <span className="inline-block">Hoy opera entero sobre VELIA:</span> los
-              clientes llegan, la documentación se persigue sola y cada consulta queda
-              registrada en su expediente.
+              Cónsul Jurídico opera hoy entero sobre VELIA: los clientes llegan, la
+              documentación se persigue sola y cada consulta queda en su expediente.
             </p>
+            <div className="mt-6 flex items-center gap-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold-dark shrink-0" />
+              <p className="text-[13px] text-void/70">
+                <strong className="font-700">Cónsul Jurídico</strong> · Fraga, Huesca ·{' '}
+                <a href="https://consuljuridico.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-void">consuljuridico.com</a>
+              </p>
+            </div>
             <Link
               href="/legal"
               className="inline-block mt-7 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
             >
-              Ver cómo funciona →
+              Ver un día completo con VELIA →
             </Link>
           </div>
           {/* Solo cifras REALES y documentadas de Cónsul Jurídico (velia-chat es
@@ -348,38 +326,6 @@ export default function Home() {
       {/* ── Testimonio en vídeo (oculto tras flag hasta tener el máster) ── */}
       <TestimonialVideo />
 
-      {/* ── Desarrollada en España ───────────────────────────────────────── */}
-      <section id="espana" className="mx-auto max-w-6xl px-6 py-20 md:py-28 scroll-mt-16">
-        <div className="grid gap-10 md:grid-cols-[1.1fr_1fr] md:items-start">
-          <div>
-            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
-              Tecnología desarrollada en España
-            </p>
-            <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[20ch]">
-              Hecha aquí. Pensada para cómo trabajan los despachos de aquí.
-            </h2>
-            <p className="mt-5 text-sm text-void/60 leading-[1.6] max-w-prose">
-              VELIA se ha diseñado y desarrollado en España, junto al primer despacho que
-              la usa cada día.{' '}
-              <span className="inline-block">No es un software genérico traducido:</span>{' '}
-              entiende el BOE, la LEC y Verifactu porque nació para ellos.
-            </p>
-          </div>
-          <ul className="grid gap-4 content-start">
-            {[
-              'Desarrollada en España',
-              'Validada junto a un despacho real',
-              'Pensada para el marco jurídico español',
-            ].map(item => (
-              <li key={item} className="flex items-center gap-3 rounded-2xl border border-void/10 bg-white px-5 py-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-gold-dark shrink-0" />
-                <span className="text-sm font-600 text-void/75">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
       {/* ── Confianza y seguridad — puente a /seguridad, solo claims verificados ── */}
       <section className="bg-white border-y border-void/10">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
@@ -404,17 +350,19 @@ export default function Home() {
               Ver seguridad al detalle
             </Link>
           </div>
-          <div className="mt-12 grid gap-8 md:grid-cols-3 border-t border-void/10 pt-10">
-            {[
-              { title: 'Aislamiento por despacho', body: 'Cada despacho es un inquilino aislado — Row Level Security en el propio motor de base de datos.' },
-              { title: 'Tu información no entrena ninguna IA', body: 'Política contractual del proveedor de la API que usamos, no una promesa nuestra.' },
-              { title: 'Diseñada para la abogacía', body: 'El deber de secreto profesional guía cada decisión de arquitectura, desde el primer día.' },
-            ].map(p => (
-              <div key={p.title}>
-                <h3 className="text-sm font-700 mb-2">{p.title}</h3>
-                <p className="text-[13px] text-void/60 leading-[1.6]">{p.body}</p>
-              </div>
-            ))}
+          <div className="mt-12 border-t border-void/10 pt-10 -mx-6 px-6 md:mx-0 md:px-0">
+            <div className="flex gap-4 overflow-x-auto overflow-y-hidden snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [touch-action:pan-x] md:grid md:grid-cols-3 md:gap-8 md:overflow-visible">
+              {[
+                { title: 'Aislamiento por despacho', body: 'Cada despacho es un inquilino aislado — Row Level Security en el propio motor de base de datos.' },
+                { title: 'Tu información no entrena ninguna IA', body: 'Política contractual del proveedor de la API que usamos, no una promesa nuestra.' },
+                { title: 'Diseñada para la abogacía', body: 'El deber de secreto profesional guía cada decisión de arquitectura, desde el primer día.' },
+              ].map(p => (
+                <div key={p.title} className="snap-start shrink-0 w-[78%] sm:w-[46%] md:w-auto">
+                  <h3 className="text-sm font-700 mb-2">{p.title}</h3>
+                  <p className="text-[13px] text-void/60 leading-[1.6]">{p.body}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

@@ -12,6 +12,8 @@ export type AnalyticsEvent =
   | 'hero_trial_click'
   | 'hero_product_video_play'
   | 'product_demo_click'
+  | 'demo_iframe_loaded'
+  | 'demo_iframe_manual_load'
   | 'onboarding_start_click'
   | 'footer_cta_trial_click'
   | 'brain_section_view'

@@ -4,20 +4,25 @@ import { useEffect, useRef } from 'react'
 import { trackEvent } from '@/lib/analytics'
 
 /**
- * Vídeo del hero: SIEMPRE en bucle, sin ninguna interfaz de pausa/play
- * (decisión Joaquín 2026-07-24). El clip es ambiental y mudo.
+ * Vídeo del hero: SIEMPRE en bucle, sin interfaz de pausa/play (decisión
+ * Joaquín). Clip ambiental y mudo.
  *
- * Robustez iOS (bug 24-jul: "no se reproduce en móvil"):
- *  - `muted` se fija además por PROPIEDAD antes de `play()`: iOS Safari a veces
- *    ignora el atributo y bloquea el autoplay si no ve la propiedad puesta.
- *  - `play()` IMPERATIVO en el mount (el atributo `autoplay` solo no basta en
- *    iOS cuando el vídeo entra en el DOM vía hidratación de React).
- *  - Reintento al volver la pestaña a primer plano y al primer gesto del
- *    usuario (Bajo Consumo / Ahorro de datos bloquean el autoplay hasta que
- *    hay interacción). El listener se autodestruye tras el primer intento OK.
- *  - NO se pausa por `prefers-reduced-motion`: al no haber botón de play,
- *    pausar dejaba el vídeo congelado para siempre sin forma de arrancarlo
- *    (era la causa del "no se reproduce" en móviles con Reducir Movimiento).
+ * REPRODUCCIÓN EN iOS (bug recurrente "no se reproduce en el teléfono").
+ * En iOS Safari el autoplay muted inline funciona SALVO en **Modo de bajo
+ * consumo** (el SO lo bloquea) — ahí solo arranca con un gesto del usuario.
+ * Claves para que NO vuelva a fallar:
+ *  1. `muted` fijado por PROPIEDAD además del atributo (React puede no reflejar
+ *     el atributo tras hidratar → iOS ve autoplay NO-muted y lo bloquea).
+ *  2. `playsinline` + `webkit-playsinline` (iOS viejos) fijados por atributo.
+ *  3. Reintento de `play()` en: montaje, `loadeddata`, `canplay`, al entrar el
+ *     vídeo en viewport (IntersectionObserver) y al volver la pestaña a primer
+ *     plano.
+ *  4. Reintento en el PRIMER gesto válido para iOS: `touchend`, `pointerup`,
+ *     `click`, `keydown`. OJO: iOS **NO** considera `scroll` un gesto de
+ *     activación para media → escuchar scroll era inútil (era el fallo).
+ *  5. Si aun así iOS lo bloquea (bajo consumo sin gesto), el **poster** queda
+ *     visible: por eso el poster es un fotograma cuidado, nunca una pantalla en
+ *     negro. Degradado digno, no roto.
  */
 export default function HeroVideo({
   src,
@@ -35,33 +40,55 @@ export default function HeroVideo({
     const v = videoRef.current
     if (!v) return
 
+    // iOS: la propiedad manda sobre el atributo; los atributos playsinline
+    // garantizan reproducción embebida (no fullscreen forzado).
+    v.muted = true
+    v.setAttribute('muted', '')
+    v.setAttribute('playsinline', '')
+    v.setAttribute('webkit-playsinline', '')
+
+    let done = false
     const tryPlay = () => {
-      // iOS: la propiedad manda sobre el atributo para permitir autoplay.
+      if (done) return
       v.muted = true
       const p = v.play()
-      if (p && typeof p.catch === 'function') p.catch(() => { /* reintentos abajo */ })
+      if (p && typeof p.then === 'function') {
+        p.then(() => { done = true }).catch(() => { /* bloqueado: reintenta con gesto */ })
+      }
     }
 
     tryPlay()
+    v.addEventListener('loadeddata', tryPlay)
+    v.addEventListener('canplay', tryPlay)
 
-    const onVisible = () => { if (!document.hidden && v.paused) tryPlay() }
-    const onGesture = () => {
-      if (v.paused) tryPlay()
-      window.removeEventListener('touchstart', onGesture)
-      window.removeEventListener('click', onGesture)
-      window.removeEventListener('scroll', onGesture)
+    // Al volver la app a primer plano (iOS congela la pestaña en segundo plano).
+    const onVisible = () => { if (!document.hidden) tryPlay() }
+    document.addEventListener('visibilitychange', onVisible)
+
+    // Al entrar el vídeo en pantalla (en móvil está debajo del fold).
+    let io: IntersectionObserver | null = null
+    if ('IntersectionObserver' in window) {
+      io = new IntersectionObserver((entries) => {
+        if (entries.some(e => e.isIntersecting)) tryPlay()
+      }, { threshold: 0.25 })
+      io.observe(v)
     }
 
-    document.addEventListener('visibilitychange', onVisible)
-    window.addEventListener('touchstart', onGesture, { passive: true, once: false })
-    window.addEventListener('click', onGesture)
-    window.addEventListener('scroll', onGesture, { passive: true })
+    // Primer gesto VÁLIDO para iOS (scroll NO cuenta). Se autodestruyen al éxito.
+    const gestureEvents = ['touchend', 'pointerup', 'click', 'keydown'] as const
+    const onGesture = () => {
+      tryPlay()
+      if (done) removeGestures()
+    }
+    const removeGestures = () => gestureEvents.forEach(ev => window.removeEventListener(ev, onGesture))
+    gestureEvents.forEach(ev => window.addEventListener(ev, onGesture, { passive: true }))
 
     return () => {
+      v.removeEventListener('loadeddata', tryPlay)
+      v.removeEventListener('canplay', tryPlay)
       document.removeEventListener('visibilitychange', onVisible)
-      window.removeEventListener('touchstart', onGesture)
-      window.removeEventListener('click', onGesture)
-      window.removeEventListener('scroll', onGesture)
+      io?.disconnect()
+      removeGestures()
     }
   }, [])
 
@@ -77,8 +104,6 @@ export default function HeroVideo({
       playsInline
       disablePictureInPicture
       controls={false}
-      // `auto` (no `metadata`): en iOS con `metadata` el primer play puede
-      // quedarse esperando datos y el autoplay se descarta silenciosamente.
       preload="auto"
       aria-label={ariaLabel}
       onPlay={() => {
