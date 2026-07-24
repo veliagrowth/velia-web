@@ -114,17 +114,17 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Vídeo del PRODUCTO REAL en bucle (decisión Joaquín 24-jul: que
-              represente lo que ES y HACE VELIA, no iconografía genérica de
-              justicia). Montado desde capturas reales del CRM (tenant demo
-              ficticio): el asistente VELIA dando la puesta al día →
-              expedientes → ficha del expediente. Bucle permanente, sin
-              controles. 1000x750, h264 Main + yuv420p (compat. iOS). */}
+          {/* Vídeo en bucle del DÍA A DÍA DE UN BUFETE (decisión Joaquín
+              24-jul): abogados trabajando → firma de contratos → trabajo con
+              portátil. Clips Mixkit (licencia libre), recorte central 4:3 y
+              fundidos a negro. NO usar capturas del producto aquí: quedan mal
+              en el hero y el producto ya se enseña más abajo y en /demo.
+              Bucle permanente sin controles. h264 Main + yuv420p (compat iOS). */}
           <div className="rise">
             <HeroVideo
-              src="/videos/hero-velia-producto.mp4"
-              poster="/videos/hero-velia-producto-poster.jpg"
-              ariaLabel="VELIA por dentro: el asistente resume el día del despacho, los expedientes y la ficha de un asunto"
+              src="/videos/hero-bufete.mp4"
+              poster="/videos/hero-bufete-poster.jpg"
+              ariaLabel="El día a día de un despacho de abogados: trabajo en equipo, revisión de documentos y firma de contratos"
             />
           </div>
         </div>
