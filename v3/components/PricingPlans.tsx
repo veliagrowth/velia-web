@@ -124,9 +124,9 @@ export default function PricingPlans() {
             <Link
               href="/contacto"
               onClick={() => trackEvent('founders_program_click')}
-              className="btn inline-block mt-5 bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-6 py-3 hover:opacity-85"
+              className="btn inline-block mt-5 bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-6 py-3 hover:opacity-85 whitespace-nowrap"
             >
-              Solicitar acceso fundador
+              Solicitar acceso
             </Link>
           </div>
 
