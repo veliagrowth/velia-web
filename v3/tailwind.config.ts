@@ -1,7 +1,11 @@
 import type { Config } from 'tailwindcss'
 
 export default {
-  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
+  // `lib/` incluido: los estilos de las etiquetas del tablón de novedades viven en
+  // lib/updates.ts y, al no escanearse, Tailwind no generaba sus clases → badges sin
+  // fondo (texto crema sobre tarjeta blanca, ilegible). Cualquier clase escrita fuera
+  // de app/ o components/ desaparece en silencio si su carpeta no está aquí.
+  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './lib/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {

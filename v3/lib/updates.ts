@@ -34,7 +34,7 @@ export const CATEGORY_STYLE: Record<UpdateCategory, { label: string; cls: string
   mejora:     { label: 'Mejora',     cls: 'bg-[rgba(201,169,110,0.16)] text-gold-ink' },
   seguridad:  { label: 'Seguridad',  cls: 'bg-[rgba(108,92,231,0.14)] text-[#5B4BC4]' },
   correccion: { label: 'Corrección', cls: 'bg-[rgba(28,28,40,0.07)] text-[#1C1C28]' },
-  anuncio:    { label: 'Anuncio',    cls: 'bg-[rgba(10,10,15,0.88)] text-cream' },
+  anuncio:    { label: 'Anuncio',    cls: 'bg-void text-cream' },
 }
 
 export function formatUpdateDate(iso: string): string {
