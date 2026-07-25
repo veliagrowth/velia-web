@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import DemoEmbed from '@/components/DemoEmbed'
 import { APP_URL } from '@/lib/constants'
 
 export const metadata: Metadata = {
@@ -51,24 +52,11 @@ export default function DemoPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 pb-16">
-        {/* Marco navegador — el mismo lenguaje visual que las capturas del producto */}
-        <div className="rounded-2xl border border-void/15 bg-deep overflow-hidden">
-          <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/10">
-            <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden />
-            <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden />
-            <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden />
-            <span className="ml-3 rounded-md bg-white/5 px-3 py-1 text-[10px] tracking-[0.06em] text-cream/60">
-              demo.app.veliacorp.com · solo lectura
-            </span>
-          </div>
-          {/* El fondo oscuro hace de "cargando" hasta que el portal pinta */}
-          <iframe
-            src={DEMO_URL}
-            title="Demo interactiva de VELIA — despacho de demostración en solo lectura"
-            className="w-full h-[75vh] min-h-[560px] bg-void"
-            allow="clipboard-write"
-          />
-        </div>
+        {/* Mismo componente que la home: marco de navegador + splash de VELIA
+            mientras carga + carga anticipada del iframe. Esta página tenía su
+            propio marco e iframe copiados, así que el splash no aparecía aquí
+            y cualquier arreglo había que hacerlo dos veces. */}
+        <DemoEmbed heightClass="h-[75vh] min-h-[560px]" />
         <p className="mt-3 text-[12px] text-void/60 leading-relaxed">
           Despacho ficticio de demostración. Los datos son inventados y el modo es de solo
           lectura —{' '}
