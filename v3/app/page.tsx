@@ -128,8 +128,12 @@ export default function Home() {
               en el hero y el producto ya se enseña más abajo y en /demo.
               Bucle permanente sin controles. h264 Main + yuv420p (compat iOS). */}
           <div className="rise">
+            {/* -v2: el objeto anterior quedó cacheado en Cloudflare comprimido con gzip
+                y SIN soporte de rangos (por eso iOS no lo reproducía). El origen ya lo
+                sirve bien, pero el edge seguía entregando su copia vieja al revalidar
+                con 304 → nombre nuevo = entrada de caché nueva. */}
             <HeroVideo
-              src="/videos/hero-bufete.mp4"
+              src="/videos/hero-bufete-v2.mp4"
               poster="/videos/hero-bufete-poster.jpg"
               ariaLabel="El día a día de un despacho de abogados: trabajo en equipo, revisión de documentos y firma de contratos"
             />
