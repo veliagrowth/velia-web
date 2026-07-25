@@ -130,3 +130,25 @@ a.btn:active, button.btn:active {
 .legal-prose strong {
   @apply font-700 text-void;
 }
+
+/* ── Splash de VELIA (mientras carga la demo en vivo) ─────────────────────────
+   Mismo lenguaje que el arranque de la app instalada: la V respira despacio y el
+   wordmark entra con fade. Movimiento autónomo → keyframes (Emil), solo opacity
+   y transform, y nada de esto ocurre con prefers-reduced-motion. */
+.velia-splash-word { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .velia-splash-mark {
+    animation: velia-breathe 2.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  @keyframes velia-breathe {
+    0%, 100% { opacity: 0.72; transform: scale(1); }
+    50%      { opacity: 1;    transform: scale(1.035); }
+  }
+  .velia-splash-word {
+    opacity: 0;
+    animation: velia-word-in 0.4s ease 0.35s forwards;
+  }
+  @keyframes velia-word-in {
+    to { opacity: 1; }
+  }
+}

@@ -36,10 +36,13 @@ const PRODUCT = [
   },
 ]
 
+// 'Novedades' entra aquí (y no solo en el footer) desde que el tablón dejó de estar
+// en la home: es la vitrina de anuncios de compañía y del ritmo del producto.
 const LINKS = [
   { href: '/demo', label: 'Demo' },
   { href: '/precios', label: 'Precios' },
   { href: '/seguridad', label: 'Seguridad' },
+  { href: '/novedades', label: 'Novedades' },
   { href: '/contacto', label: 'Contacto' },
 ]
 

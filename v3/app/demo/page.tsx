@@ -81,7 +81,8 @@ export default function DemoPage() {
       <section className="mx-auto max-w-6xl px-6 pb-20">
         <div className="rounded-3xl border border-void/10 bg-white px-8 py-12 md:py-14 text-center">
           <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em]">
-            ¿Te encaja? Pruébalo con tus casos.
+            <span className="inline-block">¿Te encaja?</span>{' '}
+            <span className="inline-block">Pruébalo con tus casos.</span>
           </h2>
           <p className="mt-3 text-sm text-void/60 max-w-[46ch] mx-auto leading-relaxed">
             15 días gratis con tus propios tipos de asuntos, sin tarjeta.{' '}

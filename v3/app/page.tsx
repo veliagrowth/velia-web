@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import LiveUpdates from '@/components/LiveUpdates'
 import TestimonialVideo from '@/components/TestimonialVideo'
 import VeliaBrain from '@/components/VeliaBrain'
 import HeroVideo from '@/components/HeroVideo'
@@ -161,7 +160,8 @@ export default function Home() {
               VELIA por dentro, sin registro
             </p>
             <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[22ch]">
-              No es otra herramienta. Es el sistema operativo del despacho.
+              <span className="inline-block">No es otra herramienta.</span>{' '}
+              <span className="inline-block">Es el sistema operativo del despacho.</span>
             </h2>
             <p className="mt-4 text-sm text-void/60 leading-[1.6] max-w-prose">
               Esto no es un vídeo ni son capturas: es VELIA de verdad, con un despacho de
@@ -292,9 +292,11 @@ export default function Home() {
           <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/60 mb-3">
             La diferencia real
           </p>
+          {/* Cada frase entera o baja entera (regla de frases inseparables): con solo
+              text-wrap:balance el titular partía "Los CRM guardan / información." */}
           <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[22ch]">
-            Los CRM guardan información.{' '}
-            <span className="text-void/60">VELIA te ayuda a trabajar con ella.</span>
+            <span className="inline-block">Los CRM guardan información.</span>{' '}
+            <span className="inline-block text-void/60">VELIA te ayuda a trabajar con ella.</span>
           </h2>
           <div className="mt-14 grid gap-10 md:grid-cols-2 max-w-4xl">
             <div>
@@ -336,8 +338,8 @@ export default function Home() {
                 Confianza
               </p>
               <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[22ch]">
-                Tus expedientes exigen algo más que innovación.{' '}
-                <span className="text-void/60">Exigen confianza.</span>
+                <span className="inline-block">Tus expedientes exigen algo más que innovación.</span>{' '}
+                <span className="inline-block text-void/60">Exigen confianza.</span>
               </h2>
               <p className="mt-5 text-sm text-void/60 leading-[1.6] max-w-prose">
                 VELIA asiste al profesional.{' '}
@@ -378,7 +380,8 @@ export default function Home() {
                 Precio claro
               </p>
               <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[20ch]">
-                Se paga con un caso al mes.
+                {/* Misma frase y mismo tratamiento que en /precios: entera o baja entera. */}
+                <span className="inline-block">Se paga con un caso al mes.</span>
               </h2>
               <p className="mt-5 text-sm text-cream/55 leading-[1.6] max-w-prose">
                 {eur(PRICING.monthly)} al mes por despacho, con {PRICING.usersIncluded} usuarios
@@ -409,8 +412,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Producto vivo (novedades) — fallo seguro: null si el feed no responde */}
-      <LiveUpdates />
+      {/* Las novedades ya NO viven en la home (Joaquín, 25-jul): el tablón completo
+          está en /novedades — producto + compañía (lanzamientos, notas de prensa). */}
 
       {/* ── Descarga la app ──────────────────────────────────────────────── */}
       <section className="mx-auto max-w-6xl px-6 py-20 md:py-28">
@@ -435,12 +438,14 @@ export default function Home() {
               Instalar la app
             </a>
           </div>
-          {/* Captura REAL de la app en móvil (no un mock): la pantalla de VELIA
-              con la puesta al día del día. Feedback Joaquín 24-jul. */}
+          {/* Captura REAL de la app en móvil (no un mock). Enseña el MENÚ de la app
+              abierto, no el chat: en un vistazo se ve TODO lo que incluye VELIA
+              (expedientes, agenda, negocio, contactos, control horario…). El chat
+              solo mostraba una función y vendía corto. Feedback Joaquín 25-jul. */}
           <div className="justify-self-center">
             <PhoneShot
-              src="/screenshots/movil-cerebro.webp"
-              alt="La app de VELIA en el móvil: VELIA da la puesta al día del despacho (plazos, tareas, documentos y agenda)"
+              src="/screenshots/movil-menu.webp"
+              alt="La app de VELIA en el móvil con el menú abierto: Mensajes, Expedientes, Agenda, Panel, Recursos, Negocio, Contactos, Importar datos, Control horario, Web y Blog, Novedades, Soporte y Configuración"
             />
           </div>
         </div>
