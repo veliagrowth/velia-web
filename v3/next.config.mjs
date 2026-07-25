@@ -1,6 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Compresión APAGADA a propósito (no es un descuido).
+  //
+  // Bug "el vídeo del hero no se reproduce en iPhone" (25-jul): iOS Safari solo
+  // reproduce vídeo si el servidor responde a las peticiones por rango
+  // (`Range: bytes=…` → **206 Partial Content**). Con la compresión de Next
+  // activada, la respuesta sale comprimida y en chunks: sin `Content-Length`,
+  // sin `Accept-Ranges` y devolviendo 200 a un Range → iOS se planta y deja el
+  // poster. En Vercel no pasaba porque los estáticos los servía su CDN; al
+  // migrar a Coolify los sirve el propio Next y el fallo apareció.
+  //
+  // No perdemos compresión: el sitio va tras Cloudflare, que comprime HTML, CSS
+  // y JS en el edge. Comprimir un MP4 no ahorra nada (ya está comprimido) y aquí
+  // además rompía la reproducción.
+  compress: false,
   // Rutas que viven en el PORTAL (app.veliacorp.com) pero que la gente teclea o
   // comparte sobre el dominio de la web. Sin esto daban 404 (caso /instalar,
   // reportado 22-jul). Temporales (307) para no quemar caché de navegador por si
