@@ -15,6 +15,12 @@ const nextConfig = {
   // y JS en el edge. Comprimir un MP4 no ahorra nada (ya está comprimido) y aquí
   // además rompía la reproducción.
   compress: false,
+  // ETags DESACTIVADOS por el mismo motivo que la compresión: Next emite ETags
+  // *débiles* (`W/"…"`) y con un validador débil ninguna caché intermedia puede
+  // garantizar coherencia entre trozos, así que Cloudflare responde 200 con el
+  // fichero entero a un `Range` en vez de 206 — y iOS sigue sin reproducir.
+  // Sin ETag, el edge valida por Last-Modified y sí sirve rangos.
+  generateEtags: false,
   // Rutas que viven en el PORTAL (app.veliacorp.com) pero que la gente teclea o
   // comparte sobre el dominio de la web. Sin esto daban 404 (caso /instalar,
   // reportado 22-jul). Temporales (307) para no quemar caché de navegador por si
