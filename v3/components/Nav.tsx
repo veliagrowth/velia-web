@@ -96,7 +96,11 @@ export default function Nav() {
           <Image src="/velia_logotipo.svg" alt="VELIA" width={104} height={26} priority className="h-[22px] w-auto" />
         </Link>
 
-        <div className="hidden md:flex items-center gap-8">
+        {/* gap-5/6, no gap-8: con 'Novedades' en el menú la fila (Producto + 5 links +
+            Iniciar sesión + CTA) superaba el ancho del contenedor y el bloque se
+            montaba encima del logotipo. Los links no encogen (tracking .18em), así
+            que el aire es lo único ajustable. */}
+        <div className="hidden md:flex items-center gap-5 lg:gap-6">
           {/* Trigger del mega-menú */}
           <button
             type="button"
@@ -123,7 +127,7 @@ export default function Nav() {
               key={l.href}
               href={l.href}
               onClick={() => { if (l.href === '/demo') trackEvent('nav_demo_click') }}
-              className="text-[11px] font-600 tracking-[0.18em] uppercase text-void/60 hover:text-void transition-colors"
+              className="text-[11px] font-600 tracking-[0.18em] uppercase text-void/60 hover:text-void transition-colors whitespace-nowrap"
             >
               {l.label}
             </Link>
