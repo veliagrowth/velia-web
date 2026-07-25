@@ -45,11 +45,17 @@ export function formatUpdateDate(iso: string): string {
   })
 }
 
-/** FALLO SEGURO: si el feed no responde, devuelve [] y la página no se rompe. */
+/**
+ * FALLO SEGURO: si el feed no responde, devuelve [] y la página no se rompe.
+ *
+ * 10 minutos de caché (no una hora): publicar un anuncio desde /admin/novedades y
+ * no verlo en la web hasta 60 minutos después hace dudar de si se publicó bien.
+ * Sigue siendo cero coste por visita.
+ */
 export async function fetchUpdates(): Promise<ProductUpdate[]> {
   try {
     const res = await fetch(`${APP_URL}/api/public/novedades`, {
-      next: { revalidate: 3600 },
+      next: { revalidate: 600 },
     })
     if (!res.ok) return []
     const json = (await res.json()) as { updates?: ProductUpdate[] }
