@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import CookieNotice from '@/components/CookieNotice'
@@ -48,6 +47,14 @@ const organizationJsonLd = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={montserrat.variable}>
+      <head>
+        {/* Calienta la conexión al portal de la demo ANTES de que el iframe se
+            monte (bug "la demo carga lenta"): ahorra DNS + TLS + handshake del
+            túnel Cloudflare en el momento del scroll. */}
+        <link rel="preconnect" href="https://demo.app.veliacorp.com" />
+        <link rel="dns-prefetch" href="https://demo.app.veliacorp.com" />
+        <link rel="preconnect" href="https://app.veliacorp.com" />
+      </head>
       <body className="font-sans">
         <script
           type="application/ld+json"
@@ -58,7 +65,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <CookieNotice />
         <ScrollDepthTracker />
-        <Analytics />
       </body>
     </html>
   )

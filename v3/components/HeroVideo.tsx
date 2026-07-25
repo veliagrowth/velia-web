@@ -74,14 +74,23 @@ export default function HeroVideo({
       io.observe(v)
     }
 
-    // Primer gesto VÁLIDO para iOS (scroll NO cuenta). Se autodestruyen al éxito.
-    const gestureEvents = ['touchend', 'pointerup', 'click', 'keydown'] as const
+    // Primer gesto VÁLIDO para iOS (scroll NO cuenta). `touchstart` es el más
+    // temprano; el resto cubren tap/click/teclado. Se escucha en window Y en
+    // document (captura) por si el gesto ocurre sobre un overlay como el aviso
+    // de cookies. Se autodestruyen al primer play OK.
+    const gestureEvents = ['touchstart', 'touchend', 'pointerup', 'click', 'keydown'] as const
     const onGesture = () => {
       tryPlay()
       if (done) removeGestures()
     }
-    const removeGestures = () => gestureEvents.forEach(ev => window.removeEventListener(ev, onGesture))
-    gestureEvents.forEach(ev => window.addEventListener(ev, onGesture, { passive: true }))
+    const removeGestures = () => gestureEvents.forEach(ev => {
+      window.removeEventListener(ev, onGesture)
+      document.removeEventListener(ev, onGesture, true)
+    })
+    gestureEvents.forEach(ev => {
+      window.addEventListener(ev, onGesture, { passive: true })
+      document.addEventListener(ev, onGesture, { passive: true, capture: true })
+    })
 
     return () => {
       v.removeEventListener('loadeddata', tryPlay)

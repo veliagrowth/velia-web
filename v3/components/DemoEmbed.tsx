@@ -7,23 +7,32 @@ import { trackEvent } from '@/lib/analytics'
  * Demo en vivo embebida — el despacho de demostración (solo lectura) dentro de
  * un marco de navegador. Se usa en la home (justo bajo el hero) y en /demo.
  *
- * Rendimiento: el iframe NO se monta hasta que el bloque entra en viewport
- * (IntersectionObserver) — así el hero carga ligero y el portal (pesado) solo
- * se pide cuando el usuario llega. Antes de cargar se muestra un póster con el
- * botón "Cargar la demo", que también sirve de fallback si el iframe tarda.
+ * Rendimiento (bug "la demo carga lenta", escritorio y móvil):
+ *  1. Un POSTER (captura real del portal) se pinta AL INSTANTE → el usuario ve
+ *     el producto de inmediato mientras el iframe pesado carga por detrás.
+ *  2. El iframe se monta en cuanto el bloque se acerca al viewport
+ *     (IntersectionObserver, rootMargin 600px) — carga ANTES de llegar, no al
+ *     llegar. La conexión ya está caliente por el `preconnect` del layout.
+ *  3. Al terminar de cargar (`onLoad`), el iframe aparece con un fundido sobre
+ *     el poster. Si el navegador no soporta IO, se carga de inmediato.
  */
 const DEMO_URL = 'https://demo.app.veliacorp.com/'
+const POSTER = '/screenshots/expedientes.webp'
 
 export default function DemoEmbed({ heightClass = 'h-[70vh] min-h-[520px]' }: { heightClass?: string }) {
   const ref = useRef<HTMLDivElement>(null)
   const [load, setLoad] = useState(false)
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    if (load || !ref.current || !('IntersectionObserver' in window)) return
+    if (load) return
+    if (!('IntersectionObserver' in window)) { setLoad(true); return }  // fallback
+    const el = ref.current
+    if (!el) return
     const io = new IntersectionObserver((entries) => {
       if (entries.some(e => e.isIntersecting)) { setLoad(true); io.disconnect() }
-    }, { rootMargin: '400px' })
-    io.observe(ref.current)
+    }, { rootMargin: '600px' })
+    io.observe(el)
     return () => io.disconnect()
   }, [load])
 
@@ -38,30 +47,34 @@ export default function DemoEmbed({ heightClass = 'h-[70vh] min-h-[520px]' }: { 
           demo.app.veliacorp.com · solo lectura
         </span>
       </div>
-      {load ? (
-        <iframe
-          src={DEMO_URL}
-          title="Demo interactiva de VELIA — despacho de demostración en solo lectura"
-          className={`w-full ${heightClass} bg-void`}
-          loading="lazy"
-          allow="clipboard-write"
-          onLoad={() => trackEvent('demo_iframe_loaded')}
+
+      {/* Escenario: poster instantáneo + iframe que aparece por encima al cargar */}
+      <div className={`relative w-full ${heightClass} bg-void`}>
+        <img
+          src={POSTER}
+          alt=""
+          aria-hidden
+          className={`absolute inset-0 h-full w-full object-cover object-top transition-opacity duration-700 ${ready ? 'opacity-0' : 'opacity-100'}`}
         />
-      ) : (
-        <button
-          type="button"
-          onClick={() => { setLoad(true); trackEvent('demo_iframe_manual_load') }}
-          className={`btn w-full ${heightClass} bg-void flex flex-col items-center justify-center gap-3 text-cream/70 hover:text-cream transition-colors`}
-          aria-label="Cargar la demo interactiva de VELIA"
-        >
-          <svg width="46" height="46" viewBox="0 0 24 24" fill="none" className="text-gold/70" aria-hidden="true">
-            <circle cx="12" cy="12" r="10.5" stroke="currentColor" strokeWidth="1.2" />
-            <path d="M10 8.2 16 12l-6 3.8Z" fill="currentColor" />
-          </svg>
-          <span className="text-sm font-600">Cargar la demo en vivo</span>
-          <span className="text-[12px] text-cream/40">El despacho de demostración, aquí mismo</span>
-        </button>
-      )}
+        {!ready && (
+          <div className="absolute inset-x-0 bottom-0 flex items-center justify-center pb-6 pointer-events-none">
+            <span className="inline-flex items-center gap-2 rounded-full bg-void/70 px-4 py-2 text-[12px] text-cream/80 backdrop-blur-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-signal animate-pulse" aria-hidden />
+              Cargando la demo en vivo…
+            </span>
+          </div>
+        )}
+        {load && (
+          <iframe
+            src={DEMO_URL}
+            title="Demo interactiva de VELIA — despacho de demostración en solo lectura"
+            className={`absolute inset-0 h-full w-full transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`}
+            loading="lazy"
+            allow="clipboard-write"
+            onLoad={() => { setReady(true); trackEvent('demo_iframe_loaded') }}
+          />
+        )}
+      </div>
     </div>
   )
 }
