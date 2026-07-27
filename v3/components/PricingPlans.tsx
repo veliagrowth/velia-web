@@ -98,7 +98,7 @@ export default function PricingPlans() {
             onClick={() => trackEvent(annual ? 'pricing_annual_demo_click' : 'pricing_monthly_demo_click')}
             className="btn inline-block mt-9 bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85"
           >
-            Solicitar demo
+            Solicitar una demo
           </Link>
           <p className="mt-3 text-[12px] text-void/60">Conoce VELIA antes de contratar.</p>
         </div>

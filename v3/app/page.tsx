@@ -91,7 +91,7 @@ export default function Home() {
         <div className="grid gap-12 md:grid-cols-[1.05fr_1fr] md:items-center">
           <div className="rise">
             <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-6">
-              Plataforma de software legal
+              Software jurídico con IA · Desarrollado en España
             </p>
             <h1 className="text-4xl md:text-[3.4rem] font-800 leading-[1.05] tracking-[-0.03em]">
               Todo tu despacho.
@@ -246,7 +246,7 @@ export default function Home() {
               Un despacho real, no un caso de laboratorio
             </p>
             <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[22ch]">
-              Sin web, sin sistema, sin captación. 60 días después:
+              Sin sistema y sin presencia digital. 60 días después:
             </h2>
             <p className="mt-5 text-sm text-void/60 leading-[1.6] max-w-prose">
               Cónsul Jurídico opera hoy entero sobre VELIA: los clientes llegan, la

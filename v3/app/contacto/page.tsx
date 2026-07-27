@@ -53,7 +53,7 @@ export default function ContactoPage() {
           event="onboarding_start_click"
           className="btn inline-block mt-7 bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-8 py-4 hover:opacity-85"
         >
-          Empezar mi prueba
+          Prueba VELIA gratis
         </TrackedLink>
       </div>
 
