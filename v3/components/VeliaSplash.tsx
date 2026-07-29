@@ -35,7 +35,7 @@ export default function VeliaSplash({ label }: { label?: string }) {
       </svg>
 
       {/* Wordmark — entra con fade, igual que en la app */}
-      <span className="velia-splash-word mt-8 text-[11px] font-600 uppercase tracking-[0.34em] indent-[0.34em] text-cream/45">
+      <span className="velia-splash-word mt-8 text-[11px] font-600 uppercase tracking-[0.34em] indent-[0.34em] text-cream/55">
         VELIA
       </span>
 

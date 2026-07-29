@@ -1,16 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import TrackedLink from '@/components/TrackedLink'
-import { APP_URL, CONTACT_EMAIL } from '@/lib/constants'
+import TrialButton from '@/components/TrialButton'
+import { CONTACT_EMAIL, SITE_URL } from '@/lib/constants'
+import { PRICING } from '@/lib/pricing'
 
 export const metadata: Metadata = {
-  title: 'Empieza con VELIA — monta tu despacho en 2 minutos',
-  description:
-    'Cuéntale a VELIA cómo trabaja tu despacho y monta tu prueba con tu propio contexto. 15 días gratis, sin tarjeta. O recorre la demo interactiva sin registro.',
-  alternates: { canonical: 'https://veliacorp.com/contacto' },
+  title: 'Empieza con VELIA',
+  description: `Empieza tu prueba de ${PRICING.trialDays} días sin tarjeta, recorre la demo interactiva sin registro o habla con el equipo.`,
+  alternates: { canonical: `${SITE_URL}/contacto` },
 }
-
-const ONBOARDING_URL = `${APP_URL}/prueba-velia`
 
 /**
  * /contacto — SIN formulario clásico (decisión Joaquín 2026-07-24). El peso de
@@ -24,7 +22,7 @@ export default function ContactoPage() {
   return (
     <section className="mx-auto max-w-4xl px-6 pt-20 md:pt-28 pb-24">
       <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-6">
-        Empieza aquí
+        Empieza con VELIA
       </p>
       <h1 className="text-4xl md:text-5xl font-800 leading-[1.08] tracking-[-0.03em] max-w-[16ch]">
         Conoce VELIA con tu propio despacho.
@@ -32,7 +30,7 @@ export default function ContactoPage() {
       <p className="mt-6 text-lg text-void/60 leading-relaxed max-w-prose">
         Nada de rellenar un formulario y esperar. En un par de minutos le cuentas a VELIA
         cómo trabajas y monta tu espacio con el contexto de tu despacho.{' '}
-        <span className="inline-block">15 días gratis, sin tarjeta.</span>
+        <span className="inline-block">{PRICING.trialDays} días gratis, sin tarjeta.</span>
       </p>
 
       {/* Camino primario: el onboarding interactivo (la "radiografía") */}
@@ -48,13 +46,12 @@ export default function ContactoPage() {
           información— y VELIA arranca ya con tu contexto cargado. Sin llamadas, sin
           esperas, sin compromiso.
         </p>
-        <TrackedLink
-          href={ONBOARDING_URL}
-          event="onboarding_start_click"
-          className="btn inline-block mt-7 bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-8 py-4 hover:opacity-85"
-        >
-          Prueba VELIA gratis
-        </TrackedLink>
+        <div className="mt-7">
+          <TrialButton event="hero_trial_click" location="contacto" className="px-8 py-4" />
+        </div>
+        <p className="mt-3 text-[12px] text-void/60">
+          {PRICING.trialDays} días gratis · Sin tarjeta
+        </p>
       </div>
 
       {/* Camino secundario: la demo de solo lectura, sin registro */}
@@ -70,7 +67,7 @@ export default function ContactoPage() {
             href="/demo"
             className="inline-block mt-5 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
           >
-            Abrir la demo interactiva →
+            Ver demo interactiva →
           </Link>
         </div>
         <div className="rounded-2xl border border-void/10 bg-white/60 p-7">

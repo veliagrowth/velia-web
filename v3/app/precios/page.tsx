@@ -1,12 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import PricingPlans from '@/components/PricingPlans'
+import { PRICING, ANNUAL_FREE_MONTHS, eur } from '@/lib/pricing'
+import { SITE_URL } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Precios — VELIA',
   description:
-    'VELIA Despacho: 99€/mes por despacho (o 990€/año — 2 meses gratis) con 2 usuarios incluidos, +29€ por usuario adicional. Programa Fundadores: web premium incluida con el plan anual.',
-  alternates: { canonical: 'https://veliacorp.com/precios' },
+    `Un precio y todo VELIA: ${eur(PRICING.monthly)}/mes por despacho (o ${eur(PRICING.annualTotal)}/año, ${ANNUAL_FREE_MONTHS} meses gratis) con ${PRICING.usersIncluded} usuarios incluidos. Prueba ${PRICING.trialDays} días gratis, sin tarjeta.`,
+  alternates: { canonical: `${SITE_URL}/precios` },
 }
 
 /* Única fuente de las FAQ: alimenta el render Y el JSON-LD FAQPage. */
@@ -15,12 +17,12 @@ export const metadata: Metadata = {
 const FAQS: { q: string; a: string; closer?: string }[] = [
   {
     q: '¿Hay permanencia?',
-    a: 'El pago mensual tiene un compromiso inicial de 3 meses — el tiempo real para completar la puesta en marcha y adoptar el sistema. Después, cancelas con 30 días de preaviso.',
-    closer: 'El plan anual da 12 meses de acceso y un ahorro de 2 mensualidades.',
+    a: `El pago mensual tiene un compromiso inicial de ${PRICING.commitmentMonths} meses — el tiempo real para completar la puesta en marcha y adoptar el sistema. Después, cancelas con ${PRICING.cancellationNoticeDays} días de preaviso.`,
+    closer: `El plan anual da 12 meses de acceso y un ahorro de ${ANNUAL_FREE_MONTHS} mensualidades.`,
   },
   {
     q: '¿Cuántos usuarios incluye?',
-    a: 'El plan incluye 2 usuarios. Puedes añadir más según el tamaño del despacho: 29€/mes (o 290€/año) por usuario adicional.',
+    a: `El plan incluye ${PRICING.usersIncluded} usuarios. Puedes añadir más según el tamaño del despacho: ${eur(PRICING.extraUserMonthly)}/mes (o ${eur(PRICING.extraUserAnnual)}/año) por usuario adicional.`,
   },
   {
     q: '¿Y la web del despacho?',
@@ -62,12 +64,13 @@ export default function PreciosPage() {
         <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-6">Precios</p>
         <h1 className="text-4xl md:text-5xl font-800 leading-[1.08] tracking-[-0.03em] max-w-[20ch]">
           <span className="inline-block">Un precio.</span>{' '}
-          <span className="inline-block">Todo dentro.</span>
+          <span className="inline-block">Todo VELIA.</span>
         </h1>
+        {/* «Se paga con un caso al mes» se retiró como mensaje de precio (29-jul):
+            es un argumento comercial que necesita contexto, y de entrada obliga al
+            visitante a hacer una cuenta antes de saber cuánto cuesta. */}
         <p className="mt-6 text-lg text-void/60 leading-relaxed max-w-prose">
-          Sin módulos, sin sorpresas y sin permanencias escondidas: 3 meses iniciales en
-          el pago mensual y después, mes a mes.{' '}
-          <span className="inline-block">Se paga con un caso al mes.</span>
+          Sin módulos separados y sin costes ocultos. Elige pago mensual o anual.
         </p>
       </section>
 

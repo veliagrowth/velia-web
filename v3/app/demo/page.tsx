@@ -1,13 +1,16 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import DemoEmbed from '@/components/DemoEmbed'
-import { APP_URL } from '@/lib/constants'
+import TrialButton from '@/components/TrialButton'
+import TrackedLink from '@/components/TrackedLink'
+import { CONTACT_EMAIL, SITE_URL } from '@/lib/constants'
+import { DEMO_URL } from '@/lib/cta'
+import { PRICING } from '@/lib/pricing'
 
 export const metadata: Metadata = {
   title: 'Demo interactiva — VELIA',
   description:
-    'Recorre VELIA por dentro sin registrarte: un despacho de demostración real con expedientes, plazos, agenda y facturación. Escaparate de solo lectura.',
-  alternates: { canonical: 'https://veliacorp.com/demo' },
+    'Recorre VELIA por dentro sin registrarte: un despacho de demostración con expedientes, plazos, agenda y facturación. Solo lectura, sin riesgo.',
+  alternates: { canonical: `${SITE_URL}/demo` },
 }
 
 /**
@@ -17,9 +20,11 @@ export const metadata: Metadata = {
  * SameSite=None para iframe cross-site; middleware del portal permite
  * frame-ancestors desde veliacorp.com y *.vercel.app, y bloquea toda mutación).
  * Datos 100% ficticios (Bufete Nelson & Murdock) — nada que resetear.
+ *
+ * El bloque «Otras formas de empezar» se retiró el 29-jul: abría un segundo árbol
+ * de decisiones justo donde el visitante ya había decidido mirar. Queda una única
+ * acción, y el contacto como línea discreta.
  */
-const DEMO_URL = 'https://demo.app.veliacorp.com/'
-
 export default function DemoPage() {
   return (
     <>
@@ -33,21 +38,17 @@ export default function DemoPage() {
               VELIA, de primera mano.
             </h1>
             <p className="mt-4 text-lg text-void/60 leading-relaxed max-w-prose">
-              Esto no es un vídeo ni son capturas: es la última versión de VELIA con un
-              despacho de demostración dentro. Haz clic donde quieras — expedientes,
-              plazos, agenda, facturación.{' '}
-              <span className="inline-block">Es un escaparate de solo lectura:</span>{' '}
-              <span className="inline-block">puedes verlo todo, no puedes romper nada.</span>
+              Explora la última versión con un despacho ficticio. Puedes recorrer el producto
+              completo sin registrarte y sin modificar ningún dato.
             </p>
           </div>
-          <a
+          <TrackedLink
             href={DEMO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            event="demo_fullscreen_open"
             className="text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors whitespace-nowrap"
           >
-            Abrir a pantalla completa →
-          </a>
+            Abrir demo interactiva →
+          </TrackedLink>
         </div>
       </section>
 
@@ -70,27 +71,23 @@ export default function DemoPage() {
         <div className="rounded-3xl border border-void/10 bg-white px-8 py-12 md:py-14 text-center">
           <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em]">
             <span className="inline-block">¿Te encaja?</span>{' '}
-            <span className="inline-block">Pruébalo con tus casos.</span>
+            <span className="inline-block">Pruébala con tus propios asuntos.</span>
           </h2>
           <p className="mt-3 text-sm text-void/60 max-w-[46ch] mx-auto leading-relaxed">
-            15 días gratis con tus propios tipos de asuntos, sin tarjeta.{' '}
-            <span className="inline-block">Montamos tu VELIA con el contexto de tu
-            despacho en 2 minutos.</span>
+            {PRICING.trialDays} días gratis con tus propios tipos de asuntos, sin tarjeta.
           </p>
-          <div className="mt-7 flex flex-wrap justify-center gap-3">
-            <a
-              href={`${APP_URL}/prueba-velia`}
-              className="btn bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85"
-            >
-              Prueba gratis — 15 días
-            </a>
-            <Link
-              href="/contacto"
-              className="btn border border-void/20 text-void text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:border-void/50 transition-colors"
-            >
-              Otras formas de empezar
-            </Link>
+          <div className="mt-7">
+            <TrialButton event="demo_trial_click" location="demo_page" />
           </div>
+          <p className="mt-6 text-[13px] text-void/60">
+            ¿Tienes una pregunta?{' '}
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="font-700 text-gold-ink hover:text-void transition-colors underline decoration-gold-ink/30"
+            >
+              Habla con el equipo
+            </a>
+          </p>
         </div>
       </section>
     </>

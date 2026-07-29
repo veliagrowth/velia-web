@@ -28,6 +28,37 @@ export const FEATURE_FLAGS = {
 
   /** Checkout directo sin pasar por demo/cualificación. */
   ENABLE_DIRECT_CHECKOUT: false,
+
+  /** Demo interactiva embebida y enlazada. */
+  ENABLE_INTERACTIVE_DEMO: true,
+
+  /** Bloque del caso piloto (Cónsul Jurídico). Requiere autorización del despacho. */
+  ENABLE_CUSTOMER_CASE: true,
+
+  /** Cifras del despacho piloto. FALSE hasta que existan métricas de USO DEL
+   *  PRODUCTO auditables: las que había eran de captación de clientes y su única
+   *  fuente citada no era verificable. Ver CLAIMS.pilotMetrics. */
+  ENABLE_CUSTOMER_METRICS: false,
+
+  /** Bloque de contacto para bufetes grandes (migraciones, integraciones). */
+  ENABLE_ENTERPRISE_CONTACT: true,
+
+  /** Sección propia de app móvil en la home. FALSE: competía en importancia con
+   *  el Cerebro VELIA y el pricing. La capacidad se cuenta en /legal. */
+  ENABLE_MOBILE_APP_SECTION: false,
+
+  /**
+   * Vídeo de archivo del despacho en el hero.
+   *
+   * FALSE desde el 29-jul. El 24-jul se decidió lo contrario —vídeo de un bufete,
+   * no capturas— pero el encargo de optimización pide en tres puntos distintos
+   * que el hero enseñe el PRODUCTO (§10, §31 y §41), y prohíbe expresamente el
+   * material de archivo con abogados.
+   *
+   * Es una decisión reversible: poner `true` devuelve el vídeo. El componente
+   * `HeroVideo`, el archivo y la ruta `/api/hero-video` siguen intactos.
+   */
+  ENABLE_HERO_VIDEO: false,
 } as const
 
 export type FeatureFlag = keyof typeof FEATURE_FLAGS

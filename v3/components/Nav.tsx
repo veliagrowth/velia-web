@@ -4,125 +4,87 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import { APP_URL } from '@/lib/constants'
+import { HEADER_LINKS } from '@/lib/navigation'
+import { CTA, TRIAL_URL, withUtm } from '@/lib/cta'
+import { PRICING } from '@/lib/pricing'
 import { trackEvent } from '@/lib/analytics'
 
-/* Mega-menú "Producto": cada item ancla a su momento del día en /legal
-   (patrón "enseña el producto en el nav" — referencia analizada: lexroom.ai). */
-const PRODUCT = [
-  {
-    href: '/legal#puesta-al-dia',
-    title: 'Cerebro VELIA',
-    desc: 'Tu puesta al día de cada mañana: plazos, citas y pendientes, sin escribir nada.',
-  },
-  {
-    href: '/legal#plazos',
-    title: 'Plazos procesales',
-    desc: 'Cómputo según la LEC — días inhábiles y agosto incluidos — con aviso a tiempo.',
-  },
-  {
-    href: '/legal#escritos',
-    title: 'Escritos con IA',
-    desc: 'Borradores citando el texto oficial del BOE, artículo por artículo.',
-  },
-  {
-    href: '/legal#documentacion',
-    title: 'Portal del cliente',
-    desc: 'Checklist de documentación que VELIA persigue sola hasta completarla.',
-  },
-  {
-    href: '/legal#facturacion',
-    title: 'Facturación Verifactu',
-    desc: 'Minutas y facturas conformes a la normativa, desde el propio expediente.',
-  },
-]
-
-// 'Novedades' entra aquí (y no solo en el footer) desde que el tablón dejó de estar
-// en la home: es la vitrina de anuncios de compañía y del ritmo del producto.
-const LINKS = [
-  { href: '/demo', label: 'Demo' },
-  { href: '/precios', label: 'Precios' },
-  { href: '/seguridad', label: 'Seguridad' },
-  { href: '/novedades', label: 'Novedades' },
-  { href: '/contacto', label: 'Contacto' },
-]
-
-const TRIAL_URL = 'https://app.veliacorp.com/prueba-velia'
-
+/**
+ * Header.
+ *
+ * Cuatro secciones y dos acciones. Antes eran ocho elementos, y había un
+ * comentario en este mismo archivo explicando que se había apretado el `gap`
+ * porque no cabían y el bloque se montaba sobre el logotipo.
+ *
+ * También se retiró el mega-menú de «Producto». Enseñaba bien el producto, pero
+ * era un panel a pantalla completa con hover-intent, gestión de foco y cierre por
+ * clic fuera para llegar a una página que está a un clic. «Producto» es ahora un
+ * enlace.
+ */
 export default function Nav() {
-  const [open, setOpen] = useState(false) // menú móvil
-  const [productOpen, setProductOpen] = useState(false) // mega-menú desktop
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const openedAt = useRef(0) // cuándo abrió el hover — evita que el click inmediato lo cierre
-  const headerRef = useRef<HTMLElement>(null)
+  const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const menuBtn = useRef<HTMLButtonElement>(null)
+  const panel = useRef<HTMLDivElement>(null)
 
-  // Hover-intent: pequeño delay al salir para poder cruzar del trigger al panel.
-  const openProduct = () => {
-    if (closeTimer.current) clearTimeout(closeTimer.current)
-    openedAt.current = Date.now()
-    setProductOpen(true)
-  }
-  const scheduleClose = () => {
-    if (closeTimer.current) clearTimeout(closeTimer.current)
-    closeTimer.current = setTimeout(() => setProductOpen(false), 120)
-  }
-  // Toggle por click/teclado/touch. Si el hover acaba de abrirlo (<500ms), el click
-  // del mismo gesto NO lo cierra (hover abre → click inmediato cerraría: mala UX).
-  const toggleProduct = () => {
-    if (productOpen && Date.now() - openedAt.current < 500) return
-    setProductOpen(o => !o)
-  }
-
-  // Escape + clic fuera cierran el mega-menú (para el toggle por clic/teclado).
+  // Fondo sólido al bajar; translúcido sobre el hero.
   useEffect(() => {
-    if (!productOpen) return
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Menú móvil: bloquea el scroll de fondo, cierra con Escape y DEVUELVE EL FOCO
+  // al botón que lo abrió. Sin lo último, al cerrar el foco se va al principio del
+  // documento y quien navega con teclado tiene que recorrerlo entero otra vez.
+  useEffect(() => {
+    if (!open) return
+    const previo = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setProductOpen(false)
-    }
-    const onDown = (e: MouseEvent) => {
-      if (headerRef.current && !headerRef.current.contains(e.target as Node)) setProductOpen(false)
+      if (e.key === 'Escape') setOpen(false)
+      if (e.key !== 'Tab' || !panel.current) return
+      // Ciclo de foco dentro del panel mientras está abierto.
+      const focusables = panel.current.querySelectorAll<HTMLElement>('a[href], button')
+      if (!focusables.length) return
+      const primero = focusables[0]
+      const ultimo = focusables[focusables.length - 1]
+      if (e.shiftKey && document.activeElement === primero) {
+        e.preventDefault()
+        ultimo.focus()
+      } else if (!e.shiftKey && document.activeElement === ultimo) {
+        e.preventDefault()
+        primero.focus()
+      }
     }
     document.addEventListener('keydown', onKey)
-    document.addEventListener('mousedown', onDown)
     return () => {
       document.removeEventListener('keydown', onKey)
-      document.removeEventListener('mousedown', onDown)
+      document.body.style.overflow = previo
+      menuBtn.current?.focus()
     }
-  }, [productOpen])
+  }, [open])
+
+  const irAPrueba = (ubicacion: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+    trackEvent('header_trial_click', { cta_location: ubicacion })
+    e.currentTarget.href = withUtm(TRIAL_URL)
+  }
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50 bg-cream/90 backdrop-blur-sm border-b border-void/10">
-      <nav className="relative mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
+    <header
+      className={`sticky top-0 z-50 border-b transition-colors duration-200 ${
+        scrolled ? 'bg-cream/95 backdrop-blur-md border-void/10' : 'bg-cream/70 backdrop-blur-sm border-transparent'
+      }`}
+    >
+      <nav className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between gap-6">
         <Link href="/" aria-label="VELIA — inicio" className="shrink-0">
-          <Image src="/velia_logotipo.svg" alt="VELIA" width={104} height={26} priority className="h-[22px] w-auto" />
+          <Image src="/velia_logotipo.svg" alt="VELIA" width={120} height={30} priority className="h-[24px] w-auto" />
         </Link>
 
-        {/* gap-5/6, no gap-8: con 'Novedades' en el menú la fila (Producto + 5 links +
-            Iniciar sesión + CTA) superaba el ancho del contenedor y el bloque se
-            montaba encima del logotipo. Los links no encogen (tracking .18em), así
-            que el aire es lo único ajustable. */}
-        <div className="hidden md:flex items-center gap-5 lg:gap-6">
-          {/* Trigger del mega-menú */}
-          <button
-            type="button"
-            onMouseEnter={openProduct}
-            onMouseLeave={scheduleClose}
-            onClick={toggleProduct}
-            aria-expanded={productOpen}
-            aria-haspopup="true"
-            className={`flex items-center gap-1.5 text-[11px] font-600 tracking-[0.18em] uppercase transition-colors ${
-              productOpen ? 'text-void' : 'text-void/60 hover:text-void'
-            }`}
-          >
-            Producto
-            <svg
-              width="9" height="6" viewBox="0 0 9 6" fill="none" aria-hidden="true"
-              className={`transition-transform duration-200 ease-out ${productOpen ? 'rotate-180' : ''}`}
-            >
-              <path d="M1 1l3.5 3.5L8 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-
-          {LINKS.map(l => (
+        <div className="hidden md:flex items-center gap-7">
+          {HEADER_LINKS.map(l => (
             <Link
               key={l.href}
               href={l.href}
@@ -141,121 +103,48 @@ export default function Nav() {
           </a>
           <a
             href={TRIAL_URL}
+            onClick={irAPrueba('header')}
             className="btn text-[11px] font-700 tracking-[0.1em] uppercase bg-void text-cream rounded-full px-5 py-2.5 hover:opacity-85 whitespace-nowrap"
           >
-            Prueba gratis — 15 días
+            {CTA.primary.label}
           </a>
         </div>
 
-        {/* Móvil */}
-        <button
-          className="md:hidden w-10 h-10 flex items-center justify-center text-void/70"
-          onClick={() => setOpen(o => !o)}
-          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-          aria-expanded={open}
-        >
-          <span className="text-xl leading-none">{open ? '✕' : '☰'}</span>
-        </button>
+        {/* Móvil: el CTA principal NO se esconde detrás del menú. */}
+        <div className="flex md:hidden items-center gap-2">
+          <a
+            href={TRIAL_URL}
+            onClick={irAPrueba('header_mobile')}
+            className="btn inline-flex items-center min-h-[44px] text-[11px] font-700 tracking-[0.06em] uppercase bg-void text-cream rounded-full px-4 whitespace-nowrap"
+          >
+            Probar gratis
+          </a>
+          <button
+            ref={menuBtn}
+            type="button"
+            className="w-11 h-11 flex items-center justify-center text-void/70"
+            onClick={() => setOpen(o => !o)}
+            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={open}
+            aria-controls="menu-movil"
+          >
+            <span className="text-xl leading-none" aria-hidden="true">{open ? '✕' : '☰'}</span>
+          </button>
+        </div>
       </nav>
 
-      {/* ── Mega-menú Producto (desktop) ─────────────────────────────────── */}
-      {productOpen && (
-        <div
-          onMouseEnter={openProduct}
-          onMouseLeave={scheduleClose}
-          className="menu-in hidden md:block absolute inset-x-0 top-full bg-cream border-b border-void/10 shadow-[0_24px_48px_-24px_rgba(10,10,15,0.18)]"
-        >
-          <div className="mx-auto max-w-6xl px-6 py-10 grid gap-10 lg:grid-cols-[1fr_1.15fr_1fr] md:grid-cols-[1fr_1.3fr]">
-            {/* Editorial */}
-            <div>
-              <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-4">
-                VELIA Legal
-              </p>
-              <p className="text-2xl font-800 leading-[1.15] tracking-[-0.02em] max-w-[16ch]">
-                El sistema operativo del despacho.
-              </p>
-              <p className="mt-3 text-sm text-void/60 leading-[1.6] max-w-[34ch]">
-                CRM, IA con fuentes oficiales, plazos, facturación y web —{' '}
-                <span className="inline-block">en una sola suscripción.</span>
-              </p>
-              <Link
-                href="/legal"
-                onClick={() => setProductOpen(false)}
-                className="inline-block mt-5 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
-              >
-                Ver un día con VELIA →
-              </Link>
-            </div>
-
-            {/* Piezas del producto */}
-            <ul className="space-y-1">
-              {PRODUCT.map(p => (
-                <li key={p.href}>
-                  <Link
-                    href={p.href}
-                    onClick={() => setProductOpen(false)}
-                    className="block rounded-xl px-4 py-3 -mx-4 md:mx-0 hover:bg-void/[0.04] transition-colors"
-                  >
-                    <span className="block text-sm font-700">{p.title}</span>
-                    <span className="block mt-0.5 text-[13px] text-void/60 leading-[1.5]">{p.desc}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            {/* Mock real del producto (el cerebro), no ilustración */}
-            <div className="hidden lg:block">
-              <div className="rounded-2xl bg-deep p-4">
-                {/* gold/80 no gold/70: mismo caso de bg-deep que el hero — /70 falla AA aquí. */}
-                <p className="text-[9px] font-700 tracking-[0.22em] uppercase text-gold/80 mb-3">
-                  VELIA · Tu puesta al día
-                </p>
-                <div className="space-y-2.5">
-                  <div className="rounded-lg bg-white/5 border border-white/10 px-3 py-2.5">
-                    <p className="text-cream/85 text-[11px] leading-relaxed">
-                      Buenos días. Tienes <span className="text-gold">un plazo que vence el jueves</span> y
-                      un cliente ha subido documentación. ¿Preparo el borrador?
-                    </p>
-                  </div>
-                  <div className="flex justify-end">
-                    <div className="rounded-lg bg-gold/15 px-3 py-2">
-                      <p className="text-cream text-[11px]">Sí, prepáralo.</p>
-                    </div>
-                  </div>
-                  <div className="h-8 rounded-full border border-white/10 flex items-center px-3">
-                    <span className="text-cream/55 text-[10px]">Pregunta a VELIA…</span>
-                  </div>
-                </div>
-              </div>
-              <a
-                href={TRIAL_URL}
-                className="block mt-3 text-center text-[11px] font-700 tracking-[0.1em] uppercase text-void/60 hover:text-void transition-colors"
-              >
-                Pruébalo gratis 15 días →
-              </a>
-            </div>
-          </div>
-
-          {/* Franja de confianza */}
-          <div className="border-t border-void/10">
-            <div className="mx-auto max-w-6xl px-6 py-3.5">
-              <p className="text-[10px] font-600 tracking-[0.18em] uppercase text-void/60">
-                Texto oficial del BOE · Plazos según la LEC · Verifactu · Datos alojados en la UE
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ── Menú móvil ───────────────────────────────────────────────────── */}
       {open && (
-        <div className="md:hidden border-t border-void/10 bg-cream px-6 py-4 space-y-1">
-          {[{ href: '/legal', label: 'Producto' }, ...LINKS].map(l => (
+        <div
+          ref={panel}
+          id="menu-movil"
+          className="md:hidden border-t border-void/10 bg-cream px-6 py-4"
+        >
+          {HEADER_LINKS.map(l => (
             <Link
               key={l.href}
               href={l.href}
               onClick={() => { setOpen(false); if (l.href === '/demo') trackEvent('nav_demo_click') }}
-              className="block py-2.5 text-sm font-600 text-void/70"
+              className="block py-3 text-sm font-600 text-void/75"
             >
               {l.label}
             </Link>
@@ -263,19 +152,13 @@ export default function Nav() {
           <a
             href={APP_URL}
             onClick={() => { setOpen(false); trackEvent('login_click') }}
-            className="block py-2.5 text-sm font-600 text-void/70"
+            className="block py-3 text-sm font-600 text-void/75"
           >
             Iniciar sesión
           </a>
-          <div className="pt-2">
-            <a
-              href={TRIAL_URL}
-              onClick={() => setOpen(false)}
-              className="btn inline-block text-[11px] font-700 tracking-[0.1em] uppercase bg-void text-cream rounded-full px-5 py-2.5"
-            >
-              Prueba gratis — 15 días
-            </a>
-          </div>
+          <p className="pt-3 text-[12px] text-void/60">
+            {PRICING.trialDays} días gratis · Sin tarjeta
+          </p>
         </div>
       )}
     </header>

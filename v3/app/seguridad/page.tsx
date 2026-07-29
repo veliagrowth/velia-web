@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const PILLARS = [
   {
     title: 'Aislamiento por despacho',
-    body: 'Cada despacho es un inquilino aislado dentro de VELIA. Las políticas de Row Level Security (RLS) actúan en el propio motor de la base de datos y garantizan que los datos de un despacho jamás se cruzan con los de otro.',
+    body: 'Cada despacho es un inquilino aislado dentro de VELIA. Las políticas de Row Level Security (RLS) actúan en el propio motor de la base de datos y impiden el acceso a los datos de un despacho desde otro.',
   },
   {
     title: 'Tu información no entrena ninguna IA',

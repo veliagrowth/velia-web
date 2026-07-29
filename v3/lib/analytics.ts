@@ -20,28 +20,50 @@
 
 const ENDPOINT = 'https://app.veliacorp.com/api/public/web-analytics'
 
+/**
+ * Un solo nombre por acción. Antes había cuatro eventos distintos para el mismo
+ * clic de prueba gratuita (`hero_trial_click`, `onboarding_start_click`,
+ * `footer_cta_trial_click`, `pricing_*_demo_click`) y ninguno se podía sumar con
+ * otro: el embudo no se dejaba leer. Ahora la ubicación va en `cta_location`, no
+ * en el nombre del evento.
+ */
 export type AnalyticsEvent =
+  // Navegación
   | 'nav_demo_click'
   | 'login_click'
-  | 'hero_demo_click'
+  | 'header_trial_click'
+  // Hero
   | 'hero_trial_click'
-  | 'hero_product_video_play'
-  | 'product_demo_click'
+  | 'hero_demo_click'
+  | 'hero_video_play'
+  // Demo
+  | 'demo_open'
+  | 'demo_fullscreen_open'
+  | 'demo_trial_click'
   | 'demo_iframe_loaded'
   | 'demo_iframe_manual_load'
-  | 'onboarding_start_click'
-  | 'footer_cta_trial_click'
+  // Secciones vistas
   | 'brain_section_view'
+  | 'product_section_view'
+  | 'case_study_view'
   | 'pricing_section_view'
-  | 'pricing_toggle_monthly'
-  | 'pricing_toggle_annual'
-  | 'pricing_monthly_demo_click'
-  | 'pricing_annual_demo_click'
-  | 'founders_program_view'
-  | 'founders_program_click'
-  | 'demo_form_start'
-  | 'demo_form_error'
-  | 'demo_form_submit'
+  | 'founders_view'
+  // Interacción de contenido
+  | 'product_detail_click'
+  | 'security_click'
+  // Precio
+  | 'pricing_monthly_select'
+  | 'pricing_annual_select'
+  | 'pricing_trial_click'
+  // Fundadores
+  | 'founders_terms_click'
+  | 'founders_trial_click'
+  // Empresa
+  | 'enterprise_contact_click'
+  // Cierre
+  | 'final_trial_click'
+  | 'final_demo_click'
+  // Profundidad de lectura
   | 'scroll_50'
   | 'scroll_90'
 

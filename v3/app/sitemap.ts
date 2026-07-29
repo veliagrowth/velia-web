@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/demo', priority: 0.9 },
     { path: '/precios', priority: 0.9 },
     { path: '/seguridad', priority: 0.7 },
+    { path: '/fundadores', priority: 0.6 },
     { path: '/contacto', priority: 0.8 },
     { path: '/sobre-velia', priority: 0.5 },
     { path: '/novedades', priority: 0.6 },

@@ -4,3 +4,6 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# artefacto incremental de tsc (lo genera `tsc --noEmit`)
+tsconfig.tsbuildinfo

@@ -118,7 +118,7 @@ export default function HeroVideo({
       onPlay={() => {
         if (!playTracked.current) {
           playTracked.current = true
-          trackEvent('hero_product_video_play')
+          trackEvent('hero_video_play')
         }
       }}
     />

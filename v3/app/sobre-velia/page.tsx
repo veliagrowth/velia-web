@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { CONTACT_EMAIL } from '@/lib/constants'
+import TrialButton from '@/components/TrialButton'
+import { CONTACT_EMAIL, SITE_URL } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Sobre VELIA — software jurídico desarrollado en España',
   description:
     'Por qué existe VELIA, cómo se ha construido junto a un despacho real y quién está detrás de la plataforma.',
-  alternates: { canonical: 'https://veliacorp.com/sobre-velia' },
+  alternates: { canonical: `${SITE_URL}/sobre-velia` },
 }
 
 const TEAM = [
@@ -29,13 +29,16 @@ export default function SobreVeliaPage() {
         <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-6">
           Sobre VELIA
         </p>
+        {/* El arranque ya no es «un despacho sin presencia digital» (29-jul): eso
+            contaba el origen desde el marketing. El problema que resuelve VELIA es
+            de software, y así se cuenta. */}
         <h1 className="text-4xl md:text-5xl font-800 leading-[1.08] tracking-[-0.03em] max-w-[18ch]">
-          Un despacho sin presencia digital fue el punto de partida.
+          Construida en España, junto a los despachos que la utilizan.
         </h1>
         <p className="mt-6 text-lg text-void/60 leading-relaxed max-w-prose">
-          VELIA nació de un caso real: un despacho en Fraga, sin web, sin sistema y sin
-          captación. <span className="inline-block">De ahí salió la primera versión de la plataforma</span> —
-          y de ahí sigue construyéndose, con ese mismo despacho como primer usuario.
+          VELIA nació para resolver un problema concreto: los abogados trabajan con demasiadas
+          herramientas separadas y demasiado trabajo manual. Por eso construimos una plataforma
+          en la que la gestión y la inteligencia jurídica forman parte del mismo sistema.
         </p>
       </section>
 
@@ -63,12 +66,17 @@ export default function SobreVeliaPage() {
         <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
           El equipo
         </p>
+        {/* «Dos personas, sin oficina, sin ronda, sin plantilla» era cierto y
+            transmitía fragilidad operativa en un producto que custodia expedientes.
+            El hecho relevante no es cuántos somos: es que quien decide el producto
+            está en contacto directo con quien lo usa. */}
         <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em] max-w-[20ch]">
-          Dos personas construyen y venden VELIA.
+          Fundadores cerca del producto.
         </h2>
         <p className="mt-4 text-sm text-void/60 max-w-prose leading-[1.6]">
-          Sin oficina, sin ronda de inversión, sin plantilla — el mismo equipo que habla con
-          los despachos es el que construye la plataforma.
+          El equipo fundador participa directamente en el desarrollo, el soporte y la relación
+          con los despachos. Las decisiones de producto nacen del uso real, no de capas alejadas
+          del cliente.
         </p>
         <div className="mt-12 grid gap-10 sm:grid-cols-2 max-w-2xl">
           {TEAM.map(person => (
@@ -119,12 +127,7 @@ export default function SobreVeliaPage() {
           ¿Quieres verlo con los casos de tu despacho?
         </h2>
         <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href="/contacto"
-            className="btn bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85"
-          >
-            Solicitar una demo
-          </Link>
+          <TrialButton event="final_trial_click" location="sobre_velia" />
           <a
             href={`mailto:${CONTACT_EMAIL}`}
             className="text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"

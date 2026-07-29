@@ -3,50 +3,66 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { PRICING, ANNUAL_SAVING, ANNUAL_FREE_MONTHS, FOUNDERS_SEATS_LABEL, eur } from '@/lib/pricing'
+import { CTA } from '@/lib/cta'
+import { CONTACT_EMAIL } from '@/lib/constants'
+import { FEATURE_FLAGS } from '@/lib/feature-flags'
+import TrialButton from '@/components/TrialButton'
 import { trackEvent } from '@/lib/analytics'
 import { useSectionView } from '@/lib/useSectionView'
 
-/* Lo que incluye el plan único "VELIA Despacho". La web del despacho ya NO va
-   en el plan base (modelo Axel 2026-07-21): es incentivo del Programa Fundadores
-   anual o un añadido opcional. */
-const INCLUDED = [
-  'VELIA, tu asistente: escritos, informes y consultas con fuentes oficiales (BOE)',
-  'Puesta al día automática cada mañana (plazos, citas, mensajes, documentos)',
-  'Cómputo de plazos procesales según la LEC con avisos',
-  'CRM completo: contactos, expedientes, pipeline, agenda y control horario',
-  'Portal del cliente: su caso en lenguaje llano, subida de documentos, pagos y citas',
-  'Persecución automática de documentación al cliente',
-  'Facturación conforme a Verifactu',
-  'Inbox unificado: email y mensajes del portal',
-  '2 usuarios incluidos',
-  'Datos alojados en la UE · aislamiento por despacho (RLS)',
-  'Onboarding inicial y soporte',
+/**
+ * Plan único, dos modalidades de pago.
+ *
+ * El cambio importante del 29-jul no es visual: **el botón principal llevaba a
+ * `/contacto` y decía «Solicitar una demo»**. Quien llegaba aquí decidido a
+ * probar VELIA se encontraba pidiendo una demo. Ahora lleva al alta real, y es
+ * el mismo botón y el mismo texto que en el resto de la web.
+ *
+ * La lista de funciones baja de 11 a 8 con un enlace al detalle: una lista de
+ * once puntos no se lee, se escanea y se abandona.
+ */
+const INCLUIDO = [
+  'Cerebro VELIA con fuentes oficiales',
+  'Expedientes, clientes y contactos',
+  'Documentos y redacción asistida',
+  'Agenda, tareas y propuestas de plazos',
+  'Portal del cliente',
+  'Facturación y control económico',
+  `${PRICING.usersIncluded} usuarios incluidos`,
+  'Onboarding y soporte',
 ]
 
 export default function PricingPlans() {
-  // Anual seleccionado por defecto (modelo Axel), pero el mensual se ve y se
-  // cambia sin trucos — nunca escondemos el precio mensual.
+  // Anual por defecto, pero el mensual se ve y se cambia sin trucos.
   const [annual, setAnnual] = useState(true)
-  const foundersRef = useSectionView<HTMLDivElement>('founders_program_view')
+  const foundersRef = useSectionView<HTMLDivElement>('founders_view')
 
-  const price = annual ? eur(PRICING.annualPerMonth) : eur(PRICING.monthly)
+  const precio = annual ? eur(PRICING.annualPerMonth) : eur(PRICING.monthly)
   const extra = annual
     ? `+${eur(PRICING.extraUserAnnual)}/año por usuario adicional`
     : `+${eur(PRICING.extraUserMonthly)}/mes por usuario adicional`
-  const note = annual
-    ? `Facturado anualmente: ${eur(PRICING.annualTotal)}/año — ${ANNUAL_FREE_MONTHS} meses gratis.`
-    : `Compromiso inicial de ${PRICING.commitmentMonths} meses. Después, cancela con 30 días de preaviso.`
+  const condicion = annual
+    ? `${eur(PRICING.annualTotal)} + IVA facturados anualmente · ${ANNUAL_FREE_MONTHS} meses gratis · ahorras ${eur(ANNUAL_SAVING)}`
+    : `Compromiso inicial de ${PRICING.commitmentMonths} meses. Después, cancelación con ${PRICING.cancellationNoticeDays} días de preaviso.`
+  const microcopy = annual
+    ? 'Decide la modalidad antes de finalizar la prueba'
+    : `${PRICING.trialDays} días gratis · Sin tarjeta`
 
   return (
     <section className="mx-auto max-w-6xl px-6 pb-20">
-      {/* Toggle mensual / anual — anual por defecto, mensual siempre accesible */}
+      {/* Selector. `aria-pressed` en ambos y sin salto de layout: el ancho de los
+          dos botones es fijo y el precio no cambia de altura al alternar. */}
       <div className="mb-8 flex flex-wrap items-center gap-4">
-        <div className="inline-flex items-center rounded-full border border-void/15 bg-white p-1 overflow-hidden">
+        <div
+          className="inline-flex items-center rounded-full border border-void/15 bg-white p-1"
+          role="group"
+          aria-label="Modalidad de pago"
+        >
           <button
             type="button"
-            onClick={() => { setAnnual(false); trackEvent('pricing_toggle_monthly') }}
+            onClick={() => { setAnnual(false); trackEvent('pricing_monthly_select') }}
             aria-pressed={!annual}
-            className={`btn rounded-full px-5 py-2 text-[11px] font-700 tracking-[0.1em] uppercase whitespace-nowrap transition-colors duration-200 ease-in-out ${
+            className={`btn rounded-full px-6 py-2 text-[11px] font-700 tracking-[0.1em] uppercase whitespace-nowrap transition-colors duration-200 ${
               !annual ? 'bg-void text-cream' : 'text-void/60 hover:text-void'
             }`}
           >
@@ -54,9 +70,9 @@ export default function PricingPlans() {
           </button>
           <button
             type="button"
-            onClick={() => { setAnnual(true); trackEvent('pricing_toggle_annual') }}
+            onClick={() => { setAnnual(true); trackEvent('pricing_annual_select') }}
             aria-pressed={annual}
-            className={`btn rounded-full px-5 py-2 text-[11px] font-700 tracking-[0.1em] uppercase whitespace-nowrap transition-colors duration-200 ease-in-out ${
+            className={`btn rounded-full px-6 py-2 text-[11px] font-700 tracking-[0.1em] uppercase whitespace-nowrap transition-colors duration-200 ${
               annual ? 'bg-void text-cream' : 'text-void/60 hover:text-void'
             }`}
           >
@@ -69,14 +85,13 @@ export default function PricingPlans() {
       </div>
 
       <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr] items-start">
-        {/* Plan principal */}
         <div className="rounded-3xl border border-void/10 bg-white p-8 md:p-10">
           <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-4">
             VELIA Despacho · Precio de lanzamiento
           </p>
-          <div className="flex flex-wrap items-baseline gap-3">
-            <p className="text-5xl font-800 tracking-[-0.03em]">
-              {price}
+          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+            <p className="text-5xl font-800 tracking-[-0.03em] whitespace-nowrap">
+              {precio}
               <span className="text-lg font-600 text-void/60">/mes</span>
             </p>
             <p className="text-sm text-void/60">
@@ -84,65 +99,84 @@ export default function PricingPlans() {
               <span className="inline-block">{extra}</span>
             </p>
           </div>
-          <p className="mt-3 text-[12px] font-600 tracking-[0.04em] text-gold-ink">{note}</p>
-          <ul className="mt-8 grid gap-3 md:grid-cols-2">
-            {INCLUDED.map(item => (
+          {/* min-h fija: al alternar mensual/anual el texto cambia de largo y sin
+              esto la lista de abajo daba un salto. */}
+          <p className="mt-3 min-h-[2.6em] text-[12px] font-600 leading-[1.5] text-gold-ink">
+            {condicion}
+          </p>
+
+          <ul className="mt-6 grid gap-3 md:grid-cols-2">
+            {INCLUIDO.map(item => (
               <li key={item} className="flex items-start gap-2.5 text-sm text-void/70 leading-snug">
-                <span className="text-gold-ink mt-0.5 shrink-0">✓</span>
+                <span className="text-gold-ink mt-0.5 shrink-0" aria-hidden="true">✓</span>
                 {item}
               </li>
             ))}
           </ul>
           <Link
-            href="/contacto"
-            onClick={() => trackEvent(annual ? 'pricing_annual_demo_click' : 'pricing_monthly_demo_click')}
-            className="btn inline-block mt-9 bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85"
+            href="/legal"
+            className="inline-block mt-5 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
           >
-            Solicitar una demo
+            Ver todas las funciones →
           </Link>
-          <p className="mt-3 text-[12px] text-void/60">Conoce VELIA antes de contratar.</p>
+
+          <div className="mt-8">
+            <TrialButton
+              event="pricing_trial_click"
+              location={annual ? 'pricing_page_annual' : 'pricing_page_monthly'}
+            />
+          </div>
+          <p className="mt-3 text-[12px] text-void/60">{microcopy}</p>
         </div>
 
         <div className="space-y-6">
-          {/* Fundadores — mismo precio, la ventaja es la web premium (solo anual) */}
-          <div ref={foundersRef} id="fundadores" className="rounded-3xl border border-gold/40 bg-gold/10 p-8 scroll-mt-24">
-            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
-              Programa Fundadores
-            </p>
-            <p className="text-2xl font-800 tracking-[-0.02em] leading-[1.15] max-w-[18ch]">
-              Web premium de lanzamiento incluida.
-            </p>
-            <p className="mt-3 text-sm text-void/70 leading-[1.6]">
-              Los primeros despachos que contraten VELIA en modalidad anual acceden a una
-              presencia digital nueva, a la altura de su trabajo —{' '}
-              <span className="inline-block">incluida con el plan anual.</span> Mismo precio,
-              precio de lanzamiento congelado y voz en la hoja de ruta.
-            </p>
-            <p className="mt-4 text-[12px] font-700 tracking-[0.08em] uppercase text-gold-ink">
-              Quedan {FOUNDERS_SEATS_LABEL}
-            </p>
-            <Link
-              href="/contacto"
-              onClick={() => trackEvent('founders_program_click')}
-              className="btn inline-block mt-5 bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-6 py-3 hover:opacity-85 whitespace-nowrap"
-            >
-              Solicitar acceso
-            </Link>
-          </div>
+          {FEATURE_FLAGS.ENABLE_FOUNDERS_PROGRAM && (
+            <div ref={foundersRef} id="fundadores" className="rounded-3xl border border-gold/40 bg-gold/10 p-8 scroll-mt-24">
+              <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
+                Programa Fundadores
+              </p>
+              <p className="text-2xl font-800 tracking-[-0.02em] leading-[1.15] max-w-[20ch]">
+                Entra en la primera generación de despachos VELIA.
+              </p>
+              <p className="mt-3 text-sm text-void/70 leading-[1.6]">
+                Los primeros despachos que contraten la modalidad anual mantienen el precio de
+                lanzamiento mientras su suscripción permanezca activa y acceden a una web
+                premium de lanzamiento.
+              </p>
+              <p className="mt-4 text-[12px] font-700 tracking-[0.08em] uppercase text-gold-ink">
+                {FOUNDERS_SEATS_LABEL} disponibles
+              </p>
+              <div className="mt-5">
+                <TrialButton event="founders_trial_click" location="pricing_founders" className="px-6 py-3" />
+              </div>
+              <Link
+                href="/fundadores"
+                onClick={() => trackEvent('founders_terms_click')}
+                className="inline-block mt-4 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
+              >
+                Ver condiciones del programa →
+              </Link>
+            </div>
+          )}
 
-          {/* Bufetes grandes */}
-          <div className="rounded-3xl border border-void/10 bg-white p-8">
-            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/60 mb-3">
-              Bufetes grandes
-            </p>
-            <p className="text-sm text-void/65 leading-[1.6]">
-              Sin tarifa de catálogo: onboarding y estudio de integración a medida según
-              la infraestructura que haya que manejar.
-            </p>
-            <Link href="/contacto" className="inline-block mt-4 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors">
-              Hablar con el equipo →
-            </Link>
-          </div>
+          {FEATURE_FLAGS.ENABLE_ENTERPRISE_CONTACT && (
+            <div className="rounded-3xl border border-void/10 bg-white p-8">
+              <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/60 mb-3">
+                Bufetes grandes
+              </p>
+              <p className="text-sm text-void/65 leading-[1.6]">
+                ¿Necesitas más de 10 usuarios, una migración compleja o integraciones
+                específicas? Preparamos un plan de implantación personalizado.
+              </p>
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                onClick={() => trackEvent('enterprise_contact_click', { cta_location: 'pricing' })}
+                className="inline-block mt-4 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
+              >
+                {CTA.tertiary.label} →
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </section>

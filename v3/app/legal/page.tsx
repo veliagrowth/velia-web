@@ -1,12 +1,18 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import ProductShot from '@/components/ProductShot'
+import PhoneShot from '@/components/PhoneShot'
+import TrialButton from '@/components/TrialButton'
+import { APP_URL, SITE_URL } from '@/lib/constants'
+import { PRICING } from '@/lib/pricing'
 
+/* La ruta sigue siendo /legal y no se renombra a /producto: está indexada, tiene
+   enlaces entrantes y el beneficio de cambiarla no compensa el riesgo. El título
+   visible sí dice «Producto» en la navegación. */
 export const metadata: Metadata = {
-  title: 'VELIA Legal — el día a día del despacho, resuelto',
+  title: 'Producto — un día de tu despacho, con VELIA dentro',
   description:
-    'Cómo trabaja un abogado con VELIA: puesta al día automática, plazos LEC, escritos con IA citando el BOE, persecución de documentación y facturación Verifactu.',
-  alternates: { canonical: 'https://veliacorp.com/legal' },
+    'Cómo trabaja un abogado con VELIA: puesta al día cada mañana, expedientes, documentos con IA, propuestas de plazos, portal del cliente y facturación.',
+  alternates: { canonical: `${SITE_URL}/legal` },
 }
 
 /* body + closer: el cierre se pinta como unidad inseparable (inline-block)
@@ -24,7 +30,7 @@ const DAY = [
     slug: 'plazos',
     title: 'Un plazo, calculado según la LEC',
     body: 'VELIA computa los plazos procesales con las reglas reales — días inhábiles, agosto, prórroga del 133.4 — y te avisa con margen.',
-    closer: 'Los vencimientos dejan de vivir en tu cabeza.',
+    closer: 'Los vencimientos registrados y propuestos quedan organizados dentro de cada asunto.',
   },
   {
     time: '11:00',
@@ -36,8 +42,8 @@ const DAY = [
   {
     time: '13:30',
     slug: 'documentacion',
-    title: 'La documentación llega sola',
-    body: 'El cliente recibe su checklist en su portal, sube los documentos desde el móvil y VELIA los persigue por email hasta completarla.',
+    title: 'La documentación no se queda a medias',
+    body: 'El cliente recibe su checklist en su portal y sube los documentos desde el móvil. VELIA envía recordatorios configurados hasta que la documentación se completa.',
     closer: 'Se acabó el "te lo mando mañana".',
   },
   {
@@ -113,12 +119,50 @@ export default function LegalPage() {
             </p>
           </div>
           <div className="justify-self-start md:justify-self-end">
-            <Link
-              href="/contacto"
-              className="btn inline-block bg-void text-cream text-[12px] font-700 tracking-[0.1em] uppercase rounded-full px-7 py-3.5 hover:opacity-85"
+            <TrialButton event="pricing_trial_click" location="producto_crm" />
+          </div>
+        </div>
+      </section>
+
+      {/* Acceso móvil. Vivía en una sección propia de la home, donde competía con
+          el Cerebro VELIA y con el precio. Aquí es lo que es: una capacidad más. */}
+      <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+        <div className="grid gap-10 md:grid-cols-[1fr_auto] md:items-center">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em] max-w-[22ch]">
+              El despacho, también desde el móvil.
+            </h2>
+            <p className="mt-4 text-sm text-void/60 leading-[1.6] max-w-prose">
+              Instala VELIA como aplicación y accede a tu despacho desde cualquier
+              dispositivo: icono en la pantalla de inicio, pantalla completa y tu asistente
+              a un toque.
+            </p>
+            <a
+              href={`${APP_URL}/instalar`}
+              className="inline-block mt-6 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
             >
-              Verlo con tus casos
-            </Link>
+              Cómo instalarla →
+            </a>
+          </div>
+          <div className="justify-self-center md:justify-self-end">
+            <PhoneShot
+              src="/screenshots/movil-menu.webp"
+              alt="La app de VELIA en el móvil con el menú abierto: Mensajes, Expedientes, Agenda, Panel, Recursos, Negocio, Contactos, Importar datos, Control horario, Web y Blog, Novedades, Soporte y Configuración"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 pb-20">
+        <div className="rounded-3xl bg-void text-cream px-8 py-14 text-center">
+          <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em]">
+            Descubre cómo trabaja VELIA con tu despacho.
+          </h2>
+          <p className="mt-4 text-sm text-cream/60 max-w-[48ch] mx-auto leading-relaxed">
+            {PRICING.trialDays} días gratis, sin tarjeta y sin compromiso durante la prueba.
+          </p>
+          <div className="mt-8">
+            <TrialButton event="final_trial_click" location="producto_final" variant="onDark" />
           </div>
         </div>
       </section>

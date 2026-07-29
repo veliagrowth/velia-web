@@ -15,16 +15,32 @@ export const PRICING = {
   extraUserMonthly: 29,  // €/mes + IVA por usuario adicional
   extraUserAnnual: 290,  // €/año + IVA por usuario adicional
   commitmentMonths: 3,   // permanencia inicial de la modalidad mensual
+  cancellationNoticeDays: 30, // preaviso de cancelación tras la permanencia
+  trialDays: 15,         // duración de la prueba gratuita, sin tarjeta
+  currency: 'EUR',
+  locale: 'es-ES',
 } as const
 
 /** Ahorro anual = 12 mensualidades − pago anual. Calculado, nunca hardcodeado. */
 export const ANNUAL_SAVING = PRICING.monthly * 12 - PRICING.annualTotal // 198
 export const ANNUAL_FREE_MONTHS = Math.round(ANNUAL_SAVING / PRICING.monthly) // 2
 
-/** Formatea un importe en euros con convención ES: entero "99€", decimal a dos
- *  cifras "82,50€" (nunca "82,5€" — resta profesionalidad ante un público jurídico). */
+/**
+ * Formatea un importe en euros con la convención de es-ES: **espacio antes del
+ * símbolo** ("99 €", "82,50 €"), no "99€" ni "€99". Es lo que hace
+ * `Intl.NumberFormat('es-ES', { currency: 'EUR' })` y lo que espera un lector
+ * español; pegarlo al número es una convención inglesa.
+ *
+ * El espacio es DURO (U+00A0): un importe nunca puede partirse entre líneas
+ * dejando el símbolo huérfano al principio de la siguiente.
+ *
+ * Los enteros van sin decimales ("99 €", no "99,00 €") porque en un precio de
+ * catálogo los dos ceros son ruido; los no enteros llevan siempre dos cifras
+ * ("82,50 €", nunca "82,5 €").
+ */
 export function eur(n: number): string {
-  return Number.isInteger(n) ? `${n}€` : `${n.toFixed(2).replace('.', ',')}€`
+  const cifra = Number.isInteger(n) ? String(n) : n.toFixed(2).replace('.', ',')
+  return `${cifra} €`
 }
 
 /**

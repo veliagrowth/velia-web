@@ -5,6 +5,7 @@ import Footer from '@/components/Footer'
 import CookieNotice from '@/components/CookieNotice'
 import ScrollDepthTracker from '@/components/ScrollDepthTracker'
 import { SITE_URL, CONTACT_EMAIL } from '@/lib/constants'
+import { PRICING, eur } from '@/lib/pricing'
 import './globals.css'
 
 const montserrat = Montserrat({
@@ -13,17 +14,18 @@ const montserrat = Montserrat({
   variable: '--font-montserrat',
 })
 
+/* La descripción ya no menciona Verifactu ni el cómputo de plazos según la LEC:
+   los dos están en `verified-claims` como `pending` y no se publican hasta tener
+   la verificación documental. Un metadato es tan público como un titular. */
 export const metadata: Metadata = {
-  metadataBase: new URL('https://veliacorp.com'),
-  title: 'VELIA — Software para despachos de abogados con IA',
-  description:
-    'Software de gestión para despachos de abogados en España: expedientes, plazos LEC, escritos con IA citando el BOE y facturación Verifactu. Prueba gratis 15 días.',
-  alternates: { canonical: 'https://veliacorp.com' },
+  metadataBase: new URL(SITE_URL),
+  title: 'VELIA | Software jurídico con IA para despachos',
+  description: `Gestiona expedientes, clientes, documentos, plazos y facturación con VELIA, el software jurídico con IA desarrollado en España. Desde ${eur(PRICING.monthly)}/mes, ${PRICING.usersIncluded} usuarios incluidos. Prueba ${PRICING.trialDays} días gratis, sin tarjeta.`,
+  alternates: { canonical: SITE_URL },
   openGraph: {
-    title: 'VELIA — Software para despachos de abogados con IA',
-    description:
-      'CRM jurídico, IA legal con fuentes oficiales, plazos procesales y facturación Verifactu. Todo en una plataforma desde 99€/mes.',
-    url: 'https://veliacorp.com',
+    title: 'VELIA | Software jurídico con IA para despachos',
+    description: `Todo tu despacho. Con VELIA dentro. Expedientes, clientes, documentos, plazos y facturación en una sola plataforma, desde ${eur(PRICING.monthly)}/mes.`,
+    url: SITE_URL,
     siteName: 'VELIA',
     locale: 'es_ES',
     type: 'website',
@@ -41,7 +43,7 @@ const organizationJsonLd = {
   logo: `${SITE_URL}/velia_logotipo.svg`,
   email: CONTACT_EMAIL,
   description:
-    'Plataforma de software con IA para despachos profesionales. Su primer vertical, VELIA Legal, es el software sobre el que los despachos de abogados españoles operan el 100% de su trabajo.',
+    'Plataforma de software con IA para despachos profesionales, desarrollada en España. Su primer vertical, VELIA Legal, reúne la gestión del despacho y una asistente jurídica contextual en una sola plataforma.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
