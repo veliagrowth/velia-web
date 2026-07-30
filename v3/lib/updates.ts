@@ -27,13 +27,13 @@ export type ProductUpdate = {
 }
 
 /* Colores de texto de "novedad" y "mejora" oscurecidos frente al tono base de
-   marca (Signal #4ECDC4 / Gold #9A7840): a 10px sobre su propio fondo tintado
+   marca (Signal #B5DFFF / Gold #4C51B9): a 10px sobre su propio fondo tintado
    daban 3.76:1 / 3.64:1 (fallan AA 4.5:1, cazado por Lighthouse). */
 export const CATEGORY_STYLE: Record<UpdateCategory, { label: string; cls: string }> = {
-  novedad:    { label: 'Novedad',    cls: 'bg-[rgba(78,205,196,0.14)] text-[#0b736b]' },
-  mejora:     { label: 'Mejora',     cls: 'bg-[rgba(201,169,110,0.16)] text-gold-ink' },
-  seguridad:  { label: 'Seguridad',  cls: 'bg-[rgba(108,92,231,0.14)] text-[#5B4BC4]' },
-  correccion: { label: 'Corrección', cls: 'bg-[rgba(28,28,40,0.07)] text-[#1C1C28]' },
+  novedad:    { label: 'Novedad',    cls: 'bg-[rgba(181,223,255,0.14)] text-[#0b736b]' },
+  mejora:     { label: 'Mejora',     cls: 'bg-[rgba(116,121,242,0.16)] text-gold-ink' },
+  seguridad:  { label: 'Seguridad',  cls: 'bg-[rgba(116,121,242,0.14)] text-[#5B4BC4]' },
+  correccion: { label: 'Corrección', cls: 'bg-[rgba(27,31,42,0.07)] text-[#1B1F2A]' },
   anuncio:    { label: 'Anuncio',    cls: 'bg-void text-cream' },
 }
 

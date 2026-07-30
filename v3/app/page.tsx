@@ -231,7 +231,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <div className="grid gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-center">
             <div>
-              <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold/70 mb-4">
+              <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold/85 mb-4">
                 El Cerebro VELIA
               </p>
               <h2 className="text-3xl md:text-4xl font-800 tracking-[-0.02em] max-w-[20ch]">
@@ -254,7 +254,7 @@ export default function Home() {
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
               <div className="flex items-center gap-3 mb-5">
                 <VeliaBrain state="active" className="w-9 h-9 text-gold shrink-0" />
-                <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-gold/80">
+                <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-gold/85">
                   VELIA · trabajando
                 </p>
               </div>
@@ -265,7 +265,7 @@ export default function Home() {
                   'Detecta una fecha que podría ser un vencimiento.',
                 ].map((paso, i) => (
                   <li key={paso} className="flex gap-3 text-[13px] text-cream/55 leading-[1.5]">
-                    <span className="text-gold/70 font-700 shrink-0">{i + 1}</span>
+                    <span className="text-gold/85 font-700 shrink-0">{i + 1}</span>
                     {paso}
                   </li>
                 ))}

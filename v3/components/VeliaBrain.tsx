@@ -61,8 +61,8 @@ export default function VeliaBrain({
       </g>
 
       {/* Dos líneas con luz viajando — profundidad, no decoración gratuita */}
-      <line x1="110" y1="110" x2={NODES[0].x} y2={NODES[0].y} className="velia-brain-beam" stroke="#C9A96E" strokeWidth="1.4" strokeLinecap="round" />
-      <line x1="110" y1="110" x2={NODES[3].x} y2={NODES[3].y} className="velia-brain-beam velia-brain-beam--delay" stroke="#C9A96E" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="110" y1="110" x2={NODES[0].x} y2={NODES[0].y} className="velia-brain-beam" stroke="#7479F2" strokeWidth="1.4" strokeLinecap="round" />
+      <line x1="110" y1="110" x2={NODES[3].x} y2={NODES[3].y} className="velia-brain-beam velia-brain-beam--delay" stroke="#7479F2" strokeWidth="1.4" strokeLinecap="round" />
 
       {/* Nodos satélite */}
       {NODES.map((n, i) => (
@@ -70,8 +70,8 @@ export default function VeliaBrain({
       ))}
 
       {/* Núcleo — respira */}
-      <circle cx="110" cy="110" r="10" fill="#C9A96E" className="velia-brain-core" />
-      <circle cx="110" cy="110" r="10" fill="none" stroke="#C9A96E" strokeOpacity="0.35" className="velia-brain-core-ring" />
+      <circle cx="110" cy="110" r="10" fill="#7479F2" className="velia-brain-core" />
+      <circle cx="110" cy="110" r="10" fill="none" stroke="#7479F2" strokeOpacity="0.35" className="velia-brain-core-ring" />
     </svg>
   )
 }

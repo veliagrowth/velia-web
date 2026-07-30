@@ -21,7 +21,7 @@ export default function PhoneShot({
 }) {
   return (
     <div
-      className="relative mx-auto rounded-[2.4rem] border border-void/15 bg-deep p-2 shadow-[0_20px_60px_-30px_rgba(10,10,15,0.5)]"
+      className="relative mx-auto rounded-[2.4rem] border border-void/15 bg-deep p-2 shadow-[0_20px_60px_-30px_rgba(13,16,23,0.5)]"
       style={{ width }}
     >
       {/* Sin notch dibujado: la captura ya incluye la barra superior real de la app. */}

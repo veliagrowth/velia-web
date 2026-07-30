@@ -8,21 +8,29 @@ export default {
   content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './lib/**/*.{ts,tsx}'],
   theme: {
     extend: {
+      /* ── VELIA Brand Identity System 2.0 · «Obsidian Iris Soft» (30-jul) ────
+         Los NOMBRES se conservan porque están en ~350 sitios de la web y
+         renombrarlos no aporta nada; cambian los VALORES. Igual que en el
+         portal, nunca fueron nombres de color: `cream` es «el fondo claro» y
+         `void` es «el texto y las secciones oscuras».
+         Manual: velia-core/brand/velia-brand-identity-system-2.html            */
       colors: {
-        void: '#0A0A0F',
-        deep: '#1C1C28',
-        gold: '#C9A96E',
-        'gold-light': '#E8D5B0',
-        'gold-dark': '#9A7840',
-        /* Variante SOLO para texto sobre fondo claro — gold-dark da 3.38:1 sobre
-           cream/white (falla WCAG AA 4.5:1). #7b6033 da 4.87:1/5.89:1. No tocar
-           gold-dark (bordes, botones, decoración): sigue siendo el dorado de marca. */
-        'gold-ink': '#7b6033',
-        cream: '#EDE9E1',
-        signal: '#4ECDC4',
+        void: '#0D1017',          // Night — texto y secciones oscuras
+        deep: '#1B1F2A',          // Deep Graphite — superficie oscura
+        gold: '#8D90FA',          // Iris 400 — acento SOBRE OSCURO (6,80:1 sobre Night)
+        'gold-light': '#ACAEFF',  // Iris 300 — acento claro sobre oscuro (9,29:1)
+        'gold-dark': '#6065DC',   // Iris 600 — relleno de acción
+        /* Variante SOLO para texto sobre fondo claro. El dorado necesitaba un
+           tono aparte porque gold-dark daba 3,38:1 sobre cream; con Iris el
+           problema es el mismo (Iris 400 da 2,4:1 sobre Pearl Cloud), así que
+           el rol se mantiene: Iris 700 da 6,16:1 sobre Pearl Cloud y 6,59:1
+           sobre blanco. No tocar `gold`: es el acento sobre oscuro. */
+        'gold-ink': '#4C51B9',    // Iris 700
+        cream: '#F6F7FA',         // Pearl Cloud — fondo dominante
+        signal: '#B5DFFF',        // Pale Ice — reservado a actividad de IA
       },
       fontFamily: {
-        sans: ['var(--font-montserrat)', 'sans-serif'],
+        sans: ['Geist', 'Inter', 'system-ui', 'sans-serif'],
       },
       /* Escala numérica de pesos (spec tipográfica VELIA: 300 body, 600 labels,
          700 H1/H2, 800 display). Sin esto, TODAS las clases font-NNN del markup

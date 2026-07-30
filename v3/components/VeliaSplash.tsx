@@ -24,14 +24,14 @@ export default function VeliaSplash({ label }: { label?: string }) {
         role="presentation"
       >
         <path
-          fill="#EDE9E1"
+          fill="#F6F7FA"
           d="M25.4,51.1c-0.5,0-1.1-0.4-1.2-0.7L2.4,6.8c-0.4-0.7,0-1.6,0.7-2s1.6,0,1.9,0.7L26.8,49c0.4,0.7,0,1.6-0.7,1.9C25.8,50.9,25.6,51.1,25.4,51.1z"
         />
         <path
-          fill="#EDE9E1"
+          fill="#F6F7FA"
           d="M25.4,51.1c-0.2,0-0.4,0-0.7-0.2c-0.7-0.4-1-1.2-0.7-1.9L45.8,5.5c0.4-0.7,1.2-1.1,1.9-0.7s1.1,1.2,0.7,1.9L26.7,50.2C26.5,50.7,26,51.1,25.4,51.1z"
         />
-        <circle fill="#C9A96E" cx="25.4" cy="49.5" r="4" />
+        <circle fill="#7479F2" cx="25.4" cy="49.5" r="4" />
       </svg>
 
       {/* Wordmark — entra con fade, igual que en la app */}

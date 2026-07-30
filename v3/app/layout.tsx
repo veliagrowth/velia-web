@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Montserrat } from 'next/font/google'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import CookieNotice from '@/components/CookieNotice'
@@ -7,12 +6,6 @@ import ScrollDepthTracker from '@/components/ScrollDepthTracker'
 import { SITE_URL, CONTACT_EMAIL } from '@/lib/constants'
 import { PRICING, eur } from '@/lib/pricing'
 import './globals.css'
-
-const montserrat = Montserrat({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-montserrat',
-})
 
 /* La descripción ya no menciona Verifactu ni el cómputo de plazos según la LEC:
    los dos están en `verified-claims` como `pending` y no se publican hasta tener
@@ -48,11 +41,20 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={montserrat.variable}>
+    <html lang="es">
       <head>
         {/* Calienta la conexión al portal de la demo ANTES de que el iframe se
             monte (bug "la demo carga lenta"): ahorra DNS + TLS + handshake del
             túnel Cloudflare en el momento del scroll. */}
+        {/* Geist sustituye a Montserrat con el sistema 2.0 (30-jul). Va como <link> y
+            no por next/font porque Next 14.2.30 no la tiene en su catálogo tipado.
+            PENDIENTE: autoalojar el .woff2 (Geist es SIL OFL) — anotado en brand/README.md. */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap"
+        />
         <link rel="preconnect" href="https://demo.app.veliacorp.com" />
         <link rel="dns-prefetch" href="https://demo.app.veliacorp.com" />
         <link rel="preconnect" href="https://app.veliacorp.com" />

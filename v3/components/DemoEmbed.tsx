@@ -39,7 +39,7 @@ export default function DemoEmbed({ heightClass = 'h-[70vh] min-h-[520px]' }: { 
   }, [load])
 
   return (
-    <div ref={ref} className="rounded-2xl border border-void/15 bg-deep overflow-hidden shadow-[0_30px_80px_-40px_rgba(10,10,15,0.45)]">
+    <div ref={ref} className="rounded-2xl border border-void/15 bg-deep overflow-hidden shadow-[0_30px_80px_-40px_rgba(13,16,23,0.45)]">
       {/* Barra de navegador */}
       <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/10">
         <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden />

@@ -24,7 +24,7 @@ p, li, dd, figcaption {
 }
 
 ::selection {
-  background: rgba(201, 169, 110, 0.35);
+  background: rgba(116, 121, 242, 0.35);
 }
 
 /* Entradas sutiles (solo transform+opacity, expo-out, <300ms percibido) */
