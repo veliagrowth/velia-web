@@ -161,7 +161,7 @@ export default function Home() {
                 />
               ) : (
                 <ProductShot
-                  src="/screenshots/expedientes.webp"
+                  src="/screenshots/mod-expedientes.webp"
                   alt="Los expedientes de un despacho dentro de VELIA, con su área, prioridad, cliente y fecha"
                 />
               )}

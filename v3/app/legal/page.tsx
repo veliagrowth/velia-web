@@ -100,7 +100,7 @@ export default function LegalPage() {
           <span className="inline-block">Y desde ahí mismo se factura.</span>
         </p>
         <ProductShot
-          src="/screenshots/expediente-detalle.webp"
+          src="/screenshots/mod-expediente-detalle.webp"
           alt="Ficha real de expediente en VELIA: cliente, abogado a cargo, documentos, plazos y economía del expediente"
         />
       </section>

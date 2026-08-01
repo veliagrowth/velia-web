@@ -37,6 +37,10 @@ type Modulo = {
   video?: string
 }
 
+/* Las cinco capturas son de la demo REAL y se tomaron el 1-ago-2026, cada una
+   de la pantalla que ese módulo describe. Ninguna es de archivo y ninguna
+   enseña el producto vacío. Si se vuelven a tomar, que sea a 1440×900 @2x con
+   el menú desplegado, que es como están todas. */
 const MODULOS: Modulo[] = [
   {
     id: 'expedientes',
@@ -48,9 +52,9 @@ const MODULOS: Modulo[] = [
   {
     id: 'documentos',
     titulo: 'Documentos',
-    cuerpo: 'Sube la documentación, trabaja sobre ella con VELIA y conserva el resultado dentro del expediente.',
-    imagen: '/screenshots/expediente-detalle.webp',
-    alt: 'Un expediente abierto en VELIA con sus documentos, plazos, tareas pendientes y el control económico del asunto en la misma pantalla',
+    cuerpo: 'Plantillas del despacho, tus propios escritos y revisión de contratos: el material con el que VELIA trabaja.',
+    imagen: '/screenshots/mod-documentos.webp',
+    alt: 'Recursos legales en VELIA: plantillas de burofax, cartas al cliente, contratos, demandas, hojas de encargo y poderes, cada una con su área y su número de usos',
   },
   {
     id: 'plazos',
@@ -62,16 +66,16 @@ const MODULOS: Modulo[] = [
   {
     id: 'clientes',
     titulo: 'Clientes y portal',
-    cuerpo: 'El cliente entra en su portal, ve el estado de su asunto y aporta lo que falta sin llamar por teléfono.',
-    imagen: '/screenshots/mod-expedientes.webp',
-    alt: 'Los asuntos de un despacho en VELIA, cada uno con el cliente al que pertenece',
+    cuerpo: 'Cada cliente con sus asuntos, sus comunicaciones y su acceso al portal donde ve el estado y aporta lo que falta.',
+    imagen: '/screenshots/mod-clientes.webp',
+    alt: 'La ficha de contactos de un despacho en VELIA: cuatro clientes con su email, su teléfono y su estado, con buscador y filtros por columna',
   },
   {
     id: 'facturacion',
     titulo: 'Facturación',
     cuerpo: 'Honorarios, cobros y facturas enlazados al asunto que los ha generado.',
-    imagen: '/screenshots/expediente-detalle.webp',
-    alt: 'El bloque de economía de un expediente en VELIA: honorarios, cobrado y pendiente de cobro dentro del propio asunto',
+    imagen: '/screenshots/mod-facturacion.webp',
+    alt: 'La facturación de un despacho en VELIA: total facturado, cobrado y pendiente de cobro, con cinco facturas y su estado de cobro y de emisión',
   },
 ]
 
