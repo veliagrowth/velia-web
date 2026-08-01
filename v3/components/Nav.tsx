@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { APP_URL } from '@/lib/constants'
 import { HEADER_LINKS } from '@/lib/navigation'
 import { CTA, TRIAL_URL, withUtm } from '@/lib/cta'
@@ -25,6 +26,7 @@ export default function Nav() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [sobreOscuro, setSobreOscuro] = useState(false)
+  const pathname = usePathname()
   const menuBtn = useRef<HTMLButtonElement>(null)
   const panel = useRef<HTMLDivElement>(null)
 
@@ -40,11 +42,18 @@ export default function Nav() {
   //
   // Se pregunta al DOM (`[data-hero="dark"]`) en vez de mirar la ruta: hoy solo
   // la home lo tiene, pero si mañana lo tiene /precios este header ya lo sabe y
-  // nadie tiene que acordarse de venir a añadir una ruta a una lista. Una lista
-  // de rutas que hay que mantener a mano es una lista que se queda desfasada.
+  // nadie tiene que acordarse de venir a añadir una ruta a una lista.
+  //
+  // DEPENDE DE `pathname` Y NO DE NADA (bug cazado 1-ago): el header vive en el
+  // layout, así que al navegar de la home a /precios el componente NO se vuelve
+  // a montar. Con las dependencias vacías, el efecto corría una única vez —en la
+  // home, donde sí hay hero oscuro— y el estado se quedaba pegado: en el resto
+  // de páginas el logotipo seguía invertido a blanco sobre fondo Pearl Cloud, o
+  // sea invisible. Solo se veía navegando; recargando la página directamente
+  // salía bien, que es por lo que no apareció al revisar la home.
   useEffect(() => {
     setSobreOscuro(Boolean(document.querySelector('[data-hero="dark"]')))
-  }, [])
+  }, [pathname])
 
   // Sobre el hero oscuro el header va en tinta clara; en cuanto se hace sólido
   // (Pearl Cloud) vuelve a tinta oscura. El estado intermedio no existe: o una

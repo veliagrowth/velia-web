@@ -10,6 +10,7 @@ import Reveal from '@/components/Reveal'
 import IrisNode from '@/components/IrisNode'
 import HeroContextStage from '@/components/HeroContextStage'
 import ContextMap from '@/components/ContextMap'
+import ProductShowcase from '@/components/ProductShowcase'
 import BrainStateTabs from '@/components/BrainStateTabs'
 import DayWithVelia from '@/components/DayWithVelia'
 import CaseStudyToggle from '@/components/CaseStudyToggle'
@@ -295,29 +296,20 @@ export default function Home() {
               </TrackedLink>
             </div>
 
-            {/* Los cinco módulos, con la captura del expediente al lado. */}
-            <div className="mt-16 md:mt-20 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-              <Reveal>
-                <ProductShot
-                  src="/screenshots/expediente-detalle.webp"
-                  alt="Un expediente abierto en VELIA con sus documentos, plazos, tareas pendientes y el control económico del asunto en la misma pantalla"
-                />
-              </Reveal>
-              <Reveal className="grid gap-6">
-                {MODULOS.map(m => (
-                  <div key={m.title} className="border-t border-mist pt-5">
-                    <h3 className="text-sm font-600 mb-1.5">{m.title}</h3>
-                    <p className="text-[13px] text-void/65 leading-[1.6] max-w-[46ch]">{m.body}</p>
-                  </div>
-                ))}
-                <TrackedLink
-                  href="/legal"
-                  event="product_detail_click"
-                  className="text-[12px] font-600 tracking-[0.02em] text-gold-ink hover:text-void transition-colors duration-control"
-                >
-                  Ver todas las funciones →
-                </TrackedLink>
-              </Reveal>
+            {/* Los cinco módulos: cada uno con SU visual, que cambia al elegirlo.
+                Antes era una captura fija al lado de una lista — la imagen no
+                tenía relación con el módulo que estuvieras leyendo. */}
+            <Reveal className="mt-16 md:mt-20 block">
+              <ProductShowcase />
+            </Reveal>
+            <div className="mt-8">
+              <TrackedLink
+                href="/legal"
+                event="product_detail_click"
+                className="text-[12px] font-600 tracking-[0.02em] text-gold-ink hover:text-void transition-colors duration-control"
+              >
+                Ver todas las funciones →
+              </TrackedLink>
             </div>
           </div>
         </section>

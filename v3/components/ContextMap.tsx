@@ -78,7 +78,12 @@ export default function ContextMap() {
             const largo = Math.hypot(CENTRO.x - p.x, CENTRO.y - p.y)
             return (
               <line
-                key={p.id}
+                /* La clave lleva el estado a propósito: una animación CSS NO se
+                   reinicia si el elemento sigue siendo el mismo y solo le cambia
+                   una clase. Al cambiar la clave, React monta un nodo nuevo y el
+                   trazo se dibuja siempre desde cero — también al volver a
+                   pulsar la pieza que ya estaba activa. */
+                key={`${p.id}-${viva ? 'on' : 'off'}`}
                 x1={p.x}
                 y1={p.y}
                 x2={CENTRO.x}
@@ -95,12 +100,20 @@ export default function ContextMap() {
 
           {PIEZAS.map(p => {
             const viva = activa === p.id
+            // La etiqueta se aparta del centro, nunca hacia él.
+            //
+            // Antes iba siempre 13 px por ENCIMA del nodo. Para las piezas que
+            // están debajo del expediente —«Tarea»— eso la metía justo entre el
+            // nodo y el centro, o sea encima de su propia línea: se leía cortada
+            // por el trazo. Ahora el desplazamiento sigue el signo: los de
+            // arriba suben, los de abajo bajan, y ninguno pisa la traza.
+            const abajo = p.y > CENTRO.y
             return (
               <g key={p.id} className="transition-opacity duration-panel" opacity={activa && !viva ? 0.4 : 1}>
                 <circle cx={p.x} cy={p.y} r="5" fill={viva ? '#7479F2' : 'currentColor'} opacity={viva ? 1 : 0.35} />
                 <text
                   x={p.x}
-                  y={p.y - 13}
+                  y={abajo ? p.y + 20 : p.y - 13}
                   textAnchor="middle"
                   fill="currentColor"
                   opacity={viva ? 0.95 : 0.55}

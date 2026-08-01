@@ -41,8 +41,12 @@ export default function SecurityArchitecture() {
     <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
       {/* Diagrama: dos despachos separados, y la consulta al modelo saliendo y
           volviendo sin llevarse el expediente puesto. */}
+      {/* El viewBox creció de 260 a 300 de alto: la frase del pie estaba a y=238
+          y las cajas de despacho terminan en y=240, así que se pintaba ENCIMA de
+          la caja de «Despacho B». Se le da su propia banda por debajo del
+          diagrama en vez de recolocarla a ojo dentro. */}
       <div aria-hidden="true" className="hidden lg:block">
-        <svg viewBox="0 0 360 260" className="w-full h-auto text-cream">
+        <svg viewBox="0 0 360 300" className="w-full h-auto text-cream">
           {/* Despacho A y B: cajas que NO se tocan. Que no haya ni una línea
               entre ellas es literalmente el mensaje de la sección. */}
           {[
@@ -80,7 +84,11 @@ export default function SecurityArchitecture() {
             </text>
           </g>
 
-          <text x="184" y="238" textAnchor="middle" fill="currentColor" opacity="0.4" style={{ fontSize: 10 }}>
+          {/* Banda propia, por debajo de todo el diagrama (las cajas acaban en
+              y=240). Una línea fina la separa para que se lea como pie y no
+              como una etiqueta suelta flotando. */}
+          <line x1="8" y1="266" x2="352" y2="266" stroke="currentColor" strokeOpacity="0.10" strokeWidth="1" />
+          <text x="180" y="286" textAnchor="middle" fill="currentColor" opacity="0.45" style={{ fontSize: 11 }}>
             Ningún despacho ve la información de otro.
           </text>
         </svg>
