@@ -26,7 +26,7 @@ export default function Footer() {
 
         {Object.entries(FOOTER_NAV).map(([key, grupo]) => (
           <div key={key} className="text-xs space-y-2.5">
-            <p className="text-[10px] font-700 tracking-[0.22em] uppercase text-cream/55 mb-3">
+            <p className="text-[10px] font-700 tracking-[0.06em] uppercase text-cream/55 mb-3">
               {grupo.title}
             </p>
             {grupo.links.map(l => (

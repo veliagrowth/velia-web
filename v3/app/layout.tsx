@@ -51,9 +51,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             PENDIENTE: autoalojar el .woff2 (Geist es SIL OFL) — anotado en brand/README.md. */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Las DOS familias en UNA sola petición. Instrument Serif se añadió con
+            el upgrade del 1-ago para las frases de marca; pedirla en un segundo
+            <link> habría metido otro viaje completo en la cadena crítica del LCP
+            para una fuente que aparece en cinco frases de toda la web. */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
         />
         <link rel="preconnect" href="https://demo.app.veliacorp.com" />
         <link rel="dns-prefetch" href="https://demo.app.veliacorp.com" />

@@ -36,6 +36,15 @@ export type AnalyticsEvent =
   | 'hero_trial_click'
   | 'hero_demo_click'
   | 'hero_video_play'
+  /** Alguien tocó el escenario de contexto del hero (pausa, reinicio, enfocar
+   *  una tarjeta). Mide si la pieza interactiva se usa o solo se mira. */
+  | 'hero_context_interaction'
+  // Interacción de las secciones nuevas (upgrade 1-ago)
+  | 'context_node_select'
+  | 'brain_state_select'
+  | 'day_timeline_step'
+  | 'product_tab_select'
+  | 'case_toggle'
   // Demo
   | 'demo_open'
   | 'demo_fullscreen_open'

@@ -21,10 +21,10 @@ export const metadata: Metadata = {
 export default function ContactoPage() {
   return (
     <section className="mx-auto max-w-4xl px-6 pt-20 md:pt-28 pb-24">
-      <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-6">
+      <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-6">
         Empieza con VELIA
       </p>
-      <h1 className="text-4xl md:text-5xl font-800 leading-[1.08] tracking-[-0.03em] max-w-[16ch]">
+      <h1 className="text-4xl md:text-5xl font-600 leading-[1.08] tracking-[-0.03em] max-w-[16ch]">
         Conoce VELIA con tu propio despacho.
       </h1>
       <p className="mt-6 text-lg text-void/60 leading-relaxed max-w-prose">
@@ -35,7 +35,7 @@ export default function ContactoPage() {
 
       {/* Camino primario: el onboarding interactivo (la "radiografía") */}
       <div className="mt-12 rounded-3xl border border-void/10 bg-white p-8 md:p-10">
-        <p className="text-[11px] font-700 tracking-[0.2em] uppercase text-gold-ink mb-3">
+        <p className="text-[11px] font-700 tracking-[0.06em] uppercase text-gold-ink mb-3">
           El camino recomendado
         </p>
         <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.01em] max-w-[20ch]">
@@ -65,7 +65,7 @@ export default function ContactoPage() {
           </p>
           <Link
             href="/demo"
-            className="inline-block mt-5 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
+            className="inline-block mt-5 text-[12px] font-700 tracking-[0.04em] uppercase text-gold-ink hover:text-void transition-colors"
           >
             Ver demo interactiva →
           </Link>
@@ -78,7 +78,7 @@ export default function ContactoPage() {
           </p>
           <a
             href={`mailto:${CONTACT_EMAIL}`}
-            className="inline-block mt-5 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
+            className="inline-block mt-5 text-[12px] font-700 tracking-[0.04em] uppercase text-gold-ink hover:text-void transition-colors"
           >
             {CONTACT_EMAIL} →
           </a>

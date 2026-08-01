@@ -2,9 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Sistema de movimiento «Quiet Intelligence in Motion» (1-ago-2026) ────────
+   Una sola curva y cinco duraciones. La regla que decide si algo se anima:
+   ¿explica qué está haciendo VELIA? Si no lo explica, se borra.               */
+:root {
+  --ease-velia: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-fast: 160ms;
+  --motion-control: 220ms;
+  --motion-panel: 320ms;
+  --motion-section: 520ms;
+  --motion-ambient: 6000ms;
+}
+
 /* Claro editorial — reglas Impeccable: flat por defecto, motion mínima, prose 68ch */
 html {
   scroll-behavior: smooth;
+}
+
+/* Nadie debe poder provocar un desplazamiento horizontal. Es la causa raíz de
+   media docena de bugs móviles ya cazados en el portal, y aquí el hero tiene
+   elementos posicionados fuera del flujo que podrían reintroducirlo. */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Anillo de foco ÚNICO y visible en toda la web: Iris 500 sólido de 2 px.
+   Nunca el halo al 35 % — da 1,50:1 y es decoración, no un indicador. */
+:where(a, button, [tabindex], input, select, textarea, summary):focus-visible {
+  outline: 2px solid #7479F2;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 body {
@@ -152,3 +179,91 @@ a.btn:active, button.btn:active {
     to { opacity: 1; }
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UPGRADE «Quiet Intelligence in Motion» — 1-ago-2026
+   Todo lo de aquí abajo cumple tres reglas sin excepción:
+     · solo `transform` y `opacity` (nada que provoque layout)
+     · una sola curva, --ease-velia
+     · nada corre con prefers-reduced-motion, y el estado de reposo es legible
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* El Iris Node. Es el mismo objeto en cuatro sitios (hero, mapa de contexto,
+   cerebro, cierre) y su ESTADO es lo que comunica: en reposo casi no se mueve;
+   analizando, respira; en espera, se queda quieto y brillante esperando al
+   profesional. El estado va por atributo para que sea legible en el DOM. */
+.iris-node { transition: filter var(--motion-panel) var(--ease-velia); }
+.iris-node[data-state='analizando'] { filter: drop-shadow(0 0 14px rgba(116, 121, 242, 0.55)); }
+.iris-node[data-state='esperando']  { filter: drop-shadow(0 0 10px rgba(181, 223, 255, 0.45)); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .iris-node-core { transform-origin: center; animation: irisBreathe var(--motion-ambient) cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+  .iris-node[data-state='analizando'] .iris-node-core { animation-duration: 2s; }
+  .iris-node[data-state='esperando'] .iris-node-core { animation: none; opacity: 1; }
+  @keyframes irisBreathe {
+    0%, 100% { opacity: 0.82; transform: scale(1); }
+    50%      { opacity: 1;    transform: scale(1.06); }
+  }
+
+  /* Anillo que sale del núcleo solo mientras analiza. */
+  .iris-node[data-state='analizando'] .iris-node-halo {
+    transform-origin: center;
+    animation: irisHalo 2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+  @keyframes irisHalo {
+    0%   { opacity: 0.4; transform: scale(1); }
+    100% { opacity: 0;   transform: scale(2.1); }
+  }
+
+  /* Intelligence Trace: la línea que DIBUJA la conexión entre dos piezas de
+     contexto. Es la pieza que hace visible «relaciona», que en texto no se ve. */
+  .trace { stroke-dasharray: var(--trace-len, 200); stroke-dashoffset: var(--trace-len, 200); }
+  .trace[data-drawn='true'] { animation: traceDraw var(--motion-section) var(--ease-velia) forwards; }
+  @keyframes traceDraw { to { stroke-dashoffset: 0; } }
+
+  /* Entrada de una tarjeta de contexto: corta, 12 px, sin rebote. */
+  .ctx-in { animation: ctxIn var(--motion-panel) var(--ease-velia) both; }
+  @keyframes ctxIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* Revelado al entrar en viewport. Lo dispara IntersectionObserver poniendo
+     data-visible="true": sin JS o sin soporte, el contenido se ve igual. */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity var(--motion-section) var(--ease-velia), transform var(--motion-section) var(--ease-velia); }
+  .reveal[data-visible='true'] { opacity: 1; transform: none; }
+}
+
+/* Sin motion: todo visible y quieto. El `.reveal` NUNCA puede dejar contenido
+   invisible — es la diferencia entre una animación y una pantalla en blanco. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+  .trace { stroke-dashoffset: 0; }
+}
+
+/* Superficie oscura de sección. Vignette + halo contenidos: el hero no debe
+   parecer ciencia ficción, solo tener profundidad. */
+.velia-dark-stage { position: relative; isolation: isolate; }
+.velia-dark-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(60% 55% at 50% 42%, rgba(116, 121, 242, 0.20) 0%, rgba(181, 223, 255, 0.07) 45%, rgba(181, 223, 255, 0) 72%);
+  pointer-events: none;
+}
+
+/* Tabular para cifras que cambian en sitio (precio mensual ↔ anual): sin esto
+   el importe «salta» de ancho al conmutar y arrastra el layout con él. */
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* Carril horizontal (chips, tabs) — patrón del portal. `pan-x` para que el
+   gesto vertical siga siendo scroll de la página. */
+.rail {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+}
+.rail::-webkit-scrollbar { display: none; }

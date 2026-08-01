@@ -13,7 +13,7 @@ export default function TestimonialVideo() {
     <section className="bg-void text-cream">
       <div className="mx-auto max-w-6xl px-6 py-20 md:py-28 grid gap-10 md:grid-cols-[1fr_1.2fr] md:items-center">
         <div>
-          <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold/85 mb-3">
+          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85 mb-3">
             En sus palabras
           </p>
           <h2 className="text-3xl md:text-4xl font-700 tracking-[-0.02em] max-w-[18ch]">

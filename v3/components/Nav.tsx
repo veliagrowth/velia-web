@@ -24,6 +24,7 @@ import { trackEvent } from '@/lib/analytics'
 export default function Nav() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [sobreOscuro, setSobreOscuro] = useState(false)
   const menuBtn = useRef<HTMLButtonElement>(null)
   const panel = useRef<HTMLDivElement>(null)
 
@@ -34,6 +35,21 @@ export default function Nav() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // ¿Arranca la página con un hero OSCURO debajo?
+  //
+  // Se pregunta al DOM (`[data-hero="dark"]`) en vez de mirar la ruta: hoy solo
+  // la home lo tiene, pero si mañana lo tiene /precios este header ya lo sabe y
+  // nadie tiene que acordarse de venir a añadir una ruta a una lista. Una lista
+  // de rutas que hay que mantener a mano es una lista que se queda desfasada.
+  useEffect(() => {
+    setSobreOscuro(Boolean(document.querySelector('[data-hero="dark"]')))
+  }, [])
+
+  // Sobre el hero oscuro el header va en tinta clara; en cuanto se hace sólido
+  // (Pearl Cloud) vuelve a tinta oscura. El estado intermedio no existe: o una
+  // cosa o la otra, porque a mitad de transición el contraste no cumple.
+  const claro = sobreOscuro && !scrolled
 
   // Menú móvil: bloquea el scroll de fondo, cierra con Escape y DEVUELVE EL FOCO
   // al botón que lo abrió. Sin lo último, al cerrar el foco se va al principio del
@@ -74,13 +90,27 @@ export default function Nav() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b transition-colors duration-200 ${
-        scrolled ? 'bg-cream/95 backdrop-blur-md border-void/10' : 'bg-cream/70 backdrop-blur-sm border-transparent'
+      className={`sticky top-0 z-50 border-b transition-colors duration-panel ease-velia ${
+        scrolled
+          ? 'bg-cream/92 backdrop-blur-md border-mist'
+          : claro
+            ? 'bg-transparent border-transparent'
+            : 'bg-cream/70 backdrop-blur-sm border-transparent'
       }`}
     >
       <nav className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between gap-6">
         <Link href="/" aria-label="VELIA — inicio" className="shrink-0">
-          <Image src="/velia_logotipo.svg" alt="VELIA" width={120} height={30} priority className="h-[24px] w-auto" />
+          <Image
+            src="/velia_logotipo.svg"
+            alt="VELIA"
+            width={120}
+            height={30}
+            priority
+            /* El logotipo es tinta oscura. Sobre el hero Night se invierte con
+               un filtro en vez de servir un segundo SVG: es un archivo menos
+               que mantener y no hay parpadeo al conmutar. */
+            className={`h-[24px] w-auto transition-[filter] duration-panel ease-velia ${claro ? 'invert brightness-0 contrast-200' : ''}`}
+          />
         </Link>
 
         <div className="hidden md:flex items-center gap-7">
@@ -89,7 +119,9 @@ export default function Nav() {
               key={l.href}
               href={l.href}
               onClick={() => { if (l.href === '/demo') trackEvent('nav_demo_click') }}
-              className="text-[11px] font-600 tracking-[0.18em] uppercase text-void/60 hover:text-void transition-colors whitespace-nowrap"
+              className={`text-[11px] font-600 tracking-[0.06em] uppercase transition-colors duration-control whitespace-nowrap ${
+                claro ? 'text-cream/75 hover:text-cream' : 'text-void/60 hover:text-void'
+              }`}
             >
               {l.label}
             </Link>
@@ -97,14 +129,21 @@ export default function Nav() {
           <a
             href={APP_URL}
             onClick={() => trackEvent('login_click')}
-            className="text-[11px] font-600 tracking-[0.18em] uppercase text-void/60 hover:text-void transition-colors whitespace-nowrap"
+            className={`text-[11px] font-600 tracking-[0.06em] uppercase transition-colors duration-control whitespace-nowrap ${
+              claro ? 'text-cream/75 hover:text-cream' : 'text-void/60 hover:text-void'
+            }`}
           >
             Iniciar sesión
           </a>
+          {/* Iris 600 y no Night: sobre el hero oscuro un botón Night desaparece,
+              y el acento es justo lo que debe destacar. Blanco sobre Iris 600
+              cumple; sobre Iris 500 daría 3,65:1 y no llegaría. */}
           <a
             href={TRIAL_URL}
             onClick={irAPrueba('header')}
-            className="btn text-[11px] font-700 tracking-[0.1em] uppercase bg-void text-cream rounded-full px-5 py-2.5 hover:opacity-85 whitespace-nowrap"
+            className={`btn text-[11px] font-600 tracking-[0.04em] rounded-full px-5 py-2.5 hover:opacity-90 whitespace-nowrap ${
+              claro ? 'bg-gold-dark text-white' : 'bg-void text-cream'
+            }`}
           >
             {CTA.primary.label}
           </a>
@@ -115,14 +154,16 @@ export default function Nav() {
           <a
             href={TRIAL_URL}
             onClick={irAPrueba('header_mobile')}
-            className="btn inline-flex items-center min-h-[44px] text-[11px] font-700 tracking-[0.06em] uppercase bg-void text-cream rounded-full px-4 whitespace-nowrap"
+            className={`btn inline-flex items-center min-h-[44px] text-[11px] font-600 tracking-[0.04em] rounded-full px-4 whitespace-nowrap ${
+              claro ? 'bg-gold-dark text-white' : 'bg-void text-cream'
+            }`}
           >
             Probar gratis
           </a>
           <button
             ref={menuBtn}
             type="button"
-            className="w-11 h-11 flex items-center justify-center text-void/70"
+            className={`w-11 h-11 flex items-center justify-center transition-colors duration-control ${claro ? 'text-cream/80' : 'text-void/70'}`}
             onClick={() => setOpen(o => !o)}
             aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={open}

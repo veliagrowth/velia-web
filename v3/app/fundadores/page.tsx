@@ -45,10 +45,10 @@ export default function FundadoresPage() {
   return (
     <>
       <section className="mx-auto max-w-4xl px-6 pt-20 md:pt-28 pb-12">
-        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-6">
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-6">
           Programa Fundadores
         </p>
-        <h1 className="text-4xl md:text-5xl font-800 leading-[1.08] tracking-[-0.03em] max-w-[18ch]">
+        <h1 className="text-4xl md:text-5xl font-600 leading-[1.08] tracking-[-0.03em] max-w-[18ch]">
           Entra en la primera generación de despachos VELIA.
         </h1>
         <p className="mt-6 text-lg text-void/60 leading-relaxed max-w-prose">
@@ -56,7 +56,7 @@ export default function FundadoresPage() {
           lanzamiento mientras su suscripción permanezca activa y acceden a una web premium de
           lanzamiento.
         </p>
-        <p className="mt-6 text-[12px] font-700 tracking-[0.08em] uppercase text-gold-ink">
+        <p className="mt-6 text-[12px] font-700 tracking-[0.06em] uppercase text-gold-ink">
           {FOUNDERS_SEATS_LABEL} disponibles
         </p>
       </section>
@@ -93,7 +93,7 @@ export default function FundadoresPage() {
 
           <div className="mt-10 grid gap-10 md:grid-cols-2">
             <div>
-              <p className="text-[11px] font-700 tracking-[0.18em] uppercase text-gold-ink mb-4">
+              <p className="text-[11px] font-700 tracking-[0.06em] uppercase text-gold-ink mb-4">
                 Incluye
               </p>
               <ul className="space-y-2.5">
@@ -103,7 +103,7 @@ export default function FundadoresPage() {
               </ul>
             </div>
             <div className="md:border-l md:border-void/10 md:pl-10">
-              <p className="text-[11px] font-700 tracking-[0.18em] uppercase text-void/60 mb-4">
+              <p className="text-[11px] font-700 tracking-[0.06em] uppercase text-void/60 mb-4">
                 No incluye
               </p>
               <ul className="space-y-2.5">
@@ -151,7 +151,7 @@ export default function FundadoresPage() {
         </p>
         <Link
           href="/precios"
-          className="inline-block mt-8 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
+          className="inline-block mt-8 text-[12px] font-700 tracking-[0.04em] uppercase text-gold-ink hover:text-void transition-colors"
         >
           Ver precios y condiciones →
         </Link>

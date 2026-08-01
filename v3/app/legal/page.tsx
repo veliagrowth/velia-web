@@ -59,10 +59,10 @@ export default function LegalPage() {
   return (
     <>
       <section className="mx-auto max-w-6xl px-6 pt-20 md:pt-28 pb-16">
-        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-6">
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-6">
           VELIA Legal
         </p>
-        <h1 className="text-4xl md:text-5xl font-800 leading-[1.08] tracking-[-0.03em] max-w-[20ch]">
+        <h1 className="text-4xl md:text-5xl font-600 leading-[1.08] tracking-[-0.03em] max-w-[20ch]">
           Un día de tu despacho, con VELIA dentro.
         </h1>
         <p className="mt-6 text-lg text-void/60 leading-relaxed max-w-prose">
@@ -76,7 +76,7 @@ export default function LegalPage() {
           {DAY.map(item => (
             <li key={item.time} id={item.slug} className="pl-8 md:pl-12 relative scroll-mt-24">
               <span className="absolute -left-[5px] top-1.5 w-[9px] h-[9px] rounded-full bg-gold" />
-              <p className="text-[11px] font-700 tracking-[0.18em] text-void/60 mb-1.5">{item.time}</p>
+              <p className="text-[11px] font-700 tracking-[0.06em] text-void/60 mb-1.5">{item.time}</p>
               <h2 className="text-xl md:text-2xl font-700 tracking-[-0.01em]">{item.title}</h2>
               <p className="mt-2.5 text-sm text-void/60 leading-[1.6] max-w-prose">
                 {item.body} <span className="inline-block">{item.closer}</span>
@@ -88,7 +88,7 @@ export default function LegalPage() {
 
       {/* Captura real: el expediente por dentro (tenant demo, datos ficticios) */}
       <section className="mx-auto max-w-6xl px-6 pb-20">
-        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-3">
           El expediente, por dentro
         </p>
         <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em] max-w-[24ch]">
@@ -139,7 +139,7 @@ export default function LegalPage() {
             </p>
             <a
               href={`${APP_URL}/instalar`}
-              className="inline-block mt-6 text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
+              className="inline-block mt-6 text-[12px] font-700 tracking-[0.04em] uppercase text-gold-ink hover:text-void transition-colors"
             >
               Cómo instalarla →
             </a>

@@ -31,10 +31,10 @@ export default function DemoPage() {
       <section className="mx-auto max-w-6xl px-6 pt-14 md:pt-20 pb-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-4">
+            <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-4">
               Demo interactiva
             </p>
-            <h1 className="text-3xl md:text-5xl font-800 leading-[1.08] tracking-[-0.03em] max-w-[20ch]">
+            <h1 className="text-3xl md:text-5xl font-600 leading-[1.08] tracking-[-0.03em] max-w-[20ch]">
               VELIA, de primera mano.
             </h1>
             <p className="mt-4 text-lg text-void/60 leading-relaxed max-w-prose">
@@ -45,7 +45,7 @@ export default function DemoPage() {
           <TrackedLink
             href={DEMO_URL}
             event="demo_fullscreen_open"
-            className="text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors whitespace-nowrap"
+            className="text-[12px] font-700 tracking-[0.04em] uppercase text-gold-ink hover:text-void transition-colors whitespace-nowrap"
           >
             Abrir demo interactiva →
           </TrackedLink>

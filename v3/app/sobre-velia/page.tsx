@@ -26,13 +26,13 @@ export default function SobreVeliaPage() {
   return (
     <>
       <section className="mx-auto max-w-6xl px-6 pt-20 md:pt-28 pb-16">
-        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-6">
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-6">
           Sobre VELIA
         </p>
         {/* El arranque ya no es «un despacho sin presencia digital» (29-jul): eso
             contaba el origen desde el marketing. El problema que resuelve VELIA es
             de software, y así se cuenta. */}
-        <h1 className="text-4xl md:text-5xl font-800 leading-[1.08] tracking-[-0.03em] max-w-[18ch]">
+        <h1 className="text-4xl md:text-5xl font-600 leading-[1.08] tracking-[-0.03em] max-w-[18ch]">
           Construida en España, junto a los despachos que la utilizan.
         </h1>
         <p className="mt-6 text-lg text-void/60 leading-relaxed max-w-prose">
@@ -45,7 +45,7 @@ export default function SobreVeliaPage() {
       <section className="bg-white border-y border-void/10">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20 grid gap-10 md:grid-cols-2">
           <div>
-            <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/60 mb-3">
+            <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/60 mb-3">
               Por qué existe
             </p>
             <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em] max-w-[22ch]">
@@ -63,7 +63,7 @@ export default function SobreVeliaPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-16 md:py-20">
-        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-3">
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-3">
           El equipo
         </p>
         {/* «Dos personas, sin oficina, sin ronda, sin plantilla» era cierto y
@@ -82,7 +82,7 @@ export default function SobreVeliaPage() {
           {TEAM.map(person => (
             <div key={person.name}>
               <h3 className="text-lg font-700">{person.name}</h3>
-              <p className="text-[11px] font-600 tracking-[0.18em] uppercase text-void/60 mt-1 mb-3">
+              <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/60 mt-1 mb-3">
                 {person.role}
               </p>
               <p className="text-sm text-void/65 leading-[1.6]">{person.body}</p>
@@ -93,7 +93,7 @@ export default function SobreVeliaPage() {
 
       <section className="bg-white border-t border-void/10">
         <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
-          <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-void/60 mb-3">
+          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/60 mb-3">
             Cómo trabajamos
           </p>
           <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em] max-w-[24ch]">
@@ -130,7 +130,7 @@ export default function SobreVeliaPage() {
           <TrialButton event="final_trial_click" location="sobre_velia" />
           <a
             href={`mailto:${CONTACT_EMAIL}`}
-            className="text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
+            className="text-[12px] font-700 tracking-[0.04em] uppercase text-gold-ink hover:text-void transition-colors"
           >
             {CONTACT_EMAIL}
           </a>

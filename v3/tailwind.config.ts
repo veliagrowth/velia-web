@@ -28,9 +28,19 @@ export default {
         'gold-ink': '#4C51B9',    // Iris 700
         cream: '#F6F7FA',         // Pearl Cloud — fondo dominante
         signal: '#B5DFFF',        // Pale Ice — reservado a actividad de IA
+        /* Piezas del sistema que el upgrade «Quiet Intelligence in Motion»
+           necesita nombrar y antes se escribían a mano en cada sitio. */
+        mist: '#E6EAF1',          // Soft Mist — separadores sobre claro
+        slate: '#707A92',         // Blue Slate — texto terciario sobre claro
+        'iris-mid': '#949AF8',    // Iris 500 — punto medio del gradiente
+        'iris-focus': '#7479F2',  // Soft Iris — anillo de foco SÓLIDO (nunca halo)
       },
       fontFamily: {
         sans: ['Geist', 'Inter', 'system-ui', 'sans-serif'],
+        /* Editorial. Uso muy limitado y explícito: frases de marca, manifiestos,
+           una palabra estratégica, citas. NUNCA en botones, formularios,
+           navegación, tablas, pricing ni información técnica (§4 del encargo). */
+        serif: ['Instrument Serif', 'Georgia', 'serif'],
       },
       /* Escala numérica de pesos (spec tipográfica VELIA: 300 body, 600 labels,
          700 H1/H2, 800 display). Sin esto, TODAS las clases font-NNN del markup
@@ -48,6 +58,24 @@ export default {
       },
       transitionTimingFunction: {
         out: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        /* Curva única del upgrade. Convive con `out` (la anterior) porque
+           cambiarla en las ~40 transiciones existentes no aporta nada: son
+           casi idénticas y el riesgo de tocarlas supera la ganancia. */
+        velia: 'cubic-bezier(0.22, 1, 0.36, 1)',
+      },
+      transitionDuration: {
+        fast: '160ms',      // presión de un control
+        control: '220ms',   // cambio de estado de un control
+        panel: '320ms',     // panel, dropdown, tab
+        section: '520ms',   // entrada de una sección
+      },
+      backgroundImage: {
+        /* Gradiente de inteligencia. Solo en superficies que representan a
+           VELIA pensando — nunca como decoración de fondo ni en texto. */
+        intelligence: 'linear-gradient(135deg, #7479F2 0%, #949AF8 48%, #B5DFFF 100%)',
+        /* Halo ambiental del hero. Contenido a propósito: se apaga al 72 %. */
+        'intelligence-glow':
+          'radial-gradient(circle, rgba(116,121,242,0.22) 0%, rgba(181,223,255,0.10) 45%, rgba(181,223,255,0) 72%)',
       },
     },
   },

@@ -59,6 +59,29 @@ export const FEATURE_FLAGS = {
    * `HeroVideo`, el archivo y la ruta `/api/hero-video` siguen intactos.
    */
   ENABLE_HERO_VIDEO: false,
+
+  /* ── Upgrade «Quiet Intelligence in Motion» (1-ago-2026) ──────────────────
+     Cada pieza interactiva nueva tiene su bandera para poder apagarla SIN que
+     la narrativa se rompa: al desactivarla queda su equivalente estático, no
+     un hueco. Es el requisito §31 del encargo y también sentido común — una
+     sección que solo existe animada es una sección que se cae con el JS.     */
+
+  /** Escenario de contexto animado del hero. `false` → captura estática. */
+  ENABLE_INTERACTIVE_HERO: true,
+
+  /** Mapa de contexto explorable. `false` → la sección no se pinta (su idea la
+   *  recoge igualmente el titular del Cerebro VELIA). */
+  ENABLE_CONTEXT_MAP: true,
+
+  /** «Un día con VELIA». `false` → vuelve la rejilla de módulos. */
+  ENABLE_DAY_TIMELINE: true,
+
+  /** Comparación Antes / Con VELIA dentro del caso real. */
+  ENABLE_BEFORE_AFTER: true,
+
+  /** Selector mensual/anual en el precio de la home. `false` → precio mensual
+   *  fijo, como estaba antes del 1-ago. */
+  ENABLE_PRICING_SELECTOR: true,
 } as const
 
 export type FeatureFlag = keyof typeof FEATURE_FLAGS

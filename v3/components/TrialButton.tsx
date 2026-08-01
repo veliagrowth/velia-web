@@ -21,6 +21,7 @@ export default function TrialButton({
   variant = 'primary',
   label = CTA.primary.label,
   className = '',
+  properties,
 }: {
   event: AnalyticsEvent
   /** Dónde está el botón. Va a la analítica como `cta_location`. */
@@ -28,8 +29,12 @@ export default function TrialButton({
   variant?: 'primary' | 'onDark' | 'ghost'
   label?: string
   className?: string
+  /** Contexto extra del clic (p. ej. `billing_mode`). `cta_location` siempre
+   *  gana: es la dimensión con la que se lee el embudo y no debe poder pisarse
+   *  desde fuera por descuido. */
+  properties?: Record<string, string | number | boolean>
 }) {
-  const base = 'btn inline-block text-[12px] font-700 tracking-[0.1em] uppercase rounded-full transition-opacity'
+  const base = 'btn inline-block text-[12px] font-700 tracking-[0.04em] uppercase rounded-full transition-opacity'
   const estilo = {
     primary: 'bg-void text-cream px-7 py-3.5 hover:opacity-85',
     onDark: 'bg-gold text-void px-7 py-3.5 hover:opacity-85',
@@ -40,7 +45,7 @@ export default function TrialButton({
     <a
       href={TRIAL_URL}
       onClick={e => {
-        trackEvent(event, { cta_location: location })
+        trackEvent(event, { ...properties, cta_location: location })
         // Se reescribe el href del propio elemento antes de que el navegador
         // siga el enlace: así funciona igual con clic, Enter, rueda o «abrir en
         // pestaña nueva», sin preventDefault ni navegación manual.

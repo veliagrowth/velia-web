@@ -24,10 +24,10 @@ export default async function NovedadesPage() {
   return (
     <>
       <section className="mx-auto max-w-3xl px-6 pt-20 md:pt-28">
-        <p className="text-[11px] font-600 tracking-[0.28em] uppercase text-gold-ink mb-6">
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-6">
           Novedades y anuncios
         </p>
-        <h1 className="text-4xl md:text-5xl font-800 leading-[1.08] tracking-[-0.03em]">
+        <h1 className="text-4xl md:text-5xl font-600 leading-[1.08] tracking-[-0.03em]">
           <span className="inline-block">Lo que hace VELIA,</span>{' '}
           <span className="inline-block">contado con fechas.</span>
         </h1>
@@ -41,7 +41,7 @@ export default async function NovedadesPage() {
       {company.length > 0 && (
         <section className="mx-auto max-w-5xl px-6 pt-16 md:pt-20">
           <div className="flex items-end justify-between gap-6 border-b border-void/15 pb-4">
-            <h2 className="text-[11px] font-700 tracking-[0.28em] uppercase text-void/60">
+            <h2 className="text-[11px] font-700 tracking-[0.06em] uppercase text-void/60">
               La compañía
             </h2>
             <span className="text-[11px] text-void/40">
@@ -58,7 +58,7 @@ export default async function NovedadesPage() {
                 className={`rounded-2xl border border-void/12 bg-white p-7 md:p-8 ${i === 0 ? 'md:col-span-2' : ''}`}
               >
                 <div className="flex flex-wrap items-center gap-3">
-                  <span className={`inline-block rounded-full px-2.5 py-1 text-[10px] font-700 tracking-[0.08em] uppercase ${CATEGORY_STYLE.anuncio.cls}`}>
+                  <span className={`inline-block rounded-full px-2.5 py-1 text-[10px] font-700 tracking-[0.06em] uppercase ${CATEGORY_STYLE.anuncio.cls}`}>
                     {CATEGORY_STYLE.anuncio.label}
                   </span>
                   <span className="text-[11px] text-void/60">{formatUpdateDate(u.published_at)}</span>
@@ -72,7 +72,7 @@ export default async function NovedadesPage() {
                 {u.link && (
                   <a
                     href={u.link}
-                    className="mt-5 inline-block text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors"
+                    className="mt-5 inline-block text-[12px] font-700 tracking-[0.04em] uppercase text-gold-ink hover:text-void transition-colors"
                   >
                     Leer más →
                   </a>
@@ -86,7 +86,7 @@ export default async function NovedadesPage() {
       {/* ── Producto: el changelog que ya tienen los despachos ─────────────── */}
       <section className="mx-auto max-w-3xl px-6 pt-16 md:pt-20 pb-20">
         <div className="flex items-end justify-between gap-6 border-b border-void/15 pb-4">
-          <h2 className="text-[11px] font-700 tracking-[0.28em] uppercase text-void/60">
+          <h2 className="text-[11px] font-700 tracking-[0.06em] uppercase text-void/60">
             El software
           </h2>
           <span className="text-[11px] text-void/40">Actualizaciones de VELIA Legal</span>
@@ -108,7 +108,7 @@ export default async function NovedadesPage() {
                 <li key={u.id} className="relative pl-8 pb-10 last:pb-0">
                   <span className="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full bg-gold" aria-hidden />
                   <div className="flex flex-wrap items-center gap-3">
-                    <span className={`inline-block rounded-full px-2.5 py-1 text-[10px] font-700 tracking-[0.08em] uppercase ${cat.cls}`}>
+                    <span className={`inline-block rounded-full px-2.5 py-1 text-[10px] font-700 tracking-[0.06em] uppercase ${cat.cls}`}>
                       {cat.label}
                     </span>
                     <span className="text-[11px] text-void/60">{formatUpdateDate(u.published_at)}</span>
@@ -116,7 +116,7 @@ export default async function NovedadesPage() {
                   <h3 className="mt-3 text-lg font-700 leading-snug">{u.title}</h3>
                   <p className="mt-2 text-sm text-void/60 leading-[1.6] max-w-prose">{u.body}</p>
                   {u.link && (
-                    <a href={u.link} className="mt-3 inline-block text-[12px] font-700 tracking-[0.1em] uppercase text-gold-ink hover:text-void transition-colors">
+                    <a href={u.link} className="mt-3 inline-block text-[12px] font-700 tracking-[0.04em] uppercase text-gold-ink hover:text-void transition-colors">
                       Leer más →
                     </a>
                   )}
