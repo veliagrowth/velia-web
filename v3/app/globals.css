@@ -21,9 +21,16 @@ html {
 
 /* Nadie debe poder provocar un desplazamiento horizontal. Es la causa raíz de
    media docena de bugs móviles ya cazados en el portal, y aquí el hero tiene
-   elementos posicionados fuera del flujo que podrían reintroducirlo. */
+   elementos posicionados fuera del flujo que podrían reintroducirlo.
+
+   `clip`, NO `hidden`. Los dos cortan igual, pero `hidden` convierte al elemento
+   en CONTENEDOR DE SCROLL, y eso rompe `position: sticky` en todo lo que haya
+   dentro: la baraja de «Un día con VELIA» se montó bien, midió bien y aun así
+   las tarjetas se iban hacia arriba sin posarse. No daba error en ninguna parte
+   — el navegador hacía exactamente lo que se le había pedido. `clip` no crea
+   contenedor de scroll, así que corta el desbordamiento y deja vivo el sticky. */
 html, body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Anillo de foco ÚNICO y visible en toda la web: Iris 500 sólido de 2 px.
