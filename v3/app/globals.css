@@ -267,3 +267,62 @@ a.btn:active, button.btn:active {
   -webkit-overflow-scrolling: touch;
 }
 .rail::-webkit-scrollbar { display: none; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   «Un día con VELIA» — baraja que se apila al hacer scroll
+   ───────────────────────────────────────────────────────────────────────────
+   Encargo de Joaquín (2-ago): la sección no puede ser solo scroll; las cinco
+   tarjetas se apilan una encima de otra con profundidad.
+
+   Cómo: cada tarjeta es `sticky` a una altura ligeramente MAYOR que la
+   anterior, así la que llega se posa sobre la que ya estaba y deja su borde
+   asomando. El apilado es CSS puro y funciona en cualquier navegador; no hay
+   ningún listener de scroll.
+
+   La profundidad (la de abajo se encoge y se apaga) va con animación ligada al
+   scroll — cero trabajo en el hilo principal. Donde no exista, la baraja se
+   apila igual: se pierde el matiz, no la sección. Y con `prefers-reduced-motion`
+   NO hay apilado en absoluto: quedan cinco tarjetas en columna, legibles.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dia-stack {
+  --dia-top: 5.5rem;   /* despeja el nav pegajoso */
+  --dia-step: 0.85rem; /* borde que asoma de cada tarjeta ya posada */
+  list-style: none;
+}
+.dia-card { position: relative; }
+.dia-card > .dia-card-face {
+  transform-origin: 50% 0%;
+  transition: box-shadow var(--motion-panel, 260ms) var(--ease-velia, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (position: sticky) {
+    .dia-card {
+      position: sticky;
+      top: calc(var(--dia-top) + var(--dia-i) * var(--dia-step));
+    }
+    /* La última no necesita cola: si la dejamos con margen, la sección termina
+       con un hueco muerto del alto de una tarjeta. */
+    .dia-card:not(:last-child) { margin-bottom: 1.25rem; }
+    .dia-card > .dia-card-face { box-shadow: 0 1px 2px rgba(13, 16, 23, 0.04); }
+  }
+
+  /* Profundidad: mientras la tarjeta es tapada por la siguiente, se aleja.
+     `exit-crossing` es justo ese tramo — el que va desde que su borde inferior
+     alcanza el final del scrollport hasta que sale del todo. */
+  @supports (animation-timeline: view()) {
+    .dia-card > .dia-card-face {
+      animation: dia-profundidad linear both;
+      animation-timeline: view();
+      animation-range: exit-crossing 0% exit-crossing 100%;
+      will-change: transform, opacity;
+    }
+    @keyframes dia-profundidad {
+      to {
+        transform: scale(0.94) translateY(-4px);
+        opacity: 0.62;
+      }
+    }
+  }
+}

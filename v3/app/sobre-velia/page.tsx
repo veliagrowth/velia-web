@@ -16,7 +16,7 @@ const TEAM = [
     body: 'Diseña y construye la plataforma: arquitectura, integraciones y el Cerebro VELIA.',
   },
   {
-    name: 'Axel',
+    name: 'Axel Soto',
     role: 'Legal y comercial',
     body: 'Cierra despachos, gestiona contratos y es el enlace directo con cada cliente.',
   },

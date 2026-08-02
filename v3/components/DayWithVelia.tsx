@@ -12,15 +12,23 @@ import { trackEvent } from '@/lib/analytics'
  * dentro de una sección para poder verla entera, y eso rompe la experiencia en
  * vez de mejorarla. La sección pedía trabajo al visitante a cambio de nada.
  *
- * Ahora: la sección entra UNA vez y las cinco tarjetas se encadenan con un fade
- * escalonado. Se ve entera de un vistazo, sin pedir nada, y el orden temporal
- * —que es lo único que la línea de tiempo aportaba de verdad— lo comunica el
- * propio escalonado: aparecen en el orden en que ocurren.
+ * QUÉ CAMBIÓ EL 2-AGO (encargo de Joaquín): «que no sea una sección de solo
+ * scroll». Ahora las cinco tarjetas son una BARAJA: cada una se posa sobre la
+ * anterior dejando su borde asomando, y la que queda debajo se encoge y se
+ * apaga. Se lee en el mismo orden de siempre, pero el día se va acumulando
+ * delante de ti en lugar de desfilar.
  *
- * El escalonado se dispara una sola vez y desde el contenedor, no tarjeta a
- * tarjeta: con cinco observadores independientes las de abajo entraban antes
- * que las de arriba al llegar con el scroll rápido, y el orden se rompía justo
- * en lo único que había que respetar.
+ * Esto no reabre el error del 1-ago. Aquello obligaba a hacer scroll DENTRO de
+ * una sección anclada para poder verla: la página se quedaba quieta y el
+ * visitante trabajaba a cambio de nada. Aquí el scroll es el de la página, cada
+ * tarjeta se lee entera en su sitio y nada queda escondido detrás de un gesto.
+ *
+ * El apilado es CSS puro (`sticky`, ver `.dia-stack` en globals.css) y la
+ * profundidad va con animación ligada al scroll: cero listeners, cero trabajo
+ * en el hilo principal. El fade escalonado de entrada se conserva —dice el
+ * orden temporal— y sigue disparándose UNA vez desde el contenedor: con cinco
+ * observadores independientes las de abajo entraban antes que las de arriba al
+ * llegar con scroll rápido, y se rompía lo único que había que respetar.
  */
 
 const MOMENTOS = [
@@ -86,29 +94,42 @@ export default function DayWithVelia() {
   }, [])
 
   return (
-    <ol ref={contenedor} className="space-y-4 md:space-y-5 max-w-3xl mx-auto">
+    <ol ref={contenedor} className="dia-stack space-y-4 md:space-y-0 max-w-3xl mx-auto">
       {MOMENTOS.map((m, i) => (
         <li
           key={m.hora}
-          className="reveal rounded-2xl border border-mist bg-white p-6 sm:p-8"
-          data-visible={entrado ? 'true' : undefined}
-          style={entrado ? { transitionDelay: `${i * ESCALON_MS}ms` } : undefined}
+          className="dia-card"
+          style={
+            {
+              // Cada tarjeta se posa un pelín más abajo que la anterior: ese
+              // escalón es el borde que queda asomando de las ya apiladas.
+              ['--dia-i' as string]: i,
+              // La que llega va DELANTE de las que ya están posadas.
+              zIndex: i + 1,
+            } as React.CSSProperties
+          }
         >
-          <div className="flex items-baseline gap-3">
-            <span className="tabular text-[12px] font-600 text-gold-ink">{m.hora}</span>
-            <h3 className="text-lg sm:text-xl font-600 tracking-[-0.02em]">{m.titulo}</h3>
+          <div
+            className="dia-card-face reveal rounded-2xl border border-mist bg-white p-6 sm:p-8"
+            data-visible={entrado ? 'true' : undefined}
+            style={entrado ? { transitionDelay: `${i * ESCALON_MS}ms` } : undefined}
+          >
+            <div className="flex items-baseline gap-3">
+              <span className="tabular text-[12px] font-600 text-gold-ink">{m.hora}</span>
+              <h3 className="text-lg sm:text-xl font-600 tracking-[-0.02em]">{m.titulo}</h3>
+            </div>
+            <p className="mt-3 text-[15px] sm:text-base text-void/75 leading-[1.6] max-w-[48ch]">
+              {m.frase}
+            </p>
+            <ul className="mt-5 grid gap-2 sm:grid-cols-2">
+              {m.piezas.map(p => (
+                <li key={p} className="flex items-start gap-2.5 text-[13px] text-void/60 leading-[1.55]">
+                  <span className="mt-[7px] w-1 h-1 rounded-full bg-iris-focus shrink-0" aria-hidden="true" />
+                  {p}
+                </li>
+              ))}
+            </ul>
           </div>
-          <p className="mt-3 text-[15px] sm:text-base text-void/75 leading-[1.6] max-w-[48ch]">
-            {m.frase}
-          </p>
-          <ul className="mt-5 grid gap-2 sm:grid-cols-2">
-            {m.piezas.map(p => (
-              <li key={p} className="flex items-start gap-2.5 text-[13px] text-void/60 leading-[1.55]">
-                <span className="mt-[7px] w-1 h-1 rounded-full bg-iris-focus shrink-0" aria-hidden="true" />
-                {p}
-              </li>
-            ))}
-          </ul>
         </li>
       ))}
     </ol>

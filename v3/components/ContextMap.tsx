@@ -65,7 +65,19 @@ export default function ContextMap() {
       <div className="hidden lg:block">
         <svg viewBox="0 0 400 320" className="w-full h-auto" role="presentation" aria-hidden="true">
           <defs>
-            <linearGradient id={`traza-${gradId}`} x1="0" y1="0" x2="1" y2="1">
+            {/* `userSpaceOnUse` NO es opcional aquí. Por defecto un degradado usa
+                `objectBoundingBox`, y la caja de una línea VERTICAL tiene anchura
+                cero — la spec de SVG dice que entonces el elemento «is not
+                rendered». Resultado: las trazas de «Demanda» (arriba) y «Tarea»
+                (abajo) desaparecían al activarlas, mientras las cuatro diagonales
+                se dibujaban bien. No fallaba nada: sencillamente no se pintaba.
+                En espacio de usuario el degradado cubre el viewBox entero y es
+                independiente de la caja de cada línea. */}
+            <linearGradient
+              id={`traza-${gradId}`}
+              gradientUnits="userSpaceOnUse"
+              x1="0" y1="0" x2="400" y2="320"
+            >
               <stop offset="0%" stopColor="#7479F2" />
               <stop offset="100%" stopColor="#B5DFFF" />
             </linearGradient>
