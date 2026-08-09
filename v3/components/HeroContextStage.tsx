@@ -8,42 +8,53 @@ import { trackEvent } from '@/lib/analytics'
  *
  * QUÉ TIENE QUE ENTENDERSE EN 5 SEGUNDOS, SIN LEER NADA:
  * lo que hay suelto encima de una mesa un lunes por la mañana se ordena, cada
- * pieza deja de ser un FORMATO y pasa a ser lo que APORTA —Plazo, Cliente,
+ * pieza deja de ser un FORMATO y pasa a ser lo que APORTA —Plazo, Cláusulas,
  * Importe— y todo acaba dentro de un expediente donde además se relaciona
  * entre sí. Esa última parte es la diferencia entre guardar y entender.
  *
- * POR QUÉ CAMBIÓ LA VERSIÓN ANTERIOR (9-ago-2026). La anterior tenía la idea
- * correcta y tres problemas de reloj y composición:
- *   · empezaba «en reposo» con las cuatro piezas ya colocadas y nombradas, así
- *     que el desorden —que es el problema que vive el abogado— no se veía nunca;
- *   · su clímax caía en el segundo 10,4 (5 fases × 2,6 s), o sea después del
- *     único momento que decide si alguien se queda;
- *   · cuatro tarjetas idénticas en rejilla 2×2 tienen la forma de un widget de
- *     dashboard: competía con un CRM en vez de diferenciarse de uno.
+ * ══ REV2 (9-ago-2026) ══════════════════════════════════════════════════════
  *
- * Y TERMINA TRABAJANDO, NO ESPERANDO (decisión de Joaquín). El estado final no
- * dice «esperando tu confirmación»: dice lo que VELIA YA ha hecho. Sigue sin
- * decidir nada —«todo está preparado para que continúes» es del manual de voz—
- * pero el último fotograma es trabajo entregado, no un sistema en pausa. Ese
- * fotograma se queda fijo y hace de puente con el resto de la página: es la
- * primera imagen del producto, no una animación que se apaga.
+ * EL CENTRO ES EL SÍMBOLO, NO UNA ESFERA. La primera versión ponía en el
+ * centro un círculo con un núcleo luminoso, y eso no dice VELIA: dice «IA».
+ * Es la misma imagen que hay en la portada de cualquier SaaS de inteligencia
+ * artificial, y la pieza tiene que ser reconocible aunque se le quite el
+ * texto. Ahora el centro son las dos astas y el punto del símbolo, con la
+ * geometría EXACTA de brand/assets/logo/velia-symbol-iris.svg — no redibujada
+ * a mano, que es lo que el manual prohíbe.
  *
- * LO QUE NO SE VE AQUÍ Y ESTÁ A PROPÓSITO:
+ * Y no es un logo pegado en medio: las astas se levantan durante la
+ * convergencia como estructura, en crema apagado, y el punto SOLO se enciende
+ * —en Soft Iris, plano— cuando las seis trazas han llegado. La marca se
+ * completa en el instante en que aparece el significado. Esa es la diferencia
+ * entre poner el logo y que el logo sea parte de lo que se cuenta.
+ *
+ * De paso corrige una infracción: el degradado radial de la esfera era un
+ * acabado PROHIBIDO sobre el símbolo («gradientes, sombras, brillos, contornos
+ * o 3D», sección 04 del manual).
+ *
+ * ══════════════════════════════════════════════════════════════════════════
+ *
+ * TERMINA TRABAJANDO, NO ESPERANDO. El estado final no dice «esperando tu
+ * confirmación»: dice lo que VELIA YA ha hecho, y se sostiene 2,5 segundos
+ * para que dé tiempo a leerlo. Sigue sin decidir nada —relaciona, encuentra,
+ * prepara— porque decidir es del abogado.
+ *
+ * LO QUE NO SE VE Y ESTÁ A PROPÓSITO:
  *   · Ningún formato que el producto no lea. El Cerebro acepta PDF, DOCX, TXT,
- *     MD, CSV e imágenes; el correo entra por el buzón, no como .eml subido. No
- *     hay MP3 ni XLSX: anunciarlos sería prometer lo que el subidor rechaza.
- *   · El desorden nace en gris, sin color de marca. Si el desorden ya fuera
- *     bonito, ordenarlo no significaría nada.
+ *     MD, CSV e imágenes; el correo entra por el buzón, no como .eml subido.
+ *   · El desorden nace en gris. Si el desorden ya fuera bonito, ordenarlo no
+ *     significaría nada.
  *
- * TÉCNICA: SVG + CSS. El reloj entero vive en globals.css; este componente solo
- * enciende `data-play` cuando la escena entra en pantalla y ofrece repetirla.
- * No hay Remotion, ni imágenes, ni fuentes nuevas, ni un solo re-render durante
- * los 9 segundos. El texto vive en el DOM: lo indexa un buscador y lo lee un
- * lector de pantalla, cosa que un vídeo con el mismo contenido no permite.
+ * TÉCNICA: SVG + CSS. El ciclo entero de 12 s vive en globals.css como un
+ * único track por elemento, en bucle. Este componente solo enciende, pausa y
+ * para cuando la escena no se ve. Cero re-renders mientras corre, cero
+ * imágenes, cero fuentes nuevas.
  *
- * ACCESIBILIDAD: el escenario es decorativo —todo lo que dice está en el titular
- * y el párrafo de al lado—, así que va `aria-hidden`. Con
- * `prefers-reduced-motion` arranca directamente en su fotograma final.
+ * ACCESIBILIDAD: el escenario es decorativo —todo lo que dice está en el
+ * titular y el párrafo de al lado—, así que va `aria-hidden`. El botón de
+ * pausa NO es un adorno: WCAG 2.2.2 lo exige en cuanto algo se mueve solo más
+ * de cinco segundos. Con `prefers-reduced-motion` no hay bucle: se queda en el
+ * fotograma final.
  */
 
 /** Las seis piezas. `aporta` es el salto que da la pieza: de nombre de archivo
@@ -59,40 +70,64 @@ const PIEZAS = [
 ] as const
 
 /**
- * Geometría. `x/y` es el desorden de partida y `dx/dy` el destino ordenado, en
- * cqw (1 % del ancho de la escena) para que el movimiento sea el mismo a
- * cualquier tamaño. `ax/ay` es hacia dónde se va la pieza cuando el expediente
- * se la queda: hacia el centro, nunca hacia fuera — se la absorbe, no se tira.
+ * Geometría. Las columnas van a 1 / 35,5 / 70 % con 29 % de ancho, así que sus
+ * centros caen en 15,5 / 50 / 84,5 %: simétricos respecto al eje vertical.
+ * Las filas arrancan en 8 % y 73 %, simétricas respecto al 50 % — la versión
+ * anterior las tenía en 6 % y 57 %, con lo que el bloque de piezas quedaba
+ * centrado en el 40 % mientras el punto estaba en el 50 %. Se notaba y no se
+ * sabía por qué.
  *
- * En móvil solo se pintan las TRES primeras (`mv`), con su propia composición:
- * escalar seis piezas a 358 px las deja ilegibles, y el relato aguanta con tres.
+ * `dx/dy` (destino ordenado) y `ax/ay` (hacia dónde se va al absorberla) van en
+ * cqw, 1 % del ancho de la escena, para que el movimiento sea el mismo a
+ * cualquier tamaño.
+ *
+ * En móvil solo se pintan las TRES primeras (`mv`), con su propia composición
+ * —dos arriba y una abajo, también simétricas—: escalar seis piezas a 358 px
+ * las deja ilegibles, y el relato aguanta con tres.
  */
+/* Los `dy` NO son a ojo: 1 cqw es el 1 % del ancho y la escena es 16:12, así
+   que 1 cqw = 0,75 % del alto. Cada pieza lleva el desplazamiento exacto que
+   la lleva de su posición desordenada a su fila —arriba 8 %, abajo 72,5 %—,
+   que es lo que hace que las dos filas queden simétricas respecto al punto.
+   La versión anterior dejaba las filas escalonadas y las seis distancias al
+   centro salían distintas: 217 / 127 / 217 contra 214 / 121 / 214. */
 const GEO = [
-  { x: '1%',  y: '6%',  r: '-6deg', dx: '0cqw',  dy: '-1.5cqw',  ax: '17cqw',  ay: '11cqw',  mv: { x: '2%',  y: '4%'  } },
-  { x: '35%', y: '0%',  r: '5deg',  dx: '0cqw',  dy: '3.4cqw',   ax: '4cqw',   ay: '11cqw',  mv: null },
-  { x: '69%', y: '8%',  r: '-4deg', dx: '0cqw',  dy: '-1.1cqw',  ax: '-17cqw', ay: '11cqw',  mv: { x: '52%', y: '4%'  } },
-  { x: '2%',  y: '57%', r: '4deg',  dx: '0cqw',  dy: '1.5cqw',   ax: '17cqw',  ay: '-11cqw', mv: null },
-  { x: '34%', y: '65%', r: '-5deg', dx: '1cqw',  dy: '-4.5cqw',  ax: '4cqw',   ay: '-11cqw', mv: { x: '27%', y: '74%' } },
-  { x: '69%', y: '56%', r: '3deg',  dx: '0cqw',  dy: '2.2cqw',   ax: '-17cqw', ay: '-11cqw', mv: null },
+  { x: '1%',    y: '9.3%',  r: '-6deg', dx: '0cqw', dy: '0cqw',     ax: '17cqw',  ay: '13cqw',  mv: { x: '1%',  y: '7%'  } },
+  { x: '35.5%', y: '3.3%',  r: '5deg',  dx: '0cqw', dy: '4.5cqw',   ax: '0cqw',   ay: '13cqw',  mv: null },
+  { x: '70%',   y: '10.3%', r: '-4deg', dx: '0cqw', dy: '-0.75cqw', ax: '-17cqw', ay: '13cqw',  mv: { x: '55%', y: '7%'  } },
+  { x: '1%',    y: '73.3%', r: '4deg',  dx: '0cqw', dy: '0cqw',     ax: '17cqw',  ay: '-13cqw', mv: null },
+  { x: '35.5%', y: '79.3%', r: '-5deg', dx: '0cqw', dy: '-4.5cqw',  ax: '0cqw',   ay: '-13cqw', mv: { x: '28%', y: '71%' } },
+  { x: '70%',   y: '72.3%', r: '3deg',  dx: '0cqw', dy: '0.75cqw',  ax: '-17cqw', ay: '-13cqw', mv: null },
 ] as const
 
-/** Trazas: del centro de cada pieza ya ordenada al borde de la órbita. La
- *  tarjeta se pinta ENCIMA del SVG, así que la línea parece salir de su borde. */
+/**
+ * Las seis Intelligence Traces. Salen del centro de cada pieza ya ordenada
+ * —la tarjeta se pinta ENCIMA, así que la línea parece nacer de su borde— y
+ * mueren a 7 unidades del punto del símbolo, que está en el centro geométrico
+ * exacto de la escena (160 · 120). Los seis finales son simétricos dos a dos.
+ */
 const TRAZAS = [
-  { d: 'M54.4 34.8 L141.3 104.9', len: 112, movil: true },
-  { d: 'M160 34.8 L160 96',       len: 62,  movil: false },
-  { d: 'M265.6 34.8 L178.7 104.9',len: 112, movil: true },
-  { d: 'M54.4 159.6 L137.5 128.4',len: 89,  movil: false },
-  { d: 'M160 159.6 L160 144',     len: 16,  movil: true },
-  { d: 'M265.6 159.6 L182.5 128.4',len: 89, movil: false },
+  { d: 'M49.6 39.6 L154.3 115.9',  len: 130, movil: true },
+  { d: 'M160 39.6 L160 113',       len: 74,  movil: false },
+  { d: 'M270.4 39.6 L165.7 115.9', len: 130, movil: true },
+  { d: 'M49.6 198 L154.3 124',     len: 129, movil: false },
+  { d: 'M160 198 L160 127',        len: 72,  movil: true },
+  { d: 'M270.4 198 L165.7 124',    len: 129, movil: false },
 ] as const
 
-const DURACION_MS = 9000
+/**
+ * El símbolo, colocado por cálculo y no a ojo: la escala es 0,156 y la
+ * traslación es la que lleva el punto del logotipo —que en el fichero de marca
+ * está en (156,91 · 301,22)— justo al centro (160 · 120). Ni se gira, ni se
+ * inclina, ni se le cambian las proporciones: el manual lo prohíbe y además es
+ * lo que hace que se reconozca.
+ */
+const MARCA = { s: 0.17, tx: 133.33, ty: 68.79 }
 
 export default function HeroContextStage() {
   const [reducido, setReducido] = useState(false)
+  const [pausa, setPausa] = useState(false)
   const escena = useRef<HTMLDivElement>(null)
-  const arrancado = useRef(false)
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -102,70 +137,61 @@ export default function HeroContextStage() {
     return () => mq.removeEventListener('change', aplicar)
   }, [])
 
-  // Arranca una sola vez, cuando de verdad se está viendo. No se gasta hilo
-  // principal animando algo fuera de pantalla, y no se le roba el primer
-  // pintado al titular, que es el elemento LCP.
+  // Arranca al entrar en pantalla y se PARA al salir: un bucle infinito que
+  // sigue corriendo tres pantallas más abajo es hilo principal tirado a la
+  // basura, y en un móvil eso es batería.
   useEffect(() => {
     const el = escena.current
     if (!el || typeof IntersectionObserver === 'undefined') return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    el.dataset.play = 'true'
     const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting && !arrancado.current) {
-          arrancado.current = true
-          el.dataset.play = 'true'
-          obs.disconnect()
-        }
-      },
-      { threshold: 0.35 },
+      ([e]) => { el.dataset.fuera = e.isIntersecting ? 'false' : 'true' },
+      { threshold: 0.2 },
     )
     obs.observe(el)
     return () => obs.disconnect()
   }, [])
 
-  const repetir = useCallback(() => {
-    const el = escena.current
-    if (!el) return
-    delete el.dataset.play
-    // Un reflow forzado entre quitar y poner: sin esto el navegador agrupa las
-    // dos mutaciones y las animaciones no se reinician.
-    void el.offsetWidth
-    el.dataset.play = 'true'
-    trackEvent('hero_context_interaction', { interaction_type: 'restart' })
+  const alternarPausa = useCallback(() => {
+    setPausa(p => {
+      trackEvent('hero_context_interaction', { interaction_type: p ? 'resume' : 'pause' })
+      return !p
+    })
   }, [])
 
   return (
     <div>
-      <div ref={escena} className="mesa" aria-hidden="true">
-        {/* Intelligence Traces: la línea que hace visible «relaciona», que en
-            texto no se ve. `preserveAspectRatio="none"` NO: deformaría el
-            grosor; la caja ya es 16:12 y el viewBox también. */}
+      <div ref={escena} className="mesa" aria-hidden="true" data-pausa={pausa ? 'true' : 'false'}>
         <svg className="mesa-svg" viewBox="0 0 320 240" fill="none">
+          {/* Las trazas van DEBAJO del símbolo: mueren detrás de él, no encima. */}
           <g stroke="#8D90FA" strokeWidth="1" strokeLinecap="round">
             {TRAZAS.map((t, i) => (
               <path
                 key={i}
                 className={`mesa-tz ${t.movil ? '' : 'mesa-solo-sm'}`}
                 d={t.d}
-                style={{ ['--len' as string]: t.len, ['--t2' as string]: `${3.5 + i * 0.11}s` }}
+                style={{ ['--len' as string]: t.len, ['--t0' as string]: `${i * 0.09}s` }}
               />
             ))}
           </g>
-        </svg>
 
-        <div className="mesa-orb" />
-        <div className="mesa-nodo">
-          <svg viewBox="0 0 64 64" className="w-full h-full">
-            <defs>
-              <radialGradient id="mesa-core" cx="50%" cy="45%" r="55%">
-                <stop offset="0%" stopColor="#B5DFFF" />
-                <stop offset="55%" stopColor="#949AF8" />
-                <stop offset="100%" stopColor="#7479F2" />
-              </radialGradient>
-            </defs>
-            <circle cx="32" cy="32" r="20" fill="url(#mesa-core)" />
-          </svg>
-        </div>
+          {/* El símbolo de VELIA. Geometría exacta del fichero de marca. */}
+          <g transform={`translate(${MARCA.tx} ${MARCA.ty}) scale(${MARCA.s})`}>
+            <g
+              className="mesa-marca"
+              fill="#F6F7FA"
+              stroke="#F6F7FA"
+              strokeWidth="5.79047"
+              strokeMiterlimit="10"
+            >
+              <path d="M156.91035,311.86381c-3.32518,0-7.3154-2.66016-7.98044-4.65526L3.952,17.25273C1.29186,12.59748,3.952,6.61215,8.60726,3.952s10.64058,0,12.63569,4.65525L166.22086,297.89805c2.66014,4.65526,0,10.64057-4.65526,12.6357-1.9951,0-3.32517,1.33005-4.65525,1.33005Z" />
+              <path d="M156.91035,311.86381c-1.33008,0-2.66014,0-4.65526-1.33008-4.65526-2.66016-6.65036-7.98044-4.65526-12.6357L292.57776,8.60726c2.66016-4.65525,7.98044-7.3154,12.6357-4.65525s7.31539,7.98043,4.65526,12.63569L165.55583,305.87849c-1.33008,3.32518-4.65526,5.98531-8.64548,5.98531Z" />
+            </g>
+            {/* El punto. Color plano: ni degradado, ni halo, ni sombra. */}
+            <circle className="mesa-punto" cx="156.91035" cy="301.22323" r="26.60145" fill="#7479F2" />
+          </g>
+        </svg>
 
         {PIEZAS.map((p, i) => {
           const g = GEO[i]
@@ -188,22 +214,18 @@ export default function HeroContextStage() {
                 ['--ax' as string]: g.ax,
                 ['--ay' as string]: g.ay,
                 ['--t0' as string]: `${i * 0.09}s`,
-                ['--t1' as string]: `${2.2 + i * 0.1}s`,
-                ['--t2' as string]: `${4.1 + i * 0.11}s`,
               }}
             >
               <span className="l" />
               <span className="l c" />
-              <span className="apo" style={{ ['--t2' as string]: `${4.1 + i * 0.11}s` }}>
-                {p.aporta}
-              </span>
+              <span className="apo">{p.aporta}</span>
               <span className="nom">{p.nom}</span>
             </div>
           )
         })}
 
-        {/* El fotograma final. Es la primera imagen del producto y se queda:
-            de aquí sale el resto de la página. */}
+        {/* El fotograma final. Es la primera imagen del producto, se sostiene
+            2,5 segundos y se desvanece para volver a empezar. */}
         <div className="mesa-win">
           <div className="cab">
             <span className="exp">Expediente 2026/184</span>
@@ -215,8 +237,8 @@ export default function HeroContextStage() {
                 detrás de la ventana sería pintarlas donde nadie las ve. */}
             <svg className="rel" viewBox="0 0 12 100" preserveAspectRatio="none" fill="none">
               <g stroke="#7479F2" strokeWidth="1" vectorEffect="non-scaling-stroke">
-                <path className="mesa-rel" d="M12 12 H6 Q2 12 2 22 V52 Q2 62 6 62 H12" opacity="0.85" style={{ ['--len' as string]: 90, ['--t3' as string]: '6.4s' }} />
-                <path className="mesa-rel" d="M12 37 H8 Q6 37 6 46 V78 Q6 87 8 87 H12" opacity="0.5" style={{ ['--len' as string]: 90, ['--t3' as string]: '6.8s' }} />
+                <path className="mesa-rel" d="M12 12 H6 Q2 12 2 22 V52 Q2 62 6 62 H12" opacity="0.85" style={{ ['--len' as string]: 90 }} />
+                <path className="mesa-rel" d="M12 37 H8 Q6 37 6 46 V78 Q6 87 8 87 H12" opacity="0.5" style={{ ['--len' as string]: 90 }} />
               </g>
             </svg>
             <div className="fila"><b>Notificación</b><span>4 páginas</span></div>
@@ -235,15 +257,16 @@ export default function HeroContextStage() {
         </div>
       </div>
 
-      {/* Fuera del aria-hidden: son controles de verdad. */}
+      {/* Fuera del aria-hidden: es un control de verdad, y obligatorio. */}
       <div className="mt-3 flex items-center gap-4">
         {!reducido && (
           <button
             type="button"
-            onClick={repetir}
+            onClick={alternarPausa}
             className="text-[11px] font-600 tracking-[0.04em] text-cream/50 hover:text-cream/85 transition-colors duration-control"
           >
-            Ver desde el principio
+            {pausa ? 'Reanudar' : 'Pausar'}
+            <span className="sr-only"> la secuencia de demostración</span>
           </button>
         )}
         <span className="ml-auto text-[11px] text-cream/35">Datos ficticios</span>
