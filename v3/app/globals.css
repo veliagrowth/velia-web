@@ -430,42 +430,56 @@ a.btn:active, button.btn:active {
 }
 @media (min-width: 640px) { .mesa-win { left: 4%; right: 4%; padding: 16px 18px; } }
 
-.mesa-win .cab { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 9px; border-bottom: 1px solid #E6EAF1; }
-.mesa-win .exp { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #4C51B9; }
-.mesa-win .est { font-size: 11px; color: #707A92; }
+.mesa-win .cab { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid #E6EAF1; }
+/* La cabecera del producto. Es lo que convierte una tarjeta blanca en una
+   ventana de VELIA: sin esto, el fotograma final podria ser el de cualquier
+   SaaS. El simbolo va aqui a su tamano de interfaz, no como adorno. */
+.mesa-win .marcaprod { display: flex; align-items: center; gap: 7px; }
+.mesa-win .marcaprod svg { width: 11px; height: 12px; display: block; }
+.mesa-win .marcaprod b { font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: #0D1017; }
+.mesa-win .est { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #4C51B9; }
 
-/* Las relaciones DENTRO del expediente, en un canalón propio a la izquierda.
-   Es el remate: el contexto no es una lista, es una red. */
-.mesa-win .cuerpo { position: relative; display: flex; flex-direction: column; gap: 7px; padding-left: 20px; }
-.mesa-win .rel { position: absolute; left: 0; top: 0; width: 16px; height: 100%; overflow: visible; }
-.mesa-win .fila { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 12.5px; }
-.mesa-win .fila b { font-weight: 600; color: #0D1017; }
-.mesa-win .fila span { color: #707A92; font-size: 12px; font-variant-numeric: tabular-nums; }
+.mesa-win .cuerpo { display: flex; flex-direction: column; gap: 10px; }
+/* Un dato del expediente CON SU PROCEDENCIA. Es el remate de todo el relato:
+   el espectador ve que "Notificacion.pdf" ha dejado de ser un archivo y es
+   ahora un vencimiento de 20 dias habiles dentro del asunto. Sustituye a las
+   trazas del canalon: cuenta lo mismo y mucho mejor, con un elemento menos. */
+.mesa-win .dato { display: flex; flex-direction: column; gap: 1px; }
+.mesa-win .dato .linea { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.mesa-win .dato .k { font-size: 12.5px; color: #707A92; }
+.mesa-win .dato .v { font-size: 12.5px; font-weight: 600; color: #0D1017; font-variant-numeric: tabular-nums; }
+.mesa-win .dato .de { font-size: 10.5px; color: #838CA1; }
 
-.mesa-win .cierre { margin-top: 2px; padding-top: 9px; border-top: 1px solid #E6EAF1; display: flex; flex-direction: column; gap: 5px; }
+.mesa-win .cierre { margin-top: 2px; padding-top: 10px; border-top: 1px solid #E6EAF1; display: flex; flex-direction: column; gap: 5px; }
 .mesa-win .marca-est { display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #4C51B9; }
 .mesa-win .marca-est i { width: 5px; height: 5px; border-radius: 50%; background: #7479F2; display: block; }
 .mesa-win .dice { font-size: 12.5px; line-height: 1.5; color: #3C4354; }
 
 /* ═══ EL CICLO ═══════════════════════════════════════════════════════════════
-   12 segundos, en bucle, con una sola curva. El mapa, en porcentajes del ciclo:
+   12 segundos, en bucle, con una sola curva. Cuatro actos, no tres: entre la
+   convergencia y el estado final se ha metido un acto de PRODUCTO, que es lo
+   que faltaba. Antes la secuencia era «archivos → símbolo → tarjeta blanca», y
+   esa tarjeta podía ser la de cualquier SaaS. Ahora es «archivo → significado →
+   dato dentro de VELIA», y cada dato del expediente lleva escrito de qué
+   archivo sale.
 
      0,0 – 0,5 s   ( 0,0 –  4,2 %)  las piezas entran, dispersas
      0,5 – 2,0 s   ( 4,2 – 16,7 %)  se sostiene el desorden
-     2,0 – 3,2 s   (16,7 – 26,7 %)  se enderezan y se alinean
-     2,4 – 3,2 s   (20,0 – 26,7 %)  se levantan las astas del símbolo
-     4,0 – 5,0 s   (33,3 – 41,7 %)  se dibujan las seis trazas hacia el punto
-     5,0 – 5,5 s   (41,7 – 45,8 %)  se enciende el punto y aparece el significado
-     6,0 – 6,8 s   (50,0 – 56,7 %)  el expediente absorbe las piezas
-     6,0 – 7,0 s   (50,0 – 58,3 %)  se abre la ventana
-     7,0 – 8,0 s   (58,3 – 66,7 %)  se dibujan las relaciones entre filas
-     7,5 – 8,0 s   (62,5 – 66,7 %)  «Contexto actualizado»
-     8,0 – 10,5 s  (66,7 – 87,5 %)  PAUSA LEGIBLE: 2,5 s quieto sobre el final
-    10,5 – 11,5 s  (87,5 – 95,8 %)  se desvanece: reset por fundido, no por salto
-    11,5 – 12,0 s  (95,8 –  100 %)  medio segundo de respiración y vuelve
+     2,0 – 3,0 s   (16,7 – 25,0 %)  se enderezan y se alinean
+     3,0 – 5,0 s   (25,0 – 41,7 %)  INTERPRETACIÓN: el archivo pasa a ser lo
+                                    que aporta (Plazo, Cláusulas, Importe…)
+     5,0 – 6,5 s   (41,7 – 54,2 %)  CONVERGENCIA: se levantan las astas y se
+                                    dibujan las seis trazas hacia el vértice
+     6,5 – 7,0 s   (54,2 – 58,3 %)  se enciende el punto: la marca se completa
+     7,0 – 8,0 s   (58,3 – 66,7 %)  TRANSFORMACIÓN: las piezas se absorben y la
+                                    ventana de VELIA nace del propio punto
+     8,0 – 9,5 s   (66,7 – 79,2 %)  los datos entran en el expediente, uno a
+                                    uno, cada uno con su procedencia
+     9,5 – 11,6 s  (79,2 – 96,7 %)  «Contexto actualizado» + PAUSA LEGIBLE
+    11,6 – 12,0 s  (96,7 –  100 %)  se desvanece: reset por fundido, no por salto
 
-   El escalonado entre piezas va en `animation-delay`, no en los porcentajes:
-   con `infinite` el desfase se mantiene ciclo tras ciclo en vez de acumularse.
+   El escalonado va en `animation-delay`, no en los porcentajes: con `infinite`
+   el desfase se mantiene ciclo tras ciclo en vez de acumularse.
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @media (prefers-reduced-motion: no-preference) {
@@ -483,7 +497,7 @@ a.btn:active, button.btn:active {
   .mesa[data-play='true'] .mesa-marca  { animation: mesaMarca  12s var(--ease-velia) 0s infinite both; }
   .mesa[data-play='true'] .mesa-punto  { animation: mesaPunto  12s var(--ease-velia) 0s infinite both; }
   .mesa[data-play='true'] .mesa-win    { animation: mesaVent   12s var(--ease-velia) 0s infinite both; }
-  .mesa[data-play='true'] .mesa-rel    { animation: mesaRel    12s var(--ease-velia) 0s infinite both; }
+  .mesa[data-play='true'] .mesa-fila   { animation: mesaFila   12s var(--ease-velia) var(--t0) infinite both; }
   .mesa[data-play='true'] .mesa-cierre { animation: mesaCierre 12s var(--ease-velia) 0s infinite both; }
 
   /* Pausa: la exige WCAG 2.2.2 en cuanto algo se mueve solo más de 5 s. Y se
@@ -499,71 +513,75 @@ a.btn:active, button.btn:active {
     0%     { opacity: 0; transform: translate(0, 10px) rotate(var(--r)) scale(1); }
     4.2%   { opacity: 1; transform: translate(0, 0) rotate(var(--r)) scale(1); }
     16.7%  { opacity: 1; transform: translate(0, 0) rotate(var(--r)) scale(1); }
-    26.7%  { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(0deg) scale(1); }
-    50%    { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(0deg) scale(1); }
-    56.7%  { opacity: 0; transform: translate(var(--ax), var(--ay)) rotate(0deg) scale(0.94); }
+    25%    { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(0deg) scale(1); }
+    58.3%  { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(0deg) scale(1); }
+    66.7%  { opacity: 0; transform: translate(var(--ax), var(--ay)) rotate(0deg) scale(0.94); }
     100%   { opacity: 0; transform: translate(var(--ax), var(--ay)) rotate(0deg) scale(0.94); }
   }
 
-  /* El significado: aparece cuando la traza llega, no antes. */
+  /* El significado. Es el acto de la INTERPRETACIÓN y por eso tiene dos
+     segundos para él solo: el archivo deja de ser un archivo antes de que
+     nada converja. */
   @keyframes mesaApo {
-    0%, 41.7% { opacity: 0; transform: translateY(3px); }
-    45.8%     { opacity: 1; transform: none; }
-    50%       { opacity: 1; transform: none; }
-    56.7%,
+    0%, 25%   { opacity: 0; transform: translateY(3px); }
+    29.2%     { opacity: 1; transform: none; }
+    58.3%     { opacity: 1; transform: none; }
+    66.7%,
     100%      { opacity: 0; transform: none; }
   }
 
-  /* Las trazas se dibujan hacia el punto y se retiran con las piezas. */
   @keyframes mesaTraza {
-    0%, 33.3% { stroke-dashoffset: var(--len); opacity: 1; }
-    41.7%     { stroke-dashoffset: 0; opacity: 1; }
-    50%       { stroke-dashoffset: 0; opacity: 1; }
-    56.7%     { stroke-dashoffset: 0; opacity: 0; }
+    0%, 41.7% { stroke-dashoffset: var(--len); opacity: 1; }
+    54.2%     { stroke-dashoffset: 0; opacity: 1; }
+    58.3%     { stroke-dashoffset: 0; opacity: 1; }
+    66.7%     { stroke-dashoffset: 0; opacity: 0; }
     99.9%     { stroke-dashoffset: 0; opacity: 0; }
     100%      { stroke-dashoffset: var(--len); opacity: 0; }
   }
 
-  /* Las astas: estructura. Entran durante la convergencia, en crema apagado.
+  /* Las astas: estructura. Entran con la convergencia, en crema apagado.
      Nunca en color de marca — el color de marca es el punto. */
   @keyframes mesaMarca {
-    0%, 20% { opacity: 0; }
-    26.7%   { opacity: 0.4; }
-    50%     { opacity: 0.4; }
-    56.7%,
-    100%    { opacity: 0; }
-  }
-
-  /* El punto. Se enciende SOLO cuando las trazas han llegado: la marca se
-     completa en el instante en que aparece el significado. */
-  @keyframes mesaPunto {
     0%, 41.7% { opacity: 0; }
-    45.8%     { opacity: 1; }
-    50%       { opacity: 1; }
-    56.7%,
+    50%       { opacity: 0.4; }
+    58.3%     { opacity: 0.4; }
+    66.7%,
     100%      { opacity: 0; }
   }
 
-  @keyframes mesaVent {
-    0%, 50% { opacity: 0; transform: translateY(-50%) scale(0.96); }
-    58.3%   { opacity: 1; transform: translateY(-50%) scale(1); }
-    87.5%   { opacity: 1; transform: translateY(-50%) scale(1); }
-    95.8%,
-    100%    { opacity: 0; transform: translateY(-50%) scale(1); }
+  /* El punto. Se enciende SOLO cuando las trazas han llegado: la marca se
+     completa en el instante en que aparece el significado, y de ahí sale la
+     ventana. El símbolo no es el destino, es el motor de la transición. */
+  @keyframes mesaPunto {
+    0%, 54.2% { opacity: 0; }
+    58.3%     { opacity: 1; }
+    62.5%     { opacity: 1; }
+    66.7%,
+    100%      { opacity: 0; }
   }
 
-  @keyframes mesaRel {
-    0%, 58.3% { stroke-dashoffset: var(--len); }
-    66.7%     { stroke-dashoffset: 0; }
-    95.8%     { stroke-dashoffset: 0; }
-    100%      { stroke-dashoffset: var(--len); }
+  /* La ventana nace del punto: su centro coincide con el centro de la escena,
+     que es donde está el vértice, así que escalar desde su propio centro ES
+     salir del punto. */
+  @keyframes mesaVent {
+    0%, 58.3% { opacity: 0; transform: translateY(-50%) scale(0.92); }
+    66.7%     { opacity: 1; transform: translateY(-50%) scale(1); }
+    96.7%     { opacity: 1; transform: translateY(-50%) scale(1); }
+    100%      { opacity: 0; transform: translateY(-50%) scale(1); }
+  }
+
+  /* Los datos entran uno a uno. El escalonado lo da `--t0` (0 / 0,3 / 0,6 s). */
+  @keyframes mesaFila {
+    0%, 66.7% { opacity: 0; transform: translateY(4px); }
+    72.5%     { opacity: 1; transform: none; }
+    96.7%     { opacity: 1; transform: none; }
+    100%      { opacity: 0; transform: none; }
   }
 
   @keyframes mesaCierre {
-    0%, 62.5% { opacity: 0; transform: translateY(4px); }
-    66.7%     { opacity: 1; transform: none; }
-    87.5%     { opacity: 1; transform: none; }
-    95.8%,
+    0%, 79.2% { opacity: 0; transform: translateY(4px); }
+    83.3%     { opacity: 1; transform: none; }
+    96.7%     { opacity: 1; transform: none; }
     100%      { opacity: 0; transform: none; }
   }
 
@@ -572,15 +590,14 @@ a.btn:active, button.btn:active {
      opacidad 0 que nada vuelva a encender es el fallo que dejó las seis trazas
      del prototipo sin dibujarse nunca: el selector casaba, la línea existía y
      no se veía. Sin error en ninguna parte. */
-  .mesa-tz, .mesa-rel { stroke-dasharray: var(--len); }
+  .mesa-tz { stroke-dasharray: var(--len); }
 }
 
 /* Sin movimiento: el fotograma final, que es el que más dice. Ni una pieza
    suelta, ni una traza a medio dibujar, ni un bucle. */
 @media (prefers-reduced-motion: reduce) {
   .mesa .mesa-pz, .mesa .mesa-marca, .mesa .mesa-punto, .mesa .mesa-tz { opacity: 0 !important; }
-  .mesa .mesa-win, .mesa .mesa-win .cierre { opacity: 1 !important; }
-  .mesa-rel { stroke-dashoffset: 0; }
+  .mesa .mesa-win, .mesa .mesa-win .cierre, .mesa .mesa-fila { opacity: 1 !important; }
 }
 
 /* Piezas y trazas que SOLO existen en pantallas anchas.
@@ -590,4 +607,22 @@ a.btn:active, button.btn:active {
    Esta regla va la ÚLTIMA a propósito: aquí el orden es lo que decide. */
 @media (max-width: 639.98px) {
   .mesa-solo-sm { display: none; }
+}
+
+/* La ventana en movil: menos aire y un dato menos. No es solo que no cupiera
+   —290 px en una escena de 257—: es que ensenaba "de Costas.csv" cuando en
+   movil esa pieza NO esta en pantalla. La procedencia solo vale si el
+   espectador ha visto de donde viene. */
+@media (max-width: 639.98px) {
+  .mesa-win { padding: 11px 13px; gap: 7px; }
+  .mesa-win .cuerpo { gap: 8px; }
+  .mesa-win .cab { padding-bottom: 8px; }
+  .mesa-win .cierre { padding-top: 8px; }
+  .mesa-win .dato .k, .mesa-win .dato .v, .mesa-win .dice { font-size: 11.5px; }
+  .mesa-win .dato .de { font-size: 9.5px; }
+  .mesa-win .est, .mesa-win .marcaprod b { font-size: 10px; }
+  /* Con la especificidad justa: ".mesa-win .dato" son dos clases y gana a
+     ".mesa-solo-sm", que es una. Es la TERCERA vez en esta pieza que un
+     display declarado despues se come a una utilidad de visibilidad. */
+  .mesa-win .dato.mesa-solo-sm { display: none; }
 }

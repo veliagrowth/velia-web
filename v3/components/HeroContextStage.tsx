@@ -224,27 +224,43 @@ export default function HeroContextStage() {
           )
         })}
 
-        {/* El fotograma final. Es la primera imagen del producto, se sostiene
-            2,5 segundos y se desvanece para volver a empezar. */}
+        {/* EL ACTO DE PRODUCTO. Nace del punto y responde la tercera pregunta
+            —¿dónde acaba todo esto?— con la única respuesta que vale: dentro
+            del expediente, en VELIA, listo para trabajar.
+
+            Cada dato lleva DE QUÉ ARCHIVO SALE. Ahí está el remate del relato:
+            el espectador ve que «Notificación.pdf» ha dejado de ser un archivo
+            y ahora es un vencimiento de 20 días hábiles dentro del asunto. Eso
+            es lo que un abogado entiende sin leer una palabra de copy, y lo que
+            separa esto de una animación de «IA que conecta cosas». */}
         <div className="mesa-win">
           <div className="cab">
-            <span className="exp">Expediente 2026/184</span>
-            <span className="est">Reclamación</span>
+            <span className="marcaprod">
+              <svg viewBox="0 0 313.82071 327.82469" aria-hidden="true">
+                <g fill="#0D1017" stroke="#0D1017" strokeWidth="5.79047" strokeMiterlimit="10">
+                  <path d="M156.91035,311.86381c-3.32518,0-7.3154-2.66016-7.98044-4.65526L3.952,17.25273C1.29186,12.59748,3.952,6.61215,8.60726,3.952s10.64058,0,12.63569,4.65525L166.22086,297.89805c2.66014,4.65526,0,10.64057-4.65526,12.6357-1.9951,0-3.32517,1.33005-4.65525,1.33005Z" />
+                  <path d="M156.91035,311.86381c-1.33008,0-2.66014,0-4.65526-1.33008-4.65526-2.66016-6.65036-7.98044-4.65526-12.6357L292.57776,8.60726c2.66016-4.65525,7.98044-7.3154,12.6357-4.65525s7.31539,7.98043,4.65526,12.63569L165.55583,305.87849c-1.33008,3.32518-4.65526,5.98531-8.64548,5.98531Z" />
+                </g>
+                <circle cx="156.91035" cy="301.22323" r="26.60145" fill="#7479F2" />
+              </svg>
+              <b>VELIA</b>
+            </span>
+            <span className="est">Expediente 2026/184</span>
           </div>
 
           <div className="cuerpo">
-            {/* Las relaciones entre filas. Van en su canalón: dibujarlas por
-                detrás de la ventana sería pintarlas donde nadie las ve. */}
-            <svg className="rel" viewBox="0 0 12 100" preserveAspectRatio="none" fill="none">
-              <g stroke="#7479F2" strokeWidth="1" vectorEffect="non-scaling-stroke">
-                <path className="mesa-rel" d="M12 12 H6 Q2 12 2 22 V52 Q2 62 6 62 H12" opacity="0.85" style={{ ['--len' as string]: 90 }} />
-                <path className="mesa-rel" d="M12 37 H8 Q6 37 6 46 V78 Q6 87 8 87 H12" opacity="0.5" style={{ ['--len' as string]: 90 }} />
-              </g>
-            </svg>
-            <div className="fila"><b>Notificación</b><span>4 páginas</span></div>
-            <div className="fila"><b>Martínez Ferrer, S.L.</b><span>cliente</span></div>
-            <div className="fila"><b>Vencimiento</b><span>20 días hábiles</span></div>
-            <div className="fila"><b>Costas</b><span>1.240,00 €</span></div>
+            <div className="dato mesa-fila" style={{ ['--t0' as string]: '0s' }}>
+              <span className="linea"><span className="k">Cliente</span><span className="v">Martínez Ferrer, S.L.</span></span>
+              <span className="de">de Correo de Martínez</span>
+            </div>
+            <div className="dato mesa-fila" style={{ ['--t0' as string]: '0.3s' }}>
+              <span className="linea"><span className="k">Vencimiento</span><span className="v">20 días hábiles</span></span>
+              <span className="de">de Notificación.pdf</span>
+            </div>
+            <div className="dato mesa-fila mesa-solo-sm" style={{ ['--t0' as string]: '0.6s' }}>
+              <span className="linea"><span className="k">Costas</span><span className="v">1.240,00 €</span></span>
+              <span className="de">de Costas.csv</span>
+            </div>
           </div>
 
           <div className="cierre mesa-cierre">
