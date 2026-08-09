@@ -397,7 +397,6 @@ a.btn:active, button.btn:active {
   position: absolute;
   --x: var(--x-mv); --y: var(--y-mv);
   --dx: var(--dx-mv); --dy: var(--dy-mv);
-  --ax: var(--ax-mv); --ay: var(--ay-mv);
   --r: var(--r-mv);
   left: var(--x); top: var(--y);
   width: var(--ancho-pieza);
@@ -422,7 +421,6 @@ a.btn:active, button.btn:active {
   .mesa-pz {
     --x: var(--x-sm); --y: var(--y-sm);
     --dx: var(--dx-sm); --dy: var(--dy-sm);
-    --ax: var(--ax-sm); --ay: var(--ay-sm);
     --r: var(--r-sm);
     padding: 9px 10px 8px; gap: 4px;
   }
@@ -527,13 +525,32 @@ a.btn:active, button.btn:active {
 
   /* Una sola lista de funciones en TODOS los fotogramas —translate, rotate,
      scale— para que el navegador interpole recta a recta y no por matriz. */
+  /* ── EL CIERRE DEL BUCLE ──────────────────────────────────────────────────
+     REGLA: el fotograma 100 % tiene que ser IDÉNTICO al 0 %. Si no, cada vuelta
+     empieza con un salto.
+
+     Aquí estaba el fallo que se veía: al hacer que el ciclo naciera pausado
+     puse el fotograma 0 con las piezas ya visibles —para que el estado parado
+     fuera presentable— pero el ciclo seguía TERMINANDO con ellas invisibles.
+     Resultado: opacidad 0 → 1 de golpe en cada vuelta.
+
+     Ahora las piezas vuelven a aparecer con fundido en el último tramo, a la
+     vez que el expediente se va: un cruce, no un corte. Y el reposicionamiento
+     al desorden ocurre en el 67 %, cuando ya son invisibles, para que no se las
+     vea viajar de vuelta.
+
+     De paso: este keyframe usaba var(--ax) y var(--ay), que dejaron de existir
+     al simplificar la absorción. Un transform con una variable que no existe es
+     INVÁLIDO y el navegador descarta esa declaración sin decir nada. */
   @keyframes mesaPieza {
     0%     { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(var(--r)) scale(1); }
     16.7%  { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(var(--r)) scale(1); }
     25%    { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }
     58.3%  { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }
-    66.7%  { opacity: 0; transform: translate(var(--ax), var(--ay)) rotate(0deg) scale(0.94); }
-    100%   { opacity: 0; transform: translate(var(--ax), var(--ay)) rotate(0deg) scale(0.94); }
+    66.7%  { opacity: 0; transform: translate(0, 0) rotate(0deg) scale(0.94); }
+    67%    { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--r)) scale(1); }
+    94%    { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--r)) scale(1); }
+    100%   { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(var(--r)) scale(1); }
   }
 
   /* El significado aparece, y el archivo CEDE EL SITIO. Es el momento más
@@ -548,16 +565,20 @@ a.btn:active, button.btn:active {
   @keyframes mesaNom {
     0%, 25% { opacity: 1; }
     29.2%   { opacity: 0.6; }
-    100%    { opacity: 0.6; }
+    94%     { opacity: 0.6; }
+    100%    { opacity: 1; }
   }
 
+  /* La traza vuelve a su dashoffset completo mientras es invisible, así que en
+     el 100 % está exactamente como en el 0 %: sin dibujar. */
   @keyframes mesaTraza {
     0%, 41.7% { stroke-dashoffset: var(--len); opacity: 1; }
     54.2%     { stroke-dashoffset: 0; opacity: 1; }
     58.3%     { stroke-dashoffset: 0; opacity: 1; }
     66.7%     { stroke-dashoffset: 0; opacity: 0; }
-    99.9%     { stroke-dashoffset: 0; opacity: 0; }
-    100%      { stroke-dashoffset: var(--len); opacity: 0; }
+    66.8%     { stroke-dashoffset: var(--len); opacity: 0; }
+    99.9%     { stroke-dashoffset: var(--len); opacity: 0; }
+    100%      { stroke-dashoffset: var(--len); opacity: 1; }
   }
 
   /* Las astas: estructura. Nunca en color de marca — el color es el punto. */
@@ -579,24 +600,29 @@ a.btn:active, button.btn:active {
     100%      { opacity: 0; }
   }
 
+  /* El expediente se sostiene hasta el 95 % y se va cruzándose con las piezas
+     que vuelven: los dos tramos se solapan a propósito. */
   @keyframes mesaVent {
     0%, 58.3% { opacity: 0; transform: translateY(-50%) scale(0.92); }
     66.7%     { opacity: 1; transform: translateY(-50%) scale(1); }
-    96.7%     { opacity: 1; transform: translateY(-50%) scale(1); }
-    100%      { opacity: 0; transform: translateY(-50%) scale(1); }
+    95%       { opacity: 1; transform: translateY(-50%) scale(1); }
+    99.5%     { opacity: 0; transform: translateY(-50%) scale(1); }
+    100%      { opacity: 0; transform: translateY(-50%) scale(0.92); }
   }
 
   @keyframes mesaFila {
     0%, 66.7% { opacity: 0; transform: translateY(4px); }
     72.5%     { opacity: 1; transform: none; }
-    96.7%     { opacity: 1; transform: none; }
+    95%       { opacity: 1; transform: none; }
+    99.5%,
     100%      { opacity: 0; transform: none; }
   }
 
   @keyframes mesaCierre {
     0%, 79.2% { opacity: 0; transform: translateY(4px); }
     83.3%     { opacity: 1; transform: none; }
-    96.7%     { opacity: 1; transform: none; }
+    95%       { opacity: 1; transform: none; }
+    99.5%,
     100%      { opacity: 0; transform: none; }
   }
 

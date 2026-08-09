@@ -214,6 +214,47 @@ console.log('\n═══ NO CORRE SI NO SE VE ═══')
   await page.close()
 }
 
+// El fotograma 100 % tiene que ser IDÉNTICO al 0 %. Si no, cada vuelta del
+// bucle empieza con un salto — que es exactamente lo que se vio el 9-ago: las
+// piezas aparecían de golpe, sin fundido, al recomenzar.
+console.log('\n═══ EL BUCLE CIERRA POR DONDE EMPIEZA ═══')
+{
+  const page = await browser.newPage()
+  await page.setViewport({ width: 1280, height: 800, deviceScaleFactor: 1 })
+  await page.goto(URL, { waitUntil: 'networkidle0' })
+  await page.evaluate(() => document.querySelector('.mesa')?.scrollIntoView({ block: 'center' }))
+  await new Promise(r => setTimeout(r, 400))
+  const saltos = await page.evaluate(() => {
+    const m = document.querySelector('.mesa')
+    const anims = m.getAnimations({ subtree: true })
+    anims.forEach(a => a.pause())
+    const foto = () => {
+      const o = el => +getComputedStyle(el).opacity
+      return {
+        pieza: o(m.querySelector('.mesa-pz')),
+        nombre: o(m.querySelector('.mesa-pz .nom')),
+        etiqueta: o(m.querySelector('.mesa-pz .apo')),
+        astas: o(m.querySelector('.mesa-svg--sm .mesa-marca')),
+        punto: o(m.querySelector('.mesa-svg--sm .mesa-punto')),
+        ventana: o(m.querySelector('.mesa-win')),
+        cierre: o(m.querySelector('.mesa-cierre')),
+        transformPieza: getComputedStyle(m.querySelector('.mesa-pz')).transform,
+      }
+    }
+    anims.forEach(a => { try { a.currentTime = 0 } catch (e) {} })
+    const ini = foto()
+    anims.forEach(a => { try { a.currentTime = 11999 } catch (e) {} })
+    const fin = foto()
+    return Object.keys(ini)
+      .filter(k => (typeof ini[k] === 'number' ? Math.abs(ini[k] - fin[k]) > 0.02 : ini[k] !== fin[k]))
+      .map(k => `${k}: ${ini[k]} → ${fin[k]}`)
+  })
+  console.log(saltos.length === 0
+    ? '  ✅ el fotograma final es idéntico al inicial: la vuelta no se nota'
+    : '  ❌ salta al recomenzar en: ' + saltos.join(' · '))
+  await page.close()
+}
+
 console.log('\n═══ BUCLE: tres vueltas ═══')
 {
   const page = await browser.newPage()
