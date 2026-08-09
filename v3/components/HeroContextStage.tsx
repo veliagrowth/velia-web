@@ -196,18 +196,23 @@ export default function HeroContextStage() {
         </div>
       </div>
 
-      <div className="mt-3 flex items-center gap-4">
+      {/* El control de pausa NO se ve. Decisión de Joaquín: ensuciaba el hero.
+          Pero algo que se mueve solo en bucle necesita poder pararse (WCAG
+          2.2.2), así que el botón sigue ahí y sale únicamente al llegar con el
+          tabulador — el mismo patrón que un enlace de «saltar al contenido».
+          Quien navega con ratón no lo ve nunca; quien navega con teclado lo
+          encuentra en el primer tabulador de la escena. */}
+      <div className="mt-3 flex items-center justify-end">
         {!reducido && (
           <button
             type="button"
             onClick={alternarPausa}
-            className="text-[11px] font-600 tracking-[0.04em] text-cream/50 hover:text-cream/85 transition-colors duration-control"
+            className="sr-only focus:not-sr-only focus:mr-auto text-[11px] font-600 tracking-[0.04em] text-cream/70 hover:text-cream transition-colors duration-control"
           >
-            {pausa ? 'Reanudar' : 'Pausar'}
-            <span className="sr-only"> la secuencia de demostración</span>
+            {pausa ? 'Reanudar' : 'Pausar'} la secuencia de demostración
           </button>
         )}
-        <span className="ml-auto text-[11px] text-cream/35">Datos ficticios</span>
+        <span className="text-[11px] text-cream/35">Datos ficticios</span>
       </div>
     </div>
   )
