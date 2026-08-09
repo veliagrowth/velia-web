@@ -493,6 +493,7 @@ a.btn:active, button.btn:active {
 
   .mesa[data-play='true'] .mesa-pz     { animation: mesaPieza  12s var(--ease-velia) var(--t0) infinite both; }
   .mesa[data-play='true'] .mesa-pz .apo{ animation: mesaApo    12s var(--ease-velia) var(--t0) infinite both; }
+  .mesa[data-play='true'] .mesa-pz .nom{ animation: mesaNom    12s var(--ease-velia) var(--t0) infinite both; }
   .mesa[data-play='true'] .mesa-tz     { animation: mesaTraza  12s var(--ease-velia) var(--t0) infinite both; }
   .mesa[data-play='true'] .mesa-marca  { animation: mesaMarca  12s var(--ease-velia) 0s infinite both; }
   .mesa[data-play='true'] .mesa-punto  { animation: mesaPunto  12s var(--ease-velia) 0s infinite both; }
@@ -528,6 +529,15 @@ a.btn:active, button.btn:active {
     58.3%     { opacity: 1; transform: none; }
     66.7%,
     100%      { opacity: 0; transform: none; }
+  }
+
+  /* El archivo CEDE EL SITIO al significado. Es el momento mas diferencial de
+     toda la pieza y por eso se marca: cuando aparece PLAZO, 'Notificacion.pdf'
+     se atenua. Deja de ser lo que la pieza es y pasa a ser de donde viene. */
+  @keyframes mesaNom {
+    0%, 25%     { opacity: 1; }
+    29.2%       { opacity: 0.6; }
+    100%        { opacity: 0.6; }
   }
 
   @keyframes mesaTraza {
@@ -625,4 +635,24 @@ a.btn:active, button.btn:active {
      ".mesa-solo-sm", que es una. Es la TERCERA vez en esta pieza que un
      display declarado despues se come a una utilidad de visibilidad. */
   .mesa-win .dato.mesa-solo-sm { display: none; }
+}
+
+/* Por debajo de 360 px la ventana no cabia en la escena (218 px contra 204) y
+   el remedio no es encoger la letra hasta que no se lea: es ensenar un dato
+   menos. Legibilidad por delante de cantidad. La especificidad va calculada:
+   ".mesa-win .dato" son dos clases, asi que la regla que la oculta necesita
+   dos tambien — es el mismo fallo de cascada que ya ha aparecido tres veces. */
+@media (max-width: 359.98px) {
+  .mesa-win .dato.mesa-solo-360 { display: none; }
+}
+
+/* TABLET: la escena se limita en ancho y se centra.
+   Sin esto ocupa los 720 px del contenedor y crece a 540 px de alto, pero la
+   tipografia de las piezas va en px fijos: la pieza pesa proporcionalmente
+   menos y el bloque deja de estar centrado respecto al punto — medido, 13,2 px
+   arriba. La simetria estaba calculada para una pieza que ocupa ~19,5 % del
+   alto, y en una escena mas alta ocupa el 12,4 %. Acotando el ancho, el ratio
+   vuelve a su sitio y ademas la composicion no se come la pantalla entera. */
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .mesa { max-width: 560px; margin-inline: auto; }
 }

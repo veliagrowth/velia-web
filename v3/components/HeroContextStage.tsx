@@ -66,7 +66,7 @@ const PIEZAS = [
   { id: 'correo',       nom: 'Correo de Martínez',   aporta: 'Cliente' },
   { id: 'nota',         nom: 'Nota de la vista.txt', aporta: 'Antecedente' },
   { id: 'acta',         nom: 'Foto del acta.jpg',    aporta: 'Prueba' },
-  { id: 'costas',       nom: 'Costas.csv',           aporta: 'Importe' },
+  { id: 'costas',       nom: 'Honorarios.csv',           aporta: 'Importe' },
 ] as const
 
 /**
@@ -92,11 +92,11 @@ const PIEZAS = [
    La versión anterior dejaba las filas escalonadas y las seis distancias al
    centro salían distintas: 217 / 127 / 217 contra 214 / 121 / 214. */
 const GEO = [
-  { x: '1%',    y: '9.3%',  r: '-6deg', dx: '0cqw', dy: '0cqw',     ax: '17cqw',  ay: '13cqw',  mv: { x: '1%',  y: '7%'  } },
+  { x: '1%',    y: '9.3%',  r: '-6deg', dx: '0cqw', dy: '0cqw',     ax: '17cqw',  ay: '13cqw',  mv: { x: '28%', y: '7%'  } },
   { x: '35.5%', y: '3.3%',  r: '5deg',  dx: '0cqw', dy: '4.5cqw',   ax: '0cqw',   ay: '13cqw',  mv: null },
-  { x: '70%',   y: '10.3%', r: '-4deg', dx: '0cqw', dy: '-0.75cqw', ax: '-17cqw', ay: '13cqw',  mv: { x: '55%', y: '7%'  } },
+  { x: '70%',   y: '10.3%', r: '-4deg', dx: '0cqw', dy: '-0.75cqw', ax: '-17cqw', ay: '13cqw',  mv: { x: '28%', y: '70%' } },
   { x: '1%',    y: '73.3%', r: '4deg',  dx: '0cqw', dy: '0cqw',     ax: '17cqw',  ay: '-13cqw', mv: null },
-  { x: '35.5%', y: '79.3%', r: '-5deg', dx: '0cqw', dy: '-4.5cqw',  ax: '0cqw',   ay: '-13cqw', mv: { x: '28%', y: '71%' } },
+  { x: '35.5%', y: '79.3%', r: '-5deg', dx: '0cqw', dy: '-4.5cqw',  ax: '0cqw',   ay: '-13cqw', mv: null },
   { x: '70%',   y: '72.3%', r: '3deg',  dx: '0cqw', dy: '0.75cqw',  ax: '-17cqw', ay: '-13cqw', mv: null },
 ] as const
 
@@ -107,9 +107,9 @@ const GEO = [
  * exacto de la escena (160 · 120). Los seis finales son simétricos dos a dos.
  */
 const TRAZAS = [
-  { d: 'M49.6 39.6 L154.3 115.9',  len: 130, movil: true },
-  { d: 'M160 39.6 L160 113',       len: 74,  movil: false },
-  { d: 'M270.4 39.6 L165.7 115.9', len: 130, movil: true },
+  { d: 'M49.6 39.6 L154.3 115.9',  len: 130, movil: false },
+  { d: 'M160 39.6 L160 113',       len: 74,  movil: true },
+  { d: 'M270.4 39.6 L165.7 115.9', len: 130, movil: false },
   { d: 'M49.6 198 L154.3 124',     len: 129, movil: false },
   { d: 'M160 198 L160 127',        len: 72,  movil: true },
   { d: 'M270.4 198 L165.7 124',    len: 129, movil: false },
@@ -249,7 +249,7 @@ export default function HeroContextStage() {
           </div>
 
           <div className="cuerpo">
-            <div className="dato mesa-fila" style={{ ['--t0' as string]: '0s' }}>
+            <div className="dato mesa-fila mesa-solo-360" style={{ ['--t0' as string]: '0s' }}>
               <span className="linea"><span className="k">Cliente</span><span className="v">Martínez Ferrer, S.L.</span></span>
               <span className="de">de Correo de Martínez</span>
             </div>
@@ -258,8 +258,8 @@ export default function HeroContextStage() {
               <span className="de">de Notificación.pdf</span>
             </div>
             <div className="dato mesa-fila mesa-solo-sm" style={{ ['--t0' as string]: '0.6s' }}>
-              <span className="linea"><span className="k">Costas</span><span className="v">1.240,00 €</span></span>
-              <span className="de">de Costas.csv</span>
+              <span className="linea"><span className="k">Honorarios</span><span className="v">1.240,00 €</span></span>
+              <span className="de">de Honorarios.csv</span>
             </div>
           </div>
 
