@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import TrialButton from '@/components/TrialButton'
+import ContactForm from '@/components/ContactForm'
 import { CONTACT_EMAIL, SITE_URL } from '@/lib/constants'
 import { PRICING } from '@/lib/pricing'
 
@@ -11,12 +12,18 @@ export const metadata: Metadata = {
 }
 
 /**
- * /contacto — SIN formulario clásico (decisión Joaquín 2026-07-24). El peso de
- * la conversión recae en el onboarding interactivo ("radiografía" en
- * app.veliacorp.com/prueba-velia), que monta el VELIA del despacho con su
- * propio contexto. La demo de solo lectura es la vía sin registro, y queda un
- * email discreto como último recurso. El componente ContactForm queda dormido
- * (sin uso) por si se reactiva.
+ * /contacto — DOS puertas, a propósito (Joaquín, 2026-08-09).
+ *
+ * El 24-jul se decidió quitar el formulario y apoyarlo todo en el onboarding
+ * interactivo (la "radiografía" de app.veliacorp.com/prueba-velia). Sigue siendo
+ * el camino recomendado y no se toca. Lo que se midió el 8-ago es que NO había
+ * ninguna otra: `/contacto` y `/fundadores` eran un `mailto:`, y en el móvil eso
+ * abre el cliente de correo y no deja rastro en ninguna tabla. Cero formularios
+ * en todo el sitio, y `web-form-lead` activo desde el 6-jul con cero ejecuciones.
+ *
+ * Las dos intenciones son distintas y ahora conviven:
+ *   · "Quiero probar VELIA ahora"        → TrialButton (radiografía, autoservicio).
+ *   · "Quiero que alguien me contacte"   → ContactForm (sin crear cuenta).
  */
 export default function ContactoPage() {
   return (
@@ -83,6 +90,11 @@ export default function ContactoPage() {
             {CONTACT_EMAIL} →
           </a>
         </div>
+      </div>
+
+      {/* Tercera puerta: para quien no quiere crear cuenta todavía */}
+      <div className="mt-6">
+        <ContactForm origen="contacto" />
       </div>
     </section>
   )

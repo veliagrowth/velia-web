@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { PRICING, ANNUAL_SAVING, ANNUAL_FREE_MONTHS, FOUNDERS_SEATS_LABEL, eur } from '@/lib/pricing'
 import { CTA } from '@/lib/cta'
-import { CONTACT_EMAIL } from '@/lib/constants'
 import { FEATURE_FLAGS } from '@/lib/feature-flags'
 import TrialButton from '@/components/TrialButton'
 import { trackEvent } from '@/lib/analytics'
@@ -168,13 +167,17 @@ export default function PricingPlans() {
                 ¿Necesitas más de 10 usuarios, una migración compleja o integraciones
                 específicas? Preparamos un plan de implantación personalizado.
               </p>
-              <a
-                href={`mailto:${CONTACT_EMAIL}`}
+              {/* Un bufete grande con migración compleja es el lead de más valor
+                  que puede entrar por aquí. Hasta el 9-ago se le mandaba a un
+                  `mailto:` —en el móvil, abrir el cliente de correo— y no
+                  quedaba rastro de él en ninguna parte. Ahora va al formulario. */}
+              <Link
+                href="/contacto"
                 onClick={() => trackEvent('enterprise_contact_click', { cta_location: 'pricing' })}
                 className="inline-block mt-4 text-[12px] font-700 tracking-[0.04em] uppercase text-gold-ink hover:text-void transition-colors"
               >
                 {CTA.tertiary.label} →
-              </a>
+              </Link>
             </div>
           )}
         </div>

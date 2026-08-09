@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import TrialButton from '@/components/TrialButton'
+import ContactForm from '@/components/ContactForm'
 import { PRICING, FOUNDERS, FOUNDERS_SEATS_LABEL, eur } from '@/lib/pricing'
 import { CONTACT_EMAIL, SITE_URL } from '@/lib/constants'
 
@@ -155,6 +156,13 @@ export default function FundadoresPage() {
         >
           Ver precios y condiciones →
         </Link>
+      </section>
+
+      {/* Una plaza de Fundadores es una decisión de despacho, no una compra por
+          impulso: quien la valora casi siempre quiere hablar antes. Hasta el
+          9-ago aquí solo había un `mailto:` para dudas legales. */}
+      <section className="mx-auto max-w-4xl px-6 pb-20 md:pb-28">
+        <ContactForm origen="fundadores" />
       </section>
     </>
   )
