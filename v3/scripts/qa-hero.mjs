@@ -43,7 +43,9 @@ const PATHS_OFICIALES = ['M156.91035,311.86381c-3.32518', 'M156.91035,311.86381c
 const medir = (origen, pathsOficiales) => {
   const m = document.querySelector('.mesa')
   if (!m) return { error: 'no hay .mesa' }
-  const enCaja = el => el.getClientRects().length > 0
+  // OJO: con visibility:hidden el elemento SIGUE teniendo caja. Si solo se mira
+  // getClientRects(), el test acaba midiendo el SVG del otro breakpoint.
+  const enCaja = el => el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden'
 
   const anims = m.getAnimations({ subtree: true })
   anims.forEach(a => a.pause())
@@ -169,7 +171,9 @@ for (const v of [VIEWPORTS[1], VIEWPORTS[4]]) {
   await new Promise(r => setTimeout(r, 1200))
   const r = await page.evaluate(() => {
     const m = document.querySelector('.mesa')
-    const enCaja = el => el.getClientRects().length > 0
+    // OJO: con visibility:hidden el elemento SIGUE teniendo caja. Si solo se mira
+  // getClientRects(), el test acaba midiendo el SVG del otro breakpoint.
+  const enCaja = el => el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden'
     const vis = el => enCaja(el) && +getComputedStyle(el).opacity > 0.01
     return {
       confirmado: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
@@ -185,6 +189,28 @@ for (const v of [VIEWPORTS[1], VIEWPORTS[4]]) {
   const ok = r.confirmado && r.animaciones === 0 && r.ventana && r.datos === 3 && r.cierre &&
              r.piezas === 0 && r.simbolo === 0 && r.pausaOculta
   console.log(`${si(ok)} ${v.n} → animaciones ${r.animaciones} · expediente ${r.datos}/3 datos + cierre ${si(r.cierre)} · sin piezas ${si(r.piezas === 0)} · sin símbolo ${si(r.simbolo === 0)} · pausa oculta ${si(r.pausaOculta)}`)
+  await page.close()
+}
+
+// El bug del 9-ago por la noche: la animación corría aunque nadie la viera, así
+// que quien llegaba tarde —o con la web lenta— se encontraba la secuencia por la
+// mitad y parecía truncada.
+console.log('\n═══ NO CORRE SI NO SE VE ═══')
+{
+  const page = await browser.newPage()
+  await page.setViewport({ width: 1280, height: 800, deviceScaleFactor: 1 })
+  await page.goto(URL, { waitUntil: 'networkidle0' })
+  await page.evaluate(() => window.scrollTo(0, 4000))
+  await new Promise(r => setTimeout(r, 4000))
+  const fuera = await page.evaluate(() => {
+    const a = document.querySelector('.mesa-pz').getAnimations()[0]
+    return { t: Math.round(a.currentTime), estado: a.playState }
+  })
+  await page.evaluate(() => document.querySelector('.mesa').scrollIntoView({ block: 'center' }))
+  await new Promise(r => setTimeout(r, 1000))
+  const dentro = await page.evaluate(() => Math.round(document.querySelector('.mesa-pz').getAnimations()[0].currentTime))
+  console.log(`  fuera de pantalla 4 s → ${fuera.t} ms (${fuera.estado})`)
+  console.log(`  al traerla a pantalla → ${dentro} ms  ${si(dentro < 2400)} empieza por el principio`)
   await page.close()
 }
 

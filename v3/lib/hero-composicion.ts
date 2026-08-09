@@ -79,9 +79,6 @@ type Rejilla = {
   filas: number[]
   /** Escala del símbolo. */
   escala: number
-  /** Desorden de partida: giro y desplazamiento de cada pieza antes de que
-   *  VELIA las ordene. */
-  desorden: { dx: number; dy: number; r: number }[]
 }
 
 const REJILLAS: Record<'escritorio' | 'movil', Rejilla> = {
@@ -93,10 +90,6 @@ const REJILLAS: Record<'escritorio' | 'movil', Rejilla> = {
     columnas: [15.5, 50, 84.5],
     filas: [21.5, 78.5],
     escala: 0.125,
-    desorden: [
-      { dx: -1.2, dy: 1.4, r: -6 }, { dx: 0.8, dy: -2.2, r: 5 }, { dx: 1.2, dy: 1.0, r: -4 },
-      { dx: -1.0, dy: -1.4, r: 4 }, { dx: 0.6, dy: 2.0, r: -5 }, { dx: 1.4, dy: -1.0, r: 3 },
-    ],
   },
   /** MÓVIL — dos COLUMNAS de tres, no la de escritorio aplastada. La escena se
    *  hace vertical (16:20) y el hueco central que dejan las dos columnas es
@@ -108,12 +101,31 @@ const REJILLAS: Record<'escritorio' | 'movil', Rejilla> = {
     columnas: [21, 79],
     filas: [20, 50, 80],
     escala: 0.115,
-    desorden: [
-      { dx: -1.4, dy: 1.2, r: -5 }, { dx: 1.2, dy: -1.6, r: 4 }, { dx: -0.8, dy: -1.2, r: 5 },
-      { dx: 1.4, dy: 1.6, r: -4 }, { dx: -1.2, dy: -1.8, r: 3 }, { dx: 1.0, dy: 1.2, r: -6 },
-    ],
   },
 }
+
+/**
+ * El desorden de partida: el mismo en los dos tamaños, Y ESO NO ES PEREZA.
+ *
+ * Si estos valores cambiaran con el breakpoint, cambiaria un valor que los
+ * @keyframes consumen via var(), y Chrome RECREA la animacion cuando eso
+ * ocurre: medido, la pieza saltaba de t=3650 ms a t=1460 al pasar de
+ * escritorio a movil. Es decir, la animacion se truncaba y volvia a empezar
+ * cada vez que alguien giraba el telefono o redimensionaba la ventana.
+ *
+ * Como son desplazamientos en cqw —1 % del ancho de la ESCENA— el desorden se
+ * ve proporcionalmente igual en los dos tamaños sin necesidad de dos juegos.
+ * Lo unico que cambia por breakpoint es , que no vive en ningun
+ * keyframe y por tanto reposiciona sin reiniciar nada.
+ */
+export const DESORDEN = [
+  { dx: '1.2cqw',  dy: '-1.05cqw', r: '-6deg' },
+  { dx: '-0.8cqw', dy: '1.65cqw',  r: '5deg' },
+  { dx: '-1.2cqw', dy: '-0.75cqw', r: '-4deg' },
+  { dx: '1.0cqw',  dy: '1.05cqw',  r: '4deg' },
+  { dx: '-0.6cqw', dy: '-1.5cqw',  r: '-5deg' },
+  { dx: '-1.4cqw', dy: '0.75cqw',  r: '3deg' },
+] as const
 
 export type Composicion = {
   vb: { w: number; h: number }
@@ -121,11 +133,6 @@ export type Composicion = {
   simbolo: { escala: number; tx: number; ty: number }
   /** Posición final (ordenada) de cada pieza, en % de la escena. */
   destinos: { x: number; y: number }[]
-  /** Desorden de partida, ya en las unidades que consume el CSS. */
-  desorden: { dx: string; dy: string; r: string }[]
-  /** Hacia dónde se va cada pieza cuando el expediente la absorbe: hacia el
-   *  hub, nunca hacia fuera. Se la queda, no se tira. */
-  absorcion: { ax: string; ay: string }[]
   trazas: { d: string; len: number }[]
   /** Cuánto se subió el bloque de piezas para equilibrar la masa del símbolo. */
   compensacion: number
@@ -168,29 +175,6 @@ function construir(r: Rejilla): Composicion {
     y: (c.y / 100) * r.vb.h + compensacion - r.alto / 2,
   })).map(d => ({ x: d.x, y: (d.y / r.vb.h) * 100 }))
 
-  // 1 cqw es el 1 % del ANCHO de la escena. Para mover un % del ALTO hay que
-  // multiplicar por la proporción. Equivocar esto ya dejó las filas
-  // escalonadas una vez.
-  const altoEnCqw = r.vb.h / r.vb.w
-  const aCqw = (porcentajeDeAlto: number) => +(porcentajeDeAlto * altoEnCqw).toFixed(3)
-
-  const desorden = r.desorden.map(d => ({
-    dx: `${-d.dx}cqw`,
-    dy: `${-aCqw(d.dy)}cqw`,
-    r: `${d.r}deg`,
-  }))
-
-  // Cada pieza se va HACIA el hub. Vector unitario × 40 % del recorrido.
-  const absorcion = celdas.map(c => {
-    const px = (c.x / 100) * r.vb.w, py = (c.y / 100) * r.vb.h + compensacion
-    const dx = hub.x - px, dy = hub.y - py
-    const len = Math.hypot(dx, dy) || 1
-    return {
-      ax: `${((dx / len) * len * 0.4 / r.vb.w * 100).toFixed(1)}cqw`,
-      ay: `${((dy / len) * len * 0.4 / r.vb.w * 100).toFixed(1)}cqw`,
-    }
-  })
-
   // Las trazas salen del centro de cada pieza ya ordenada y mueren en el borde
   // del punto. La tarjeta se pinta ENCIMA, así que la línea parece nacer de su
   // borde. El radio de parada sale del propio punto, no de un número a ojo.
@@ -208,7 +192,7 @@ function construir(r: Rejilla): Composicion {
     }
   })
 
-  return { vb: r.vb, hub, simbolo, destinos, desorden, absorcion, trazas, compensacion: +compensacion.toFixed(2) }
+  return { vb: r.vb, hub, simbolo, destinos, trazas, compensacion: +compensacion.toFixed(2) }
 }
 
 export const COMPOSICION = {

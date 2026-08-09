@@ -361,7 +361,11 @@ a.btn:active, button.btn:active {
   container-type: inline-size;
   --ancho-pieza: 38%;
 }
-.mesa-svg--sm { display: none; }
+/* El SVG del otro tamaño se oculta con , NO con .
+   Medido: con display:none el navegador le quita las animaciones —devolvia
+   "sin animacion"— y al cambiar de formato empezaba de cero, desfasado del
+   resto. Con visibility sigue corriendo en fase y el cambio es instantaneo. */
+.mesa-svg--sm { visibility: hidden; }
 
 /* ── ESCRITORIO: dos filas de tres. Un solo sitio decide, y cambia el juego
       entero de variables de golpe ──────────────────────────────────────────── */
@@ -370,8 +374,8 @@ a.btn:active, button.btn:active {
     aspect-ratio: 16 / 12;
     --ancho-pieza: 29%;
   }
-  .mesa-svg--mv { display: none; }
-  .mesa-svg--sm { display: block; }
+  .mesa-svg--mv { visibility: hidden; }
+  .mesa-svg--sm { visibility: visible; }
 }
 
 /* En tablet la escena se acota: si ocupa los 720 px del contenedor crece a 540
@@ -484,34 +488,47 @@ a.btn:active, button.btn:active {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Parada, la escena descansa en su fotograma final: el expediente y nada más.
-     Si el JS nunca enciende `data-play`, esto es lo que se ve — y es justo la
-     conclusión. Nunca un hueco. */
-  .mesa:not([data-play='true']) .mesa-pz,
-  .mesa:not([data-play='true']) .mesa-marca,
-  .mesa:not([data-play='true']) .mesa-punto,
-  .mesa:not([data-play='true']) .mesa-tz { opacity: 0; }
+  /* El ciclo arranca con el primer pintado, sin esperar a React. Antes habia
+     un gate  que encendia el JS, y eso hacia que en cada recarga se
+     viera primero el fotograma final —el estado parado— y de golpe saltara al
+     principio al hidratar. Eso era el "se trunca al recargar".
+     Sin JS la animacion corre igual, que es mejor fallback que una imagen fija. */
+  /* EL CICLO NACE PAUSADO. Arrancarlo con el primer pintado parecia lo
+     correcto, pero significa que si la pagina tarda en aparecer —y con 5,3 s de
+     TTFB en frio tarda— cuando el visitante llega la animacion ya lleva medio
+     ciclo corrido: ve las piezas ya ordenadas, sin simbolo y sin trazas, y
+     parece que se ha truncado. Ahora espera a que la escena este de verdad en
+     pantalla y entonces empieza POR EL PRINCIPIO.
+     Sin JS se queda en su fotograma 0 —el desorden de la mesa, quieto— que es
+     un estado presentable y coherente, no un hueco. */
+  .mesa .mesa-pz     { animation: mesaPieza  12s var(--ease-velia) var(--t0) infinite both; }
+  .mesa .mesa-pz .apo{ animation: mesaApo    12s var(--ease-velia) var(--t0) infinite both; }
+  .mesa .mesa-pz .nom{ animation: mesaNom    12s var(--ease-velia) var(--t0) infinite both; }
+  .mesa .mesa-tz     { animation: mesaTraza  12s var(--ease-velia) var(--t0) infinite both; }
+  .mesa .mesa-marca  { animation: mesaMarca  12s var(--ease-velia) 0s infinite both; }
+  .mesa .mesa-punto  { animation: mesaPunto  12s var(--ease-velia) 0s infinite both; }
+  .mesa .mesa-win    { animation: mesaVent   12s var(--ease-velia) 0s infinite both; }
+  .mesa .mesa-fila   { animation: mesaFila   12s var(--ease-velia) var(--t0) infinite both; }
+  .mesa .mesa-cierre { animation: mesaCierre 12s var(--ease-velia) 0s infinite both; }
 
-  .mesa[data-play='true'] .mesa-pz     { animation: mesaPieza  12s var(--ease-velia) var(--t0) infinite both; }
-  .mesa[data-play='true'] .mesa-pz .apo{ animation: mesaApo    12s var(--ease-velia) var(--t0) infinite both; }
-  .mesa[data-play='true'] .mesa-pz .nom{ animation: mesaNom    12s var(--ease-velia) var(--t0) infinite both; }
-  .mesa[data-play='true'] .mesa-tz     { animation: mesaTraza  12s var(--ease-velia) var(--t0) infinite both; }
-  .mesa[data-play='true'] .mesa-marca  { animation: mesaMarca  12s var(--ease-velia) 0s infinite both; }
-  .mesa[data-play='true'] .mesa-punto  { animation: mesaPunto  12s var(--ease-velia) 0s infinite both; }
-  .mesa[data-play='true'] .mesa-win    { animation: mesaVent   12s var(--ease-velia) 0s infinite both; }
-  .mesa[data-play='true'] .mesa-fila   { animation: mesaFila   12s var(--ease-velia) var(--t0) infinite both; }
-  .mesa[data-play='true'] .mesa-cierre { animation: mesaCierre 12s var(--ease-velia) 0s infinite both; }
+  /* ESTAS DOS REGLAS VAN DESPUES DE LOS SHORTHANDS A PROPOSITO, y no es un
+     detalle: el atajo  REPONE animation-play-state a .
+     Declaradas antes, el ciclo arrancaba igual aunque la escena no estuviera en
+     pantalla — medido: iba por 6.690 ms sin que nadie la hubiera visto. Es la
+     misma familia de fallo de siempre: una declaracion correcta anulando a otra
+     correcta, sin un solo error. */
+  .mesa *                      { animation-play-state: paused !important; }
+  .mesa[data-visible='true'] * { animation-play-state: running !important; }
+  /* La ultima palabra la tiene la pausa a mano, por eso va la ultima. */
+  .mesa[data-pausa='true'] *   { animation-play-state: paused !important; }
 
   /* Pausa: la exige WCAG 2.2.2 en cuanto algo se mueve solo más de 5 s. Y se
      para sola al salir de pantalla. */
-  .mesa[data-pausa='true'] *,
-  .mesa[data-fuera='true'] * { animation-play-state: paused !important; }
 
   /* Una sola lista de funciones en TODOS los fotogramas —translate, rotate,
      scale— para que el navegador interpole recta a recta y no por matriz. */
   @keyframes mesaPieza {
-    0%     { opacity: 0; transform: translate(var(--dx), calc(var(--dy) + 10px)) rotate(var(--r)) scale(1); }
-    4.2%   { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(var(--r)) scale(1); }
+    0%     { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(var(--r)) scale(1); }
     16.7%  { opacity: 1; transform: translate(var(--dx), var(--dy)) rotate(var(--r)) scale(1); }
     25%    { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }
     58.3%  { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { trackEvent } from '@/lib/analytics'
-import { COMPOSICION, PIEZAS, SIMBOLO } from '@/lib/hero-composicion'
+import { COMPOSICION, DESORDEN, PIEZAS, SIMBOLO } from '@/lib/hero-composicion'
 
 /**
  * «La mesa del lunes» — el momento de marca del hero.
@@ -90,16 +90,26 @@ export default function HeroContextStage() {
     return () => mq.removeEventListener('change', aplicar)
   }, [])
 
-  // Arranca al entrar en pantalla y se PARA al salir: un bucle infinito que
-  // sigue corriendo tres pantallas más abajo es hilo principal tirado, y en un
-  // móvil eso es batería.
+  /**
+   * El ciclo corre SOLO mientras la escena está en pantalla.
+   *
+   * No es un ahorro de CPU —que también—: es lo que hace que el visitante vea
+   * la secuencia DESDE EL PRINCIPIO. El ciclo nace pausado en su fotograma 0
+   * (el desorden de la mesa) y no avanza hasta que la escena entra de verdad
+   * en el viewport. Antes arrancaba con el primer pintado, así que si la
+   * página tardaba —y con 5,3 s de TTFB en frío tarda— cuando alguien llegaba
+   * la animación ya iba por el segundo cinco: piezas ya ordenadas, sin símbolo
+   * y sin trazas. Parecía que se truncaba, y en realidad se la había perdido.
+   *
+   * Al salir de pantalla se pausa y al volver continúa donde estaba, que es lo
+   * que se espera de algo que estabas viendo.
+   */
   useEffect(() => {
     const el = escena.current
     if (!el || typeof IntersectionObserver === 'undefined') return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    el.dataset.play = 'true'
     const obs = new IntersectionObserver(
-      ([e]) => { el.dataset.fuera = e.isIntersecting ? 'false' : 'true' },
+      ([e]) => { el.dataset.visible = e.isIntersecting ? 'true' : 'false' },
       { threshold: 0.2 },
     )
     obs.observe(el)
@@ -127,20 +137,17 @@ export default function HeroContextStage() {
             key={p.aporta}
             className="mesa-pz"
             style={{
+              // Solo left/top cambian con el tamaño. El desorden es COMÚN a
+              // propósito: si cambiara, cambiaría un valor que los keyframes
+              // consumen y Chrome recrearía la animación — medido, la pieza
+              // saltaba de t=3650 ms a t=1460 al girar el teléfono.
               ['--x-sm' as string]: `${ESC.destinos[i].x}%`,
               ['--y-sm' as string]: `${ESC.destinos[i].y}%`,
-              ['--dx-sm' as string]: ESC.desorden[i].dx,
-              ['--dy-sm' as string]: ESC.desorden[i].dy,
-              ['--ax-sm' as string]: ESC.absorcion[i].ax,
-              ['--ay-sm' as string]: ESC.absorcion[i].ay,
-              ['--r-sm' as string]: ESC.desorden[i].r,
               ['--x-mv' as string]: `${MOV.destinos[i].x}%`,
               ['--y-mv' as string]: `${MOV.destinos[i].y}%`,
-              ['--dx-mv' as string]: MOV.desorden[i].dx,
-              ['--dy-mv' as string]: MOV.desorden[i].dy,
-              ['--ax-mv' as string]: MOV.absorcion[i].ax,
-              ['--ay-mv' as string]: MOV.absorcion[i].ay,
-              ['--r-mv' as string]: MOV.desorden[i].r,
+              ['--dx' as string]: DESORDEN[i].dx,
+              ['--dy' as string]: DESORDEN[i].dy,
+              ['--r' as string]: DESORDEN[i].r,
               ['--t0' as string]: `${i * 0.09}s`,
             }}
           >
