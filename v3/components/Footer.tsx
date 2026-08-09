@@ -1,3 +1,4 @@
+import ConsentLink from '@/components/ConsentLink'
 import Link from 'next/link'
 import Image from 'next/image'
 import { APP_URL, CONTACT_EMAIL } from '@/lib/constants'
@@ -56,7 +57,13 @@ export default function Footer() {
               VELIA es una marca operada por VELIA Marketing SL.
             </p>
           </div>
-          <p className="text-[11px] text-cream/55">veliacorp.com</p>
+          {/* Retirar el consentimiento tiene que ser tan fácil como darlo, y
+              estar SIEMPRE a mano: si solo se pudiera desde el banner, quien ya
+              decidió no podría cambiar de idea nunca. RGPD art. 7.3. */}
+          <div className="flex items-center gap-4">
+            <ConsentLink />
+            <p className="text-[11px] text-cream/55">veliacorp.com</p>
+          </div>
         </div>
       </div>
     </footer>

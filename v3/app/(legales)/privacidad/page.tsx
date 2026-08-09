@@ -18,7 +18,7 @@ export default function PrivacidadPage() {
   return (
     <>
       <h1>Política de privacidad</h1>
-      <p className="legal-meta">Versión 1.0 · Última actualización: 16 de julio de 2026</p>
+      <p className="legal-meta">Versión 1.1 · Última actualización: 10 de agosto de 2026</p>
 
       <h2>1. Responsable del tratamiento</h2>
       <p>
@@ -44,9 +44,15 @@ export default function PrivacidadPage() {
           RGPD).
         </li>
         <li>
-          <strong>Navegación:</strong> esta web utiliza una analítica sin cookies que trabaja
-          con datos agregados y anónimos (ver <Link href="/cookies">Política de cookies</Link>).
-          No creamos perfiles publicitarios ni hacemos seguimiento entre sitios.
+          <strong>Navegación:</strong> medimos las páginas vistas y los eventos de uso con
+          una analítica <strong>sin cookies</strong>, agregada y anónima. Además, y{' '}
+          <strong>solo si nos das tu consentimiento</strong>, usamos Microsoft Clarity para
+          ver mapas de calor y reproducciones anónimas de la navegación, con el contenido de
+          la página desactivado y los formularios enmascarados. La base jurídica es tu
+          consentimiento (art. 6.1.a RGPD), puedes retirarlo cuando quieras y Microsoft puede
+          tratar esos datos fuera del EEE. Detalle completo, cookies concretas y plazos en la{' '}
+          <Link href="/cookies">Política de cookies</Link>. No creamos perfiles publicitarios
+          ni hacemos seguimiento entre sitios.
         </li>
       </ul>
 
@@ -70,7 +76,13 @@ export default function PrivacidadPage() {
       </p>
       <ul>
         <li><strong>Supabase</strong> — base de datos y almacenamiento (región Unión Europea).</li>
-        <li><strong>Vercel</strong> — alojamiento de la web y de la aplicación.</li>
+        <li><strong>Cloudflare</strong> — red de distribución, seguridad y analítica de páginas vistas sin cookies.</li>
+        <li>
+          <strong>Microsoft (Clarity)</strong> — mapas de calor y grabación anónima de la
+          navegación en la web pública. <strong>Solo con tu consentimiento</strong> y
+          únicamente en veliacorp.com: nunca dentro de la aplicación. Puede tratar datos
+          fuera del Espacio Económico Europeo.
+        </li>
         <li><strong>Hetzner</strong> — servidores propios de automatización (Alemania, UE).</li>
         <li><strong>Resend</strong> — envío de emails transaccionales.</li>
         <li><strong>Google Workspace</strong> — correo corporativo.</li>

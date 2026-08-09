@@ -33,13 +33,10 @@ import { useEffect, useState } from 'react'
  *     no tocar FCP ni LCP.
  */
 
-declare global {
-  interface Window {
-    /** Lo escribe el consentimiento cuando exista. Sin esto, Clarity no arranca. */
-    __veliaConsent?: { analytics?: boolean }
-    clarity?: (...args: unknown[]) => void
-  }
-}
+// Los dos globales que usa este componente —`window.__veliaConsent` y
+// `window.clarity`— los declara lib/consent.ts: dos declaraciones del mismo
+// global con tipos distintos no compilan, y el dueño del dato es quien lo
+// produce, no quien lo consume.
 
 const ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID
 
