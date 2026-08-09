@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import CookieNotice from '@/components/CookieNotice'
+import ClarityScript from '@/components/ClarityScript'
 import ScrollDepthTracker from '@/components/ScrollDepthTracker'
 import { SITE_URL, CONTACT_EMAIL } from '@/lib/constants'
 import { PRICING, eur } from '@/lib/pricing'
@@ -73,6 +74,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <CookieNotice />
         <ScrollDepthTracker />
+        {/* Mapas de calor y grabaciones. Montado pero INERTE: sin
+            NEXT_PUBLIC_CLARITY_PROJECT_ID y sin un consentimiento real no
+            inyecta absolutamente nada. Ver el porqué en el propio componente. */}
+        <ClarityScript />
       </body>
     </html>
   )

@@ -80,7 +80,11 @@ export default function ContactForm({ origen = 'contacto' }: { origen?: string }
         throw new Error(detalle?.error ?? `El servidor respondió ${res.status}`)
       }
       setEstado('ok')
-      trackEvent('enterprise_contact_click', { location: origen })
+      // El ENVÍO, no un clic. Antes esto se marcaba como
+      // 'enterprise_contact_click', que ni era un clic ni siempre venía del plan
+      // enterprise: llega de /contacto, de /fundadores y del bloque de empresa.
+      // El origen va en la propiedad, no en el nombre del evento.
+      trackEvent('submit_contact_form', { form_location: origen })
     } catch (err) {
       setEstado('error')
       setError(err instanceof Error ? err.message : 'No se pudo enviar')

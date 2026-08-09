@@ -69,6 +69,11 @@ export type AnalyticsEvent =
   | 'founders_trial_click'
   // Empresa
   | 'enterprise_contact_click'
+  /** Formulario de contacto ENVIADO con exito, venga de donde venga (contacto,
+   *  fundadores o el plan enterprise). Es la conversion que de verdad importa:
+   *  hasta hoy el envio se marcaba como 'enterprise_contact_click', que ni era
+   *  un clic ni siempre era enterprise. El origen va en 'form_location'. */
+  | 'submit_contact_form'
   // Cierre
   | 'final_trial_click'
   | 'final_demo_click'
@@ -90,6 +95,9 @@ export function trackEvent(name: AnalyticsEvent, properties?: Record<string, str
   const cuerpo = JSON.stringify({
     event: name,
     path: window.location.pathname,
+    // Ruta EXACTA: los parametros dicen que campana trajo la visita.
+    search: window.location.search.slice(0, 200),
+    device: tipoDeDispositivo(),
     // Solo el dominio de procedencia: de dónde vino la visita, no qué buscó.
     referrer: origenDe(document.referrer),
     session_id: idDeSesion(),
@@ -106,6 +114,19 @@ export function trackEvent(name: AnalyticsEvent, properties?: Record<string, str
   } catch {
     /* la analítica jamás puede romper la web */
   }
+}
+
+/**
+ * Movil, tableta o escritorio — por ANCHO DE VIEWPORT, no por user-agent.
+ * El user-agent es material de huella digital y ademas miente; el ancho es lo
+ * que de verdad determina que composicion esta viendo la persona, que es lo que
+ * queremos saber. Tres valores posibles: no identifica a nadie.
+ */
+function tipoDeDispositivo(): 'movil' | 'tableta' | 'escritorio' {
+  const w = window.innerWidth
+  if (w < 640) return 'movil'
+  if (w < 1024) return 'tableta'
+  return 'escritorio'
 }
 
 function origenDe(referrer: string): string {

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start -H 0.0.0.0",
     "lint": "next lint",
-    "qa:hero": "node scripts/qa-hero.mjs"
+    "qa:hero": "node scripts/qa-hero.mjs",
+    "check:analytics": "node scripts/check-analytics-catalog.mjs"
   },
   "dependencies": {
     "next": "14.2.30",
