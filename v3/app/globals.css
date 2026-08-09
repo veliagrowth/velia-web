@@ -333,3 +333,168 @@ a.btn:active, button.btn:active {
     }
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HERO «LA MESA DEL LUNES» (9-ago-2026)
+   ───────────────────────────────────────────────────────────────────────────
+   Lo que tiene que entenderse en 5 segundos SIN LEER NADA: el material suelto
+   de un despacho se ordena, cada pieza deja de ser un formato y pasa a ser lo
+   que aporta —Plazo, Cliente, Importe— y todo acaba dentro de un expediente
+   donde además se relaciona entre sí.
+
+   TRES DECISIONES QUE NO SON DE GUSTO:
+
+   1. El desorden NO lleva color de marca. Las piezas nacen en gris. Si el
+      desorden ya fuera bonito, ordenarlo no significaría nada.
+
+   2. El reloj lo lleva el CSS, no React. La versión anterior avanzaba con
+      setInterval + setState: cinco re-renders del árbol para mover opacidades.
+      Aquí el JS solo enciende data-play una vez y ofrece rehacerlo.
+
+   3. Termina TRABAJANDO, no esperando. El estado final dice lo que VELIA ya ha
+      hecho y se queda quieto — es la primera imagen del producto y el puente
+      hacia el resto de la página, no una animación que se apaga.
+
+   Presupuesto declarado ANTES de escribirlo, en
+   velia-core/docs/hero-veliacorp/baseline-2026-08-09.md: 0 imágenes, 0 fuentes
+   nuevas, ≤2 kB de JS, CLS 0 (el escenario reserva su alto con aspect-ratio
+   desde el primer pintado) y el LCP sigue siendo el h1.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.mesa {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 13;
+  /* Que TODO lo de dentro se mida en cqw: la escena es la misma composición a
+     cualquier ancho, no un diseño distinto por breakpoint. */
+  container-type: inline-size;
+}
+@media (min-width: 640px) { .mesa { aspect-ratio: 16 / 12; } }
+
+.mesa-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+
+/* Una pieza de material del despacho. */
+.mesa-pz {
+  position: absolute;
+  /* La composición de móvil es OTRA composición, no la misma escalada: tres
+     piezas en vez de seis y sus propias coordenadas. Quien elige es esta media
+     query, nunca el JS — un estilo en línea no se puede sobrescribir después. */
+  left: var(--x-mv); top: var(--y-mv);
+  width: 44%;
+  border: 1px solid rgba(246, 247, 250, 0.14);
+  border-radius: 10px;
+  background: #171C26;
+  padding: 9px 10px 8px;
+  display: flex; flex-direction: column; gap: 4px;
+  transform: rotate(var(--r));
+}
+@media (min-width: 640px) { .mesa-pz { left: var(--x-sm); top: var(--y-sm); width: 29%; } }
+
+.mesa-pz .l { height: 2px; border-radius: 1px; background: rgba(246, 247, 250, 0.18); }
+.mesa-pz .l.c { width: 58%; }
+.mesa-pz .nom {
+  font-size: 11px; font-weight: 500; color: rgba(246, 247, 250, 0.62);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px;
+}
+/* El significado. Nace apagado: aparece cuando la traza llega, no antes. */
+.mesa-pz .apo {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: #8D90FA; opacity: 0;
+}
+
+/* Iris Node y su Context Orbit: una elipse, fina, sin halo permanente. */
+.mesa-nodo { position: absolute; left: 50%; top: 50%; width: 12%; aspect-ratio: 1; transform: translate(-50%, -50%); }
+@media (min-width: 640px) { .mesa-nodo { width: 9%; } }
+.mesa-orb {
+  position: absolute; left: 50%; top: 50%; width: 19%; aspect-ratio: 1;
+  border: 1px solid rgba(246, 247, 250, 0.16); border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+@media (min-width: 640px) { .mesa-orb { width: 15%; } }
+
+/* La VELIA Window. El ÚNICO elemento claro de la escena: en la pieza el
+   producto es lo que brilla y todo lo demás es el suelo sobre el que pasa. */
+.mesa-win {
+  position: absolute; left: 0; right: 0; top: 50%;
+  transform: translateY(-50%);
+  background: #FFFFFF; border: 1px solid #E6EAF1; border-radius: 12px;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.42);
+  padding: 14px 16px; color: #0D1017;
+  display: flex; flex-direction: column; gap: 9px;
+}
+@media (min-width: 640px) { .mesa-win { left: 4%; right: 4%; padding: 16px 18px; } }
+
+.mesa-win .cab { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 9px; border-bottom: 1px solid #E6EAF1; }
+.mesa-win .exp { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #4C51B9; }
+.mesa-win .est { font-size: 11px; color: #707A92; }
+
+/* Las relaciones DENTRO del expediente, en un canalón propio a la izquierda.
+   Es el remate: el contexto no es una lista, es una red. */
+.mesa-win .cuerpo { position: relative; display: flex; flex-direction: column; gap: 7px; padding-left: 20px; }
+.mesa-win .rel { position: absolute; left: 0; top: 0; width: 16px; height: 100%; overflow: visible; }
+.mesa-win .fila { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 12.5px; }
+.mesa-win .fila b { font-weight: 600; color: #0D1017; }
+.mesa-win .fila span { color: #707A92; font-size: 12px; font-variant-numeric: tabular-nums; }
+
+.mesa-win .cierre { margin-top: 2px; padding-top: 9px; border-top: 1px solid #E6EAF1; display: flex; flex-direction: column; gap: 5px; }
+.mesa-win .marca-est { display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #4C51B9; }
+.mesa-win .marca-est i { width: 5px; height: 5px; border-radius: 50%; background: #7479F2; display: block; }
+.mesa-win .dice { font-size: 12.5px; line-height: 1.5; color: #3C4354; }
+
+/* ── El reloj. Nueve segundos, una pasada, y se queda en el último fotograma ── */
+@media (prefers-reduced-motion: no-preference) {
+  /* Antes de arrancar: solo la ventana, ya montada. Si el JS nunca enciende
+     data-play —error, navegador viejo, script bloqueado— esto es lo que se ve,
+     y es exactamente la conclusión. Nunca un hueco. */
+  .mesa:not([data-play='true']) .mesa-pz,
+  .mesa:not([data-play='true']) .mesa-nodo,
+  .mesa:not([data-play='true']) .mesa-orb,
+  .mesa:not([data-play='true']) .mesa-tz { opacity: 0; }
+
+  .mesa[data-play='true'] .mesa-pz {
+    animation:
+      mesaEntra   500ms var(--ease-velia) both var(--t0),
+      mesaOrdena  900ms var(--ease-velia) both var(--t1),
+      mesaAbsorbe 800ms var(--ease-velia) both 5s;
+  }
+  .mesa[data-play='true'] .mesa-pz .apo { animation: mesaApo 400ms var(--ease-velia) both var(--t2); }
+  .mesa[data-play='true'] .mesa-nodo { animation: mesaNace 600ms var(--ease-velia) both 1.4s, mesaApaga 500ms var(--ease-velia) both 5.2s; }
+  .mesa[data-play='true'] .mesa-orb  { animation: mesaNace 800ms var(--ease-velia) both 1.6s, mesaApaga 500ms var(--ease-velia) both 5.2s; }
+  .mesa[data-play='true'] .mesa-tz   { animation: mesaTraza 700ms var(--ease-velia) both var(--t2), mesaApaga 400ms var(--ease-velia) both 5s; }
+  .mesa[data-play='true'] .mesa-win  { animation: mesaAbre 700ms var(--ease-velia) both 5.2s; }
+  .mesa[data-play='true'] .mesa-rel  { animation: mesaTraza 700ms var(--ease-velia) both var(--t3); }
+  .mesa[data-play='true'] .mesa-cierre { animation: mesaApo 500ms var(--ease-velia) both 7.5s; }
+
+  @keyframes mesaEntra   { from { opacity: 0; transform: rotate(var(--r)) translateY(10px); } to { opacity: 1; transform: rotate(var(--r)); } }
+  @keyframes mesaOrdena  { to { transform: translate(var(--dx), var(--dy)) rotate(0deg); } }
+  @keyframes mesaAbsorbe { to { opacity: 0; transform: translate(var(--ax), var(--ay)) scale(0.94); } }
+  @keyframes mesaNace    { from { opacity: 0; transform: translate(-50%, -50%) scale(0.94); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+  @keyframes mesaApaga   { to { opacity: 0; } }
+  @keyframes mesaTraza   { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
+  @keyframes mesaApo     { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  @keyframes mesaAbre    { from { opacity: 0; transform: translateY(-50%) scale(0.95); } to { opacity: 1; transform: translateY(-50%) scale(1); } }
+
+  /* OJO: el cierre NO lleva `opacity: 0` de base. El `both` de su animación ya
+     lo mantiene invisible durante los 7,5 s de retardo, y una opacidad 0
+     declarada que nada vuelva a encender es justo el fallo que dejó las seis
+     trazas del storyboard sin dibujarse: el selector casaba, la línea existía
+     y no se veía. Sin error en ninguna parte. */
+  .mesa-tz, .mesa-rel { stroke-dasharray: var(--len); }
+}
+
+/* Sin movimiento: el fotograma final, que es el que más dice. Ni una pieza
+   suelta, ni una traza a medio dibujar. */
+@media (prefers-reduced-motion: reduce) {
+  .mesa .mesa-pz, .mesa .mesa-nodo, .mesa .mesa-orb, .mesa .mesa-tz { opacity: 0; }
+  .mesa .mesa-win, .mesa .mesa-win .cierre { opacity: 1; }
+  .mesa-rel { stroke-dashoffset: 0; }
+}
+
+/* Piezas y trazas que SOLO existen en pantallas anchas.
+   NO se usa la clase "hidden" de Tailwind: sus utilidades se emiten arriba del
+   fichero y la regla ".mesa-pz { display: flex }" está más abajo, así que con
+   la misma especificidad gana la mía y las piezas seguirían viéndose en móvil.
+   Esta regla va la ÚLTIMA a propósito: aquí el orden es lo que decide. */
+@media (max-width: 639.98px) {
+  .mesa-solo-sm { display: none; }
+}

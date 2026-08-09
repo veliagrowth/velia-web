@@ -155,12 +155,19 @@ export default function ContextMap() {
           carril quiere desbordar para poder scrollear; la columna no debe
           acompañarlo. Medido con el navegador, no deducido. */}
       <div className="min-w-0">
-        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-3">Todo está conectado</p>
+        {/* Esta sección es la SEGUNDA CAPA del hero, no otra idea. Arriba el
+            contexto se monta solo en nueve segundos; aquí el visitante lo para
+            y lo toca pieza a pieza. El hero es la promesa, esto es la prueba —
+            y por eso el primer párrafo lo dice en voz alta: sin esa frase, las
+            dos cosas se leen como dos animaciones distintas del mismo sitio
+            (decisión de Joaquín, 9-ago-2026). */}
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-3">El mismo contexto, pieza a pieza</p>
         <h2 className="text-3xl md:text-4xl font-600 tracking-[-0.03em] max-w-[18ch]">
           VELIA no responde desde una pestaña vacía.
         </h2>
         <p className="mt-5 text-[15px] text-void/70 leading-[1.6] max-w-[46ch]">
-          Trabaja con el contexto disponible en cada asunto. Elige una pieza para ver qué aporta.
+          Arriba lo has visto montarse solo. Aquí puedes pararlo: elige una pieza y mira
+          exactamente qué le aporta al asunto.
         </p>
 
         <div className="mt-7 rail flex lg:flex-wrap gap-2 pb-1">
