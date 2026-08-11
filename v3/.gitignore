@@ -7,3 +7,7 @@ next-env.d.ts
 
 # artefacto incremental de tsc (lo genera `tsc --noEmit`)
 tsconfig.tsbuildinfo
+
+# Salida del generador del vídeo del hero (720 PNG + los dos MP4).
+# El asset vive en Content OS; aquí solo se regenera.
+.render-hero/
