@@ -147,6 +147,35 @@ const LOGO_SVG = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..'
  */
 
 /**
+ * EL GRADIENTE, DISTINTO EN CADA PIEZA.
+ *
+ * Pedido el 12-ago: «muy sutil y distribuido en diferentes partes en cada
+ * pieza». Un mismo degradado repetido tres veces se lee como una plantilla; que
+ * la luz venga de un sitio distinto en cada lámina es lo que hace que la
+ * publicación parezca compuesta y no clonada.
+ *
+ * Se mantiene por debajo del umbral en el que deja de ser atmósfera y pasa a
+ * ser un fondo de color: iris al 0,10-0,16 y Pale Ice al 0,16-0,24. Por encima
+ * de eso el «baño violeta» se come la marca, que es justo lo que la referencia
+ * NO hace.
+ */
+const GRADIENTES = {
+  // Portada: la luz entra por arriba a la izquierda y cae hacia el pie derecho.
+  portada:
+    'radial-gradient(95% 70% at 6% -6%, rgba(181,223,255,0.24), rgba(181,223,255,0) 62%),' +
+    'radial-gradient(85% 65% at 96% 104%, rgba(116,121,242,0.13), rgba(116,121,242,0) 60%)',
+  // Vídeo: halo alto y centrado, donde convergen las trazas. Nada en las esquinas.
+  video:
+    'radial-gradient(70% 46% at 50% 4%, rgba(116,121,242,0.14), rgba(116,121,242,0) 66%),' +
+    'radial-gradient(90% 60% at 88% 96%, rgba(181,223,255,0.18), rgba(181,223,255,0) 64%)',
+  // Cierre: peso abajo a la izquierda, para que la ficha respire contra un lado
+  // limpio y el CTA no compita con la luz.
+  cierre:
+    'radial-gradient(90% 62% at 2% 96%, rgba(116,121,242,0.14), rgba(116,121,242,0) 58%),' +
+    'radial-gradient(75% 55% at 100% 12%, rgba(181,223,255,0.20), rgba(181,223,255,0) 60%)',
+}
+
+/**
  * ══ CARRUSEL ════════════════════════════════════════════════════════════════
  *
  * La publicación es lámina → vídeo → lámina. Las dos láminas salen del MISMO
@@ -168,13 +197,13 @@ const LAMINAS = [
     // BORRA —quedaban seis fantasmas ilegibles— y el desorden es el argumento
     // de esta lámina. En oscuro el mismo número funcionaba; el velo claro tapa
     // mucho más porque las tarjetas ya son blancas.
-    archivo: 'carrusel-1.png', t: 1.4, velo: 0.62, reparto: 'center',
+    archivo: 'carrusel-1.png', t: 1.4, velo: 0.62, reparto: 'center', grad: GRADIENTES.portada,
     encima: 'LA MESA DEL LUNES',
     titular: 'Olvídate de los\narchivos sueltos.',
     pie: 'Desliza  →',
   },
   {
-    archivo: 'carrusel-3.png', t: 10.2, velo: 0.12, reparto: 'space-between',
+    archivo: 'carrusel-3.png', t: 10.2, velo: 0.12, reparto: 'space-between', grad: GRADIENTES.cierre,
     encima: 'TODO EN UNO CON VELIA',
     titular: 'Todo tu despacho,\nen un mismo sitio.',
     pie: 'Pruébalo gratis 15 días\nveliacorp.com',
@@ -201,14 +230,20 @@ const LAMINAS = [
  * El rótulo de cada pieza pasa de iris 400 a iris **700**: el 400 está pensado
  * para fondo oscuro y sobre Pearl Cloud no llega al contraste mínimo.
  */
+
+
 const TEMA_CLARO = `
   section:has(.mesa), section.velia-dark-stage:has(.mesa) {
-    background:
-      radial-gradient(120% 90% at 78% 108%, rgba(116,121,242,0.20), rgba(116,121,242,0) 58%),
-      radial-gradient(90% 70% at 10% -10%, rgba(181,223,255,0.28), rgba(181,223,255,0) 60%),
-      #F6F7FA !important;
+    background: ${GRADIENTES.video}, #F6F7FA !important;
   }
   .mesa { color:#0D1017 !important; }
+  /*
+   * LA V DE VELIA. En el hero es \`.mesa-marca\`, con fill y stroke en Pearl
+   * Cloud porque nace sobre Night: al pasar el fondo a claro se volvió
+   * invisible —el logotipo seguía animándose, pero blanco sobre blanco—.
+   * Pasa a tinta Night, igual que el logotipo de las láminas.
+   */
+  .mesa-marca, .mesa-marca path { fill:#0D1017 !important; stroke:#0D1017 !important; }
   .mesa-pz {
     background:#FFFFFF !important;
     color:#0D1017 !important;
@@ -634,6 +669,11 @@ try {
       lPie.textContent = d.pie
       capa.style.display = 'none'          // el caption del vídeo no pinta aquí
       window.__velo.style.opacity = String(d.velo)
+      // Cada lámina trae su propia luz: ver GRADIENTES.
+      if (d.grad) {
+        const sec = document.querySelector('.mesa').closest('section')
+        if (sec) sec.style.setProperty('background', d.grad + ', #F6F7FA', 'important')
+      }
     }
 
     window.__linea = linea
