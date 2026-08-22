@@ -13,11 +13,17 @@ import './globals.css'
    la verificación documental. Un metadato es tan público como un titular. */
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: 'VELIA | Software jurídico con IA para despachos',
-  description: `Gestiona expedientes, clientes, documentos, plazos y facturación con VELIA, el software jurídico con IA desarrollado en España. Desde ${eur(PRICING.monthly)}/mes, ${PRICING.usersIncluded} usuarios incluidos. Prueba ${PRICING.trialDays} días gratis, sin tarjeta.`,
+  /* El title atribuye el claim al VERTICAL, no a la compañía (decisión 22-ago-2026).
+     Antes decía «VELIA | Software jurídico...», que define VELIA COMO software jurídico.
+     VELIA es la plataforma; VELIA Legal es su primer vertical, y esta web es el funnel
+     comercial de ese vertical. El JSON-LD de abajo ya lo decía desde el 16-jul: esto solo
+     alinea lo que lee una persona con lo que ya leía una máquina. Ni una palabra clave
+     de posicionamiento se pierde. */
+  title: 'VELIA Legal | Software jurídico con IA para despachos',
+  description: `VELIA Legal, el primer vertical de la plataforma VELIA. Gestiona expedientes, clientes, documentos, plazos y facturación con el software jurídico con IA desarrollado en España. Desde ${eur(PRICING.monthly)}/mes, ${PRICING.usersIncluded} usuarios incluidos. Prueba ${PRICING.trialDays} días gratis, sin tarjeta.`,
   alternates: { canonical: SITE_URL },
   openGraph: {
-    title: 'VELIA | Software jurídico con IA para despachos',
+    title: 'VELIA Legal | Software jurídico con IA para despachos',
     description: `Todo tu despacho. Con VELIA dentro. Expedientes, clientes, documentos, plazos y facturación en una sola plataforma, desde ${eur(PRICING.monthly)}/mes.`,
     url: SITE_URL,
     siteName: 'VELIA',
