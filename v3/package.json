@@ -10,8 +10,9 @@
     "qa:hero": "node scripts/qa-hero.mjs",
     "check:analytics": "node scripts/check-analytics-catalog.mjs",
     "qa:home": "node scripts/qa-home.mjs",
-    "check": "npm run check:analytics && npm run check:opacidades && npm run qa:home",
-    "check:opacidades": "node scripts/check-opacidades.mjs"
+    "check": "npm run check:analytics && npm run check:opacidades && npm run check:claims && npm run qa:home",
+    "check:opacidades": "node scripts/check-opacidades.mjs",
+    "check:claims": "node scripts/check-claims-publicados.mjs"
   },
   "dependencies": {
     "next": "14.2.30",

@@ -14,6 +14,36 @@
  * con el responsable y pasar el estado a `verified`. No al revés.
  */
 
+/**
+ * ⚠️ 12-sep-2026 — ESTE GATE SE HA QUEDADO SIN CONSUMIDOR, Y `usedIn` MENTÍA.
+ *
+ * La regla de arriba («solo se renderiza lo que está en `verified`») es cierta
+ * **donde se llama a `claim()`**. Medido: `claim()` tenía UN consumidor,
+ * `components/SecurityArchitecture.tsx`, y al reescribir la Home dejó de
+ * importarse. Ahora no lo llama nadie.
+ *
+ * Y lo que el registro decía de sí mismo tampoco cuadraba. Medido contra un
+ * build de producción, ruta por ruta, sobre el texto visible del HTML:
+ *
+ *   · los CUATRO claims `verified` no se pintan en ninguna página;
+ *   · TRES `pending` sí: verifactu en /seguridad y /legal, euInfrastructure en
+ *     /seguridad, lecDeadlines en /legal.
+ *
+ * O sea, justo al revés de lo que promete la cabecera. No porque el gate
+ * fallara —hacía exactamente lo suyo— sino porque las páginas que publican esos
+ * textos los escriben a mano y nunca le preguntan nada.
+ *
+ * QUIÉN APLICA LA REGLA AHORA: `npm run check:claims`
+ * (`scripts/check-claims-publicados.mjs`). Mide el HTML servido en vez de
+ * confiar en que alguien llame a una función, así que es más fuerte que el gate
+ * que sustituye: protege aunque el texto se escriba a mano, que es precisamente
+ * como se coló. Las cuatro infracciones vivas están declaradas, con su riesgo y
+ * su dueño, en `scripts/deuda-claims-publicados.json`.
+ *
+ * `usedIn` queda con lo MEDIDO, no con lo recordado. Un campo que dice dónde
+ * revisar y apunta a páginas equivocadas es peor que no tenerlo.
+ */
+
 export type ClaimStatus = 'verified' | 'pending' | 'disabled'
 
 export interface Claim {
@@ -37,7 +67,7 @@ export const CLAIMS = {
     source: 'Producto desarrollado íntegramente por el equipo en España. Comprobable en el propio repositorio y en la facturación de la sociedad.',
     verifiedAt: '2026-07-29',
     owner: 'Joaquín',
-    usedIn: ['/', '/sobre-velia'],
+    usedIn: [],
   },
 
   officialSources: {
@@ -46,7 +76,7 @@ export const CLAIMS = {
     source: 'Implementado en el motor de jurisprudencia: toda cita normativa se resuelve contra la fuente oficial y se publica con enlace. Ver memory/project_legal_jurisprudence.md.',
     verifiedAt: '2026-07-29',
     owner: 'Joaquín',
-    usedIn: ['/', '/seguridad'],
+    usedIn: [],
   },
 
   tenantIsolation: {
@@ -55,7 +85,7 @@ export const CLAIMS = {
     source: 'Row Level Security activo en todas las tablas tenant_* de Supabase, con políticas por tenant_id. Auditado.',
     verifiedAt: '2026-07-29',
     owner: 'Joaquín',
-    usedIn: ['/', '/seguridad'],
+    usedIn: [],
   },
 
   humanSupervision: {
@@ -64,7 +94,7 @@ export const CLAIMS = {
     source: 'Principio de producto. Toda propuesta de VELIA requiere aprobación explícita antes de aplicarse — verificable en la propia interfaz.',
     verifiedAt: '2026-07-29',
     owner: 'Joaquín',
-    usedIn: ['/', '/seguridad', '/legal'],
+    usedIn: [],
   },
 
   // ── Pendientes: NO se renderizan ───────────────────────────────────────────
@@ -74,7 +104,7 @@ export const CLAIMS = {
     source: 'FALTA: adjuntar la cláusula concreta del contrato con el proveedor de IA que excluye el uso de los datos para entrenamiento, con su fecha de vigencia.',
     verifiedAt: null,
     owner: 'Joaquín',
-    usedIn: ['/', '/seguridad'],
+    usedIn: [],
   },
 
   euInfrastructure: {
@@ -83,7 +113,7 @@ export const CLAIMS = {
     source: 'FALTA: confirmar por escrito la región de CADA proveedor de la cadena (base de datos, almacenamiento, correo, IA) y dejarlo documentado. La base de datos está en West Europe; el resto no está registrado.',
     verifiedAt: null,
     owner: 'Joaquín',
-    usedIn: ['/', '/seguridad'],
+    usedIn: ['/seguridad'],
   },
 
   verifactu: {
@@ -92,7 +122,7 @@ export const CLAIMS = {
     source: 'FALTA: verificación técnica y documental del cumplimiento del RD 1007/2023. Es un claim regulatorio: publicarlo sin respaldo expone a la sociedad.',
     verifiedAt: null,
     owner: 'Joaquín',
-    usedIn: ['/', '/precios', '/legal'],
+    usedIn: ['/seguridad', '/legal'],
   },
 
   lecDeadlines: {
@@ -101,7 +131,7 @@ export const CLAIMS = {
     source: 'FALTA: acotar el alcance exacto — qué plazos cubre, qué jurisdicciones, qué hace con los días inhábiles autonómicos. Hoy el producto PROPONE plazos y el abogado los aprueba; el claim, tal cual está, promete más.',
     verifiedAt: null,
     owner: 'Joaquín',
-    usedIn: ['/', '/legal'],
+    usedIn: ['/legal'],
   },
 
   pilotMetrics: {
@@ -110,7 +140,7 @@ export const CLAIMS = {
     source: 'RETIRADO 29-jul: las cifras publicadas (+260% consultas captadas, <5 min de respuesta, 12 h/semana) son métricas de captación, no de uso del software, y su única fuente citada era "velia-chat". Sustituidas por un testimonio cualitativo hasta que existan métricas de producto auditables.',
     verifiedAt: null,
     owner: 'Joaquín',
-    usedIn: ['/'],
+    usedIn: [],
   },
 } as const satisfies Record<string, Claim>
 

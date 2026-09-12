@@ -15,16 +15,27 @@ import { SITE_URL } from '@/lib/constants'
  * entrantes existen y cuantos correos llevan el enlace a /demo dentro.
  * Inventario: velia-core/docs/design/VELIA_WEB_LEGACY_INVENTORY_2026.md
  *
- * `/seguridad` y `/sobre-velia` se quedan: siguen siendo paginas de la compania
- * —aunque hablen como la etapa anterior— y estan marcadas REWRITE para la
- * etapa 2. Sacarlas ahora las dejaria sin sustituto.
+ * `/sobre-velia` se queda: sigue siendo una pagina de la compania —aunque hable
+ * como la etapa anterior— y esta marcada REWRITE para la etapa 2. Sacarla ahora
+ * la dejaria sin sustituto.
+ *
+ * ⚠️ `/seguridad` SALE tambien (12-sep). No por ser legacy —no lo es, es
+ * REWRITE— sino porque publica DOS claims que `verified-claims.ts` marca
+ * `pending`: «conforme a Verifactu» y el alojamiento en la UE. Proponersela a
+ * un buscador es pedir activamente que se indexe una afirmacion regulatoria sin
+ * respaldo.
+ *
+ * Esto REDUCE la exposicion; NO resuelve nada. La pagina sigue viva y sigue
+ * publicando los dos claims, y las dos paginas legales que la enlazan
+ * (privacidad e ia-responsable) la siguen enlazando, porque ese camino es
+ * obligacion legal y no se toca. La decision sobre los claims es de Joaquin y
+ * esta declarada en `scripts/deuda-claims-publicados.json`.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages: Array<{ path: string; priority: number }> = [
     { path: '/', priority: 1 },
     { path: '/contacto', priority: 0.9 },
     { path: '/sobre-velia', priority: 0.7 },
-    { path: '/seguridad', priority: 0.6 },
     { path: '/novedades', priority: 0.6 },
     { path: '/aviso-legal', priority: 0.2 },
     { path: '/ia-responsable', priority: 0.4 },
