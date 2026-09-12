@@ -3,9 +3,9 @@ import TrialButton from '@/components/TrialButton'
 import { CONTACT_EMAIL, SITE_URL } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'Sobre VELIA — software jurídico desarrollado en España',
+  title: 'Sobre VELIA | Plataforma de IA para industrias especializadas',
   description:
-    'Por qué existe VELIA, cómo se ha construido junto a un despacho real y quién está detrás de la plataforma.',
+    'VELIA es una plataforma de IA para industrias especializadas. VELIA Legal es su primer vertical: por qué existe, cómo se ha construido junto a un despacho real y quién está detrás.',
   alternates: { canonical: `${SITE_URL}/sobre-velia` },
 }
 
