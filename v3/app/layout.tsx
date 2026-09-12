@@ -56,6 +56,13 @@ const organizationJsonLd = {
   email: CONTACT_EMAIL,
   description:
     'Compañía de transformación y operación digital. VELIA diseña, construye, integra, automatiza y opera la infraestructura digital de empresas y profesionales para la era de la IA, la automatización y los agentes.',
+  knowsAbout: [
+    'Infraestructura digital',
+    'Automatización de procesos',
+    'Integración de sistemas',
+    'Visibilidad en buscadores y sistemas de IA',
+    'Operación de sistemas digitales',
+  ],
   areaServed: 'ES',
 }
 

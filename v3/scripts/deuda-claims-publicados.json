@@ -1,35 +1,29 @@
 {
-  "_que_es": "Claims que verified-claims.ts marca 'pending' y que AUN ASI estan publicados en una pagina servida. Medido el 12-sep-2026 contra un build de produccion, ruta por ruta, sobre el texto visible del HTML. No estan aqui para darlos por buenos: estan para que check:claims proteja contra el numero 5.",
+  "_que_es": "Apariciones de un claim `pending` en HTML servido, CLASIFICADAS. Dos tipos, y la diferencia importa: CLAIM_PUBLICADO es VELIA afirmando una capacidad que nadie ha verificado — no puede quedarse. DIVULGACION_LEGAL es una pagina legal informando de las condiciones contractuales de un TERCERO, que es lo que el RGPD obliga a decir. Medido el 12-sep-2026 contra un build de produccion.",
   "_de_donde_sale": "El registro de claims dice 'solo se renderiza lo que esta en verified'. Es cierto donde se llama a claim(), y claim() tiene UN SOLO consumidor en toda la web (components/SecurityArchitecture.tsx). Estas paginas escriben el texto a mano y no le preguntan nada al gate. La guarda existia, era correcta, y lo que tenia que proteger no la consultaba.",
-  "_por_que_no_se_han_quitado": "Retirar un claim publicado es una decision de negocio y de riesgo legal, no de ingenieria. Dos son regulatorios (Verifactu -> RD 1007/2023; LEC -> plazos procesales) y el propio registro anota que publicarlos sin respaldo expone a la sociedad. Se elevan a Joaquin, no se corrigen en silencio.",
-  "_orden_de_salida": "Primero /seguridad, clasificada REWRITE para la etapa 2 y la unica de las dos que seguia en el sitemap. /legal es legacy congelada: su claim sale cuando se decida que pasa con la ruta entera.",
-  "_ojo": "Una lista de excepciones que solo crece deja de ser deuda y pasa a ser el estado. Si esto no baja de cuatro en la etapa 2, el problema no es la lista.",
+  "_ojo": "Una lista de excepciones que solo crece deja de ser deuda y pasa a ser el estado. Hoy no hay ni una entrada de tipo CLAIM_PUBLICADO: que siga asi. Anadir una es publicar algo que nadie ha verificado, y exige nombre y fecha.",
   "_medido": "2026-09-12",
   "_dueno": "Joaquin",
   "publicados": [
     {
-      "ruta": "/seguridad",
-      "claim": "verifactu",
-      "riesgo": "regulatorio",
-      "nota": "«Facturacion conforme a Verifactu». Cumplimiento del RD 1007/2023 sin verificacion documental."
+      "ruta": "/privacidad",
+      "claim": "noModelTraining",
+      "tipo": "DIVULGACION_LEGAL",
+      "nota": "«Por politica contractual del proveedor, los datos enviados a traves de la API no se utilizan para entrenar». Atribuido al proveedor, en la politica de privacidad."
     },
     {
-      "ruta": "/seguridad",
-      "claim": "euInfrastructure",
-      "riesgo": "contractual",
-      "nota": "Alojamiento en la UE. Solo esta confirmada la region de la base de datos; el resto de la cadena (almacenamiento, correo, IA) no esta registrado."
+      "ruta": "/terminos",
+      "claim": "noModelTraining",
+      "tipo": "DIVULGACION_LEGAL",
+      "nota": "«Los datos enviados a la API de IA no se utilizan para entrenar». Dentro de las condiciones del servicio."
     },
     {
-      "ruta": "/legal",
-      "claim": "verifactu",
-      "riesgo": "regulatorio",
-      "nota": "«La factura, conforme a Verifactu». Pagina legacy, fuera del sitemap y sin enlaces desde la VELIA nueva, pero sigue respondiendo 200."
-    },
-    {
-      "ruta": "/legal",
-      "claim": "lecDeadlines",
-      "riesgo": "regulatorio",
-      "nota": "«Un plazo, calculado segun la LEC». El registro anota que hoy el producto PROPONE plazos y el abogado los aprueba: el claim promete mas de lo que hace."
+      "ruta": "/ia-responsable",
+      "claim": "noModelTraining",
+      "tipo": "DIVULGACION_LEGAL",
+      "nota": "«Los datos de los despachos no se utilizan para entrenar», junto a la mencion de los acuerdos de uso empresarial. Pagina de transparencia del Reglamento europeo de IA."
     }
-  ]
+  ],
+  "_de_donde_salia": "El registro dice 'solo se renderiza lo que esta en verified'. Era cierto donde se llamaba a claim(), y claim() se habia quedado sin ningun consumidor. /seguridad y /legal escribian el texto a mano. Ya pasan por el gate: CLAIM_PUBLICADO = 0.",
+  "_sobre_la_divulgacion_legal": "NO se tocan, y no por comodidad. Las tres frases atribuyen la politica al proveedor —«Por politica contractual del proveedor, los datos enviados a traves de la API no se utilizan para entrenar…»— en vez de presentarla como una garantia de VELIA. Eso es informacion de tratamiento, obligatoria en una politica de privacidad: quitarla dejaria al interesado sin saber que pasa con sus datos, que es peor que el riesgo que se pretendia evitar. Lo que SI hay que cerrar es el claim que las sostiene: mientras `noModelTraining` siga pending, estas tres paginas afirman algo cuya clausula nadie ha adjuntado. Decision de Joaquin: conseguir la clausula, no borrar el parrafo."
 }

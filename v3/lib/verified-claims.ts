@@ -33,7 +33,14 @@
  * fallara —hacía exactamente lo suyo— sino porque las páginas que publican esos
  * textos los escriben a mano y nunca le preguntan nada.
  *
- * QUIÉN APLICA LA REGLA AHORA: `npm run check:claims`
+ * ✅ CERRADO EL 12-sep. `/seguridad` y `/legal` ya no escriben esos textos a
+ * mano: cada bloque declara su claim y se filtra con `claim()`. Sin verificación
+ * el bloque no existe, así que el gate volvió a ser el camino real y no hace
+ * falta que nadie se acuerde. Medido: **0 claims `pending` publicados**.
+ *
+ * QUIÉN APLICA LA REGLA AHORA, en dos capas:
+ *   · `npm run test:claims`  — la FUNCIÓN: verified→texto, cualquier otro→null
+ *   · `npm run check:claims` — el RESULTADO:
  * (`scripts/check-claims-publicados.mjs`). Mide el HTML servido en vez de
  * confiar en que alguien llame a una función, así que es más fuerte que el gate
  * que sustituye: protege aunque el texto se escriba a mano, que es precisamente
@@ -55,7 +62,22 @@ export interface Claim {
   /** ISO. Fecha en que se comprobó la fuente, no en que se escribió el claim. */
   verifiedAt: string | null
   owner: string
-  /** Páginas donde se usa, para saber qué revisar si cambia. */
+  /**
+   * Páginas que tienen un bloque ATADO a este claim — se pinte o no.
+   *
+   * ⚠️ NO es «páginas donde se ve». Desde el 12-sep las páginas declaran
+   * `claim: '<clave>'` en el bloque correspondiente y lo filtran con `claim()`,
+   * así que un `pending` está atado y no se pinta. Las dos lecturas son
+   * distintas y confundirlas es tener una columna con dos contratos.
+   *
+   * Para qué sirve entonces: para saber qué páginas CAMBIAN el día que este
+   * claim se verifique. Verificar `verifactu` enciende dos bloques, y este campo
+   * dice cuáles. Lo comprueba `lib/verified-claims.test.ts` leyendo el código de
+   * cada página: si aquí dice una ruta que no tiene la atadura, falla.
+   *
+   * Quién decide si algo LLEGA al visitante es `npm run check:claims`, que mide
+   * el HTML servido.
+   */
   usedIn: string[]
 }
 
@@ -104,7 +126,7 @@ export const CLAIMS = {
     source: 'FALTA: adjuntar la cláusula concreta del contrato con el proveedor de IA que excluye el uso de los datos para entrenamiento, con su fecha de vigencia.',
     verifiedAt: null,
     owner: 'Joaquín',
-    usedIn: [],
+    usedIn: ['/seguridad'],
   },
 
   euInfrastructure: {

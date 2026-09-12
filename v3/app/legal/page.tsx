@@ -4,6 +4,23 @@ import PhoneShot from '@/components/PhoneShot'
 import TrialButton from '@/components/TrialButton'
 import { APP_URL, SITE_URL } from '@/lib/constants'
 import { PRICING } from '@/lib/pricing'
+import { claim, type ClaimKey } from '@/lib/verified-claims'
+
+/**
+ * ⚠️ ESTA PÁGINA PASA POR EL GATE DE PRODUCT TRUTH (12-sep-2026).
+ *
+ * Publicaba dos afirmaciones que `verified-claims.ts` marca `pending`: el
+ * cómputo de plazos según la LEC y la facturación conforme a Verifactu. Las dos
+ * son regulatorias, y el registro anota sobre la segunda que publicarla sin
+ * respaldo expone a la sociedad.
+ *
+ * Cada hora de la jornada que sostenga un claim declara cuál, y se filtra con
+ * `claim()`. Sin verificación, la hora no se pinta.
+ *
+ * La página sigue siendo LEGACY comercial y NO se reescribe: sigue viva, sigue
+ * respondiendo 200 y sigue sin enlazarse desde la VELIA nueva. Lo único que se
+ * ha hecho es cerrar la fuga.
+ */
 
 /* La ruta sigue siendo /legal y no se renombra a /producto: está indexada, tiene
    enlaces entrantes y el beneficio de cambiarla no compensa el riesgo. El título
@@ -17,7 +34,7 @@ export const metadata: Metadata = {
 
 /* body + closer: el cierre se pinta como unidad inseparable (inline-block)
    para que la última frase nunca quede partida a mitad — regla de wrapping. */
-const DAY = [
+const DAY: { time: string; slug: string; title: string; body: string; closer?: string; claim?: ClaimKey }[] = [
   {
     time: '08:30',
     slug: 'puesta-al-dia',
@@ -31,6 +48,7 @@ const DAY = [
     title: 'Un plazo, calculado según la LEC',
     body: 'VELIA computa los plazos procesales con las reglas reales — días inhábiles, agosto, prórroga del 133.4 — y te avisa con margen.',
     closer: 'Los vencimientos registrados y propuestos quedan organizados dentro de cada asunto.',
+    claim: 'lecDeadlines',
   },
   {
     time: '11:00',
@@ -52,8 +70,14 @@ const DAY = [
     title: 'La factura, conforme a Verifactu',
     body: 'Minutas y facturas emitidas desde el propio expediente, cumpliendo la normativa española de facturación.',
     closer: 'Sin exportar a otro programa.',
+    claim: 'verifactu',
   },
 ]
+
+/* Solo se pinta lo que no sostiene ningún claim, o cuyo claim está verificado.
+   Nadie enlaza a estas anclas (`#plazos`, `#facturacion`) — comprobado antes de
+   quitarlas—, así que retirarlas no rompe ningún enlace entrante. */
+const JORNADA_VISIBLE = DAY.filter(d => !d.claim || claim(d.claim) !== null)
 
 export default function LegalPage() {
   return (
@@ -73,7 +97,7 @@ export default function LegalPage() {
 
       <section className="mx-auto max-w-6xl px-6 pb-20">
         <ol className="relative border-l border-void/15 ml-3 space-y-12 md:space-y-14">
-          {DAY.map(item => (
+          {JORNADA_VISIBLE.map(item => (
             <li key={item.time} id={item.slug} className="pl-8 md:pl-12 relative scroll-mt-24">
               <span className="absolute -left-[5px] top-1.5 w-[9px] h-[9px] rounded-full bg-gold" />
               <p className="text-[11px] font-700 tracking-[0.06em] text-void/60 mb-1.5">{item.time}</p>

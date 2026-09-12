@@ -7,7 +7,6 @@ import Distancia from '@/components/Distancia'
 import Capacidades from '@/components/Capacidades'
 import VeliaOS from '@/components/VeliaOS'
 import ModeloOperativo from '@/components/ModeloOperativo'
-import { SITE_URL, CONTACT_EMAIL } from '@/lib/constants'
 import { CTA_CONTACTO, CONTACTO_MICROCOPY } from '@/lib/cta'
 
 /**
@@ -46,37 +45,20 @@ import { CTA_CONTACTO, CONTACTO_MICROCOPY } from '@/lib/cta'
  * página afirma sobre ser legible por máquinas.
  */
 
-/* JSON-LD de compañía. El `SoftwareApplication` que había aquí se ha eliminado:
-   declaraba VELIA como una aplicación de software a la venta, con su precio y su
-   prueba gratuita. Una máquina leía eso mientras la página decía otra cosa. */
-const organizationJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'VELIA',
-  legalName: 'VELIA Marketing SL',
-  url: SITE_URL,
-  logo: `${SITE_URL}/velia_logotipo.svg`,
-  email: CONTACT_EMAIL,
-  description:
-    'VELIA es una compañía de transformación y operación digital. Diseña, construye, integra, automatiza y opera la infraestructura digital de empresas y profesionales para la era de la IA, la automatización y los agentes.',
-  knowsAbout: [
-    'Infraestructura digital',
-    'Automatización de procesos',
-    'Integración de sistemas',
-    'Visibilidad en buscadores y sistemas de IA',
-    'Operación de sistemas digitales',
-  ],
-  areaServed: 'ES',
-}
+/* ⚠️ AQUÍ NO VA NINGÚN JSON-LD (12-sep-2026).
+   Había un `Organization` en esta página Y otro en `app/layout.tsx`, con
+   descripciones distintas: dos declaraciones de la misma entidad, con la misma
+   `url`, diciendo cosas parecidas pero no iguales. Son dos relojes, y en cuanto
+   se toca uno dejan de dar la misma hora — justo lo contrario de la claridad de
+   entidad que esta web dice saber preparar.
+
+   Queda el del layout, que además cubre TODAS las páginas y no sólo ésta. El
+   `SoftwareApplication` que hubo aquí tampoco vuelve: declaraba a las máquinas
+   una aplicación a la venta, con su precio, mientras la página decía otra cosa. */
 
 export default function Home() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-      />
-
       {/* ═══ 0 · UMBRAL ═══════════════════════════════════════════════════
           Overlay sobre todo lo de abajo, que ya está renderizado. No se monta
           con prefers-reduced-motion ni en la segunda visita de la sesión. */}
