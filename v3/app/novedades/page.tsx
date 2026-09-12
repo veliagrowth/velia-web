@@ -55,7 +55,7 @@ export default async function NovedadesPage() {
                 key={u.id}
                 /* El anuncio más reciente ocupa el ancho completo: jerarquía real en
                    la parrilla, no una rejilla de tarjetas idénticas. */
-                className={`rounded-2xl border border-void/12 bg-white p-7 md:p-8 ${i === 0 ? 'md:col-span-2' : ''}`}
+                className={`rounded-2xl border border-void/10 bg-white p-7 md:p-8 ${i === 0 ? 'md:col-span-2' : ''}`}
               >
                 <div className="flex flex-wrap items-center gap-3">
                   <span className={`inline-block rounded-full px-2.5 py-1 text-[10px] font-700 tracking-[0.06em] uppercase ${CATEGORY_STYLE.anuncio.cls}`}>

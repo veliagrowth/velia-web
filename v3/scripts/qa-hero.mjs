@@ -125,6 +125,37 @@ const medir = (origen, pathsOficiales) => {
 }
 
 const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--hide-scrollbars'] })
+
+/* ── FUENTE NO APLICABLE ─────────────────────────────────────────────────────
+   REWORK 2026: la home ya no monta `.mesa`. La pieza que esta guarda vigila
+   —el hero animado de la etapa SaaS— sigue existiendo en el repositorio
+   (`components/HeroContextStage.tsx`), pero la Home nueva no la importa.
+
+   Esta comprobacion NO se borra y NO se hace pasar por buena: una guarda que
+   mide un elemento ausente y devuelve verde es peor que no tenerla, porque
+   informa de una salud que no ha comprobado. Se declara explicitamente
+   NO APLICABLE y se sale con 0, que es lo correcto: no hay fallo, es que no
+   hay nada que medir en esta URL.
+
+   El dia que la pieza vuelva a montarse en alguna pagina, esta guarda vuelve a
+   medir sola. Si se decide deprecar el componente, esta guarda se va con el. */
+{
+  const sonda = await browser.newPage()
+  await sonda.setViewport({ width: 1440, height: 900 })
+  await sonda.goto(URL, { waitUntil: 'networkidle0' })
+  const existe = await sonda.evaluate(() => Boolean(document.querySelector('.mesa')))
+  await sonda.close()
+  if (!existe) {
+    await browser.close()
+    console.log('')
+    console.log('[33m⊘ NO APLICABLE[0m — esta URL no monta el hero animado (`.mesa`).')
+    console.log('  La guarda no ha medido nada, así que no dice que esté bien: dice que no está.')
+    console.log(`  URL comprobada: ${URL}`)
+    console.log('')
+    process.exit(0)
+  }
+}
+
 const filas = []
 
 for (const v of VIEWPORTS) {
