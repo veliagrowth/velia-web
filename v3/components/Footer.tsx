@@ -35,7 +35,7 @@ export default function Footer() {
                 {l.label}
               </Link>
             ))}
-            {key === 'empresa' && (
+            {key === 'contacto' && (
               <>
                 <a href={`mailto:${CONTACT_EMAIL}`} className="block hover:text-cream transition-colors">
                   {CONTACT_EMAIL}

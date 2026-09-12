@@ -235,15 +235,41 @@ a.btn:active, button.btn:active {
     to   { opacity: 1; transform: none; }
   }
 
-  /* Revelado al entrar en viewport. Lo dispara IntersectionObserver poniendo
-     data-visible="true": sin JS o sin soporte, el contenido se ve igual. */
-  .reveal { opacity: 0; transform: translateY(16px); transition: opacity var(--motion-section) var(--ease-velia), transform var(--motion-section) var(--ease-velia); }
-  .reveal[data-visible='true'] { opacity: 1; transform: none; }
+  /* Revelado al entrar en viewport, lo dispara IntersectionObserver poniendo
+     data-visible="true".
+
+     ⚠️ CORREGIDO 12-sep-2026. Este bloque decia en un comentario «sin JS o sin
+     soporte, el contenido se ve igual» y hacia exactamente lo contrario: la
+     regla era `.reveal { opacity: 0 }` a secas, asi que sin JavaScript TODO lo
+     envuelto en <Reveal> quedaba invisible. Un comentario no es evidencia de
+     comportamiento, y este llevaba desde el 1-ago describiendo una intencion
+     que el CSS no implementaba. Se vio en un pantallazo de pagina completa:
+     media Home en blanco.
+
+     La correccion es la misma que gobierna el umbral: **el estado de reposo es
+     el visible**, y solo se esconde cuando consta que hay JavaScript para
+     volver a ensenarlo. `data-js` lo pone el script en linea del <head>, antes
+     del primer pintado, asi que no hay destello.
+
+        sin JS            -> sin data-js  -> todo visible, siempre
+        con JS            -> data-js      -> se esconde y el observer lo revela
+        reduced-motion    -> ver abajo    -> visible y quieto */
+  html[data-js] .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity var(--motion-section) var(--ease-velia), transform var(--motion-section) var(--ease-velia);
+  }
+  html[data-js] .reveal[data-visible='true'] { opacity: 1; transform: none; }
 }
 
 /* Sin motion: todo visible y quieto. El `.reveal` NUNCA puede dejar contenido
    invisible — es la diferencia entre una animación y una pantalla en blanco. */
 @media (prefers-reduced-motion: reduce) {
+  /* `html[data-js]` delante para ganarle en especificidad a la regla de arriba:
+     sin esto, quien pide menos movimiento se quedaba con opacity 0 y ninguna
+     animacion que se la subiera. Ese es el fallo que esta regla existe para
+     impedir, y habria vuelto por la puerta de atras al elevar el selector. */
+  html[data-js] .reveal,
   .reveal { opacity: 1; transform: none; }
   .trace { stroke-dashoffset: 0; }
 }
@@ -638,4 +664,141 @@ a.btn:active, button.btn:active {
 @media (prefers-reduced-motion: reduce) {
   .mesa .mesa-pz, .mesa .mesa-marca, .mesa .mesa-punto, .mesa .mesa-tz { opacity: 0 !important; }
   .mesa .mesa-win, .mesa .mesa-win .cierre, .mesa .mesa-fila { opacity: 1 !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   VELIA WEB REWORK 2026 — el umbral y el lenguaje editorial de la Home nueva
+   Dirección: velia-core/docs/design/VELIA_WEB_DIRECTION_2026.md
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── EL UMBRAL ───────────────────────────────────────────────────────────────
+   Blanco puro, el logotipo, nada mas. Va ENCIMA de la Home ya renderizada.
+
+   QUIEN LO QUITA ES ESTE CSS, NO JAVASCRIPT. La animacion termina en
+   `visibility: hidden`, asi que si el script en linea del <head> corre y el
+   bundle de React no llega nunca, el umbral se retira igual. Y si JavaScript
+   esta desactivado del todo, el atributo `data-umbral` no se pone nunca y esto
+   se queda en `display:none`: no se ve, y la Home esta entera debajo.
+
+   Ninguna ruta de fallo puede acabar en una pantalla blanca. Esa es la regla.  */
+.umbral {
+  display: none;
+}
+
+html[data-umbral='1'] .umbral,
+html[data-umbral='saltado'] .umbral {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+html[data-umbral='1'] .umbral {
+  animation: umbral-ciclo 1000ms var(--ease-velia) forwards;
+}
+
+/* Saltado (una tecla, un clic, un gesto de scroll): salida corta desde donde
+   este. Quien ya quiere entrar, entra — el umbral no le discute la prisa. */
+html[data-umbral='saltado'] .umbral {
+  animation: umbral-salida 260ms var(--ease-velia) forwards;
+}
+
+@keyframes umbral-ciclo {
+  0%   { opacity: 0; transform: scale(1); }
+  12%  { opacity: 1; transform: scale(1); }
+  66%  { opacity: 1; transform: scale(1); }
+  /* El fotograma final saca la capa del hit-testing ademas de ocultarla: una
+     capa invisible que sigue capturando clics es una pagina que no responde. */
+  100% { opacity: 0; transform: scale(1.012); visibility: hidden; pointer-events: none; }
+}
+
+@keyframes umbral-salida {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(1.012); visibility: hidden; pointer-events: none; }
+}
+
+.umbral__logo {
+  width: 180px;
+  height: auto;
+}
+
+@media (min-width: 768px)  { .umbral__logo { width: 200px; } }
+@media (min-width: 1280px) { .umbral__logo { width: 240px; } }
+
+html[data-umbral='1'] .umbral__logo {
+  /* El conjunto entra como una pieza: primero existe, luego se asienta. */
+  animation: umbral-logo 620ms var(--ease-velia) both;
+}
+
+@keyframes umbral-logo {
+  from { opacity: 0; transform: translateY(6px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* El punto Iris llega el ultimo y solo. El asta es la estructura; el punto es
+   VELIA. 320 ms despues, no antes. */
+html[data-umbral='1'] .umbral__punto {
+  transform-origin: 25.4px 49.5px;
+  animation: umbral-punto 420ms var(--ease-velia) 320ms both;
+}
+
+@keyframes umbral-punto {
+  from { opacity: 0; transform: scale(0.2); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Cinturon de seguridad. Si alguien pide menos movimiento y aun asi el atributo
+   llegara a ponerse —hoy el script en linea ya lo impide, pero eso es una
+   condicion de OTRO fichero—, esto lo apaga aqui. Una guarda que depende de que
+   otro fichero se porte bien no es una guarda. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-umbral] .umbral { display: none !important; }
+}
+
+/* ── LENGUAJE EDITORIAL ──────────────────────────────────────────────────────
+   Tres utilidades, no un sistema. Lo que se repite se nombra; lo que aparece
+   una vez vive en su componente. */
+
+/* Hairline de sección. Soft Mist sobre claro; nunca un borde de 1px gris medio,
+   que a 1px se ve sucio en pantallas no retina. */
+.hairline { border-top: 1px solid #e6eaf1; }
+
+/* Índice narrativo (01, 02…). Peso 300 a propósito: es una referencia, no un
+   titular — si pesa más compite con el h2 que tiene al lado. */
+.indice {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Etiqueta de estado — EN PRODUCCIÓN / EN CONSTRUCCIÓN.
+   Es el gesto más importante de la página: decir qué existe y qué no. Se pinta
+   con un punto, no con un color de fondo, porque no es una alerta: es un dato. */
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.estado::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: currentColor;
+  flex: none;
+}
+/* En construcción: el punto queda hueco. La diferencia se ve sin leer. */
+.estado--futuro::before {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px currentColor;
 }

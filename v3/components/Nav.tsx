@@ -6,8 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { APP_URL } from '@/lib/constants'
 import { HEADER_LINKS } from '@/lib/navigation'
-import { CTA, TRIAL_URL, withUtm } from '@/lib/cta'
-import { PRICING } from '@/lib/pricing'
+import { CTA_CONTACTO } from '@/lib/cta'
 import { trackEvent } from '@/lib/analytics'
 
 /**
@@ -92,16 +91,11 @@ export default function Nav() {
     }
   }, [open])
 
-  const irAPrueba = (ubicacion: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
-    trackEvent('header_trial_click', { cta_location: ubicacion })
-    e.currentTarget.href = withUtm(TRIAL_URL)
-  }
-
   return (
     <header
       className={`sticky top-0 z-50 border-b transition-colors duration-panel ease-velia ${
         scrolled
-          ? 'bg-cream/92 backdrop-blur-md border-mist'
+          ? 'bg-cream/90 backdrop-blur-md border-mist'
           : claro
             ? 'bg-transparent border-transparent'
             : 'bg-cream/70 backdrop-blur-sm border-transparent'
@@ -127,7 +121,6 @@ export default function Nav() {
             <Link
               key={l.href}
               href={l.href}
-              onClick={() => { if (l.href === '/demo') trackEvent('nav_demo_click') }}
               className={`text-[11px] font-600 tracking-[0.06em] uppercase transition-colors duration-control whitespace-nowrap ${
                 claro ? 'text-cream/75 hover:text-cream' : 'text-void/60 hover:text-void'
               }`}
@@ -147,28 +140,28 @@ export default function Nav() {
           {/* Iris 600 y no Night: sobre el hero oscuro un botón Night desaparece,
               y el acento es justo lo que debe destacar. Blanco sobre Iris 600
               cumple; sobre Iris 500 daría 3,65:1 y no llegaría. */}
-          <a
-            href={TRIAL_URL}
-            onClick={irAPrueba('header')}
+          <Link
+            href={CTA_CONTACTO.href}
+            onClick={() => trackEvent('nav_contacto_click', { cta_location: 'header' })}
             className={`btn text-[11px] font-600 tracking-[0.04em] rounded-full px-5 py-2.5 hover:opacity-90 whitespace-nowrap ${
               claro ? 'bg-gold-dark text-white' : 'bg-void text-cream'
             }`}
           >
-            {CTA.primary.label}
-          </a>
+            {CTA_CONTACTO.label}
+          </Link>
         </div>
 
         {/* Móvil: el CTA principal NO se esconde detrás del menú. */}
         <div className="flex md:hidden items-center gap-2">
-          <a
-            href={TRIAL_URL}
-            onClick={irAPrueba('header_mobile')}
+          <Link
+            href={CTA_CONTACTO.href}
+            onClick={() => trackEvent('nav_contacto_click', { cta_location: 'header_mobile' })}
             className={`btn inline-flex items-center min-h-[44px] text-[11px] font-600 tracking-[0.04em] rounded-full px-4 whitespace-nowrap ${
               claro ? 'bg-gold-dark text-white' : 'bg-void text-cream'
             }`}
           >
-            Probar gratis
-          </a>
+            {CTA_CONTACTO.label}
+          </Link>
           <button
             ref={menuBtn}
             type="button"
@@ -193,7 +186,7 @@ export default function Nav() {
             <Link
               key={l.href}
               href={l.href}
-              onClick={() => { setOpen(false); if (l.href === '/demo') trackEvent('nav_demo_click') }}
+              onClick={() => setOpen(false)}
               className="block py-3 text-sm font-600 text-void/75"
             >
               {l.label}
@@ -206,9 +199,13 @@ export default function Nav() {
           >
             Iniciar sesión
           </a>
-          <p className="pt-3 text-[12px] text-void/60">
-            {PRICING.trialDays} días gratis · Sin tarjeta
-          </p>
+          <Link
+            href={CTA_CONTACTO.href}
+            onClick={() => { setOpen(false); trackEvent('nav_contacto_click', { cta_location: 'menu_movil' }) }}
+            className="block py-3 text-sm font-600 text-gold-ink"
+          >
+            {CTA_CONTACTO.label}
+          </Link>
         </div>
       )}
     </header>

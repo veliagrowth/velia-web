@@ -24,17 +24,38 @@ import { APP_URL } from '@/lib/constants'
 // guarda como evidencia. Si se escribieran por separado, un día la evidencia
 // diría algo distinto de lo que el abogado leyó — y la evidencia es justo lo que
 // se mira cuando alguien reclama.
-export const CONSENT_VERSION = '2026-08-09'
+/* La version SUBE cada vez que cambia el texto, sin excepcion. El texto se
+   guarda junto a su version en cada lead: si dos textos distintos comparten
+   version, deja de poder demostrarse a que consintio cada persona — y eso es
+   justo lo que un registro de consentimiento existe para demostrar.
+   12-sep-2026: «sobre su software» -> «sobre sus servicios» (VELIA ya no vende
+   un software). */
+export const CONSENT_VERSION = '2026-09-12'
 export const CONSENT_TEXT =
   'Acepto que VELIA trate mis datos para responder a esta solicitud y ponerse en ' +
-  'contacto conmigo sobre su software. No se usarán para ninguna otra finalidad ' +
+  'contacto conmigo sobre sus servicios. No se usarán para ninguna otra finalidad ' +
   'ni se cederán a terceros. Puedo pedir la baja en cualquier momento respondiendo ' +
   'a cualquiera de sus correos.'
 
-const TAMANOS = ['Solo yo', '2-5 abogados', '6-15 abogados', 'Más de 15'] as const
+/**
+ * ⚠️ REWORK 2026 — los VALORES dejan de ser de despacho de abogados; las CLAVES
+ * del formulario (`despacho`, `abogados`, `area`) se quedan exactamente como
+ * están.
+ *
+ * No es descuido: el endpoint `/api/velia-lead` del portal valida por nombre de
+ * campo y escribe `abogados` y `area` dentro de `enrichment_data`. Su esquema
+ * (`veliaLeadCreate`) es texto libre con longitud máxima —comprobado antes de
+ * tocar esto, no supuesto—, así que cambiar la etiqueta y las opciones es
+ * seguro y cambiar la clave habría roto el contrato en silencio.
+ *
+ * Queda pendiente para la etapa 2 renombrar el contrato a los dos lados a la
+ * vez. Mientras tanto, el correo interno de aviso sigue diciendo «Abogados:» y
+ * «Área:»: lo ve el equipo, no el cliente.
+ */
+const TAMANOS = ['Solo yo', '2-10 personas', '11-50 personas', 'Más de 50'] as const
 const AREAS = [
-  'Laboral', 'Penal', 'Familia', 'Mercantil', 'Civil',
-  'Extranjería', 'Fiscal', 'Concursal / deudas', 'Varias áreas', 'Otra',
+  'Servicios profesionales', 'Clínica o salud', 'Inmobiliaria', 'Comercio o e-commerce',
+  'Hostelería', 'Industria', 'Construcción', 'Educación', 'Otro sector',
 ] as const
 
 type Estado = 'idle' | 'enviando' | 'ok' | 'error'
@@ -115,11 +136,12 @@ export default function ContactForm({ origen = 'contacto' }: { origen?: string }
         Hablar con el equipo
       </p>
       <h3 className="text-2xl md:text-3xl font-700 tracking-[-0.01em] max-w-[22ch]">
-        ¿Prefieres que te lo contemos antes de probar nada?
+        Cuéntanos cómo trabajáis hoy.
       </h3>
       <p className="mt-4 text-sm text-void/60 leading-[1.6] max-w-prose">
-        Déjanos cómo contactarte y te escribimos en el siguiente día laborable. No hace
-        falta crear ninguna cuenta.
+        No hace falta que tengas claro qué necesitas: para eso está la primera
+        conversación. Déjanos cómo contactarte y te escribimos en el siguiente día
+        laborable.
       </p>
 
       <div className="mt-8 grid gap-5 sm:grid-cols-2">
@@ -128,7 +150,7 @@ export default function ContactForm({ origen = 'contacto' }: { origen?: string }
           <input id="cf-name" name="name" required maxLength={160} autoComplete="name" className={inputCls} />
         </div>
         <div>
-          <label htmlFor="cf-despacho" className={labelCls}>Despacho</label>
+          <label htmlFor="cf-despacho" className={labelCls}>Empresa</label>
           <input id="cf-despacho" name="despacho" maxLength={160} autoComplete="organization" className={inputCls} />
         </div>
         <div>
@@ -140,14 +162,14 @@ export default function ContactForm({ origen = 'contacto' }: { origen?: string }
           <input id="cf-phone" name="phone" type="tel" autoComplete="tel" className={inputCls} />
         </div>
         <div>
-          <label htmlFor="cf-abogados" className={labelCls}>Tamaño del despacho</label>
+          <label htmlFor="cf-abogados" className={labelCls}>Tamaño del equipo</label>
           <select id="cf-abogados" name="abogados" className={inputCls} defaultValue="">
             <option value="">Prefiero no decirlo</option>
             {TAMANOS.map(t => <option key={t} value={t}>{t}</option>)}
           </select>
         </div>
         <div>
-          <label htmlFor="cf-area" className={labelCls}>Área principal</label>
+          <label htmlFor="cf-area" className={labelCls}>Sector</label>
           <select id="cf-area" name="area" className={inputCls} defaultValue="">
             <option value="">Prefiero no decirlo</option>
             {AREAS.map(a => <option key={a} value={a}>{a}</option>)}
@@ -158,7 +180,7 @@ export default function ContactForm({ origen = 'contacto' }: { origen?: string }
       <div className="mt-5">
         <label htmlFor="cf-message" className={labelCls}>¿Qué te gustaría resolver?</label>
         <textarea id="cf-message" name="message" rows={4} maxLength={4000} className={inputCls}
-          placeholder="Cuéntanos brevemente cómo trabajáis hoy y qué te gustaría cambiar." />
+          placeholder="Con qué herramientas trabajáis, qué os está costando más tiempo, y qué os gustaría que dejara de ser manual." />
       </div>
 
       {/* Honeypot: invisible para una persona, irresistible para un bot. */}

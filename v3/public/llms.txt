@@ -1,31 +1,59 @@
 # VELIA
 
-> VELIA es una plataforma española de software con IA para despachos profesionales. Su primer vertical, VELIA Legal, es el software sobre el que un despacho de abogados opera el 100% de su trabajo: clientes, expedientes, plazos procesales, escritos con IA que cita el BOE, agenda, documentación y facturación Verifactu. Prueba gratuita de 15 días.
+> VELIA es una compañía española de transformación y operación digital. Diseña, construye, integra, automatiza y opera la infraestructura digital de empresas y profesionales para la era de la IA, la automatización y los agentes. No vende un producto de software: construye el sistema digital de un negocio y se queda operándolo.
 
-Datos clave (actualizado julio 2026):
+Actualizado: septiembre de 2026.
 
-- Producto: VELIA Legal — software de gestión integral para despachos de abogados en España. Aplicación web y PWA instalable en móvil y escritorio.
-- Precio: 199 €/mes por despacho con un abogado incluido, o 1.990 €/año (equivale a 2 meses gratis). Cada abogado adicional: 49 €/mes. Programa Fundadores: 149 €/mes de por vida, plazas limitadas. Bufetes grandes: integración a medida con estudio previo.
-- Incluye web a medida del despacho sin coste mientras se es cliente.
-- IA con fuentes oficiales: las respuestas y escritos citan el texto oficial del BOE (legislación estatal española) y EUR-Lex (normativa de la UE), con citas verificables enlazadas a la fuente. La IA no inventa el texto legal: si no encuentra la fuente, lo dice.
-- Plazos procesales: motor de cómputo conforme a la LEC (días inhábiles, agosto, prórroga del art. 133.4), con avisos automáticos.
-- Facturación conforme a Verifactu (normativa antifraude española).
-- Seguridad: datos alojados en la Unión Europea, aislamiento por despacho a nivel de base de datos (Row Level Security), sin entrenamiento de modelos de IA con datos de clientes, RGPD con acuerdo de encargo (DPA) disponible. Exportación completa de datos en cualquier momento.
-- Prueba: 15 días gratis en https://app.veliacorp.com/prueba-velia · Demo interactiva sin registro en https://veliacorp.com/demo
+## Qué es VELIA
+
+- **Categoría**: compañía de transformación y operación digital. No es una agencia de marketing, ni una consultora que solo recomienda, ni un SaaS, ni una empresa de automatizaciones sueltas.
+- **Qué la diferencia**: VELIA no entrega un proyecto y desaparece. Construye la infraestructura y la **opera** de forma continuada.
+- **Modelo**: proyecto inicial + infraestructura + operación recurrente + optimización + expansión.
+- **Mercado**: España. Empresas, autónomos y profesionales con dependencia real de su presencia digital.
+
+## Las cuatro capacidades
+
+- **Digital Foundation**: web y su arquitectura, dominio, alojamiento, analítica, seguimiento, formularios, CRM, integraciones, identidad digital y presencia local.
+- **AI Search & Digital Visibility**: preparar la infraestructura digital de un negocio para que buscadores, búsqueda generativa, rastreadores y agentes puedan descubrirlo, interpretarlo y contextualizarlo correctamente.
+- **Growth & Automation**: el recorrido completo de captación y conversión — atención, visita, contacto, captura, CRM, cualificación, seguimiento, conversión y retención.
+- **Digital Operations**: mantenimiento, monitorización, medición, corrección y evolución continua de los sistemas construidos. Es la capacidad diferencial.
+
+## Cómo trabaja
+
+Seis fases: Discover, Diagnose, Design, Build, Operate, Optimize. Las dos últimas no tienen fecha de fin — ahí está la diferencia entre encargar un proyecto y tener una infraestructura operada.
+
+## Infraestructura propia (VELIA OS)
+
+VELIA opera sobre infraestructura propia, no únicamente sobre suscripciones de terceros.
+
+- **En producción**: infraestructura propia · automatización de procesos en marcha · un portal por cliente donde ver el estado de su infraestructura y sus servicios.
+- **En construcción**: el Control Plane (observar, entender, diagnosticar, planificar, ejecutar, verificar, aprender) · agentes con permisos explícitos y acotados · VELIA 4.0 Audit, el diagnóstico como punto de partida.
+
+Esta distinción es deliberada: VELIA no publica como disponible una capacidad que todavía no lo está.
+
+## Lo que VELIA no promete
+
+- No promete posiciones concretas en Google ni en ningún buscador.
+- No promete apariciones en las respuestas de ChatGPT, de Google ni de ningún sistema de IA.
+- No garantiza recomendaciones por parte de sistemas generativos.
+
+La propuesta honesta es mejorar las condiciones para que un negocio pueda ser **descubierto, entendido, contextualizado y considerado** — por personas y por máquinas.
+
+## Un caso real
+
+**Cónsul Jurídico** (Fraga, España — consuljuridico.com) es cliente de VELIA. Un despacho que arrancaba de cero y empezó con herramientas de terceros enganchadas entre sí; lo que necesitaba de verdad acabó construyéndose a medida: captación, expedientes, documentos, agenda y un portal para sus propios clientes. VELIA sigue operando esa infraestructura.
+
+VELIA **no** es una empresa jurídica ni un proveedor de software para abogados: es la compañía que construyó y opera la infraestructura digital de ese despacho. La línea anterior de producto vertical para el sector legal quedó descontinuada en septiembre de 2026; el sector es hoy una configuración sobre el núcleo de VELIA, no un producto independiente.
 
 ## Páginas
 
-- [Inicio](https://veliacorp.com/): qué es VELIA y el producto en vivo
-- [VELIA Legal](https://veliacorp.com/legal): cómo trabaja un abogado con VELIA, función a función
-- [Precios](https://veliacorp.com/precios): planes, programa Fundadores y preguntas frecuentes
-- [Demo interactiva](https://veliacorp.com/demo): despacho de demostración real, solo lectura, sin registro
-- [Seguridad](https://veliacorp.com/seguridad): RGPD, aislamiento multi-tenant, datos en la UE, política de no entrenamiento
-- [IA responsable](https://veliacorp.com/ia-responsable): transparencia conforme al Reglamento europeo de IA — supervisión humana, documentos etiquetados, fuentes verificables
-- [Novedades](https://veliacorp.com/novedades): mejoras del producto semana a semana
-- [Contacto](https://veliacorp.com/contacto): agendar una demo con el equipo
+- [Inicio](https://veliacorp.com/): qué es VELIA, sus capacidades, cómo trabaja y su infraestructura
+- [Contacto](https://veliacorp.com/contacto): hablar con el equipo
+- [Novedades](https://veliacorp.com/novedades): mejoras y cambios
+- [Aviso legal](https://veliacorp.com/aviso-legal) · [Privacidad](https://veliacorp.com/privacidad) · [Cookies](https://veliacorp.com/cookies) · [Términos](https://veliacorp.com/terminos) · [IA responsable](https://veliacorp.com/ia-responsable)
 
 ## Empresa
 
 - Titular: VELIA Marketing SL (España)
 - Contacto: admin@veliacorp.com
-- Aplicación: https://app.veliacorp.com
+- Portal de clientes: https://app.veliacorp.com

@@ -28,6 +28,26 @@ export const DEMO_URL = 'https://demo.app.veliacorp.com/'
 /** Página propia que presenta la demo antes de abrirla. */
 export const DEMO_PAGE = '/demo'
 
+/**
+ * ── REWORK 2026 ──────────────────────────────────────────────────────────────
+ * La acción de la VELIA nueva. No hay prueba gratuita que ofrecer porque no hay
+ * producto que probar: VELIA no vende una herramienta, construye y opera
+ * infraestructura. Eso empieza por una conversación, no por un alta.
+ *
+ * Las tres acciones de abajo NO se borran: las páginas legacy (`/precios`,
+ * `/demo`, `/fundadores`, `/legal`) siguen vivas y las siguen usando. Dejan de
+ * aparecer en la Home y en la navegación, que es distinto de dejar de existir.
+ */
+export const CTA_CONTACTO = {
+  label: 'Hablemos',
+  href: '/contacto',
+} as const
+
+/** Microcopy del cierre. Dice qué pasa después de pulsar, que es lo único que
+ *  el visitante quiere saber antes de escribir. Ninguna promesa de plazo: no
+ *  hay un SLA de respuesta que podamos sostener. */
+export const CONTACTO_MICROCOPY = 'Nos cuentas cómo trabajáis hoy. Te decimos qué haríamos.'
+
 export const CTA = {
   primary: {
     label: 'Probar VELIA gratis',

@@ -1,38 +1,48 @@
 /**
  * SSoT de la navegación.
  *
- * El header tenía 8 elementos y en `Nav.tsx` había un comentario explicando que
- * se había bajado el `gap` porque no cabían y el menú se montaba sobre el
- * logotipo. Cuando hay que apretar el espaciado para que quepa el menú, el
- * problema no es el espaciado.
+ * REESCRITA EN EL REWORK 2026. La anterior era la navegación de un SaaS —
+ * Producto · Demo · Seguridad · Precios— y las cuatro llevaban al funnel de
+ * VELIA Legal. La VELIA nueva no vende un producto: construye y opera
+ * infraestructura, así que el menú nombra lo que hace, cómo lo hace y con qué.
  *
- * Cuatro secciones y dos acciones. Novedades y Contacto viven en el footer:
- * quien los busca los encuentra, y quien no, no tiene que decidir sobre ellos.
+ * Cuatro secciones y una acción. Block tiene siete enlaces para seis empresas;
+ * una compañía con una sola web no necesita más.
+ *
+ * ⚠️ NINGUNA RUTA LEGACY APARECE AQUÍ. `/precios`, `/demo`, `/fundadores` y
+ * `/legal` siguen vivas y respondiendo 200 —no se ha roto nada—, pero dejan de
+ * anunciarse: son la etapa anterior de la compañía. El inventario con sus
+ * dependencias está en
+ * velia-core/docs/design/VELIA_WEB_LEGACY_INVENTORY_2026.md
+ *
+ * `/seguridad` tampoco aparece todavía: sigue hablando de seguridad de un SaaS
+ * jurídico y está marcada REWRITE para la etapa 2. Las dos páginas legales que
+ * la enlazan (privacidad e IA responsable) siguen enlazándola: ese camino no se
+ * toca porque es obligación legal.
  */
 
 export const HEADER_LINKS = [
-  { href: '/legal', label: 'Producto' },
-  { href: '/demo', label: 'Demo' },
-  { href: '/seguridad', label: 'Seguridad' },
-  { href: '/precios', label: 'Precios' },
+  { href: '/#capacidades', label: 'Qué hacemos' },
+  { href: '/#operamos', label: 'Cómo trabajamos' },
+  { href: '/#velia-os', label: 'VELIA OS' },
+  { href: '/contacto', label: 'Contacto' },
 ] as const
 
 export const FOOTER_NAV = {
-  producto: {
-    title: 'Producto',
+  compania: {
+    title: 'Compañía',
     links: [
-      { href: '/legal', label: 'Producto' },
-      { href: '/demo', label: 'Demo interactiva' },
-      { href: '/precios', label: 'Precios' },
-      { href: '/seguridad', label: 'Seguridad' },
-      { href: '/novedades', label: 'Novedades' },
+      { href: '/#capacidades', label: 'Qué hacemos' },
+      { href: '/#operamos', label: 'Cómo trabajamos' },
+      { href: '/#velia-os', label: 'VELIA OS' },
+      { href: '/#caso', label: 'Un caso real' },
     ],
   },
-  empresa: {
-    title: 'Empresa',
+  contacto: {
+    title: 'Contacto',
     links: [
-      { href: '/sobre-velia', label: 'Sobre VELIA' },
-      { href: '/contacto', label: 'Contacto' },
+      { href: '/contacto', label: 'Hablemos' },
+      { href: '/novedades', label: 'Novedades' },
     ],
   },
   legal: {
@@ -43,10 +53,9 @@ export const FOOTER_NAV = {
       { href: '/cookies', label: 'Cookies' },
       { href: '/terminos', label: 'Términos del servicio' },
       { href: '/ia-responsable', label: 'IA responsable' },
-      { href: '/seguridad', label: 'Seguridad' },
     ],
   },
 } as const
 
-/** Cierre de marca del footer. Sustituye al claim del «100 % de su software». */
-export const FOOTER_CLAIM = 'Todo el despacho. Una plataforma. VELIA.'
+/** Cierre de marca del pie. Los dos verbos que separan a VELIA de una agencia. */
+export const FOOTER_CLAIM = 'Construimos infraestructura. Y la operamos.'

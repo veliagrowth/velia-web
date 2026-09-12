@@ -1,97 +1,72 @@
 import Link from 'next/link'
-import DemoEmbed from '@/components/DemoEmbed'
-import ProductShot from '@/components/ProductShot'
-import HeroVideo from '@/components/HeroVideo'
-import TestimonialVideo from '@/components/TestimonialVideo'
-import TrialButton from '@/components/TrialButton'
-import TrackedLink from '@/components/TrackedLink'
-import SectionViewMarker from '@/components/SectionViewMarker'
+import Umbral from '@/components/Umbral'
 import Reveal from '@/components/Reveal'
-import IrisNode from '@/components/IrisNode'
-import HeroContextStage from '@/components/HeroContextStage'
-import ContextMap from '@/components/ContextMap'
-import ProductShowcase from '@/components/ProductShowcase'
-import BrainStateTabs from '@/components/BrainStateTabs'
-import DayWithVelia from '@/components/DayWithVelia'
-import CaseStudyToggle from '@/components/CaseStudyToggle'
-import SecurityArchitecture from '@/components/SecurityArchitecture'
-import PricingSelector from '@/components/PricingSelector'
+import SectionViewMarker from '@/components/SectionViewMarker'
+import ElCambio from '@/components/ElCambio'
+import Distancia from '@/components/Distancia'
+import Capacidades from '@/components/Capacidades'
+import VeliaOS from '@/components/VeliaOS'
+import ModeloOperativo from '@/components/ModeloOperativo'
 import { SITE_URL, CONTACT_EMAIL } from '@/lib/constants'
-import { PRICING, ANNUAL_FREE_MONTHS, FOUNDERS_SEATS_LABEL, eur } from '@/lib/pricing'
-import { CTA, DEMO_URL, TRIAL_MICROCOPY } from '@/lib/cta'
-import { FEATURE_FLAGS } from '@/lib/feature-flags'
-import { claim } from '@/lib/verified-claims'
+import { CTA_CONTACTO, CONTACTO_MICROCOPY } from '@/lib/cta'
 
 /**
- * Home — dirección «Quiet Intelligence in Motion» (1-ago-2026).
+ * Home — VELIA WEB REWORK 2026.
  *
- * LO QUE CAMBIA respecto a la versión anterior no es el mensaje: es que la
- * página lo DEMUESTRA en vez de afirmarlo. Antes, las diez secciones tenían la
- * misma forma (contenedor, titular, párrafo, rejilla) y la única capacidad
- * diferencial del producto —que VELIA trabaja con el contexto del asunto— se
- * contaba con una lista de tres frases dentro de una tarjeta estática.
+ * Sustituye a la home de VELIA Legal (SaaS jurídico, 99 €/mes, prueba gratuita,
+ * demo embebida y programa Fundadores). Aquella vendía un producto; esta
+ * presenta una compañía.
  *
- * RITMO. El fondo cambia cuando cambia lo que se está contando, nunca por
- * alternar:
- *   oscuro   hero            · VELIA trabajando, de verdad, delante de ti
- *   claro    confianza       · una franja fina, no una sección
- *   claro    mapa            · lo que VELIA ve cuando abres un asunto
- *   OSCURO   Cerebro         · el corte: aquí se entra en la inteligencia
- *   claro    la jornada      · la vuelta al despacho y su día
- *   claro    producto/demo   · el software real, tocable
- *   blanco   caso            · el contraste editorial de la prueba
- *   OSCURO   seguridad       · el segundo corte: aquí se habla de secretos
- *   claro    precio          · la decisión, sin dramatismo
- *   OSCURO   cierre          · la firma
+ * Dirección completa: velia-core/docs/design/VELIA_WEB_DIRECTION_2026.md
  *
- * DOS ACCIONES EN TODA LA PÁGINA: «Probar VELIA gratis» y «Ver demo
- * interactiva». Cualquier tercera compite con las dos que convierten.
+ * OCHO MOMENTOS, no diez secciones con la misma forma. Ninguna sección tiene la
+ * composición de la anterior, y el fondo solo cambia cuando cambia lo que se
+ * está contando:
  *
- * Cada pieza interactiva está tras su bandera y al apagarla queda su equivalente
- * estático — nunca un hueco.
+ *   0  UMBRAL        blanco puro  · el logotipo · nada más
+ *   1  AFIRMACIÓN    Pearl Cloud  · el ÚNICO h1 de la página
+ *   2  EL CAMBIO     Pearl Cloud  · 1.0 → 4.0, y dónde está tu empresa
+ *   3  LA DISTANCIA  blanco       · fragmentos sueltos → una sola infraestructura
+ *   4  CAPACIDADES   Pearl Cloud  · las cuatro, en composición editorial
+ *   5  VELIA OS      NIGHT        ← corte 1: aquí se entra en la infraestructura
+ *   6  CÓMO OPERAMOS blanco       · seis fases, y las dos últimas no terminan
+ *   7  PRUEBA        Pearl Cloud  · Cónsul Jurídico, sin una cifra inventada
+ *   8  CIERRE        NIGHT        ← corte 2: una sola acción
+ *
+ * UNA SOLA ACCIÓN EN TODA LA PÁGINA. La home anterior tenía dos que competían
+ * («Probar gratis» y «Ver demo») porque había un producto que probar. Aquí no lo
+ * hay: VELIA no vende una herramienta, así que lo único que se puede pedir es
+ * una conversación. Un segundo CTA solo restaría.
+ *
+ * NINGUNA RUTA LEGACY SE ENLAZA desde aquí. `/precios`, `/demo`, `/fundadores` y
+ * `/legal` siguen vivas y respondiendo 200 — ver el inventario en velia-core.
+ *
+ * EL UMBRAL NO ES UNA PUERTA: todo lo que sigue está en el HTML servido, y se
+ * lee entero sin JavaScript. Es la condición que hace verdadero lo que la propia
+ * página afirma sobre ser legible por máquinas.
  */
 
-/** Cuatro señales. Solo se pinta lo que `verified-claims` autoriza. */
-const CONFIANZA = [
-  { k: 'Desarrollada en España', v: claim('developedInSpain') },
-  { k: 'Fuentes oficiales', v: claim('officialSources') },
-  { k: 'Información aislada', v: claim('tenantIsolation') },
-  { k: 'Supervisión profesional', v: claim('humanSupervision') },
-].filter((s): s is { k: string; v: string } => Boolean(s.v))
-
-/** Los cinco módulos. Sustituyen a cualquier listado largo de funcionalidades:
- *  una frase de beneficio por módulo, nunca una enumeración de campos. */
-const MODULOS = [
-  { title: 'Expedientes', body: 'Cada asunto con sus partes, su estado, su documentación y su economía en el mismo sitio.' },
-  { title: 'Documentos', body: 'Sube la documentación, trabaja sobre ella con VELIA y conserva el resultado dentro del expediente.' },
-  { title: 'Plazos y agenda', body: 'VELIA propone el cómputo con su cita textual; el vencimiento entra en la agenda cuando lo apruebas.' },
-  { title: 'Clientes y portal', body: 'El cliente entra en su portal, ve el estado de su asunto y aporta lo que falta sin llamar por teléfono.' },
-  { title: 'Facturación', body: 'Honorarios, cobros y facturas enlazados al asunto que los ha generado.' },
-]
-
-const softwareJsonLd = {
+/* JSON-LD de compañía. El `SoftwareApplication` que había aquí se ha eliminado:
+   declaraba VELIA como una aplicación de software a la venta, con su precio y su
+   prueba gratuita. Una máquina leía eso mientras la página decía otra cosa. */
+const organizationJsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
+  '@type': 'Organization',
   name: 'VELIA',
-  applicationCategory: 'BusinessApplication',
-  operatingSystem: 'Web',
+  legalName: 'VELIA Marketing SL',
   url: SITE_URL,
+  logo: `${SITE_URL}/velia_logotipo.svg`,
+  email: CONTACT_EMAIL,
   description:
-    'Software jurídico con IA desarrollado en España: expedientes, clientes, documentos, plazos y facturación en una sola plataforma, con una asistente que trabaja con el contexto de cada asunto.',
-  offers: [
-    {
-      '@type': 'Offer',
-      price: String(PRICING.monthly),
-      priceCurrency: PRICING.currency,
-      description: `${eur(PRICING.monthly)}/mes por despacho con ${PRICING.usersIncluded} usuarios incluidos. Prueba gratis de ${PRICING.trialDays} días.`,
-    },
-    {
-      '@type': 'Offer',
-      price: String(PRICING.annualTotal),
-      priceCurrency: PRICING.currency,
-      description: `${eur(PRICING.annualTotal)}/año por despacho (${ANNUAL_FREE_MONTHS} meses gratis) con ${PRICING.usersIncluded} usuarios incluidos. Prueba gratis de ${PRICING.trialDays} días.`,
-    },
+    'VELIA es una compañía de transformación y operación digital. Diseña, construye, integra, automatiza y opera la infraestructura digital de empresas y profesionales para la era de la IA, la automatización y los agentes.',
+  knowsAbout: [
+    'Infraestructura digital',
+    'Automatización de procesos',
+    'Integración de sistemas',
+    'Visibilidad en buscadores y sistemas de IA',
+    'Operación de sistemas digitales',
   ],
+  areaServed: 'ES',
 }
 
 export default function Home() {
@@ -99,391 +74,198 @@ export default function Home() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
       />
 
-      {/* ════════════════════════════════════════════════════════════════════
-          1 · HERO — oscuro, cinematográfico
-          `data-hero="dark"` es lo que lee el header para saber que arranca
-          sobre tinta oscura. No una lista de rutas: el DOM ya lo sabe.
-          `-mt-16` mete el hero DEBAJO del header sticky, que es transparente
-          hasta el primer scroll: sin esto quedaría una banda clara arriba.
-         ════════════════════════════════════════════════════════════════════ */}
-      <section
-        data-hero="dark"
-        className="velia-dark-stage relative -mt-16 pt-16 bg-void text-cream overflow-hidden"
-      >
-        <div className="mx-auto max-w-6xl px-6 pt-16 pb-20 md:pt-24 md:pb-28 md:min-h-[92vh] flex items-center">
-          <div className="grid gap-14 lg:grid-cols-[1.02fr_0.98fr] lg:gap-16 lg:items-center w-full">
-            <div className="rise">
-              {/* El «· Desarrollado en España» solo desde sm: a 390 px la línea
-                  entera parte en dos y un eyebrow de dos líneas deja de leerse
-                  como etiqueta y empieza a competir con el titular. El dato no
-                  se pierde — está en la franja de confianza, justo debajo. */}
-              <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85 mb-6">
-                Software jurídico con IA
-                <span className="hidden sm:inline"> · Desarrollado en España</span>
-              </p>
-              {/* Una sola intervención editorial, no dos: Instrument Serif en
-                  «dentro». Poner además el Iris en «VELIA» sería competir con
-                  el propio recurso y ninguna de las dos se leería como decisión. */}
-              <h1 className="text-[2.6rem] leading-[1.06] sm:text-5xl md:text-[4rem] md:leading-[1.04] font-500 tracking-[-0.04em]">
-                <span className="inline-block">Todo tu despacho.</span>{' '}
-                <span className="inline-block">
-                  Con VELIA <em className="font-serif not-italic font-400">dentro</em>.
-                </span>
-              </h1>
-              <p className="mt-7 text-[17px] md:text-[19px] text-cream/70 leading-[1.6] max-w-[46ch]">
-                Clientes, expedientes, documentos, plazos y facturación en una sola plataforma.
-                VELIA entiende el contexto de cada asunto y prepara el trabajo para que tú decidas.
-              </p>
-              <div className="mt-9 flex flex-wrap items-center gap-3">
-                <TrialButton event="hero_trial_click" location="hero" variant="onDark" />
-                <TrackedLink
-                  href="/demo"
-                  event="hero_demo_click"
-                  className="btn border border-white/25 text-cream text-[12px] font-600 tracking-[0.04em] rounded-full px-7 py-3.5 hover:border-white/50 transition-colors duration-control"
-                >
-                  {CTA.secondary.label}
-                </TrackedLink>
-              </div>
-              <p className="mt-5 text-[13px] text-cream/55">{TRIAL_MICROCOPY}</p>
-            </div>
+      {/* ═══ 0 · UMBRAL ═══════════════════════════════════════════════════
+          Overlay sobre todo lo de abajo, que ya está renderizado. No se monta
+          con prefers-reduced-motion ni en la segunda visita de la sesión. */}
+      <Umbral />
 
-            <div className="rise">
-              {FEATURE_FLAGS.ENABLE_INTERACTIVE_HERO ? (
-                <HeroContextStage />
-              ) : FEATURE_FLAGS.ENABLE_HERO_VIDEO ? (
-                <HeroVideo
-                  src="/api/hero-video"
-                  poster="/videos/hero-bufete-poster.jpg"
-                  ariaLabel="El día a día de un despacho de abogados"
-                />
-              ) : (
-                <ProductShot
-                  src="/screenshots/mod-expedientes.webp"
-                  alt="Los expedientes de un despacho dentro de VELIA, con su área, prioridad, cliente y fecha"
-                />
-              )}
-            </div>
-          </div>
+      {/* ═══ 1 · AFIRMACIÓN ═══════════════════════════════════════════════
+          El único h1 de la página. Una sola frase sostiene la home, como en
+          Block: dice quién hace qué, para qué, y no se podría copiar a la web
+          de otro sin que quedara mal. */}
+      <section className="mx-auto max-w-6xl px-6 md:px-10 pt-20 pb-16 md:pt-32 md:pb-24">
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
+          Transformación y operación digital
+        </p>
+        <h1 className="mt-6 text-[clamp(2.15rem,5.6vw,4.5rem)] font-600 tracking-[-0.035em] leading-[1.04] text-void max-w-[17ch]">
+          Construimos y operamos la infraestructura digital con la que una empresa compite en
+          la nueva era.
+        </h1>
+        <p className="mt-8 text-lg md:text-xl leading-[1.6] text-void/70 max-w-prose">
+          No vendemos una herramienta ni entregamos un proyecto y desaparecemos. Diseñamos el
+          sistema digital de un negocio, lo construimos, lo integramos, lo automatizamos y nos
+          quedamos operándolo.
+        </p>
+      </section>
+
+      {/* ═══ 2 · EL CAMBIO ════════════════════════════════════════════════ */}
+      <section className="mx-auto max-w-6xl px-6 md:px-10 pb-20 md:pb-28">
+        <SectionViewMarker event="shift_section_view" />
+        <div className="hairline pt-12 md:pt-16">
+          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">El cambio</p>
+          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
+            La infraestructura de una empresa envejece más despacio que su entorno.
+          </h2>
+        </div>
+        <ElCambio />
+      </section>
+
+      {/* ═══ 3 · LA DISTANCIA ═════════════════════════════════════════════
+          Blanco, no Pearl Cloud: es el momento más concreto de la página y
+          conviene que respire distinto al resto. */}
+      <section className="bg-white border-y border-mist">
+        <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
+          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">La distancia</p>
+          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[22ch]">
+            El problema casi nunca es que falte una herramienta.
+          </h2>
+          <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-void/65 max-w-prose">
+            Es que hay siete, no se hablan entre ellas, y nadie responde del conjunto.
+          </p>
+          <Distancia />
         </div>
       </section>
 
-      {/* ════ 2 · Franja de confianza — una línea, no una sección ═══════════ */}
-      <section className="bg-white border-b border-mist">
-        <div className="mx-auto max-w-6xl px-6 py-8 md:py-10">
-          <ul className="grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
-            {CONFIANZA.map(s => (
-              <li key={s.k} className="flex items-start gap-2.5">
-                <span className="mt-[7px] w-1 h-1 rounded-full bg-iris-focus shrink-0" aria-hidden="true" />
-                <div>
-                  <p className="text-[13px] font-600 leading-snug">{s.k}</p>
-                  <p className="mt-1 text-[12px] text-void/60 leading-[1.5]">{s.v}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-          <Link
-            href="/seguridad"
-            className="inline-block mt-7 text-[12px] font-600 tracking-[0.02em] text-gold-ink hover:text-void transition-colors duration-control"
-          >
-            Ver seguridad y privacidad →
-          </Link>
+      {/* ═══ 4 · CAPACIDADES ══════════════════════════════════════════════ */}
+      <section id="capacidades" className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28 scroll-mt-20">
+        <SectionViewMarker event="capabilities_section_view" />
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Qué hacemos</p>
+        <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
+          Cuatro capacidades, no un catálogo de servicios.
+        </h2>
+        <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-void/65 max-w-prose">
+          Un proyecto casi nunca necesita las cuatro a la vez. Necesita empezar por la que
+          está bloqueando a las demás.
+        </p>
+        <Capacidades />
+      </section>
+
+      {/* ═══ 5 · VELIA OS · CORTE OSCURO 1 ════════════════════════════════ */}
+      <section id="velia-os" className="velia-dark-stage bg-void text-cream scroll-mt-20">
+        <SectionViewMarker event="velia_os_view" />
+        <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
+          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85">VELIA OS</p>
+          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]">
+            Detrás de cada cliente hay infraestructura nuestra.
+          </h2>
+          <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-cream/70 max-w-prose">
+            No es un producto que se venda por separado: es con lo que VELIA trabaja. Y como
+            aquí es fácil prometer de más, esto es lo que funciona hoy y lo que todavía no.
+          </p>
+          <VeliaOS />
         </div>
       </section>
 
-      {/* ════ 3 · Mapa de contexto — claro ══════════════════════════════════ */}
-      {FEATURE_FLAGS.ENABLE_CONTEXT_MAP && (
-        <section className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <Reveal>
-            <ContextMap />
-          </Reveal>
-        </section>
-      )}
+      {/* ═══ 6 · CÓMO OPERAMOS ════════════════════════════════════════════ */}
+      <section id="operamos" className="bg-white border-b border-mist scroll-mt-20">
+        <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
+          <SectionViewMarker event="operating_model_view" />
+          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Cómo trabajamos</p>
+          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
+            Seis fases. Las dos últimas no tienen fecha de fin.
+          </h2>
+          <ModeloOperativo />
+        </div>
+      </section>
 
-      {/* ════ 4 · Cerebro VELIA — OSCURO. Aquí entra la inteligencia ════════ */}
-      <section id="cerebro" className="velia-dark-stage bg-void text-cream scroll-mt-16">
-        <SectionViewMarker event="brain_section_view" />
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <Reveal className="max-w-3xl">
-            <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85 mb-4">
-              El Cerebro VELIA
-            </p>
-            <h2 className="text-3xl md:text-[2.75rem] md:leading-[1.1] font-500 tracking-[-0.03em]">
-              No es un chatbot dentro de un CRM.
+      {/* ═══ 7 · PRUEBA ═══════════════════════════════════════════════════
+          Sin una sola cifra. Las que había —+260 % de consultas, menos de 5 min
+          de respuesta, 12 h/semana— se retiraron el 29-jul: eran métricas de
+          captación, no de producto, y su fuente no era verificable. Queda lo que
+          sí se puede comprobar: un cliente con nombre, un enlace que funciona, y
+          un proceso. */}
+      <section id="caso" className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28 scroll-mt-20">
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Un caso real</p>
+        <div className="mt-5 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+          <div>
+            <h2 className="text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
+              Cónsul Jurídico no necesitaba un programa. Necesitaba un sistema.
             </h2>
-            <p className="mt-4 text-xl md:text-2xl font-serif text-cream/60 leading-[1.35]">
-              Es la inteligencia que vive dentro del despacho.
+            <p className="mt-6 text-[15px] md:text-base leading-[1.6] text-void/70 max-w-prose">
+              Un despacho en Fraga que arrancaba de cero. Empezó con herramientas de terceros
+              enganchadas entre sí, porque era lo que había. Lo que necesitaba de verdad
+              —captación, expedientes, documentos, agenda, un portal para sus propios
+              clientes— acabó construyéndose a medida.
             </p>
-          </Reveal>
-
-          <Reveal className="mt-12 md:mt-14">
-            <BrainStateTabs />
-          </Reveal>
-
-          {/* La frase de marca. Mucho espacio y mucha jerarquía a propósito:
-              es la promesa entera del producto en cuatro palabras. */}
-          <Reveal className="mt-20 md:mt-28 text-center">
-            <IrisNode state="esperando" className="w-12 h-12 text-cream mx-auto mb-7" />
-            <p className="text-3xl md:text-5xl font-serif tracking-[-0.02em] text-cream">
-              VELIA prepara. Tú decides.
+            <p className="mt-4 text-[15px] md:text-base leading-[1.6] text-void/70 max-w-prose">
+              Sigue siendo cliente, y VELIA sigue operando su infraestructura. Lo que se
+              aprendió construyéndola es hoy parte de lo que se le ofrece a cualquier otro
+              negocio: ese es el modelo entero, en un caso.
             </p>
+            <p className="mt-8">
+              <a
+                href="https://consuljuridico.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[14px] font-600 text-gold-ink underline decoration-gold-ink/30 underline-offset-4 hover:decoration-gold-ink transition-colors"
+              >
+                consuljuridico.com
+              </a>
+            </p>
+          </div>
+
+          <Reveal delay={80}>
+            <div className="rounded-lg border border-mist bg-white p-7 md:p-9">
+              <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65 mb-6">
+                El proceso, que es lo que se repite
+              </p>
+              <ol className="space-y-4">
+                {[
+                  'Una necesidad real, no un catálogo',
+                  'Se diseña la solución',
+                  'Se construye la infraestructura',
+                  'Se opera',
+                  'Se aprende',
+                  'El aprendizaje se convierte en infraestructura reutilizable',
+                ].map((paso, i) => (
+                  <li key={paso} className="flex gap-4">
+                    <span className="text-[12px] font-600 text-void/65 tabular-nums pt-0.5 w-5 shrink-0">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-[15px] leading-[1.5] text-void/80">{paso}</span>
+                  </li>
+                ))}
+              </ol>
+              <p className="mt-7 pt-6 border-t border-mist text-[13px] leading-[1.6] text-void/65">
+                VELIA no es una empresa jurídica: es la compañía que construyó y opera la
+                infraestructura de este despacho.
+              </p>
+            </div>
           </Reveal>
         </div>
       </section>
 
-      {/* ════ 5 · Un día con VELIA — claro ══════════════════════════════════ */}
-      <section className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-        <SectionViewMarker event="product_section_view" />
-        <Reveal className="max-w-2xl">
-          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-3">
-            Un día con VELIA
-          </p>
-          <h2 className="text-3xl md:text-4xl font-600 tracking-[-0.03em]">
-            Así se nota en la jornada.
-          </h2>
-          <p className="mt-4 text-[15px] text-void/70 leading-[1.6] max-w-[48ch]">
-            No una lista de funciones: cinco momentos de un día cualquiera en el despacho.
-          </p>
-        </Reveal>
-
-        <div className="mt-12 md:mt-16">
-          {FEATURE_FLAGS.ENABLE_DAY_TIMELINE ? (
-            <DayWithVelia />
-          ) : (
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {MODULOS.map(m => (
-                <div key={m.title}>
-                  <h3 className="text-sm font-600 mb-1.5">{m.title}</h3>
-                  <p className="text-[13px] text-void/65 leading-[1.6]">{m.body}</p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* ════ 6 · Producto real y demo — Pearl Cloud ════════════════════════ */}
-      {FEATURE_FLAGS.ENABLE_INTERACTIVE_DEMO && (
-        <section className="bg-cream border-y border-mist">
-          <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-            <Reveal className="max-w-2xl">
-              <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-3">
-                VELIA por dentro
-              </p>
-              <h2 className="text-3xl md:text-4xl font-600 tracking-[-0.03em]">
-                No te la contamos. Puedes entrar.
-              </h2>
-              <p className="mt-4 text-[15px] text-void/70 leading-[1.6] max-w-[48ch]">
-                Explora un despacho ficticio en la última versión de VELIA, sin registro y en modo
-                de solo lectura.
-              </p>
-            </Reveal>
-
-            <Reveal className="mt-10">
-              <DemoEmbed />
-            </Reveal>
-
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-              <p className="text-[12px] text-void/60">Datos ficticios · Solo lectura · Sin registro</p>
-              <TrackedLink
-                href={DEMO_URL}
-                event="demo_fullscreen_open"
-                className="text-[12px] font-600 tracking-[0.02em] text-gold-ink hover:text-void transition-colors duration-control whitespace-nowrap"
-              >
-                Abrir demo interactiva →
-              </TrackedLink>
-            </div>
-
-            {/* Los cinco módulos: cada uno con SU visual, que cambia al elegirlo.
-                Antes era una captura fija al lado de una lista — la imagen no
-                tenía relación con el módulo que estuvieras leyendo. */}
-            <Reveal className="mt-16 md:mt-20 block">
-              <ProductShowcase />
-            </Reveal>
-            <div className="mt-8">
-              <TrackedLink
-                href="/legal"
-                event="product_detail_click"
-                className="text-[12px] font-600 tracking-[0.02em] text-gold-ink hover:text-void transition-colors duration-control"
-              >
-                Ver todas las funciones →
-              </TrackedLink>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ════ 7 · Caso real — blanco, contraste editorial ═══════════════════ */}
-      {FEATURE_FLAGS.ENABLE_CUSTOMER_CASE && (
-        <section className="bg-white">
-          <SectionViewMarker event="case_study_view" />
-          <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-            <Reveal className="max-w-3xl">
-              <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-3">
-                Probada en un despacho real
-              </p>
-              <h2 className="text-3xl md:text-4xl font-600 tracking-[-0.03em]">
-                Construida trabajando, no imaginando.
-              </h2>
-              <p className="mt-5 text-[15px] text-void/70 leading-[1.6] max-w-[52ch]">
-                Cónsul Jurídico utiliza VELIA para centralizar expedientes, documentación,
-                comunicaciones y trabajo pendiente.
-              </p>
-            </Reveal>
-
-            <Reveal className="mt-12 grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16 lg:items-start">
-              <figure>
-                <blockquote className="text-xl md:text-2xl font-serif leading-[1.4] text-void/85">
-                  «Ahora puedo entrar en un asunto y encontrar la información, los documentos y las
-                  tareas en un mismo lugar. VELIA ha pasado a formar parte del trabajo diario del
-                  despacho.»
-                </blockquote>
-                <figcaption className="mt-5 flex items-center gap-3 text-[13px] text-void/60">
-                  <span className="w-1.5 h-1.5 rounded-full bg-iris-focus shrink-0" />
-                  <span>
-                    <strong className="font-600 text-void/85">Iván Cónsul</strong> · Cónsul Jurídico,
-                    Fraga (Huesca) ·{' '}
-                    <a
-                      href="https://consuljuridico.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline decoration-void/25 hover:decoration-void"
-                    >
-                      consuljuridico.com
-                    </a>
-                  </span>
-                </figcaption>
-              </figure>
-
-              {FEATURE_FLAGS.ENABLE_BEFORE_AFTER && <CaseStudyToggle />}
-            </Reveal>
-          </div>
-        </section>
-      )}
-
-      <TestimonialVideo />
-
-      {/* ════ 8 · Seguridad — OSCURO ════════════════════════════════════════ */}
+      {/* ═══ 8 · CIERRE · CORTE OSCURO 2 ══════════════════════════════════
+          Una acción. Sin formulario embebido, sin segundo botón, sin «o si
+          prefieres…». Quien ha llegado hasta aquí ya ha decidido si quiere
+          hablar; lo único que hace falta es no ponérselo difícil. */}
       <section className="velia-dark-stage bg-void text-cream">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-          <Reveal>
-            <SecurityArchitecture />
-          </Reveal>
-          <Reveal className="mt-12">
-            <TrackedLink
-              href="/seguridad"
-              event="security_click"
-              className="btn inline-block bg-gold-dark text-white text-[12px] font-600 tracking-[0.04em] rounded-full px-7 py-3.5 hover:opacity-90"
-            >
-              Ver seguridad al detalle
-            </TrackedLink>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ════ 9 · Precio — claro ════════════════════════════════════════════ */}
-      <section className="mx-auto max-w-6xl px-6 py-20 md:py-28">
-        <SectionViewMarker event="pricing_section_view" />
-        <Reveal>
-          {FEATURE_FLAGS.ENABLE_PRICING_SELECTOR ? (
-            <PricingSelector />
-          ) : (
-            <div className="rounded-3xl border border-mist bg-white px-6 py-10 sm:px-10">
-              <h2 className="text-3xl md:text-4xl font-600 tracking-[-0.03em]">Un precio. Todo VELIA.</h2>
-              <p className="tabular mt-6 text-5xl font-600 tracking-[-0.04em]">
-                {eur(PRICING.monthly)}
-                <span className="text-xl font-500 text-void/50">/mes</span>
-              </p>
-              <div className="mt-7">
-                <TrialButton event="pricing_trial_click" location="home_pricing" />
-              </div>
-            </div>
-          )}
-        </Reveal>
-
-        <Reveal className="mt-6 text-center">
-          <Link
-            href="/precios"
-            className="text-[12px] font-600 tracking-[0.02em] text-void/60 hover:text-void transition-colors duration-control"
-          >
-            Ver condiciones y preguntas frecuentes →
-          </Link>
-        </Reveal>
-      </section>
-
-      {/* ════ 10 · Programa Fundadores — banda editorial, nunca compitiendo ══ */}
-      {FEATURE_FLAGS.ENABLE_FOUNDERS_PROGRAM && (
-        <section className="mx-auto max-w-6xl px-6 pb-20 md:pb-24">
-          <SectionViewMarker event="founders_view" />
-          <Reveal className="rounded-2xl border border-iris-focus/25 bg-iris-focus/[0.06] px-7 py-8 md:px-10 md:py-9">
-            <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
-              <div>
-                <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-2.5">
-                  Programa Fundadores · {FOUNDERS_SEATS_LABEL}
-                </p>
-                <h2 className="text-xl md:text-2xl font-600 tracking-[-0.02em] max-w-[30ch]">
-                  Entra en la primera generación de despachos VELIA.
-                </h2>
-                <p className="mt-3 text-[13px] text-void/70 leading-[1.6] max-w-[62ch]">
-                  Los primeros despachos que contraten la modalidad anual mantienen el precio de
-                  lanzamiento mientras su suscripción siga activa, y acceden a una web premium y a
-                  onboarding prioritario.
-                </p>
-              </div>
-              <TrackedLink
-                href="/fundadores"
-                event="founders_terms_click"
-                className="text-[12px] font-600 tracking-[0.02em] text-gold-ink hover:text-void transition-colors duration-control whitespace-nowrap"
-              >
-                Ver condiciones →
-              </TrackedLink>
-            </div>
-          </Reveal>
-        </section>
-      )}
-
-      {/* ════ 11 · Cierre — OSCURO. La firma ════════════════════════════════ */}
-      <section className="mx-auto max-w-6xl px-6 pb-8">
-        <div className="velia-dark-stage rounded-3xl bg-void text-cream px-8 py-16 md:py-24 text-center overflow-hidden">
-          <IrisNode state="reposo" className="w-12 h-12 text-cream mx-auto mb-8" />
-          <p className="text-[15px] font-serif text-cream/60 mb-6">
-            Cuando estés preparado, empezamos.
-          </p>
-          <h2 className="text-3xl md:text-[2.75rem] md:leading-[1.1] font-500 tracking-[-0.03em] max-w-[22ch] mx-auto">
-            Descubre cómo trabaja VELIA con tu despacho.
+        <div className="mx-auto max-w-6xl px-6 md:px-10 py-24 md:py-32">
+          {/* Es un h2, no un <p>: es el encabezado de esta sección, y sin él
+              la última sección de la página no existe en el esquema de
+              encabezados — quien navega por titulares se salta el cierre.
+              La serif es la ÚNICA vez que aparece en toda la web. */}
+          <h2 className="font-serif font-400 text-[clamp(2rem,5vw,3.5rem)] leading-[1.15] tracking-[-0.02em] max-w-[19ch]">
+            La infraestructura digital de tu empresa ya está decidiendo si compites.
           </h2>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <TrialButton event="final_trial_click" location="final" variant="onDark" />
-            <TrackedLink
-              href="/demo"
-              event="final_demo_click"
-              className="btn border border-white/25 text-cream text-[12px] font-600 tracking-[0.04em] rounded-full px-7 py-3.5 hover:border-white/50 transition-colors duration-control"
-            >
-              {CTA.secondary.label}
-            </TrackedLink>
-          </div>
-          <p className="mt-5 text-[12px] text-cream/55">
-            {PRICING.trialDays} días · Sin tarjeta · Sin compromiso durante la prueba
+          <p className="mt-8 text-[15px] md:text-base leading-[1.6] text-cream/70 max-w-prose">
+            La primera conversación no es una demostración de producto ni una propuesta
+            comercial. Es entender cómo trabajáis hoy y decir con qué empezaríamos.
           </p>
+          <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+            <Link
+              href={CTA_CONTACTO.href}
+              className="btn inline-flex items-center justify-center rounded-full bg-cream text-void px-8 py-4 text-[13px] font-600 tracking-[0.02em] hover:opacity-90"
+            >
+              {CTA_CONTACTO.label}
+            </Link>
+            <p className="text-[13px] text-cream/60">{CONTACTO_MICROCOPY}</p>
+          </div>
         </div>
       </section>
-
-      {/* Bufetes grandes: presente, nunca al mismo nivel visual que el plan. */}
-      {FEATURE_FLAGS.ENABLE_ENTERPRISE_CONTACT && (
-        <section className="mx-auto max-w-6xl px-6 pt-10">
-          <p className="text-[13px] text-void/60 text-center">
-            ¿Tu despacho necesita migraciones, integraciones o una implantación personalizada?{' '}
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              className="font-600 text-gold-ink hover:text-void transition-colors underline decoration-gold-ink/30"
-            >
-              {CTA.tertiary.label}
-            </a>
-          </p>
-        </section>
-      )}
     </>
   )
 }

@@ -77,6 +77,23 @@ export type AnalyticsEvent =
   // Cierre
   | 'final_trial_click'
   | 'final_demo_click'
+  /* ── REWORK 2026 ──────────────────────────────────────────────────────────
+     Eventos de la VELIA nueva. Los de arriba NO se borran: las páginas legacy
+     (`/precios`, `/demo`, `/fundadores`, `/legal`) siguen vivas y los siguen
+     emitiendo. Borrarlos aquí haría fallar la guarda por el otro lado — el
+     buzón los aceptaría y la web ya no los declararía.
+
+     Cada nombre de aquí abajo tiene que estar TAMBIÉN en la lista cerrada de
+     velia-portal/app/api/public/web-analytics/route.ts. Si no está, el buzón
+     responde 200 y lo tira: así se perdieron nueve días de embudo en agosto. */
+  | 'nav_contacto_click'
+  | 'hero_contacto_click'
+  | 'final_contacto_click'
+  // Secciones de la Home nueva
+  | 'shift_section_view'
+  | 'capabilities_section_view'
+  | 'velia_os_view'
+  | 'operating_model_view'
   // Profundidad de lectura
   | 'scroll_50'
   | 'scroll_90'
