@@ -21,6 +21,21 @@
 const ENDPOINT = 'https://app.veliacorp.com/api/public/web-analytics'
 
 /**
+ * SOLO EMITE EL DOMINIO DE PRODUCCIÓN (13-sep-2026).
+ *
+ * `ENDPOINT` es el buzón de producción, y el buzón no mira el origen: `sendBeacon`
+ * con `text/plain` no hace petición previa de CORS, así que la cabecera
+ * `access-control-allow-origin` del portal no impide que el evento se guarde.
+ * Sin esta lista, cada visita a la preview privada, a un alias como
+ * `tunnel-test.veliacorp.com` o a `localhost` se sumaría al embudo real — el
+ * mismo embudo que ya estuvo nueve días mintiendo en agosto.
+ *
+ * Es la misma lista que decide el `noindex` en `next.config.mjs`: un dominio que
+ * no se indexa tampoco cuenta visitas.
+ */
+const DOMINIOS_QUE_EMITEN = new Set(['veliacorp.com', 'www.veliacorp.com'])
+
+/**
  * Un solo nombre por acción. Antes había cuatro eventos distintos para el mismo
  * clic de prueba gratuita (`hero_trial_click`, `onboarding_start_click`,
  * `footer_cta_trial_click`, `pricing_*_demo_click`) y ninguno se podía sumar con
@@ -108,6 +123,7 @@ function idDeSesion(): string {
 
 export function trackEvent(name: AnalyticsEvent, properties?: Record<string, string | number | boolean>) {
   if (typeof window === 'undefined') return
+  if (!DOMINIOS_QUE_EMITEN.has(window.location.hostname)) return
 
   const cuerpo = JSON.stringify({
     event: name,
