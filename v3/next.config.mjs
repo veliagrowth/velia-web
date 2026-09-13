@@ -25,6 +25,40 @@ const nextConfig = {
   // comparte sobre el dominio de la web. Sin esto daban 404 (caso /instalar,
   // reportado 22-jul). Temporales (307) para no quemar caché de navegador por si
   // alguna de ellas pasa a existir en la web.
+  // NOINDEX FUERA DEL DOMINIO DE PRODUCCIÓN (13-sep-2026).
+  //
+  // Cualquier host que no sea `veliacorp.com` o `www.veliacorp.com` responde con
+  // `X-Robots-Tag: noindex, nofollow`. Se decide por el HOST y no por una
+  // variable de entorno, a propósito:
+  //
+  //   · Una variable «esto es una preview» se puede olvidar al crear la app, y el
+  //     olvido no da error: la preview sale indexable. Y al revés, si alguien la
+  //     pusiera en producción por error, la web pública desaparecería de Google
+  //     también sin un solo aviso. Las dos direcciones fallan en silencio.
+  //   · El host no se olvida. Producción es `veliacorp.com` por definición, y todo
+  //     lo demás —una preview, un alias de pruebas, localhost— no debería
+  //     competir con ella en un buscador.
+  //
+  // Arregla además algo que ya pasaba: `tunnel-test.veliacorp.com` es un alias
+  // de la web de producción y servía el mismo contenido indexable. Contenido
+  // duplicado bajo otro nombre, que es justo lo que un buscador penaliza.
+  //
+  // ⚠️ Esto NO es protección de acceso: una preview sigue siendo legible por
+  // quien tenga la URL. Eso lo cierra Cloudflare Access, que ya protege
+  // `coolify.veliacorp.com`. Esto sólo impide que la encuentren los buscadores si
+  // un día Access falla o no se configura.
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        missing: [
+          { type: 'host', value: 'veliacorp.com' },
+          { type: 'host', value: 'www.veliacorp.com' },
+        ],
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
+    ]
+  },
   async redirects() {
     const app = 'https://app.veliacorp.com'
     return [
