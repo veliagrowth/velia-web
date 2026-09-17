@@ -318,14 +318,40 @@ const browser = await puppeteer.launch({
         })
         return 0.2126 * r + 0.7152 * g + 0.0722 * b
       }
+      /* Fondo COMPUESTO, no «el primero que encuentre» (17-sep-2026).
+         Antes esto paraba en el primer ancestro con alfa > 0 y lo trataba como
+         si fuera opaco. Un `bg-gold/[0.07]` sobre Night se medía como si fuera
+         Iris casi puro: la tarjeta destacada de /sobre-velia daba 1,00 · 2,61 ·
+         2,01 cuando sus valores reales son 4,87 · 16,31 · 8,48.
+         Ese falso positivo se ve y se discute. El que no se ve es el inverso, y
+         es el que importa: un `bg-void/5` sobre blanco se mediría como Night
+         opaco, así que texto `cream` encima daría ~17:1 y PASARÍA — cuando en
+         pantalla es cream sobre casi-blanco, o sea ilegible. La guarda de
+         contraste habría aprobado texto invisible.
+         Ahora se apilan todas las capas hasta la primera opaca y se componen de
+         atrás hacia delante, que es lo que hace el navegador. */
       const fondoReal = el => {
+        const capas = []
         let n = el
         while (n) {
-          const bg = getComputedStyle(n).backgroundColor
-          if (bg && bg !== 'rgba(0, 0, 0, 0)' && !/,\s*0\)$/.test(bg)) return bg
+          const p = getComputedStyle(n).backgroundColor.match(/[\d.]+/g)
+          if (p) {
+            const a = p.length === 4 ? Number(p[3]) : 1
+            if (a > 0) {
+              capas.push({ rgb: p.slice(0, 3).map(Number), a })
+              if (a === 1) break
+            }
+          }
           n = n.parentElement
         }
-        return 'rgb(255, 255, 255)'
+        // Sin capa opaca al final, el lienzo del navegador es blanco.
+        if (!capas.length || capas[capas.length - 1].a !== 1) capas.push({ rgb: [255, 255, 255], a: 1 })
+        let out = capas[capas.length - 1].rgb
+        for (let i = capas.length - 2; i >= 0; i--) {
+          const c = capas[i]
+          out = out.map((v, j) => c.rgb[j] * c.a + v * (1 - c.a))
+        }
+        return `rgb(${out.join(',')})`
       }
       const malos = []
       for (const el of document.querySelectorAll('p, h1, h2, h3, li, span, a')) {
