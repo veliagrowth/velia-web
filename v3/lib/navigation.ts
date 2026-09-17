@@ -36,6 +36,15 @@ export const FOOTER_NAV = {
       { href: '/#operamos', label: 'Cómo trabajamos' },
       { href: '/#velia-os', label: 'VELIA OS' },
       { href: '/#caso', label: 'Un caso real' },
+      /* Etapa 2 (17-sep). `/sobre-velia` entra aquí y NO en el header: §7 de la
+         dirección fija cuatro elementos y una acción arriba, y esa decisión no
+         la cambia el hecho de que la página ya esté reescrita. El pie es donde
+         vive lo secundario.
+
+         Hasta hoy la página no estaba enlazada desde ninguna parte de la web
+         nueva y sí propuesta en `sitemap.ts`: se ofrecía a los buscadores y no
+         a las personas. */
+      { href: '/sobre-velia', label: 'Sobre VELIA' },
     ],
   },
   contacto: {
