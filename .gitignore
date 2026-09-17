@@ -1,0 +1,9 @@
+# La app Next.js de v3/ tiene su propio .gitignore y ya cubre node_modules/, .next/
+# y los ficheros de entorno de esa carpeta.
+#
+# Este fichero cubre solo la RAIZ del repositorio, que no estaba cubierta por nada:
+# un fichero de entorno colocado aqui habria quedado trackeable. Es defensa en
+# profundidad, no la reparacion de una fuga: hoy no existe ninguno en la raiz.
+#
+# Anadido en la Fase 0 de VELIA Next Era (27-ago-2026).
+.env*
