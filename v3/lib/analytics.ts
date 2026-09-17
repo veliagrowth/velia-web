@@ -101,8 +101,23 @@ export type AnalyticsEvent =
      Cada nombre de aquí abajo tiene que estar TAMBIÉN en la lista cerrada de
      velia-portal/app/api/public/web-analytics/route.ts. Si no está, el buzón
      responde 200 y lo tira: así se perdieron nueve días de embudo en agosto. */
+  /** Header y menú móvil. Emisor: `components/Nav.tsx` (3 ubicaciones). */
   | 'nav_contacto_click'
+  /**
+   * ⚠️ DECLARADO Y SIN EMISOR, a propósito (17-sep-2026).
+   *
+   * La Home nueva NO tiene CTA en el momento 1: hay una sola acción en toda la
+   * página y vive en el cierre. Este nombre se queda porque el buzón del portal
+   * ya lo acepta y la guarda `check:analytics` es bidireccional — borrarlo aquí
+   * la haría fallar por el otro lado.
+   *
+   * Se escribe en vez de dejarlo mudo porque un evento que nunca llega parece
+   * exactamente igual que un evento roto, y quien mire el embudo dentro de tres
+   * meses no va a poder distinguirlos sin esta línea.
+   */
   | 'hero_contacto_click'
+  /** Cierre de la Home (`app/page.tsx`) y de `/sobre-velia`. La ubicación va en
+   *  `cta_location`, nunca en el nombre. */
   | 'final_contacto_click'
   // Secciones de la Home nueva
   | 'shift_section_view'
