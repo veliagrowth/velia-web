@@ -40,10 +40,12 @@
 import { createRequire } from 'node:module'
 const require = createRequire('C:/Users/JPR/Desktop/WORKS/VELIA AI/CRM/velia-portal/package.json')
 const puppeteer = require('puppeteer-core')
+/* Las comprobaciones que no son especificas de la Home viven en un solo
+   sitio y las comparte con `qa:paginas`. Ver el porque en el modulo. */
+import { LEGACY, ANCHOS, medirJerarquia, medirEnlacesLegacy, medirContraste, medirDesborde } from './lib/auditoria-pagina.mjs'
 
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe'
 const URL = process.argv[2] || 'http://localhost:3150/'
-const LEGACY = ['/precios', '/demo', '/fundadores', '/legal']
 
 const rojo = t => `\x1b[31m${t}\x1b[0m`
 const verde = t => `\x1b[32m${t}\x1b[0m`
@@ -236,34 +238,15 @@ const browser = await puppeteer.launch({
   await page.setViewport({ width: 1440, height: 900 })
   await page.goto(URL, { waitUntil: 'networkidle0' })
 
-  const enlaces = await page.evaluate(
-    legacy =>
-      legacy.map(ruta => ({
-        ruta,
-        n: [...document.querySelectorAll('a[href]')].filter(a => {
-          const h = a.getAttribute('href')
-          return h === ruta || h?.startsWith(ruta + '?') || h?.startsWith(ruta + '#')
-        }).length,
-      })),
-    LEGACY,
-  )
+  const enlaces = await medirEnlacesLegacy(page)
 
   for (const e of enlaces) {
     comprobar(`La Home no enlaza ${e.ruta}`, e.n === 0, e.n ? `${e.n} enlaces` : undefined)
   }
 
-  const jerarquia = await page.evaluate(() => ({
-    h1: document.querySelectorAll('h1').length,
-    // Un h3 antes del primer h2 sería un salto de nivel.
-    orden: [...document.querySelectorAll('h1,h2,h3')].map(h => Number(h.tagName[1])),
-  }))
+  const jerarquia = await medirJerarquia(page)
   comprobar('Un solo h1 en toda la página', jerarquia.h1 === 1, `h1=${jerarquia.h1}`)
-
-  let saltos = 0
-  for (let i = 1; i < jerarquia.orden.length; i++) {
-    if (jerarquia.orden[i] - jerarquia.orden[i - 1] > 1) saltos++
-  }
-  comprobar('Sin saltos de nivel en los encabezados', saltos === 0, saltos ? `${saltos} saltos` : undefined)
+  comprobar('Sin saltos de nivel en los encabezados', jerarquia.saltos === 0, jerarquia.saltos ? `${jerarquia.saltos} saltos` : undefined)
 
   // ── El header pegajoso sobre las secciones OSCURAS ──────────────────────
   // `check:opacidades` vigila que la clase exista. Esto vigila el EFECTO, que es
@@ -310,76 +293,7 @@ const browser = await puppeteer.launch({
   // tamaño pequeño no llega al 4,5 de la AA. Las etiquetas de sección eran de
   // 11 px, o sea muy lejos del umbral de «texto grande».
   {
-    const fallos = await page.evaluate(() => {
-      const lum = c => {
-        const [r, g, b] = c.match(/\d+(\.\d+)?/g).slice(0, 3).map(Number).map(v => {
-          v /= 255
-          return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)
-        })
-        return 0.2126 * r + 0.7152 * g + 0.0722 * b
-      }
-      /* Fondo COMPUESTO, no «el primero que encuentre» (17-sep-2026).
-         Antes esto paraba en el primer ancestro con alfa > 0 y lo trataba como
-         si fuera opaco. Un `bg-gold/[0.07]` sobre Night se medía como si fuera
-         Iris casi puro: la tarjeta destacada de /sobre-velia daba 1,00 · 2,61 ·
-         2,01 cuando sus valores reales son 4,87 · 16,31 · 8,48.
-         Ese falso positivo se ve y se discute. El que no se ve es el inverso, y
-         es el que importa: un `bg-void/5` sobre blanco se mediría como Night
-         opaco, así que texto `cream` encima daría ~17:1 y PASARÍA — cuando en
-         pantalla es cream sobre casi-blanco, o sea ilegible. La guarda de
-         contraste habría aprobado texto invisible.
-         Ahora se apilan todas las capas hasta la primera opaca y se componen de
-         atrás hacia delante, que es lo que hace el navegador. */
-      const fondoReal = el => {
-        const capas = []
-        let n = el
-        while (n) {
-          const p = getComputedStyle(n).backgroundColor.match(/[\d.]+/g)
-          if (p) {
-            const a = p.length === 4 ? Number(p[3]) : 1
-            if (a > 0) {
-              capas.push({ rgb: p.slice(0, 3).map(Number), a })
-              if (a === 1) break
-            }
-          }
-          n = n.parentElement
-        }
-        // Sin capa opaca al final, el lienzo del navegador es blanco.
-        if (!capas.length || capas[capas.length - 1].a !== 1) capas.push({ rgb: [255, 255, 255], a: 1 })
-        let out = capas[capas.length - 1].rgb
-        for (let i = capas.length - 2; i >= 0; i--) {
-          const c = capas[i]
-          out = out.map((v, j) => c.rgb[j] * c.a + v * (1 - c.a))
-        }
-        return `rgb(${out.join(',')})`
-      }
-      const malos = []
-      for (const el of document.querySelectorAll('p, h1, h2, h3, li, span, a')) {
-        const t = el.textContent?.trim()
-        if (!t || t.length < 3) continue
-        // Solo hojas de texto: un contenedor mide el color heredado, no el suyo.
-        if ([...el.children].some(c => c.textContent?.trim())) continue
-        const cs = getComputedStyle(el)
-        if (cs.display === 'none' || cs.visibility === 'hidden') continue
-        const px = parseFloat(cs.fontSize)
-        const peso = Number(cs.fontWeight) || 400
-        // WCAG «texto grande»: >=24px, o >=18.66px si es negrita.
-        const grande = px >= 24 || (px >= 18.66 && peso >= 700)
-        const minimo = grande ? 3 : 4.5
-        const bg = fondoReal(el)
-        const f = cs.color.match(/[\d.]+/g).map(Number)
-        const a = f.length === 4 ? f[3] : 1
-        const b = bg.match(/[\d.]+/g).map(Number)
-        const mez = `rgb(${f.slice(0, 3).map((v, i) => v * a + b[i] * (1 - a)).join(',')})`
-        const [hi, lo] = [lum(mez), lum(bg)].sort((x, y) => y - x)
-        const ratio = (hi + 0.05) / (lo + 0.05)
-        if (ratio < minimo) {
-          malos.push({ texto: t.slice(0, 34), ratio: Math.round(ratio * 100) / 100, px, minimo })
-        }
-      }
-      return malos
-    })
-
+    const fallos = await medirContraste(page)
     comprobar(
       'Todo el texto cumple el contraste mínimo de la AA',
       fallos.length === 0,
@@ -388,14 +302,8 @@ const browser = await puppeteer.launch({
   }
 
   // Scroll horizontal: cero, en los tres anchos de referencia.
-  for (const [w, h] of [[1440, 900], [768, 1024], [390, 844]]) {
-    await page.setViewport({ width: w, height: h })
-    await new Promise(r => setTimeout(r, 350))
-    const desborde = await page.evaluate(
-      ancho => document.documentElement.scrollWidth - ancho,
-      w,
-    )
-    comprobar(`Sin scroll horizontal a ${w}px`, desborde <= 0, `desborde=${desborde}px`)
+  for (const { ancho, desborde } of await medirDesborde(page, ANCHOS)) {
+    comprobar(`Sin scroll horizontal a ${ancho}px`, desborde <= 0, `desborde=${desborde}px`)
   }
 
   await page.close()

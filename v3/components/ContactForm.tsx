@@ -116,7 +116,7 @@ export default function ContactForm({ origen = 'contacto' }: { origen?: string }
     return (
       <div className="rounded-3xl border border-void/10 bg-white p-8 md:p-10" role="status" aria-live="polite">
         <p className="text-[11px] font-700 tracking-[0.06em] uppercase text-gold-ink mb-3">Recibido</p>
-        <h3 className="text-2xl font-700 tracking-[-0.01em]">Te escribimos en el siguiente día laborable.</h3>
+        <h2 className="text-2xl font-700 tracking-[-0.01em]">Te escribimos en el siguiente día laborable.</h2>
         <p className="mt-4 text-sm text-void/60 leading-[1.6] max-w-prose">
           Hablarás con alguien del equipo que construye la plataforma, no con un comercial
           de guion. Te hemos mandado un correo de confirmación; si no aparece, mira en spam.
@@ -135,9 +135,17 @@ export default function ContactForm({ origen = 'contacto' }: { origen?: string }
       <p className="text-[11px] font-700 tracking-[0.06em] uppercase text-gold-ink mb-3">
         Hablar con el equipo
       </p>
-      <h3 className="text-2xl md:text-3xl font-700 tracking-[-0.01em] max-w-[22ch]">
+      {/* `h2` y no `h3` (18-sep-2026). En /contacto no hay ningún h2 entre el
+          h1 de la página y este encabezado, así que el esquema saltaba del
+          nivel 1 al 3 y quien navega por titulares se encontraba un hueco. Lo
+          cazó `qa:paginas`, que mide la jerarquía en todas las páginas y no
+          sólo en la Home.
+          En /fundadores, que también monta este formulario, el cambio tampoco
+          crea un salto: allí ya hay tres h2 por encima. Y el tamaño no depende
+          del tag — las clases son explícitas. */}
+      <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.01em] max-w-[22ch]">
         Cuéntanos cómo trabajáis hoy.
-      </h3>
+      </h2>
       <p className="mt-4 text-sm text-void/60 leading-[1.6] max-w-prose">
         No hace falta que tengas claro qué necesitas: para eso está la primera
         conversación. Déjanos cómo contactarte y te escribimos en el siguiente día

@@ -64,13 +64,18 @@ test('sin enlace, o con uno que no se deja analizar, no se pinta nada', () => {
   assert.equal(enlacePublicable('http://'), false)
 })
 
-test('la lista de rutas congeladas es la MISMA que vigila qa:home', () => {
-  /* Dos listas de lo mismo en dos ficheros divergen — paso este mismo mes con
-     el catalogo de eventos de analitica. Se comparan contra el fuente de la
-     guarda en vez de confiar en que quien toque una se acuerde de la otra. */
-  const guarda = readFileSync(new URL('../scripts/qa-home.mjs', import.meta.url), 'utf8')
-  const linea = guarda.match(/const LEGACY = \[([^\]]+)\]/)
-  assert.ok(linea, 'no encuentro la lista LEGACY en scripts/qa-home.mjs')
+test('la lista de rutas congeladas es la MISMA que vigilan las guardas', () => {
+  /* Dos listas de lo mismo en dos ficheros divergen — pasó este mismo mes con
+     el catalogo de eventos de analitica. Se compara contra el fuente en vez de
+     confiar en que quien toque una se acuerde de la otra.
+
+     🧭 Y no es teórico: este test falló el 18-sep en cuanto la lista se movió
+     de `scripts/qa-home.mjs` al módulo compartido. Detectó su propio cambio de
+     terreno, que es justo para lo que está. Si vuelve a mudarse, se actualiza
+     ESTA ruta — no se relaja la comparación. */
+  const modulo = readFileSync(new URL('../scripts/lib/auditoria-pagina.mjs', import.meta.url), 'utf8')
+  const linea = modulo.match(/export const LEGACY = \[([^\]]+)\]/)
+  assert.ok(linea, 'no encuentro la lista LEGACY en scripts/lib/auditoria-pagina.mjs')
   const enLaGuarda = [...linea[1].matchAll(/'([^']+)'/g)].map(m => m[1]).sort()
   assert.deepEqual(enLaGuarda, [...RUTAS_CONGELADAS].sort())
 })

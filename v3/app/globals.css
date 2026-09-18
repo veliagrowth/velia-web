@@ -144,8 +144,17 @@ a.btn:active, button.btn:active {
 .legal-prose h1 {
   @apply text-3xl md:text-4xl font-700 tracking-[-0.02em];
 }
+/* `text-void/40` daba 2,61:1 a 12 px sobre Pearl Cloud: poco más de la mitad
+   del 4,5 que exige la AA para texto normal. Lo cazó `qa:paginas` en su primera
+   ejecución, el 18-sep, en las CINCO páginas legales a la vez — comparten esta
+   clase, así que comparten el arreglo. Llevaba ahí desde que se escribieron y
+   no lo vio nadie, porque la única guarda de contraste miraba sólo la Home.
+
+   `/65` es el nivel de texto atenuado pequeño del resto de la web nueva
+   (5,80:1 sobre Pearl Cloud). El tracking baja de 0.08em a 0.06em, que es el
+   máximo que el manual fija para un label. */
 .legal-prose .legal-meta {
-  @apply mt-3 text-[12px] font-600 tracking-[0.08em] uppercase text-void/40;
+  @apply mt-3 text-[12px] font-600 tracking-[0.06em] uppercase text-void/65;
 }
 .legal-prose h2 {
   @apply mt-12 text-xl font-700 tracking-[-0.01em];
