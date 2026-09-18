@@ -102,12 +102,23 @@ export const CLAIMS = {
   },
 
   tenantIsolation: {
-    text: 'Cada despacho trabaja en un entorno separado.',
+    /* Redactado de nuevo el 18-sep: decía «Cada despacho trabaja en un entorno
+       separado». El HECHO verificado no cambia ni un ápice —mismo aislamiento,
+       misma fuente, misma fecha, mismo dueño—; lo que cambia es que «despacho»
+       era el vocabulario del vertical legal y este claim es de la compañía. Un
+       cliente de VELIA puede no ser un despacho.
+
+       ⚠️ Lo que NO se toca al reformular un claim: `status`, `source`,
+       `verifiedAt` ni `owner`. Si hubiera que mover alguno de esos, no sería una
+       reformulación: sería otro claim, y necesitaría su propia verificación. */
+    text: 'Cada cliente trabaja en un entorno separado.',
     status: 'verified',
     source: 'Row Level Security activo en todas las tablas tenant_* de Supabase, con políticas por tenant_id. Auditado.',
     verifiedAt: '2026-07-29',
     owner: 'Joaquín',
-    usedIn: [],
+    /* Pasa de `[]` a publicarse en /seguridad. Estaba verificado y sin usar en
+       ninguna parte: el desperdicio inverso al de publicar sin verificar. */
+    usedIn: ['/seguridad'],
   },
 
   humanSupervision: {

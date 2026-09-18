@@ -1,42 +1,80 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import TrackedLink from '@/components/TrackedLink'
 import { claim, type ClaimKey } from '@/lib/verified-claims'
+import { SITE_URL } from '@/lib/constants'
+import { CTA_CONTACTO } from '@/lib/cta'
 
 /**
- * ⚠️ ESTA PÁGINA PASA POR EL GATE DE PRODUCT TRUTH (12-sep-2026).
+ * /seguridad — REESCRITA EN EL REWORK 2026, etapa 2.
  *
- * Publicaba TRES afirmaciones que `verified-claims.ts` marca `pending`:
- * facturación conforme a Verifactu, alojamiento en la UE y la política de no
- * entrenamiento. Las escribía a mano, así que el gate —que existe y es
- * correcto— nunca se enteraba.
+ * NO ESTÁ EN LA NAVEGACIÓN, y aun así es de las páginas más alcanzables del
+ * sitio: la enlazan `/privacidad` e `/ia-responsable`, que están en el pie de
+ * TODAS las páginas. Dos clics desde cualquier punto. Y ese camino no se puede
+ * romper, porque las dos que lo abren son obligación legal.
  *
- * Ahora cada bloque que sostiene un claim declara CUÁL, y se filtra con
- * `claim()`. Si el claim no está `verified`, el bloque no existe. No hace falta
- * que nadie se acuerde: es la ausencia de la verificación la que lo borra.
+ * QUÉ DECÍA: seguridad de un SaaS jurídico. «Aislamiento por despacho», «cada
+ * despacho es un inquilino», «Diseñada para la abogacía», «el deber de secreto
+ * profesional guía cada decisión de arquitectura», «antes de confiar sus
+ * expedientes a una plataforma». 25 menciones a «despacho» en una página que
+ * responde de la seguridad de la compañía, no de un vertical.
  *
- * Los claims NO se han tocado: siguen `pending` y siguen esperando su prueba
- * documental. Lo que cambia es que dejan de publicarse mientras tanto.
+ * QUÉ ES AHORA: seguridad de INFRAESTRUCTURA Y OPERACIÓN. Es lo que pesa cuando
+ * lo que se compra no es una herramienta sino un sistema del que responde
+ * alguien — y la pregunta deja de ser «¿es seguro el programa?» para ser «¿quién
+ * entra, qué puede tocar y qué rastro deja?».
  *
- * La página NO se ha reescrito: es `REWRITE` para la etapa 2 y sigue hablando
- * como la etapa anterior. Aquí sólo se ha cerrado la fuga.
+ * ── LO QUE SE CONSERVA INTACTO, Y POR QUÉ ──────────────────────────────────
+ *
+ * 1. EL GATE DE PRODUCT TRUTH. `publicable()` filtra cada bloque por su claim:
+ *    sin `verified`, el bloque no existe. Los tres `pending` de esta página
+ *    —noModelTraining, euInfrastructure, verifactu— siguen atados y siguen sin
+ *    publicarse. No se ha tocado ni uno.
+ * 2. EL CONTADOR DERIVADO. El rótulo dice cuántos pilares hay, no un número
+ *    escrito a mano: al caerse uno por falta de verificación, la página decía
+ *    «tres» y enseñaba dos.
+ * 3. LA REJILLA CALCULADA desde cuántos quedan, para que un bloque filtrado no
+ *    deje un hueco donde estaba el texto.
+ * 4. «LO QUE VIENE DESPUÉS». Dice, con todas las letras, que hoy NO hay ISO
+ *    27001. Es la pieza más valiosa de la página y es exactamente la honestidad
+ *    que la dirección pide como estética: quitarla para que la página «venda
+ *    mejor» sería empeorarla.
+ *
+ * ── LO QUE SE AÑADE ────────────────────────────────────────────────────────
+ *
+ * `tenantIsolation` estaba `verified` desde el 29-jul con `usedIn: []`: un hecho
+ * comprobado que no se publicaba en ninguna parte — el desperdicio inverso al de
+ * publicar sin verificar. Ahora sostiene el primer pilar, a través del gate.
+ *
+ * ⚠️ Esta página SIGUE FUERA DEL SITEMAP, y debe seguir. No por legacy —no lo
+ * es— sino porque su contenido depende de claims `pending`. Proponérsela a un
+ * buscador es pedir que se indexe lo que todavía no se ha verificado. Vuelve al
+ * sitemap cuando los claims se cierren, no cuando la página se lea bonita.
  */
 
 export const metadata: Metadata = {
   title: 'Seguridad — VELIA',
-  /* La descripción publicaba «datos alojados en la UE» y «política de no
-     entrenamiento de IA»: los dos son claims `pending`. Un metadato es tan
-     público como un titular —sale en el resultado de búsqueda— y encima el
-     gate no llega hasta aquí, porque esto es un objeto estático que se evalúa
-     al construir. Por eso lo vigila `check:claims`, que mira también el <head>. */
+  /* La descripción no publica ni un claim. Cuidado aquí: un metadato es tan
+     público como un titular —sale en el resultado de búsqueda— y el gate no
+     llega, porque esto es un objeto estático que se evalúa al construir. Por eso
+     lo vigila `check:claims`, que mira también el <head>. La versión anterior
+     publicaba en este mismo campo el alojamiento en la UE y la política de no
+     entrenamiento: los dos, `pending`. */
   description:
-    'Cómo protege VELIA los datos de los despachos: aislamiento por despacho con Row Level Security en el propio motor de la base de datos, cifrado en tránsito, documentos en almacenamiento privado y cumplimiento RGPD.',
-  alternates: { canonical: 'https://veliacorp.com/seguridad' },
+    'Cómo protege VELIA la infraestructura que construye y opera: aislamiento entre clientes en el propio motor de la base de datos, cifrado en tránsito, control de acceso por roles y registro de auditoría en las acciones sensibles.',
+  alternates: { canonical: `${SITE_URL}/seguridad` },
 }
 
-const PILLARS: { title: string; body: string; claim?: ClaimKey }[] = [
+/**
+ * Los pilares: decisiones de arquitectura, no promesas de comportamiento. La
+ * diferencia importa — una promesa depende de que alguien se acuerde; una
+ * decisión de arquitectura sigue en pie cuando nadie mira.
+ */
+const PILARES: { title: string; body: string; claim?: ClaimKey }[] = [
   {
-    title: 'Aislamiento por despacho',
-    body: 'Cada despacho es un inquilino aislado dentro de VELIA. Las políticas de Row Level Security (RLS) actúan en el propio motor de la base de datos y impiden el acceso a los datos de un despacho desde otro.',
+    title: 'Aislamiento entre clientes',
+    body: 'Cada cliente es un inquilino separado. Las políticas de Row Level Security actúan en el propio motor de la base de datos, no en el código que lo consulta: aunque una consulta se escriba mal, los datos de un cliente no se alcanzan desde otro.',
+    claim: 'tenantIsolation',
   },
   {
     title: 'Tu información no entrena ninguna IA',
@@ -44,14 +82,14 @@ const PILLARS: { title: string; body: string; claim?: ClaimKey }[] = [
     claim: 'noModelTraining',
   },
   {
-    title: 'Diseñada para la abogacía',
-    body: 'VELIA no es un software genérico adaptado al sector legal. Está diseñada para el ejercicio de la abogacía, y el deber de secreto profesional guía cada decisión de arquitectura.',
+    title: 'La automatización opera con permisos acotados',
+    body: 'Un proceso automático no recibe acceso ilimitado por el hecho de necesitar hacer su trabajo. Cada uno actúa con permisos explícitos sobre lo que le corresponde, y lo que hace queda registrado.',
   },
 ]
 
-/* body + closer: el cierre se pinta como unidad inseparable (inline-block)
-   para que la última frase nunca quede partida a mitad — regla de wrapping. */
-const MEASURES: { title: string; body: string; closer?: string; claim?: ClaimKey }[] = [
+/* body + closer: el cierre se pinta como unidad inseparable (inline-block) para
+   que la última frase nunca quede partida a mitad — regla de wrapping. */
+const MEDIDAS: { title: string; body: string; closer?: string; claim?: ClaimKey }[] = [
   {
     title: 'Datos alojados en la Unión Europea',
     body: 'La base de datos y las funciones de la aplicación se ejecutan en infraestructura de región europea.',
@@ -65,17 +103,17 @@ const MEASURES: { title: string; body: string; closer?: string; claim?: ClaimKey
   },
   {
     title: 'Documentos en almacenamiento privado',
-    body: 'Los documentos del despacho se guardan en almacenamiento privado. Solo son accesibles mediante enlaces firmados temporales —',
+    body: 'Los documentos se guardan en almacenamiento privado. Solo son accesibles mediante enlaces firmados temporales —',
     closer: 'nunca de forma pública.',
   },
   {
     title: 'Control de acceso',
-    body: 'Autenticación por sesión, acceso por roles dentro del despacho y registro de auditoría en las acciones sensibles.',
+    body: 'Autenticación por sesión, acceso por roles dentro de cada organización y registro de auditoría en las acciones sensibles.',
     closer: 'Cada acción relevante deja rastro.',
   },
   {
     title: 'RGPD y tus derechos',
-    body: 'El despacho mantiene la titularidad de sus datos y puede ejercer sus derechos: acceso, rectificación, supresión y portabilidad.',
+    body: 'Cada cliente mantiene la titularidad de sus datos y puede ejercer sus derechos: acceso, rectificación, supresión y portabilidad.',
     closer: 'Acuerdo de tratamiento de datos disponible.',
   },
   {
@@ -91,72 +129,91 @@ const CARDINAL: Record<number, string> = { 2: 'dos', 3: 'tres', 4: 'cuatro', 5: 
 /** Solo sobrevive lo que no sostiene ningún claim, o cuyo claim está verificado. */
 const publicable = <T extends { claim?: ClaimKey }>(x: T) => !x.claim || claim(x.claim) !== null
 
-const PILARES_VISIBLES = PILLARS.filter(publicable)
-const MEDIDAS_VISIBLES = MEASURES.filter(publicable)
+const PILARES_VISIBLES = PILARES.filter(publicable)
+const MEDIDAS_VISIBLES = MEDIDAS.filter(publicable)
 
 /* La rejilla se calcula desde cuántos quedan. Con `md:grid-cols-3` fijo, al
    caerse un pilar quedaba un hueco a la derecha: el texto desaparecía y el
    agujero se quedaba, que es peor que cualquiera de las dos cosas. */
 const COLUMNAS_PILARES = PILARES_VISIBLES.length >= 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'
 
+const enMayuscula = (s: string) => s.replace(/^\w/, c => c.toUpperCase())
+
 export default function SeguridadPage() {
+  const cuantos = PILARES_VISIBLES.length
+  const cardinal = CARDINAL[cuantos] ?? String(cuantos)
+
   return (
     <>
-      <section className="mx-auto max-w-6xl px-6 pt-20 md:pt-28 pb-16">
-        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-6">
-          Seguridad y confianza
+      {/* ═══ AFIRMACIÓN ═══════════════════════════════════════════════════ */}
+      <section className="mx-auto max-w-6xl px-6 md:px-10 pt-20 pb-16 md:pt-28 md:pb-24">
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
+          Seguridad
         </p>
-        <h1 className="text-4xl md:text-5xl font-600 leading-[1.08] tracking-[-0.03em] max-w-[18ch]">
-          Construida para guardar secretos.
+        <h1 className="mt-6 text-[clamp(2.15rem,5.6vw,4.5rem)] font-600 tracking-[-0.035em] leading-[1.04] text-void max-w-[17ch]">
+          Operar la infraestructura de otro obliga a más que a construirla.
         </h1>
-        {/* La entrada también publicaba el alojamiento en la UE, en prosa y no en
+        {/* La entrada anterior publicaba el alojamiento en la UE en prosa, no en
             una lista — por eso no la cazó el primer barrido, que sólo miró los
             bloques. Un claim escrito a mano en un párrafo es tan público como
-            uno dentro de una tarjeta. Queda el aislamiento por despacho, que sí
-            está `verified`. */}
-        <p className="mt-6 text-lg text-void/60 leading-relaxed max-w-prose">
-          El día a día de un despacho está hecho de información que no puede salir de él.
-          VELIA parte de esa premisa: cada despacho aislado del resto y una regla simple —{' '}
-          <span className="inline-block">tus datos son de tu despacho.</span>
+            uno dentro de una tarjeta. Aquí no hay ninguno: lo que se afirma es
+            el aislamiento, y ese va por el gate, más abajo. */}
+        <p className="mt-8 text-lg md:text-xl leading-[1.6] text-void/70 max-w-prose">
+          Cuando VELIA construye un sistema y se queda operándolo, entra en el negocio de
+          alguien todos los días. Eso cambia la pregunta: no es si el software es seguro,
+          sino quién entra, qué puede tocar y qué rastro deja.
         </p>
       </section>
 
-      <section className="bg-white border-y border-void/10">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+      {/* ═══ LOS PILARES ══════════════════════════════════════════════════ */}
+      <section className="bg-white border-y border-mist">
+        <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
           {/* El rótulo y el titular decían «tres» con un número escrito a mano.
               Al caerse un pilar por falta de verificación, la página se quedaba
               prometiendo tres y enseñando dos. Ahora el número sale de cuántos
               hay: un texto que cuenta algo no puede contarlo de memoria. */}
-          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/60 mb-3">
-            {PILARES_VISIBLES.length === 1 ? 'El pilar' : `Los ${CARDINAL[PILARES_VISIBLES.length] ?? PILARES_VISIBLES.length} pilares`}
+          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">
+            {cuantos === 1 ? 'El pilar' : `Los ${cardinal} pilares`}
           </p>
-          <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em] max-w-[24ch]">
-            {PILARES_VISIBLES.length === 1 ? 'Una decisión' : `${(CARDINAL[PILARES_VISIBLES.length] ?? PILARES_VISIBLES.length).toString().replace(/^\w/, c => c.toUpperCase())} decisiones`}
-            {' '}de arquitectura que no dependen de la buena voluntad de nadie.
+          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[24ch]">
+            {cuantos === 1 ? 'Una decisión' : `${enMayuscula(cardinal)} decisiones`} de
+            arquitectura que no dependen de que nadie se acuerde.
           </h2>
-          <div className={`mt-12 grid gap-10 ${COLUMNAS_PILARES}`}>
+          <div className={`mt-14 md:mt-20 grid gap-10 md:gap-0 ${COLUMNAS_PILARES}`}>
             {PILARES_VISIBLES.map((p, i) => (
-              <div key={p.title} className={i > 0 ? 'md:border-l md:border-void/10 md:pl-10' : 'md:pr-4'}>
-                <h3 className="text-lg font-700 mb-3">{p.title}</h3>
-                <p className="text-sm text-void/60 leading-[1.6]">{p.body}</p>
+              <div
+                key={p.title}
+                className={i > 0 ? 'md:border-l md:border-mist md:pl-10' : 'md:pr-10'}
+              >
+                <h3 className="text-lg md:text-xl font-600 tracking-[-0.015em] text-void">
+                  {p.title}
+                </h3>
+                <p className="mt-3 text-[15px] leading-[1.6] text-void/65 max-w-prose">
+                  {p.body}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-16 md:py-20">
-        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-3">Medidas concretas</p>
-        <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em]">El detalle técnico.</h2>
-        <p className="mt-4 text-sm text-void/60 max-w-prose leading-[1.6]">
-          Lo que un despacho — o su responsable de protección de datos — querrá saber antes
-          de confiar sus expedientes a una plataforma.
+      {/* ═══ EL DETALLE ═══════════════════════════════════════════════════ */}
+      <section className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">
+          Medidas concretas
         </p>
-        <div className="mt-12 grid gap-x-12 gap-y-10 md:grid-cols-2 max-w-4xl">
+        <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
+          El detalle técnico.
+        </h2>
+        <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-void/65 max-w-prose">
+          Lo que un responsable de protección de datos querrá saber antes de que sus sistemas
+          pasen a manos de otro.
+        </p>
+        <div className="mt-14 md:mt-20 grid gap-x-12 gap-y-10 md:grid-cols-2 max-w-4xl">
           {MEDIDAS_VISIBLES.map(m => (
             <div key={m.title}>
-              <h3 className="text-sm font-700 mb-2">{m.title}</h3>
-              <p className="text-sm text-void/60 leading-[1.6]">
+              <h3 className="text-[15px] font-600 tracking-[-0.01em] text-void">{m.title}</h3>
+              <p className="mt-2 text-[15px] leading-[1.6] text-void/65">
                 {m.body}
                 {m.closer && <> <span className="inline-block">{m.closer}</span></>}
               </p>
@@ -165,34 +222,71 @@ export default function SeguridadPage() {
         </div>
       </section>
 
-      <section className="bg-white border-t border-void/10">
-        <div className="mx-auto max-w-6xl px-6 py-16 md:py-20">
-          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/60 mb-3">Mejora continua</p>
-          <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.02em]">Lo que viene después.</h2>
-          <div className="mt-6 space-y-4 max-w-prose">
-            <p className="text-sm text-void/60 leading-[1.6]">
+      {/* ═══ LO QUE NO TENEMOS · CORTE OSCURO ═════════════════════════════
+          Esta sección es la razón de ser de la página, y por eso se lleva el
+          único corte oscuro: decir qué falta es más difícil de escribir que
+          cualquier lista de medidas, y es lo único que hace creíble al resto. */}
+      <section className="velia-dark-stage bg-void text-cream">
+        <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
+          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85">
+            Lo que todavía no
+          </p>
+          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[22ch]">
+            Hoy no tenemos certificación ISO 27001.
+          </h2>
+          {/* SIN `Reveal`, y es deliberado (18-sep-2026).
+              Este bloque es la única parte de la web donde VELIA dice qué NO
+              tiene. Envolverlo en una animación de entrada lo hace depender de
+              que un IntersectionObserver dispare, y medido aquí mismo: con un
+              recorrido a saltos el observer puede no llegar a emitir, y el
+              bloque se queda a opacidad 0 con la página entera ya pasada.
+              En la práctica un humano hace scroll continuo y se revela — pero
+              «en la práctica se revela» no es el listón para el párrafo que
+              admite que no hay certificación. La dirección ya lo dice: nada
+              existe sólo animado. */}
+          <div className="mt-8 space-y-4">
+            <p className="text-[15px] md:text-base leading-[1.6] text-cream/70 max-w-prose">
               Trabajamos hacia certificaciones formales de seguridad de la información —
-              entre ellas ISO 27001 — como parte de nuestro compromiso de mejora continua.
+              entre ellas ISO 27001— como parte del compromiso de mejora continua. Todavía
+              no está, y preferimos decirlo aquí antes de que lo pregunte nadie.
             </p>
-            <p className="text-sm text-void/60 leading-[1.6]">
-              Y preferimos decirlo con claridad: hoy no contamos todavía con esa
-              certificación. Cuando una certificación aparezca en esta página como
-              obtenida, será porque lo está.
+            <p className="text-[15px] md:text-base leading-[1.6] text-cream/70 max-w-prose">
+              El día que una certificación aparezca en esta página como obtenida, será
+              porque lo está. Es la misma regla que gobierna el resto del sitio: lo que no
+              se puede demostrar no se publica.
             </p>
           </div>
-          <div className="mt-10">
-            <p className="text-sm text-void/70 leading-[1.6] max-w-prose">
-              Si tu despacho necesita detalle adicional sobre arquitectura, tratamiento de
-              datos o el acuerdo de tratamiento (DPA), escríbenos y te lo explicamos sin
-              rodeos — hablas directamente con el equipo que lo ha construido.
-            </p>
-            <Link
-              href="/contacto"
-              className="btn inline-block mt-6 bg-void text-cream text-[12px] font-700 tracking-[0.04em] uppercase rounded-full px-7 py-3.5 hover:opacity-85"
+          <div className="mt-12 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+            <TrackedLink
+              href={CTA_CONTACTO.href}
+              event="final_contacto_click"
+              properties={{ cta_location: 'seguridad' }}
+              className="btn inline-flex items-center justify-center rounded-full bg-cream text-void px-8 py-4 text-[13px] font-600 tracking-[0.02em] hover:opacity-90"
             >
               Hablemos de seguridad
-            </Link>
+            </TrackedLink>
+            <p className="text-[13px] leading-[1.6] text-cream/70 max-w-[42ch]">
+              Si necesitas detalle sobre arquitectura, tratamiento de datos o el acuerdo de
+              tratamiento (DPA), hablas directamente con quien lo ha construido.
+            </p>
           </div>
+          <p className="mt-10 text-[13px] leading-[1.6] text-cream/70 max-w-prose">
+            Las condiciones de tratamiento están en{' '}
+            <Link
+              href="/privacidad"
+              className="text-gold/85 underline decoration-gold/30 underline-offset-4 hover:decoration-gold/85 transition-colors"
+            >
+              Privacidad
+            </Link>{' '}
+            y en{' '}
+            <Link
+              href="/ia-responsable"
+              className="text-gold/85 underline decoration-gold/30 underline-offset-4 hover:decoration-gold/85 transition-colors"
+            >
+              IA responsable
+            </Link>
+            .
+          </p>
         </div>
       </section>
     </>
