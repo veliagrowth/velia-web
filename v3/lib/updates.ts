@@ -46,24 +46,50 @@ export function formatUpdateDate(iso: string): string {
 }
 
 /**
- * FALLO SEGURO: si el feed no responde, devuelve [] y la página no se rompe.
+ * Resultado de pedir el feed. NO es un array.
+ *
+ * ── POR QUÉ CAMBIÓ LA FIRMA (18-sep-2026) ──────────────────────────────────
+ * `fetchUpdates()` devolvía `[]` en TRES situaciones que no significan lo mismo:
+ * la red falló, el feed respondió con un código de error, o el feed respondió
+ * perfectamente y no había nada que contar. La página recibía el mismo `[]` en
+ * los tres casos y enseñaba «Ahora mismo no podemos cargar las novedades».
+ *
+ * Es decir: el día que el tablón esté legítimamente vacío, la web declara una
+ * avería que no existe. Y al revés — si mañana el feed se cae, se lee igual que
+ * un tablón vacío, así que nadie sabrá distinguirlo. Un cero no es un estado:
+ * hay que preguntarle qué significa.
+ *
+ * Ahora son dos estados explícitos y la página los pinta distinto:
+ *   'ok'          la fuente contestó. `updates` puede venir vacío, y eso es una
+ *                 ausencia legítima, no un fallo.
+ *   'sin_fuente'  no se pudo leer la fuente. No se sabe si hay novedades.
+ *
+ * FALLO SEGURO: la página sigue sin romperse en ningún caso.
  *
  * 10 minutos de caché (no una hora): publicar un anuncio desde /admin/novedades y
  * no verlo en la web hasta 60 minutos después hace dudar de si se publicó bien.
  * Sigue siendo cero coste por visita.
  */
-export async function fetchUpdates(): Promise<ProductUpdate[]> {
+export type UpdatesResult =
+  | { estado: 'ok'; updates: ProductUpdate[] }
+  | { estado: 'sin_fuente'; updates: [] }
+
+export async function fetchUpdates(): Promise<UpdatesResult> {
   try {
     const res = await fetch(`${APP_URL}/api/public/novedades`, {
       next: { revalidate: 600 },
     })
-    if (!res.ok) return []
+    if (!res.ok) return { estado: 'sin_fuente', updates: [] }
     const json = (await res.json()) as { updates?: ProductUpdate[] }
-    return Array.isArray(json.updates) ? json.updates : []
+    /* Un cuerpo sin `updates`, o con algo que no es una lista, NO es un tablón
+       vacío: es una respuesta que no cumple el contrato. Va al cajón correcto. */
+    if (!Array.isArray(json.updates)) return { estado: 'sin_fuente', updates: [] }
+    return { estado: 'ok', updates: json.updates }
   } catch {
-    return []
+    return { estado: 'sin_fuente', updates: [] }
   }
 }
+
 
 /** Separa el tablón en sus dos carriles: compañía y producto. */
 export function splitUpdates(updates: ProductUpdate[]) {
