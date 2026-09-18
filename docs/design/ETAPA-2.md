@@ -164,6 +164,21 @@ restaurado  → 80/80 sobre 10 páginas
 Y `test:rutas` falló solo al mover la lista `LEGACY` al módulo compartido:
 detectó su propio cambio de terreno, que es justo para lo que está.
 
+### Cada página compartía el título de la portada
+
+Next no fusiona `openGraph` campo a campo: una página que no lo declara hereda
+entero el del layout, y **ninguna lo declaraba**. Las nueve páginas que no son la
+Home publicaban su `og:title`, su `og:description` y —lo peor— `og:url` =
+`https://veliacorp.com`. Cada una le decía a WhatsApp, LinkedIn y Slack que el
+enlace compartido era la portada. Y `/contacto` es la que más se pega en un chat,
+porque es el destino del único CTA de toda la web.
+
+`lib/metadatos.ts` deriva `title`, `canonical`, `og:*` y `twitter:*` de una sola
+declaración, y `qa:paginas` comprueba el resultado sobre el HTML servido. Las 28
+comprobaciones nuevas nacieron en rojo: por eso existen.
+
+En las cinco legales esto es **metadata, no el texto del documento**.
+
 ---
 
 ## Verificación
@@ -173,7 +188,8 @@ Sobre el **build de producción** servido en local, no sobre el código:
 | | |
 |---|---|
 | `qa:home` | 25/25 |
-| `qa:paginas` | **80/80 sobre 10 páginas** |
+| `qa:paginas` | **108/108 sobre 10 páginas** |
+| `opengraph-image` · `twitter-image` | 1200×630 (1,905:1), como exige §13 |
 | `test:claims` | 8/8 |
 | `test:rutas` | 7/7 |
 | `check:claims` | verde · 0 claims sin verificar publicados |
