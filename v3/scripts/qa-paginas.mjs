@@ -71,6 +71,9 @@ const verde = t => `\x1b[32m${t}\x1b[0m`
 const gris = t => `\x1b[90m${t}\x1b[0m`
 
 const resultados = []
+/* Lo que publica la Home al compartirse. Se guarda al pasar por `/` —que va
+   primero en RUTAS— y sirve de patrón para detectar a las que lo heredan. */
+let ogDeLaHome = null
 const comprobar = (ruta, titulo, ok, detalle) => {
   resultados.push({ ruta, titulo, ok, detalle })
   console.log(`  ${ok ? verde('✅') : rojo('❌')} ${titulo}${detalle ? gris(` — ${detalle}`) : ''}`)
@@ -99,6 +102,43 @@ try {
       comprobar(ruta, `${ruta} responde 200`, false, `HTTP ${respuesta?.status() ?? 'sin respuesta'}`)
       await page.close()
       continue
+    }
+
+    /* ── COHERENCIA DE LO QUE SE COMPARTE ────────────────────────────────
+       Next NO fusiona `openGraph` campo a campo: una página que no lo declara
+       hereda ENTERO el del layout. Medido el 18-sep, las cuatro páginas que no
+       son la Home publicaban el `og:title` de la portada y, peor, un
+       `og:url` = `https://veliacorp.com` — es decir, le decían a WhatsApp, a
+       LinkedIn y a Slack que el enlace compartido era la Home.
+
+       No da error, no lo ve ninguna guarda de build y sólo se nota al pegar el
+       enlace en un chat. Por eso se mide aquí, sobre el HTML servido. */
+    const og = await page.evaluate(() => {
+      const m = n => document.querySelector(`meta[property="${n}"], meta[name="${n}"]`)?.getAttribute('content') ?? null
+      return {
+        title: m('og:title'),
+        descripcion: m('og:description'),
+        url: m('og:url'),
+        canonical: document.querySelector('link[rel="canonical"]')?.getAttribute('href') ?? null,
+        tituloDeLaPestana: document.title,
+      }
+    })
+    comprobar(ruta, `${ruta} · og:url coincide con el canonical`, !!og.url && og.url === og.canonical, `og:url=${og.url} canonical=${og.canonical}`)
+    if (ruta === '/') {
+      ogDeLaHome = { title: og.title, descripcion: og.descripcion }
+    } else {
+      comprobar(
+        ruta,
+        `${ruta} · no comparte el og:title de la portada`,
+        !!og.title && og.title !== ogDeLaHome?.title,
+        og.title === ogDeLaHome?.title ? `hereda «${og.title}»` : og.title ?? 'sin og:title',
+      )
+      comprobar(
+        ruta,
+        `${ruta} · no comparte el og:description de la portada`,
+        !!og.descripcion && og.descripcion !== ogDeLaHome?.descripcion,
+        og.descripcion === ogDeLaHome?.descripcion ? 'hereda la de la portada' : undefined,
+      )
     }
 
     const jerarquia = await medirJerarquia(page)

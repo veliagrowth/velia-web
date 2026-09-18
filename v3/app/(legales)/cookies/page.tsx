@@ -1,14 +1,19 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CONTACT_EMAIL } from '@/lib/constants'
+import { metadatosDePagina } from '@/lib/metadatos'
 import ConsentLink from '@/components/ConsentLink'
 
-export const metadata: Metadata = {
-  title: 'Política de cookies — VELIA',
-  description:
+/* Por `metadatosDePagina`: hasta el 18-sep esta pagina heredaba el openGraph
+   entero del layout, asi que compartir su enlace ensenaba el titulo de la
+   portada y su `og:url` apuntaba a la raiz del sitio. Esto es metadata, no
+   el texto del documento: el contenido legal no se toca desde aqui. */
+export const metadata: Metadata = metadatosDePagina({
+  titulo: 'Política de cookies — VELIA',
+  descripcion:
     'Qué cookies usa veliacorp.com, para qué, cuánto duran y cómo cambiar tu decisión en cualquier momento.',
-  alternates: { canonical: 'https://veliacorp.com/cookies' },
-}
+  ruta: '/cookies',
+})
 
 /**
  * Reescrita el 10-ago-2026 por dos motivos, y los dos importan:

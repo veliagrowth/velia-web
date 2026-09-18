@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import TrackedLink from '@/components/TrackedLink'
 import { claim, type ClaimKey } from '@/lib/verified-claims'
-import { SITE_URL } from '@/lib/constants'
+import { metadatosDePagina } from '@/lib/metadatos'
 import { CTA_CONTACTO } from '@/lib/cta'
 
 /**
@@ -52,18 +52,27 @@ import { CTA_CONTACTO } from '@/lib/cta'
  * sitemap cuando los claims se cierren, no cuando la página se lea bonita.
  */
 
-export const metadata: Metadata = {
-  title: 'Seguridad — VELIA',
-  /* La descripción no publica ni un claim. Cuidado aquí: un metadato es tan
-     público como un titular —sale en el resultado de búsqueda— y el gate no
-     llega, porque esto es un objeto estático que se evalúa al construir. Por eso
-     lo vigila `check:claims`, que mira también el <head>. La versión anterior
-     publicaba en este mismo campo el alojamiento en la UE y la política de no
-     entrenamiento: los dos, `pending`. */
-  description:
+/* La descripción no publica ni un claim. Cuidado aquí: un metadato es tan
+   público como un titular —sale en el resultado de búsqueda— y el gate no
+   llega, porque esto es un objeto estático que se evalúa al construir. Por eso
+   lo vigila `check:claims`, que mira también el <head>. La versión anterior
+   publicaba en este mismo campo el alojamiento en la UE y la política de no
+   entrenamiento: los dos, `pending`.
+
+   ⚠️ Y ahora la descripción viaja TAMBIÉN al `og:description`, así que un claim
+   colado aquí se publicaría además en cada enlace compartido. Una razón más
+   para que `check:claims` mire el <head> y no sólo el cuerpo.
+
+   Por `metadatosDePagina`: hasta el 18-sep esta página heredaba el openGraph
+   entero del layout, así que compartirla enseñaba el título de la portada y su
+   `og:url` apuntaba a la raíz. */
+export const metadata: Metadata = metadatosDePagina({
+  titulo: 'Seguridad — VELIA',
+  tituloAlCompartir: 'Seguridad en VELIA — operar la infraestructura de otro obliga a más',
+  descripcion:
     'Cómo protege VELIA la infraestructura que construye y opera: aislamiento entre clientes en el propio motor de la base de datos, cifrado en tránsito, control de acceso por roles y registro de auditoría en las acciones sensibles.',
-  alternates: { canonical: `${SITE_URL}/seguridad` },
-}
+  ruta: '/seguridad',
+})
 
 /**
  * Los pilares: decisiones de arquitectura, no promesas de comportamiento. La

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Reveal from '@/components/Reveal'
 import TrackedLink from '@/components/TrackedLink'
-import { SITE_URL } from '@/lib/constants'
+import { metadatosDePagina } from '@/lib/metadatos'
 import { CTA_CONTACTO, CONTACTO_MICROCOPY } from '@/lib/cta'
 
 /**
@@ -58,15 +58,20 @@ import { CTA_CONTACTO, CONTACTO_MICROCOPY } from '@/lib/cta'
  * a la compañía unas palabras que nadie ha decidido. Queda como HUMAN_DECISION.
  */
 
-export const metadata: Metadata = {
-  /* Los cuatro sitios donde se declara la entidad —title, description, JSON-LD
-     del layout y llms.txt— tienen que decir lo mismo, o no hay entidad, hay
-     ruido. Estos dos campos eran el único par que seguía diciendo otra cosa. */
-  title: 'Sobre VELIA | Compañía de transformación y operación digital',
-  description:
+/* Los cuatro sitios donde se declara la entidad —title, description, JSON-LD
+   del layout y llms.txt— tienen que decir lo mismo, o no hay entidad, hay
+   ruido. Estos dos campos eran el unico par que seguia diciendo otra cosa. */
+/* Va por `metadatosDePagina` para que el `og:title` y el `og:url` se deriven de
+   la MISMA declaracion que el <title> y el canonical. Hasta el 18-sep esta
+   pagina heredaba el openGraph entero del layout: compartirla enseñaba el
+   titulo de la portada, y su `og:url` apuntaba a la raiz del sitio. */
+export const metadata: Metadata = metadatosDePagina({
+  titulo: 'Sobre VELIA | Compañía de transformación y operación digital',
+  tituloAlCompartir: 'Sobre VELIA — construimos y operamos, no entregamos y nos vamos',
+  descripcion:
     'Quién es VELIA y por qué construye y opera la infraestructura digital de un negocio en lugar de entregar un proyecto y desaparecer: el modelo, los principios con los que decide qué construir y quién responde.',
-  alternates: { canonical: `${SITE_URL}/sobre-velia` },
-}
+  ruta: '/sobre-velia',
+})
 
 /**
  * Los principios no son valores de folleto: cada uno describe una decisión que

@@ -1,13 +1,20 @@
 import type { Metadata } from 'next'
 import ContactForm from '@/components/ContactForm'
-import { CONTACT_EMAIL, SITE_URL } from '@/lib/constants'
+import { CONTACT_EMAIL } from '@/lib/constants'
+import { metadatosDePagina } from '@/lib/metadatos'
 
-export const metadata: Metadata = {
-  title: 'Hablemos — VELIA',
-  description:
+/* Por `metadatosDePagina`, y aquí importa más que en ninguna otra: ésta es la
+   página a la que apunta el único CTA de toda la web, así que es la que más se
+   pega en un chat. Hasta el 18-sep heredaba el openGraph del layout — se
+   compartía el enlace de contacto y salía el título de la portada, con el
+   `og:url` apuntando a la raíz. */
+export const metadata: Metadata = metadatosDePagina({
+  titulo: 'Hablemos — VELIA',
+  tituloAlCompartir: 'Hablemos — cuéntanos cómo trabajáis hoy',
+  descripcion:
     'Cuéntanos cómo trabajáis hoy y te decimos por dónde empezaríamos. La primera conversación no es una demostración de producto ni una propuesta comercial.',
-  alternates: { canonical: `${SITE_URL}/contacto` },
-}
+  ruta: '/contacto',
+})
 
 /**
  * /contacto — REESCRITA EN EL REWORK 2026.

@@ -1,13 +1,18 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CONTACT_EMAIL } from '@/lib/constants'
+import { metadatosDePagina } from '@/lib/metadatos'
 
-export const metadata: Metadata = {
-  title: 'Política de privacidad — VELIA',
-  description:
+/* Por `metadatosDePagina`: hasta el 18-sep esta pagina heredaba el openGraph
+   entero del layout, asi que compartir su enlace ensenaba el titulo de la
+   portada y su `og:url` apuntaba a la raiz del sitio. Esto es metadata, no
+   el texto del documento: el contenido legal no se toca desde aqui. */
+export const metadata: Metadata = metadatosDePagina({
+  titulo: 'Política de privacidad — VELIA',
+  descripcion:
     'Cómo trata VELIA los datos personales: responsable, finalidades, base jurídica, destinatarios, conservación y derechos RGPD.',
-  alternates: { canonical: 'https://veliacorp.com/privacidad' },
-}
+  ruta: '/privacidad',
+})
 
 /* Describe el modelo de datos ACTUAL (decisión 2026-07-16): los datos del servicio
    se alojan en infraestructura UE (Supabase) y VELIA actúa como encargado del

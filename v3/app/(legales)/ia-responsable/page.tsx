@@ -1,13 +1,18 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CONTACT_EMAIL } from '@/lib/constants'
+import { metadatosDePagina } from '@/lib/metadatos'
 
-export const metadata: Metadata = {
-  title: 'IA responsable — VELIA',
-  description:
+/* Por `metadatosDePagina`: hasta el 18-sep esta pagina heredaba el openGraph
+   entero del layout, asi que compartir su enlace ensenaba el titulo de la
+   portada y su `og:url` apuntaba a la raiz del sitio. Esto es metadata, no
+   el texto del documento: el contenido legal no se toca desde aqui. */
+export const metadata: Metadata = metadatosDePagina({
+  titulo: 'IA responsable — VELIA',
+  descripcion:
     'Cómo usa VELIA la inteligencia artificial: transparencia conforme al Reglamento europeo de IA, supervisión humana del abogado, fuentes oficiales verificables y sin entrenamiento con datos de clientes.',
-  alternates: { canonical: 'https://veliacorp.com/ia-responsable' },
-}
+  ruta: '/ia-responsable',
+})
 
 export default function IaResponsablePage() {
   return (

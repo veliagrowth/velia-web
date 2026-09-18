@@ -1,12 +1,18 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CONTACT_EMAIL } from '@/lib/constants'
+import { metadatosDePagina } from '@/lib/metadatos'
 
-export const metadata: Metadata = {
-  title: 'Aviso legal — VELIA',
-  description: 'Aviso legal de veliacorp.com: titularidad, condiciones de uso y legislación aplicable.',
-  alternates: { canonical: 'https://veliacorp.com/aviso-legal' },
-}
+/* Por `metadatosDePagina`: hasta el 18-sep esta pagina heredaba el openGraph
+   entero del layout, asi que compartir su enlace ensenaba el titulo de la
+   portada y su `og:url` apuntaba a la raiz del sitio. Esto es metadata, no
+   el texto del documento: el contenido legal no se toca desde aqui. */
+export const metadata: Metadata = metadatosDePagina({
+  titulo: 'Aviso legal — VELIA',
+  descripcion:
+    'Aviso legal de veliacorp.com: titularidad, condiciones de uso y legislación aplicable.',
+  ruta: '/aviso-legal',
+})
 
 /* TODO (Axel): completar CIF, domicilio social y datos de inscripción registral
    en cuanto la SL esté inscrita. Revisión legal en paralelo — v1.0. */

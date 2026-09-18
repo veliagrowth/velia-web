@@ -9,7 +9,7 @@ import {
   type ProductUpdate,
 } from '@/lib/updates'
 import { enlacePublicable } from '@/lib/rutas-congeladas'
-import { SITE_URL } from '@/lib/constants'
+import { metadatosDePagina } from '@/lib/metadatos'
 
 /**
  * /novedades — REESCRITA EN EL REWORK 2026, etapa 2.
@@ -61,12 +61,17 @@ import { SITE_URL } from '@/lib/constants'
  * tablón es una decisión comercial y se toma en el portal, no aquí.
  */
 
-export const metadata: Metadata = {
-  title: 'Novedades — VELIA',
-  description:
+/* Por `metadatosDePagina`, para que `og:title` y `og:url` se deriven de la
+   MISMA declaración que el <title> y el canonical. Hasta el 18-sep esta página
+   heredaba el openGraph entero del layout: compartirla enseñaba el título de la
+   portada y su `og:url` apuntaba a la raíz del sitio. */
+export const metadata: Metadata = metadatosDePagina({
+  titulo: 'Novedades — VELIA',
+  tituloAlCompartir: 'Novedades de VELIA — lo que hace, contado con fechas',
+  descripcion:
     'El tablón de VELIA: anuncios de la compañía y lo que se va incorporando a los sistemas que construimos y operamos, con su fecha.',
-  alternates: { canonical: `${SITE_URL}/novedades` },
-}
+  ruta: '/novedades',
+})
 
 /** Una entrada del tablón. Misma pieza en los dos carriles: lo que cambia entre
  *  ellos es la composición que las contiene, no la entrada. */

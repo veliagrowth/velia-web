@@ -1,13 +1,18 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CONTACT_EMAIL } from '@/lib/constants'
+import { metadatosDePagina } from '@/lib/metadatos'
 
-export const metadata: Metadata = {
-  title: 'Términos del servicio — VELIA',
-  description:
+/* Por `metadatosDePagina`: hasta el 18-sep esta pagina heredaba el openGraph
+   entero del layout, asi que compartir su enlace ensenaba el titulo de la
+   portada y su `og:url` apuntaba a la raiz del sitio. Esto es metadata, no
+   el texto del documento: el contenido legal no se toca desde aqui. */
+export const metadata: Metadata = metadatosDePagina({
+  titulo: 'Términos del servicio — VELIA',
+  descripcion:
     'Condiciones de contratación del servicio VELIA: prueba gratuita, planes y precios, datos del despacho, uso de la IA y responsabilidad.',
-  alternates: { canonical: 'https://veliacorp.com/terminos' },
-}
+  ruta: '/terminos',
+})
 
 /* Pricing modelo Axel (decidido 2026-07-21): plan 99€/mes, 2 usuarios, +29€,
    permanencia 3 meses, Programa Fundadores = web premium con plan anual (20 plazas).
