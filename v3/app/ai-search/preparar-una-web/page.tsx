@@ -1,10 +1,19 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import Link from 'next/link'
-import TrackedLink from '@/components/TrackedLink'
+import {
+  C,
+  CtaSobreOscuro,
+  EnNuestraWeb,
+  Firma,
+  Fuentes,
+  SeccionNumerada,
+  Terminos,
+  cuerpo,
+  enlace,
+} from '@/components/Conocimiento'
 import { metadatosDePagina } from '@/lib/metadatos'
-import { SITE_URL } from '@/lib/constants'
-import { CTA_CONTACTO, CONTACTO_MICROCOPY } from '@/lib/cta'
+import { jsonLdDeArticulo } from '@/lib/conocimiento'
 
 /**
  * /ai-search/preparar-una-web — la primera pieza de conocimiento de VELIA.
@@ -52,7 +61,6 @@ import { CTA_CONTACTO, CONTACTO_MICROCOPY } from '@/lib/cta'
  */
 
 const RUTA = '/ai-search/preparar-una-web'
-const URL_PAGINA = `${SITE_URL}${RUTA}`
 const PUBLICADA: string | null = null
 const REVISADA = '2026-09-19'
 const TITULAR = 'Cómo preparar una web para buscadores y sistemas de IA'
@@ -92,42 +100,16 @@ const FUENTES = [
   },
 ] as const
 
-/* ── JSON-LD DE LA PÁGINA ──────────────────────────────────────────────────
-   `WebPage` + `Article`, ligados por `@id` al `Organization` y al `WebSite`
-   que declara el layout. Nada se repite: autor y publisher son la misma
-   organización, por referencia.
-   Lo que NO se declara, y es deliberado: `FAQPage` (la Fase 0 acaba de retirar
-   uno), `HowTo` (esto no es una receta de pasos), `Person` como autor (ver
-   AUTORÍA arriba) y cualquier valoración. */
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'WebPage',
-      '@id': `${URL_PAGINA}#webpage`,
-      url: URL_PAGINA,
-      name: TITULAR,
-      inLanguage: 'es-ES',
-      isPartOf: { '@id': `${SITE_URL}/#website` },
-    },
-    {
-      '@type': 'Article',
-      '@id': `${URL_PAGINA}#article`,
-      headline: TITULAR,
-      description: DESCRIPCION,
-      inLanguage: 'es-ES',
-      ...(PUBLICADA ? { datePublished: PUBLICADA } : {}),
-      dateModified: REVISADA,
-      author: { '@id': `${SITE_URL}/#organization` },
-      publisher: { '@id': `${SITE_URL}/#organization` },
-      mainEntityOfPage: { '@id': `${URL_PAGINA}#webpage` },
-      citation: FUENTES.map(f => f.href),
-    },
-  ],
-}
-
-const fechaLarga = (iso: string) =>
-  new Date(`${iso}T00:00:00`).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })
+/* JSON-LD de la página: `WebPage` + `Article` ligados a la organización. Qué
+   se declara y qué no, en `jsonLdDeArticulo` (lib/conocimiento.ts). */
+const jsonLd = jsonLdDeArticulo({
+  ruta: RUTA,
+  titular: TITULAR,
+  descripcion: DESCRIPCION,
+  publicada: PUBLICADA,
+  revisada: REVISADA,
+  fuentes: FUENTES,
+})
 
 /* Las secciones numeradas, en un solo sitio: alimentan el índice y los `id`
    de las secciones, para que un enlace del índice no pueda apuntar a una
@@ -148,83 +130,19 @@ const tituloDe = (id: IdSeccion) => SECCIONES.find(s => s.id === id)!.titulo
 const numeroDe = (id: IdSeccion) => String(SECCIONES.findIndex(s => s.id === id) + 1).padStart(2, '0')
 
 /* ── PIEZAS DE COMPOSICIÓN ─────────────────────────────────────────────────
-   Tipografía, color y espaciado del sistema existente; ni un tamaño nuevo. */
-
-/* La medida de lectura (`max-w-prose`) va en el ELEMENTO de texto, nunca en un
-   contenedor que envuelva también un titular o un panel: se expresa en `em` y
-   se resuelve con el tamaño del propio elemento. Ver `tailwind.config.ts`. */
-const cuerpo = 'max-w-prose text-[15px] md:text-base leading-[1.6] text-void/70'
-const enlace =
-  'font-600 text-gold-ink underline decoration-gold-ink/30 underline-offset-4 hover:decoration-gold-ink transition-colors'
+   Las compartidas con las demás piezas de conocimiento viven en
+   `components/Conocimiento.tsx`. `Seccion` se queda aquí: depende del índice
+   numerado de esta guía. */
 
 /** Una sección numerada de la guía. El índice lleva el número; el `h2`, la
  *  pregunta; el primer párrafo, la respuesta. */
 function Seccion({ id, respuesta, children }: { id: IdSeccion; respuesta: ReactNode; children: ReactNode }) {
   return (
-    <section id={id} aria-labelledby={`t-${id}`} className="mx-auto max-w-6xl px-6 md:px-10 scroll-mt-24">
-      <div className="hairline py-14 md:py-20 grid gap-x-10 gap-y-5 md:grid-cols-[auto_1fr]">
-        <span className="indice text-slate" aria-hidden="true">
-          {numeroDe(id)}
-        </span>
-        {/* `max-w-3xl` es un ancho de MAQUETACIÓN: da sitio al titular y al panel
-            de evidencia. La medida de lectura la lleva cada texto dentro. Hasta
-            el 19-sep este contenedor era `max-w-prose`, y al recalibrar el token
-            habría estrechado también el titular y el panel. */}
-        <div className="max-w-3xl">
-          <h2
-            id={`t-${id}`}
-            className="text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void"
-          >
-            {tituloDe(id)}
-          </h2>
-          {/* La respuesta va primero y separada del desarrollo: es lo que se
-              extrae si sólo se lee una frase de la sección. */}
-          <p className="mt-6 max-w-prose text-lg md:text-xl leading-[1.55] text-void/85">{respuesta}</p>
-          <div className="mt-6 space-y-5">{children}</div>
-        </div>
-      </div>
-    </section>
+    <SeccionNumerada id={id} numero={numeroDe(id)} titulo={tituloDe(id)} respuesta={respuesta}>
+      {children}
+    </SeccionNumerada>
   )
 }
-
-/**
- * Lo que se hizo en esta misma web, con las tres naturalezas separadas.
- *
- * `<dl>` y no tres párrafos: la relación término → descripción es exactamente
- * lo que es, y un extractor la conserva. No es `<aside>` a propósito: algunos
- * extractores descartan los `aside` como contenido secundario, y esto es la
- * evidencia de la página, no un adorno.
- *
- * «Decisión» es el único rótulo en Iris: la dirección reserva ese color para
- * VELIA actuando o pensando, y una decisión es exactamente eso.
- */
-function EnNuestraWeb({ hecho, decision, interpretacion }: { hecho: ReactNode; decision: ReactNode; interpretacion: ReactNode }) {
-  const filas: { termino: string; texto: ReactNode; iris?: boolean }[] = [
-    { termino: 'Hecho', texto: hecho },
-    { termino: 'Decisión', texto: decision, iris: true },
-    { termino: 'Interpretación', texto: interpretacion },
-  ]
-  return (
-    <div className="!mt-10 rounded-lg border border-mist bg-white px-6 py-7 md:px-8">
-      <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">En veliacorp.com</p>
-      <dl className="mt-5 space-y-5">
-        {filas.map(f => (
-          <div key={f.termino} className="md:grid md:grid-cols-[8.5rem_1fr] md:gap-6">
-            <dt className={`text-[11px] font-600 tracking-[0.06em] uppercase pt-1 ${f.iris ? 'text-gold-ink' : 'text-void/65'}`}>
-              {f.termino}
-            </dt>
-            <dd className="mt-1.5 md:mt-0 max-w-prose text-[15px] leading-[1.6] text-void/75">{f.texto}</dd>
-          </div>
-        ))}
-      </dl>
-    </div>
-  )
-}
-
-/** Código en línea, sin inventar un estilo nuevo. */
-const C = ({ children }: { children: ReactNode }) => (
-  <code className="rounded bg-mist px-1.5 py-0.5 text-[0.9em] text-void">{children}</code>
-)
 
 export default function PrepararUnaWebPage() {
   return (
@@ -253,23 +171,7 @@ export default function PrepararUnaWebPage() {
           lo que decidimos y lo que interpretamos. No es un caso de éxito: es un registro de
           decisiones.
         </p>
-        <p className="mt-8 text-[13px] text-void/65">
-          Por el equipo de VELIA ·{' '}
-          {PUBLICADA ? (
-            <>
-              <time dateTime={PUBLICADA}>{fechaLarga(PUBLICADA)}</time>
-              {REVISADA !== PUBLICADA && (
-                <>
-                  {' '}· revisada el <time dateTime={REVISADA}>{fechaLarga(REVISADA)}</time>
-                </>
-              )}
-            </>
-          ) : (
-            <>
-              revisada el <time dateTime={REVISADA}>{fechaLarga(REVISADA)}</time>
-            </>
-          )}
-        </p>
+        <Firma publicada={PUBLICADA} revisada={REVISADA} />
       </header>
 
       {/* ═══ LA RESPUESTA CORTA ══════════════════════════════════════════
@@ -359,8 +261,8 @@ export default function PrepararUnaWebPage() {
             Se usan como si fueran sinónimos o como si fueran disciplinas separadas. No son ninguna
             de las dos cosas: son capas del mismo problema, y cada una depende de la anterior.
           </p>
-          <dl className="mt-12 md:mt-14">
-            {[
+          <Terminos
+            filas={[
               [
                 'SEO',
                 <>
@@ -406,13 +308,8 @@ export default function PrepararUnaWebPage() {
                   todo esto, y lo que más depende del contenido.
                 </>,
               ],
-            ].map(([termino, definicion]) => (
-              <div key={termino as string} className="hairline py-7 md:grid md:grid-cols-[15rem_1fr] md:gap-10">
-                <dt className="text-lg md:text-xl font-600 tracking-[-0.015em] text-void">{termino}</dt>
-                <dd className={`mt-2 md:mt-0.5 max-w-prose ${cuerpo}`}>{definicion}</dd>
-              </div>
-            ))}
-          </dl>
+            ]}
+          />
         </div>
       </section>
 
@@ -777,47 +674,14 @@ export default function PrepararUnaWebPage() {
                 entendida, sin prometer lo que nadie controla.
               </p>
             </div>
-            <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-              <TrackedLink
-                href={CTA_CONTACTO.href}
-                event="final_contacto_click"
-                properties={{ cta_location: 'guia_ai_search' }}
-                className="btn inline-flex items-center justify-center rounded-full bg-cream text-void px-8 py-4 text-[13px] font-600 tracking-[0.02em] hover:opacity-90"
-              >
-                {CTA_CONTACTO.label}
-              </TrackedLink>
-              <p className="text-[13px] text-cream/70">{CONTACTO_MICROCOPY}</p>
-            </div>
+            <CtaSobreOscuro ubicacion="guia_ai_search" />
           </div>
         </div>
       </section>
 
       {/* ═══ FUENTES ═════════════════════════════════════════════════════
           Las mismas URL que declara el JSON-LD como `citation`: una lista. */}
-      <section id="fuentes" aria-labelledby="t-fuentes" className="mx-auto max-w-6xl px-6 md:px-10 py-16 md:py-20 scroll-mt-24">
-        <h2 id="t-fuentes" className="text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void">
-          Fuentes
-        </h2>
-        <p className={`mt-5 max-w-prose ${cuerpo}`}>
-          Documentación oficial consultada el <time dateTime={REVISADA}>{fechaLarga(REVISADA)}</time>.
-          Los proveedores la actualizan; conviene comprobarla antes de tomar una decisión que
-          dependa de ella.
-        </p>
-        <ol className="mt-6 space-y-1 max-w-prose">
-          {FUENTES.map(f => (
-            <li key={f.href}>
-              <a
-                href={f.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block py-1.5 text-[15px] font-600 text-gold-ink underline decoration-gold-ink/30 underline-offset-4 hover:decoration-gold-ink transition-colors"
-              >
-                {f.texto}
-              </a>
-            </li>
-          ))}
-        </ol>
-      </section>
+      <Fuentes fuentes={FUENTES} consultadas={REVISADA} />
       </article>
     </>
   )
