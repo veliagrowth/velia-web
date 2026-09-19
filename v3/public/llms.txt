@@ -51,6 +51,7 @@ VELIA **no** es una empresa jurídica ni un proveedor de software para abogados:
 - [Sobre VELIA](https://veliacorp.com/sobre-velia): el modelo, las reglas con las que decide qué construir y quién responde
 - [Contacto](https://veliacorp.com/contacto): hablar con el equipo
 - [Novedades](https://veliacorp.com/novedades): anuncios de la compañía y mejoras incorporadas a los sistemas que opera
+- [Cómo preparar una web para buscadores y sistemas de IA](https://veliacorp.com/ai-search/preparar-una-web): guía con lo que se puede hacer, lo que se puede medir y lo que no se puede garantizar, y las decisiones que VELIA tomó en su propia web
 - [Aviso legal](https://veliacorp.com/aviso-legal) · [Privacidad](https://veliacorp.com/privacidad) · [Cookies](https://veliacorp.com/cookies) · [Términos](https://veliacorp.com/terminos) · [IA responsable](https://veliacorp.com/ia-responsable)
 
 ## Empresa

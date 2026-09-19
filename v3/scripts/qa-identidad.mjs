@@ -49,6 +49,8 @@ const SUPERFICIES = [
      publica claims `pending`. Salir del sitemap no es `noindex`: son dos cosas
      distintas y aquí se comprueba la segunda. */
   { ruta: '/seguridad', clase: 'NUEVA' },
+  // Fase 1: la primera pieza de conocimiento.
+  { ruta: '/ai-search/preparar-una-web', clase: 'NUEVA' },
 
   // Legacy: aislada, y viva.
   { ruta: '/precios', clase: 'LEGACY_AISLADA' },

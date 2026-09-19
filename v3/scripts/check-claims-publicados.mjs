@@ -77,6 +77,7 @@ const TERMINOS = {
    enlace. */
 const RUTAS = [
   '/', '/contacto', '/seguridad', '/sobre-velia', '/novedades',
+  '/ai-search/preparar-una-web',
   '/precios', '/demo', '/fundadores', '/legal',
   '/aviso-legal', '/privacidad', '/cookies', '/terminos', '/ia-responsable',
 ]

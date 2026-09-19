@@ -59,6 +59,7 @@ const RUTAS = [
   '/novedades',
   '/contacto',
   '/seguridad',
+  '/ai-search/preparar-una-web',
   '/aviso-legal',
   '/privacidad',
   '/cookies',

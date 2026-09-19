@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Reveal from '@/components/Reveal'
 
 /**
@@ -26,6 +27,19 @@ interface Capacidad {
   piezas: readonly string[]
   /** Solo Digital Operations. Es la capacidad diferencial y se pinta distinta. */
   destacada?: boolean
+  /**
+   * Una pieza de conocimiento publicada que explica la capacidad (19-sep-2026).
+   *
+   * Sólo la lleva la capacidad que TIENE una pieza escrita. No se rellena en las
+   * demás por simetría: un enlace a una página que no existe es un 404, y uno a
+   * una página genérica es relleno. Cuando exista la siguiente pieza, se añade
+   * aquí; mientras tanto, la asimetría es la verdad.
+   *
+   * Existe para que la guía no quede huérfana. Sin esto sólo la encontraría quien
+   * leyera el sitemap, y el hub `/ai-search` —que sería su padre natural— todavía
+   * no está construido.
+   */
+  guia?: { href: string; texto: string }
 }
 
 const CAPACIDADES: readonly Capacidad[] = [
@@ -44,6 +58,10 @@ const CAPACIDADES: readonly Capacidad[] = [
     cuerpo:
       'Buscadores, búsqueda generativa, rastreadores y agentes leen tu negocio antes que ningún cliente. Preparamos la infraestructura para que lo que encuentren sea correcto, completo y contextualizado.',
     piezas: ['Estructura semántica', 'Datos estructurados', 'Legibilidad por máquinas', 'Presencia local', 'Contenido'],
+    guia: {
+      href: '/ai-search/preparar-una-web',
+      texto: 'Cómo preparar una web para buscadores y sistemas de IA',
+    },
   },
   {
     n: '03',
@@ -96,6 +114,17 @@ export default function Capacidades() {
               <p className="mt-4 text-[13px] leading-[1.7] text-void/65">
                 {c.piezas.join(' · ')}
               </p>
+              {/* `inline-block py-1`: enlace suelto, no dentro de un párrafo, así
+                  que no le ampara la excepción de WCAG 2.2 para enlaces en línea y
+                  necesita sus 24 px de alto. */}
+              {c.guia && (
+                <Link
+                  href={c.guia.href}
+                  className="mt-4 inline-block py-1 text-[15px] font-600 text-gold-ink underline decoration-gold-ink/30 underline-offset-4 hover:decoration-gold-ink transition-colors"
+                >
+                  {c.guia.texto}
+                </Link>
+              )}
             </div>
           </div>
         </Reveal>

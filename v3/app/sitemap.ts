@@ -60,6 +60,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/contacto', priority: 0.9 },
     { path: '/sobre-velia', priority: 0.7 },
     { path: '/novedades', priority: 0.6 },
+    // Fase 1 (19-sep-2026): la primera pieza de conocimiento. Prioridad alta
+    // porque es la unica pagina del sitio que responde una pregunta que alguien
+    // haria a un buscador sin conocer ya a VELIA.
+    { path: '/ai-search/preparar-una-web', priority: 0.8 },
     { path: '/aviso-legal', priority: 0.2 },
     { path: '/ia-responsable', priority: 0.4 },
     { path: '/privacidad', priority: 0.2 },

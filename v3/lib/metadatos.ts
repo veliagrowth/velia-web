@@ -40,27 +40,30 @@ export function metadatosDePagina({
   /** Para el <title> de la pestaña cuando conviene que sea más corto que el de
    *  compartir. Si no se pasa, los dos son `titulo`. */
   tituloAlCompartir,
+  /** Sólo para piezas de conocimiento (guías, artículos). Añadido el 19-sep-2026
+   *  con la primera de ellas: una guía declarada como `website` se comparte como
+   *  si fuera una página corporativa más, y pierde las fechas, que en un texto
+   *  que describe sistemas que cambian son parte de lo que se afirma. Las fechas
+   *  son las REALES de publicación y revisión, en formato AAAA-MM-DD. */
+  articulo,
 }: {
   titulo: string
   descripcion: string
   /** Con barra inicial, sin barra final. La Home es ''. */
   ruta: string
   tituloAlCompartir?: string
+  articulo?: { publicado: string; modificado: string }
 }): Metadata {
   const url = `${SITE_URL}${ruta}`
   const compartir = tituloAlCompartir ?? titulo
+  const comun = { title: compartir, description: descripcion, url, siteName: 'VELIA', locale: 'es_ES' }
   return {
     title: titulo,
     description: descripcion,
     alternates: { canonical: url },
-    openGraph: {
-      title: compartir,
-      description: descripcion,
-      url,
-      siteName: 'VELIA',
-      locale: 'es_ES',
-      type: 'website',
-    },
+    openGraph: articulo
+      ? { ...comun, type: 'article', publishedTime: articulo.publicado, modifiedTime: articulo.modificado }
+      : { ...comun, type: 'website' },
     twitter: {
       card: 'summary_large_image',
       title: compartir,
