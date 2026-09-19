@@ -54,6 +54,7 @@ const SUPERFICIES = [
   { ruta: '/seguridad', clase: 'NUEVA' },
   // Fase 1: la primera pieza de conocimiento.
   { ruta: '/ai-search/preparar-una-web', clase: 'NUEVA' },
+  { ruta: '/ai-search/llms-txt', clase: 'NUEVA' },
 
   // Legacy: aislada, y viva.
   { ruta: '/precios', clase: 'LEGACY_AISLADA' },
@@ -177,7 +178,7 @@ try {
   const tipo = res.headers.get('content-type') ?? ''
   comprobar('/llms.txt responde 200 como texto', res.ok && /^text\/(plain|markdown)/.test(tipo), `HTTP ${res.status} · ${tipo}`)
   // La propuesta sólo exige una sección: un H1 con el nombre del sitio.
-  comprobar('/llms.txt empieza por un H1', /^﻿?#\s+\S/.test(texto.trimStart()))
+  comprobar('/llms.txt empieza por un H1', /^\uFEFF?#\s+\S/.test(texto.trimStart()))
   comprobar('/llms.txt no publica «VELIA Legal»', !/VELIA\s+Legal/i.test(texto))
 
   const ORIGEN = 'https://veliacorp.com'
