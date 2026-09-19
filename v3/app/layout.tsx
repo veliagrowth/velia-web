@@ -46,24 +46,66 @@ export const metadata: Metadata = {
    maquina leia el posicionamiento anterior mientras la pagina ya contaba otro.
    La entidad tiene que decir lo mismo en los cuatro sitios donde se declara —
    title, description, JSON-LD y llms.txt— o no hay entidad, hay ruido. */
-const organizationJsonLd = {
+/* ── AMPLIADO EN LA FASE 0 (19-sep-2026), con dos nodos y ni uno más ──────────
+ *
+ * `@graph` en vez de un objeto suelto: permite que `WebSite` declare quién lo
+ * publica mediante `@id` en lugar de repetir los datos de la organización. Dos
+ * copias de la misma entidad divergen, y aquí ya pasó una vez.
+ *
+ * QUÉ SE AÑADE Y POR QUÉ CADA COSA:
+ *   · `@id` estables — sin ellos no hay forma de relacionar nodos.
+ *   · `WebSite` — declara el sitio como entidad y lo ata a su publisher.
+ *   · `founder` — Joaquín y Axel ya aparecen con nombre y área en /sobre-velia.
+ *     Marcarlos no publica nada nuevo: hace legible una atribución que ya está
+ *     escrita. Sin autoría marcada, el contenido no atribuye experiencia a nadie.
+ *
+ * QUÉ NO SE AÑADE, Y ESO ES LA MITAD DE LA DECISIÓN:
+ *   · `sameAs` — medido: NO existe ningún perfil oficial de VELIA declarado en
+ *     este repositorio. Rellenarlo exigiría inventar URLs, y un `sameAs` que
+ *     apunta a un perfil equivocado es peor que no tenerlo: ancla la entidad a
+ *     algo que no es. Queda como HUMAN_DECISION, y es el mayor gap de
+ *     resolución de entidad que le queda al sitio.
+ *   · `sameAs` de las dos personas, por el mismo motivo.
+ *   · `BreadcrumbList` — el sitio es plano; no aportaría nada.
+ *   · `Service`/`Product` por capacidad — modelaría VELIA como catálogo de
+ *     servicios, que es justo lo que la dirección rechaza.
+ *   · Otro `FAQPage` — la Fase 0 retira señales contradictorias, no añade.
+ */
+const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'VELIA',
-  legalName: 'VELIA Marketing SL',
-  url: SITE_URL,
-  logo: `${SITE_URL}/velia_logotipo.svg`,
-  email: CONTACT_EMAIL,
-  description:
-    'Compañía de transformación y operación digital. VELIA diseña, construye, integra, automatiza y opera la infraestructura digital de empresas y profesionales para la era de la IA, la automatización y los agentes.',
-  knowsAbout: [
-    'Infraestructura digital',
-    'Automatización de procesos',
-    'Integración de sistemas',
-    'Visibilidad en buscadores y sistemas de IA',
-    'Operación de sistemas digitales',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE_URL}/#organization`,
+      name: 'VELIA',
+      legalName: 'VELIA Marketing SL',
+      url: SITE_URL,
+      logo: `${SITE_URL}/velia_logotipo.svg`,
+      email: CONTACT_EMAIL,
+      description:
+        'Compañía de transformación y operación digital. VELIA diseña, construye, integra, automatiza y opera la infraestructura digital de empresas y profesionales para la era de la IA, la automatización y los agentes.',
+      knowsAbout: [
+        'Infraestructura digital',
+        'Automatización de procesos',
+        'Integración de sistemas',
+        'Visibilidad en buscadores y sistemas de IA',
+        'Operación de sistemas digitales',
+      ],
+      areaServed: 'ES',
+      founder: [
+        { '@type': 'Person', name: 'Joaquín Paiva', jobTitle: 'Producto y tecnología' },
+        { '@type': 'Person', name: 'Axel Soto', jobTitle: 'Legal y relación con el cliente' },
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: 'VELIA',
+      inLanguage: 'es-ES',
+      publisher: { '@id': `${SITE_URL}/#organization` },
+    },
   ],
-  areaServed: 'ES',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -137,7 +179,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-sans">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Nav />
         <main>{children}</main>
