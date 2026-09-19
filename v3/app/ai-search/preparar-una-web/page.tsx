@@ -109,6 +109,7 @@ const jsonLd = jsonLdDeArticulo({
   publicada: PUBLICADA,
   revisada: REVISADA,
   fuentes: FUENTES,
+  dentroDe: '/ai-search',
 })
 
 /* Las secciones numeradas, en un solo sitio: alimentan el índice y los `id`
@@ -156,7 +157,15 @@ export default function PrepararUnaWebPage() {
 
       {/* ═══ CABECERA ════════════════════════════════════════════════════ */}
       <header className="mx-auto max-w-6xl px-6 md:px-10 pt-20 pb-14 md:pt-28 md:pb-20">
-        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">AI Search · Guía</p>
+        {/* La etiqueta es el camino de vuelta al hub. `inline-block py-1`:
+            a 11 px, la altura de línea sola deja el destino en ~17 px, por
+            debajo de los 24 que pide WCAG 2.2 (2.5.8). */}
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
+          <Link href="/ai-search" className="inline-block py-1 hover:text-void transition-colors">
+            AI Search
+          </Link>
+          <span className="text-void/65"> · Guía</span>
+        </p>
         <h1 className="mt-6 text-[clamp(2.15rem,5.6vw,4.5rem)] font-600 tracking-[-0.035em] leading-[1.04] text-void max-w-[18ch]">
           {TITULAR}
         </h1>

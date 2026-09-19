@@ -71,6 +71,7 @@ export function jsonLdDeArticulo({
   publicada,
   revisada,
   fuentes,
+  dentroDe,
 }: {
   ruta: string
   titular: string
@@ -78,6 +79,10 @@ export function jsonLdDeArticulo({
   publicada: string | null
   revisada: string
   fuentes: readonly Fuente[]
+  /** Ruta del hub que agrupa la pieza, si lo hay. El hub declara `hasPart`
+   *  hacia ella y ella `isPartOf` hacia él: la relación queda dicha por los
+   *  dos lados, que es como se lee un grupo y no dos páginas sueltas. */
+  dentroDe?: string
 }) {
   const url = `${SITE_URL}${ruta}`
   return {
@@ -89,7 +94,9 @@ export function jsonLdDeArticulo({
         url,
         name: titular,
         inLanguage: 'es-ES',
-        isPartOf: { '@id': `${SITE_URL}/#website` },
+        isPartOf: dentroDe
+          ? [{ '@id': `${SITE_URL}/#website` }, { '@id': `${SITE_URL}${dentroDe}#webpage` }]
+          : { '@id': `${SITE_URL}/#website` },
       },
       {
         '@type': 'Article',
