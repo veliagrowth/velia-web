@@ -77,7 +77,7 @@ const TERMINOS = {
    enlace. */
 const RUTAS = [
   '/', '/contacto', '/seguridad', '/sobre-velia', '/novedades',
-  '/ai-search/preparar-una-web',
+  '/ai-search/preparar-una-web', '/ai-search/llms-txt',
   '/precios', '/demo', '/fundadores', '/legal',
   '/aviso-legal', '/privacidad', '/cookies', '/terminos', '/ia-responsable',
   /* El llms.txt es texto que se publica para que lo lean máquinas: un claim

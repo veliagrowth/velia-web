@@ -35,7 +35,7 @@ import { jsonLdDeArticulo } from '@/lib/conocimiento'
  *   en «Fuentes». Lo que no está documentado se presenta como interpretación.
  * · No se promete aparecer, ser citado ni ser recomendado en ningún sistema.
  * · `llms.txt` aparece, con lo que es y lo que no, pero no es el centro: tiene
- *   su propia pieza pendiente.
+ *   su propia pieza, /ai-search/llms-txt, enlazada desde «¿Y llms.txt?».
  * · Ningún claim de `lib/verified-claims.ts` en estado `pending` aparece aquí.
  *   `check:claims` recorre esta ruta. Ojo al redactar sobre las políticas de
  *   los proveedores: la guarda vigila frases como «no entrena modelos», que
@@ -395,6 +395,12 @@ export default function PrepararUnaWebPage() {
           solo texto y sin diseño, la descripción exacta de la empresa, y nos sirvió de referencia
           para comprobar que el resto de superficies dijeran lo mismo. Lo que no hace es sustituir
           al documento: si el contenido no está en el HTML, un resumen aparte no lo arregla.
+        </p>
+        <p className={cuerpo}>
+          Qué es exactamente, qué está documentado y qué no, y en qué se diferencia de robots.txt:{' '}
+          <Link href="/ai-search/llms-txt" className={enlace}>
+            ¿Qué es llms.txt y sirve realmente para algo?
+          </Link>
         </p>
       </Seccion>
 
