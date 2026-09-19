@@ -11,9 +11,10 @@ export const metadata: Metadata = {
   alternates: { canonical: `${SITE_URL}/precios` },
 }
 
-/* Única fuente de las FAQ: alimenta el render Y el JSON-LD FAQPage. */
-/* a + closer: el cierre se pinta como unidad inseparable (inline-block) para
-   que la última frase nunca quede partida a mitad. El JSON-LD une ambos. */
+/* Única fuente de las FAQ. Alimenta el render, y SOLO el render.
+   Hasta el 19-sep-2026 alimentaba también un JSON-LD `FAQPage`, retirado abajo.
+   a + closer: el cierre se pinta como unidad inseparable (inline-block) para
+   que la última frase nunca quede partida a mitad. */
 const FAQS: { q: string; a: string; closer?: string }[] = [
   {
     q: '¿Hay permanencia?',
@@ -43,23 +44,33 @@ const FAQS: { q: string; a: string; closer?: string }[] = [
   },
 ]
 
-const faqJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: FAQS.map(f => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.closer ? `${f.a} ${f.closer}` : f.a },
-  })),
-}
+/* ⚠️ AQUÍ HABÍA UN JSON-LD `FAQPage`. RETIRADO EL 19-sep-2026, Fase 0.
+ *
+ * Declaraba a las máquinas seis preguntas y respuestas sobre un producto que ya
+ * no existe: permanencia, usuarios incluidos, precio por usuario adicional, web
+ * premium del Programa Fundadores y «dónde se guardan mis expedientes». Es decir,
+ * el modelo semántico de un SaaS jurídico con precio por despacho.
+ *
+ * Por qué era lo primero que había que resolver de toda la Fase 0: el structured
+ * data es lo que una máquina parsea ANTES que el texto, y éste convivía en el
+ * mismo documento con el `Organization` del layout, que dice que VELIA es una
+ * compañía de transformación y operación digital. Dos declaraciones
+ * incompatibles de la misma entidad, servidas juntas.
+ *
+ * QUÉ SE HA HECHO Y QUÉ NO:
+ *   · Se retira la SEÑAL: el bloque JSON-LD. Nada más.
+ *   · NO se borra el contenido. Las seis preguntas siguen renderizándose en la
+ *     página, con su texto intacto. `FREEZE → ISOLATE`, no borrar.
+ *   · NO se sustituye por otro `FAQPage`. La Fase 0 retira señales contradictorias;
+ *     no crea señales nuevas.
+ *
+ * El `Organization` del layout sigue presente en esta página, como en todas: es
+ * correcto y no contradice nada. Lo que sobraba era la segunda declaración.
+ */
 
 export default function PreciosPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
       <section className="mx-auto max-w-6xl px-6 pt-20 md:pt-28 pb-16">
         <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink mb-6">Precios</p>
         <h1 className="text-4xl md:text-5xl font-600 leading-[1.08] tracking-[-0.03em] max-w-[20ch]">
