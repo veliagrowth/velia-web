@@ -10,6 +10,19 @@ export const metadata: Metadata = {
   description:
     'Condiciones del Programa Fundadores de VELIA: precio de lanzamiento protegido y web premium incluida con la modalidad anual. Alcance completo y límites.',
   alternates: { canonical: `${SITE_URL}/fundadores` },
+  /* AISLADA — Fase 0, 19-sep-2026. `FREEZE → ISOLATE`, no borrar.
+     Es una oferta comercial del modelo SaaS descontinuado: precio de
+     lanzamiento protegido, plazas limitadas y web premium con el plan anual.
+     Ofrecérsela a un buscador es anunciar condiciones de algo que ya no se vende.
+
+     ⚠️ El texto NO se toca, y no sólo por la política: el feed de /novedades
+     publica un anuncio —«El Programa Fundadores sigue abierto»— cuyo SSoT está
+     en el portal, no aquí. Si el programa sigue abierto es una decisión
+     comercial, y no se toma reescribiendo esta página.
+
+     ⚠️ Tampoco se escribe aquí una historia de la compañía que sustituya a la
+     oferta: el origen de VELIA sigue siendo HUMAN_DECISION. */
+  robots: { index: false, follow: true },
 }
 
 /**

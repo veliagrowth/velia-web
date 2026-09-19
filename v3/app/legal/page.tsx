@@ -30,6 +30,21 @@ export const metadata: Metadata = {
   description:
     'Cómo trabaja un abogado con VELIA: puesta al día cada mañana, expedientes, documentos con IA, propuestas de plazos, portal del cliente y facturación.',
   alternates: { canonical: `${SITE_URL}/legal` },
+  /* AISLADA — Fase 0, 19-sep-2026. `FREEZE → ISOLATE`, no borrar.
+     ⚠️ Esta NO es la página de avisos legales: es la página comercial del
+     producto jurídico. Los avisos viven en `app/(legales)/` y son KEEP.
+     Confundirlas y aplicar aquí el criterio de las otras sería un error grave.
+
+     Su `<title>` —«un día de tu despacho, con VELIA dentro»— es, medido, la
+     superficie legacy que con más claridad describe a VELIA como software para
+     abogados, y el title es de lo primero que lee un buscador.
+
+     El contenido NO se toca, y por un motivo que va más allá de la política:
+     describe con detalle real cómo cambió el día a día de un despacho al tener
+     su infraestructura construida y operada. Es la materia prima del futuro
+     caso de Cónsul Jurídico, reencuadrado de «funciones del producto» a «qué se
+     construyó y qué se sigue operando». Se conserva para MIGRATE. */
+  robots: { index: false, follow: true },
 }
 
 /* body + closer: el cierre se pinta como unidad inseparable (inline-block)

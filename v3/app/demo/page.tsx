@@ -11,6 +11,24 @@ export const metadata: Metadata = {
   description:
     'Recorre VELIA por dentro sin registrarte: un despacho de demostración con expedientes, plazos, agenda y facturación. Solo lectura, sin riesgo.',
   alternates: { canonical: `${SITE_URL}/demo` },
+  /* AISLADA — Fase 0, 19-sep-2026. La más delicada de las cuatro, así que la
+     decisión se tomó DESPUÉS de mirar sus dependencias, no antes.
+
+     Tiene tres que no se ven desde la web:
+       1. Correos transaccionales YA ENVIADOS con un botón que apunta aquí.
+       2. Una cookie CHIPS que el portal emite `partitioned` expresamente para
+          el iframe de esta página.
+       3. `DEMO_PASSWORD`, declarada en el contrato de runtime del portal.
+
+     `noindex` NO toca ninguna de las tres: la ruta sigue respondiendo 200, el
+     iframe sigue cargando y la cookie se sigue emitiendo igual. Lo único que
+     cambia es que deja de ofrecerse a un buscador como demostración de un
+     producto descontinuado.
+
+     ⚠️ Lo que SÍ rompería las tres —y por eso NO se hace aquí— es redirigir,
+     borrar o cambiar el comportamiento de la ruta. Eso es MANUAL_REQUIRED y
+     exige antes saber cuántos correos con este enlace se enviaron y a quién. */
+  robots: { index: false, follow: true },
 }
 
 /**

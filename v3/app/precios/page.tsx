@@ -9,6 +9,18 @@ export const metadata: Metadata = {
   description:
     `Un precio y todo VELIA: ${eur(PRICING.monthly)}/mes por despacho (o ${eur(PRICING.annualTotal)}/año, ${ANNUAL_FREE_MONTHS} meses gratis) con ${PRICING.usersIncluded} usuarios incluidos. Prueba ${PRICING.trialDays} días gratis, sin tarjeta.`,
   alternates: { canonical: `${SITE_URL}/precios` },
+  /* AISLADA — Fase 0, 19-sep-2026. `FREEZE → ISOLATE`, no borrar.
+     La ruta sigue viva y respondiendo 200: no se rompe ningún enlace, favorito
+     ni correo ya enviado. Lo que deja de hacer es competir por representar a
+     VELIA en un buscador con un precio de un producto descontinuado.
+
+     `follow: true` a propósito: esta página enlaza a `/seguridad`, que es de la
+     web nueva. Un `nofollow` cortaría ese camino sin ganar nada — lo que sobra
+     es la indexación de ESTA página, no los enlaces que salen de ella.
+
+     Salir del sitemap (ya lo estaba) no desindexa; `noindex` sí lo pide. Las
+     dos cosas son necesarias y distintas. */
+  robots: { index: false, follow: true },
 }
 
 /* Única fuente de las FAQ. Alimenta el render, y SOLO el render.
