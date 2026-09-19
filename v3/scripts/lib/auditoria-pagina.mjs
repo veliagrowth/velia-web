@@ -144,14 +144,46 @@ export async function medirContraste(page) {
   })
 }
 
-/** Desborde horizontal en los tres anchos. Devuelve px sobrantes por ancho. */
+/**
+ * Desborde horizontal en los tres anchos: px sobrantes Y controles recortados.
+ *
+ * ⚠️ `scrollWidth` sólo ve el desborde que llega al documento. Si un ancestro
+ * recorta (`overflow-x: hidden/clip`), lo que se sale no crea scroll: SE CORTA,
+ * y `scrollWidth` sigue diciendo cero. Así estuvo el botón «Hablemos» de la
+ * cabecera entre 768 y ~835 px, medio fuera de la pantalla, mientras esta
+ * función certificaba «sin scroll horizontal» a 768 en todas las páginas
+ * (cazado el 19-sep revisando capturas, no por ninguna guarda).
+ *
+ * Por eso se mide también la otra propiedad: ningún enlace o botón visible
+ * puede quedar fuera del viewport. Se excluyen los que viven dentro de una
+ * franja con scroll horizontal propio (pestañas, tablas): ahí salirse del
+ * borde es el diseño, y se alcanzan desplazando.
+ */
 export async function medirDesborde(page, anchos = ANCHOS) {
   const out = []
   for (const [w, h] of anchos) {
     await page.setViewport({ width: w, height: h })
     await new Promise(r => setTimeout(r, 350))
-    const desborde = await page.evaluate(ancho => document.documentElement.scrollWidth - ancho, w)
-    out.push({ ancho: w, desborde })
+    const r = await page.evaluate(ancho => {
+      const enFranjaConScroll = el => {
+        for (let n = el.parentElement; n && n !== document.body; n = n.parentElement) {
+          const ox = getComputedStyle(n).overflowX
+          if ((ox === 'auto' || ox === 'scroll') && n.scrollWidth > n.clientWidth) return true
+        }
+        return false
+      }
+      const recortados = [...document.querySelectorAll('a[href], button')]
+        .filter(el => {
+          const cs = getComputedStyle(el)
+          if (cs.visibility === 'hidden') return false
+          const b = el.getBoundingClientRect()
+          if (b.width < 2 || b.height < 2) return false // oculto o sr-only
+          return (b.right > ancho + 1 || b.left < -1) && !enFranjaConScroll(el)
+        })
+        .map(el => (el.textContent || el.getAttribute('aria-label') || '').trim().slice(0, 30))
+      return { desborde: document.documentElement.scrollWidth - ancho, recortados }
+    }, w)
+    out.push({ ancho: w, ...r })
   }
   return out
 }

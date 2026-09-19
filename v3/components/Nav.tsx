@@ -116,7 +116,12 @@ export default function Nav() {
           />
         </Link>
 
-        <div className="hidden md:flex items-center gap-7">
+        {/* `lg` y no `md` (19-sep-2026): cuatro secciones, «Iniciar sesión» y el
+            CTA necesitan ~835 px, y `md` las activaba a 768. Entre esos dos
+            anchos el botón «Hablemos» quedaba medio fuera de la pantalla, sin
+            scroll con que alcanzarlo. Por debajo de `lg` manda la variante con
+            menú, que siempre deja el CTA a la vista. */}
+        <div className="hidden lg:flex items-center gap-7">
           {HEADER_LINKS.map(l => (
             <Link
               key={l.href}
@@ -152,7 +157,7 @@ export default function Nav() {
         </div>
 
         {/* Móvil: el CTA principal NO se esconde detrás del menú. */}
-        <div className="flex md:hidden items-center gap-2">
+        <div className="flex lg:hidden items-center gap-2">
           <Link
             href={CTA_CONTACTO.href}
             onClick={() => trackEvent('nav_contacto_click', { cta_location: 'header_mobile' })}
@@ -180,7 +185,7 @@ export default function Nav() {
         <div
           ref={panel}
           id="menu-movil"
-          className="md:hidden border-t border-void/10 bg-cream px-6 py-4"
+          className="lg:hidden border-t border-void/10 bg-cream px-6 py-4"
         >
           {HEADER_LINKS.map(l => (
             <Link

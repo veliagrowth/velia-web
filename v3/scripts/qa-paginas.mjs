@@ -178,8 +178,9 @@ try {
       fallos.length ? fallos.map(f => `"${f.texto}" ${f.ratio}:1 (min ${f.minimo})`).join(' · ') : undefined,
     )
 
-    for (const { ancho, desborde } of await medirDesborde(page, ANCHOS)) {
+    for (const { ancho, desborde, recortados } of await medirDesborde(page, ANCHOS)) {
       comprobar(ruta, `${ruta} · sin scroll horizontal a ${ancho}px`, desborde <= 0, `desborde=${desborde}px`)
+      comprobar(ruta, `${ruta} · ningún control recortado a ${ancho}px`, recortados.length === 0, recortados.join(' · '))
     }
 
     await page.close()

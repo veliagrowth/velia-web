@@ -302,8 +302,9 @@ const browser = await puppeteer.launch({
   }
 
   // Scroll horizontal: cero, en los tres anchos de referencia.
-  for (const { ancho, desborde } of await medirDesborde(page, ANCHOS)) {
+  for (const { ancho, desborde, recortados } of await medirDesborde(page, ANCHOS)) {
     comprobar(`Sin scroll horizontal a ${ancho}px`, desborde <= 0, `desborde=${desborde}px`)
+    comprobar(`Ningún control recortado a ${ancho}px`, recortados.length === 0, recortados.join(' · '))
   }
 
   await page.close()
