@@ -44,7 +44,13 @@ export function metadatosDePagina({
    *  con la primera de ellas: una guía declarada como `website` se comparte como
    *  si fuera una página corporativa más, y pierde las fechas, que en un texto
    *  que describe sistemas que cambian son parte de lo que se afirma. Las fechas
-   *  son las REALES de publicación y revisión, en formato AAAA-MM-DD. */
+   *  son las REALES de publicación y revisión, en formato AAAA-MM-DD.
+   *
+   *  `publicado: null` = todavía no publicada (19-sep-2026). Una pieza escrita
+   *  hoy y publicada el día que se apruebe el release NO se publicó hoy: poner
+   *  la fecha de escritura es declarar un hecho que no ha ocurrido. Mientras
+   *  sea `null` no se emite `article:published_time`; se fija el día que la
+   *  pieza llega a producción. */
   articulo,
 }: {
   titulo: string
@@ -52,7 +58,7 @@ export function metadatosDePagina({
   /** Con barra inicial, sin barra final. La Home es ''. */
   ruta: string
   tituloAlCompartir?: string
-  articulo?: { publicado: string; modificado: string }
+  articulo?: { publicado: string | null; modificado: string }
 }): Metadata {
   const url = `${SITE_URL}${ruta}`
   const compartir = tituloAlCompartir ?? titulo
@@ -62,7 +68,12 @@ export function metadatosDePagina({
     description: descripcion,
     alternates: { canonical: url },
     openGraph: articulo
-      ? { ...comun, type: 'article', publishedTime: articulo.publicado, modifiedTime: articulo.modificado }
+      ? {
+          ...comun,
+          type: 'article',
+          ...(articulo.publicado ? { publishedTime: articulo.publicado } : {}),
+          modifiedTime: articulo.modificado,
+        }
       : { ...comun, type: 'website' },
     twitter: {
       card: 'summary_large_image',

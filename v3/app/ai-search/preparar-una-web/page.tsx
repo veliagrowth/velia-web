@@ -42,13 +42,18 @@ import { CTA_CONTACTO, CONTACTO_MICROCOPY } from '@/lib/cta'
  * en el JSON-LD y otra en la firma visible: HUMAN_DECISION.
  *
  * ── FECHAS ────────────────────────────────────────────────────────────────
- * Son las reales. Si la pieza sale a producción mucho después, `PUBLICADA`
- * debe ser la fecha en que se publica, no la de escritura.
+ * `PUBLICADA` es el día en que la pieza llega a producción —el merge a `main`,
+ * que despliega—, no el día en que se escribió. Hasta el 19-sep este comentario
+ * decía exactamente eso y la constante valía la fecha de escritura, en una
+ * página que sólo existía en una preview privada: la regla estaba escrita y
+ * nada la hacía cumplir. Ahora es `null` hasta que se publique, y `qa:paginas`
+ * lo anuncia como PENDIENTE en cada ejecución. Fijarla es parte del release.
+ * `REVISADA` sí es un hecho: el día en que se revisó el contenido.
  */
 
 const RUTA = '/ai-search/preparar-una-web'
 const URL_PAGINA = `${SITE_URL}${RUTA}`
-const PUBLICADA = '2026-09-19'
+const PUBLICADA: string | null = null
 const REVISADA = '2026-09-19'
 const TITULAR = 'Cómo preparar una web para buscadores y sistemas de IA'
 const DESCRIPCION =
@@ -111,7 +116,7 @@ const jsonLd = {
       headline: TITULAR,
       description: DESCRIPCION,
       inLanguage: 'es-ES',
-      datePublished: PUBLICADA,
+      ...(PUBLICADA ? { datePublished: PUBLICADA } : {}),
       dateModified: REVISADA,
       author: { '@id': `${SITE_URL}/#organization` },
       publisher: { '@id': `${SITE_URL}/#organization` },
@@ -249,10 +254,19 @@ export default function PrepararUnaWebPage() {
           decisiones.
         </p>
         <p className="mt-8 text-[13px] text-void/65">
-          Por el equipo de VELIA · <time dateTime={PUBLICADA}>{fechaLarga(PUBLICADA)}</time>
-          {REVISADA !== PUBLICADA && (
+          Por el equipo de VELIA ·{' '}
+          {PUBLICADA ? (
             <>
-              {' '}· revisada el <time dateTime={REVISADA}>{fechaLarga(REVISADA)}</time>
+              <time dateTime={PUBLICADA}>{fechaLarga(PUBLICADA)}</time>
+              {REVISADA !== PUBLICADA && (
+                <>
+                  {' '}· revisada el <time dateTime={REVISADA}>{fechaLarga(REVISADA)}</time>
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              revisada el <time dateTime={REVISADA}>{fechaLarga(REVISADA)}</time>
             </>
           )}
         </p>

@@ -72,6 +72,8 @@ const verde = t => `\x1b[32m${t}\x1b[0m`
 const gris = t => `\x1b[90m${t}\x1b[0m`
 
 const resultados = []
+/** Estados UNKNOWN declarados: no fallan, pero se dicen en cada ejecución. */
+const pendientes = []
 /* Lo que publica la Home al compartirse. Se guarda al pasar por `/` —que va
    primero en RUTAS— y sirve de patrón para detectar a las que lo heredan. */
 let ogDeLaHome = null
@@ -142,6 +144,55 @@ try {
       )
     }
 
+    /* ── LAS FECHAS DE UNA PIEZA, DICHAS TRES VECES ───────────────────────
+       Una pieza de conocimiento declara sus fechas en el texto visible
+       (`<time>`), en el JSON-LD (`Article`) y en Open Graph. Tres
+       declaraciones de lo mismo divergen si nada las compara.
+
+       Y la de publicación puede no existir TODAVÍA: una pieza en la preview
+       no se ha publicado, y ponerle la fecha de escritura es afirmar un hecho
+       que no ha ocurrido (pasó con la primera guía, 19-sep-2026). Ausente es
+       un estado legítimo —UNKNOWN—, pero no un verde: se anuncia en cada
+       ejecución como PENDIENTE hasta que alguien la fije al publicar. */
+    const fechas = await page.evaluate(() => {
+      const m = n => document.querySelector(`meta[property="${n}"]`)?.getAttribute('content') ?? null
+      const nodos = [...document.querySelectorAll('script[type="application/ld+json"]')]
+        .flatMap(s => { try { const j = JSON.parse(s.textContent); return j['@graph'] ?? [j] } catch { return [] } })
+      const art = nodos.find(n => n['@type'] === 'Article')
+      const org = nodos.find(n => n['@type'] === 'Organization')
+      return {
+        tipo: m('og:type'),
+        ogPublicada: m('article:published_time'),
+        ogRevisada: m('article:modified_time'),
+        hayArticle: !!art,
+        ldPublicada: art?.datePublished ?? null,
+        ldRevisada: art?.dateModified ?? null,
+        autorEsLaOrg: !!org && art?.author?.['@id'] === org['@id'] && art?.publisher?.['@id'] === org['@id'],
+        visibles: [...document.querySelectorAll('article time[datetime]')].map(t => t.getAttribute('datetime')),
+      }
+    })
+    if (fechas.tipo === 'article') {
+      const hoy = new Date().toISOString().slice(0, 10)
+      const iso = f => /^\d{4}-\d{2}-\d{2}$/.test(f ?? '')
+      comprobar(ruta, `${ruta} · declara un Article cuyo autor y editor son la organización`, fechas.hayArticle && fechas.autorEsLaOrg)
+      comprobar(
+        ruta,
+        `${ruta} · fecha de revisión igual en JSON-LD, Open Graph y texto visible`,
+        iso(fechas.ldRevisada) && fechas.ldRevisada <= hoy && fechas.ogRevisada === fechas.ldRevisada && fechas.visibles.includes(fechas.ldRevisada),
+        `json-ld=${fechas.ldRevisada} og=${fechas.ogRevisada} visibles=${fechas.visibles.join(',') || 'ninguna'}`,
+      )
+      if (fechas.ldPublicada || fechas.ogPublicada) {
+        comprobar(
+          ruta,
+          `${ruta} · fecha de publicación igual en JSON-LD, Open Graph y texto visible, y no posterior a la revisión`,
+          iso(fechas.ldPublicada) && fechas.ogPublicada === fechas.ldPublicada && fechas.visibles.includes(fechas.ldPublicada) && fechas.ldPublicada <= fechas.ldRevisada,
+          `json-ld=${fechas.ldPublicada} og=${fechas.ogPublicada} revisada=${fechas.ldRevisada}`,
+        )
+      } else {
+        pendientes.push(`${ruta} · fecha de publicación sin fijar: se fija el día que la pieza llega a producción (HUMAN_DECISION del release)`)
+      }
+    }
+
     const jerarquia = await medirJerarquia(page)
     comprobar(ruta, `${ruta} · un solo h1`, jerarquia.h1 === 1, `h1=${jerarquia.h1}`)
     comprobar(
@@ -191,6 +242,11 @@ try {
 
 const fallos = resultados.filter(r => !r.ok)
 console.log('')
+if (pendientes.length) {
+  console.log(`\x1b[33mPENDIENTE (${pendientes.length}) — no es un fallo ni un verde:\x1b[0m`)
+  for (const p of pendientes) console.log(`\x1b[33m   · ${p}\x1b[0m`)
+  console.log('')
+}
 if (fallos.length === 0) {
   console.log(verde(`✅ ${resultados.length} comprobaciones sobre ${RUTAS.length} páginas, todas en verde.`))
   process.exit(0)
