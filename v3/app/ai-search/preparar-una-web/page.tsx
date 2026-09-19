@@ -145,7 +145,10 @@ const numeroDe = (id: IdSeccion) => String(SECCIONES.findIndex(s => s.id === id)
 /* ── PIEZAS DE COMPOSICIÓN ─────────────────────────────────────────────────
    Tipografía, color y espaciado del sistema existente; ni un tamaño nuevo. */
 
-const cuerpo = 'text-[15px] md:text-base leading-[1.6] text-void/70'
+/* La medida de lectura (`max-w-prose`) va en el ELEMENTO de texto, nunca en un
+   contenedor que envuelva también un titular o un panel: se expresa en `em` y
+   se resuelve con el tamaño del propio elemento. Ver `tailwind.config.ts`. */
+const cuerpo = 'max-w-prose text-[15px] md:text-base leading-[1.6] text-void/70'
 const enlace =
   'font-600 text-gold-ink underline decoration-gold-ink/30 underline-offset-4 hover:decoration-gold-ink transition-colors'
 
@@ -158,7 +161,11 @@ function Seccion({ id, respuesta, children }: { id: IdSeccion; respuesta: ReactN
         <span className="indice text-slate" aria-hidden="true">
           {numeroDe(id)}
         </span>
-        <div className="max-w-prose">
+        {/* `max-w-3xl` es un ancho de MAQUETACIÓN: da sitio al titular y al panel
+            de evidencia. La medida de lectura la lleva cada texto dentro. Hasta
+            el 19-sep este contenedor era `max-w-prose`, y al recalibrar el token
+            habría estrechado también el titular y el panel. */}
+        <div className="max-w-3xl">
           <h2
             id={`t-${id}`}
             className="text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void"
@@ -167,7 +174,7 @@ function Seccion({ id, respuesta, children }: { id: IdSeccion; respuesta: ReactN
           </h2>
           {/* La respuesta va primero y separada del desarrollo: es lo que se
               extrae si sólo se lee una frase de la sección. */}
-          <p className="mt-6 text-lg md:text-xl leading-[1.55] text-void/85">{respuesta}</p>
+          <p className="mt-6 max-w-prose text-lg md:text-xl leading-[1.55] text-void/85">{respuesta}</p>
           <div className="mt-6 space-y-5">{children}</div>
         </div>
       </div>
@@ -201,7 +208,7 @@ function EnNuestraWeb({ hecho, decision, interpretacion }: { hecho: ReactNode; d
             <dt className={`text-[11px] font-600 tracking-[0.06em] uppercase pt-1 ${f.iris ? 'text-gold-ink' : 'text-void/65'}`}>
               {f.termino}
             </dt>
-            <dd className="mt-1.5 md:mt-0 text-[15px] leading-[1.6] text-void/75">{f.texto}</dd>
+            <dd className="mt-1.5 md:mt-0 max-w-prose text-[15px] leading-[1.6] text-void/75">{f.texto}</dd>
           </div>
         ))}
       </dl>
@@ -281,13 +288,13 @@ export default function PrepararUnaWebPage() {
                   <span className="text-[12px] font-600 tracking-[0.06em] text-void/65 tabular-nums pt-1 w-5 shrink-0" aria-hidden="true">
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <p className="text-[15px] md:text-base leading-[1.6] text-void/70">
+                  <p className="max-w-prose text-[15px] md:text-base leading-[1.6] text-void/70">
                     <strong className="font-600 text-void">{lema}</strong> {texto}
                   </p>
                 </li>
               ))}
             </ol>
-            <p className="mt-8 pt-6 border-t border-mist text-[15px] md:text-base leading-[1.6] text-void/85">
+            <p className="mt-8 pt-6 border-t border-mist max-w-prose text-[15px] md:text-base leading-[1.6] text-void/85">
               Y dos cosas que conviene saber antes de empezar: estar preparado no garantiza
               aparecer ni ser citado en ningún sistema, y un fichero <C>llms.txt</C> no sustituye a
               ninguna de las seis.
@@ -699,16 +706,16 @@ export default function PrepararUnaWebPage() {
           <span className="indice text-cream/60" aria-hidden="true">
             {numeroDe('garantias')}
           </span>
-          <div className="max-w-prose">
+          <div className="max-w-3xl">
             <h2 id="t-garantias" className="text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1]">
               {tituloDe('garantias')}
             </h2>
-            <p className="mt-6 text-lg md:text-xl leading-[1.55] text-cream/85">
+            <p className="mt-6 max-w-prose text-lg md:text-xl leading-[1.55] text-cream/85">
               Ninguna preparación garantiza aparecer en los resultados de un buscador, en la
               respuesta de un sistema de IA ni ser recomendado por él. Quien lo garantiza está
               prometiendo algo que no controla.
             </p>
-            <div className="mt-6 space-y-5 text-[15px] md:text-base leading-[1.6] text-cream/70">
+            <div className="mt-6 max-w-prose space-y-5 text-[15px] md:text-base leading-[1.6] text-cream/70">
               <p>
                 Los proveedores documentan cómo acceden a las webs y qué requisitos técnicos piden.
                 No documentan con qué criterios eligen las fuentes de una respuesta generativa, y
@@ -733,7 +740,7 @@ export default function PrepararUnaWebPage() {
             <h2 id="t-resumen" className="mt-16 md:mt-20 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1]">
               En resumen
             </h2>
-            <div className="mt-6 space-y-5 text-[15px] md:text-base leading-[1.6] text-cream/70">
+            <div className="mt-6 max-w-prose space-y-5 text-[15px] md:text-base leading-[1.6] text-cream/70">
               <p>
                 Una web preparada para buscadores y sistemas de IA no es una web normal con un
                 añadido. Es una web técnicamente accesible, semánticamente clara, útil para quien

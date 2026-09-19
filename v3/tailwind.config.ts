@@ -54,7 +54,38 @@ export default {
         '800': '800',
       },
       maxWidth: {
-        prose: '68ch',
+        /* ── LA MEDIDA DE LECTURA · recalibrada el 19-sep-2026 ─────────────
+           La dirección pide «prosa a 68ch» y la regla de diseño «65-75ch»: las
+           dos hablan de CARACTERES POR LÍNEA, la medida clásica de lectura. El
+           token decía '68ch', y en Geist eso no son 68 caracteres: `ch` es el
+           ancho del «0», y el «0» de Geist es bastante más ancho que la letra
+           media. Medido carácter a carácter en el DOM renderizado, 68ch daba
+           ~93 caracteres reales por línea en escritorio, y la prosa legal —que
+           ni siquiera usaba el token— 98.
+
+           Calibrado sobre párrafos reales del sitio, contando línea a línea:
+             32em → mediana 66 · máx 73
+             33em → mediana 67 · máx 74     ← elegido
+             34em → mediana 67 · máx 75
+             35em → mediana 72 · máx 79
+           Idéntico a 15, 16 y 20 px: la medida en caracteres no depende del
+           tamaño, que es justo lo que se le pide a una medida.
+
+           POR QUÉ `em` Y NO `ch`: los dos escalan con el tamaño del texto, pero
+           `ch` invita a leer «68ch = 68 caracteres», que es exactamente la
+           lectura equivocada que produjo el error. `em` no finge ser un número
+           de caracteres; el nombre del token y este comentario dicen lo que es.
+
+           CONTRATO — un solo rol de lectura, una sola medida:
+             · cuerpo, entradilla, prosa larga y prosa legal → `max-w-prose`
+             · se aplica al ELEMENTO DE TEXTO (p, ul, ol, dd), no a un contenedor
+               que envuelva también titulares o paneles: `em` se resuelve con el
+               tamaño del propio elemento, y un contenedor lo estrecharía todo
+             · los titulares NO son prosa: tienen su propia medida en `ch`
+               (`max-w-[20ch]`…), que se decide por palabras, no por lectura
+             · las leyendas cortas de componente (42ch, 38ch…) quedan fuera: ya
+               son más estrechas que esta medida */
+        prose: '33em',
       },
       transitionTimingFunction: {
         out: 'cubic-bezier(0.16, 1, 0.3, 1)',

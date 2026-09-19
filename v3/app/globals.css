@@ -152,19 +152,28 @@ a.btn:active, button.btn:active {
 
    `/65` es el nivel de texto atenuado pequeño del resto de la web nueva
    (5,80:1 sobre Pearl Cloud). El tracking baja de 0.08em a 0.06em, que es el
-   máximo que el manual fija para un label. */
+   máximo que el manual fija para un label.
+
+   `max-w-none`: es un `<p>`, así que la regla de prosa de abajo le daba la
+   medida de lectura, y a 12 px en mayúsculas con tracking eso partía la línea
+   de versión en dos. Es una etiqueta, no prosa: queda fuera del contrato. */
 .legal-prose .legal-meta {
-  @apply mt-3 text-[12px] font-600 tracking-[0.06em] uppercase text-void/65;
+  @apply mt-3 max-w-none text-[12px] font-600 tracking-[0.06em] uppercase text-void/65;
 }
 .legal-prose h2 {
   @apply mt-12 text-xl font-700 tracking-[-0.01em];
 }
+/* `max-w-prose` desde el 19-sep-2026. La prosa legal no usaba el token de
+   medida: la decidía el contenedor (`max-w-3xl`), y a 15 px eso daba 98
+   caracteres por línea — la peor medida del sitio, en los textos que más cuesta
+   leer. Ahora sigue el mismo contrato que el resto de la prosa. El contenedor y
+   su eje no cambian; el texto jurídico, tampoco. */
 .legal-prose p {
-  @apply mt-4 text-[15px] text-void/70;
+  @apply mt-4 max-w-prose text-[15px] text-void/70;
   line-height: 1.6;
 }
 .legal-prose ul {
-  @apply mt-4 space-y-2 pl-5 list-disc text-[15px] text-void/70;
+  @apply mt-4 space-y-2 pl-5 max-w-prose list-disc text-[15px] text-void/70;
   line-height: 1.6;
 }
 .legal-prose a {
