@@ -223,10 +223,16 @@ if (fallos.length === 0) {
     console.log(gris(`   ⚠️ ${publicados.length} claim(s) SÍ publicados como afirmación. Eso NO es verde:`))
     for (const d of publicados) console.log(gris(`      ${d.ruta} → ${d.claim}`))
   }
-  process.exit(0)
+  /* `process.exitCode` y no `process.exit()` (19-sep-2026): con los sockets
+     keep-alive de los `fetch` todavía abiertos, cortar el proceso hace saltar
+     en Windows una aserción de libuv y sale con 127 — con el veredicto en verde
+     ya impreso. Medido: 4 de 10 ejecuciones sin ninguna infracción salían en
+     rojo. Una guarda que falla al azar se acaba ignorando, y entonces no
+     protege ni cuando acierta. */
+  process.exitCode = 0
+} else {
+  console.error(rojo(`\n✖ ${fallos.length} problema(s):`))
+  for (const f of fallos) console.error(`    ${f}`)
+  console.error('')
+  process.exitCode = 1
 }
-
-console.error(rojo(`\n✖ ${fallos.length} problema(s):`))
-for (const f of fallos) console.error(`    ${f}`)
-console.error('')
-process.exit(1)
