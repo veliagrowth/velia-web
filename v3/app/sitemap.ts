@@ -15,9 +15,32 @@ import { SITE_URL } from '@/lib/constants'
  * entrantes existen y cuantos correos llevan el enlace a /demo dentro.
  * Inventario: velia-core/docs/design/VELIA_WEB_LEGACY_INVENTORY_2026.md
  *
- * `/sobre-velia` se queda: sigue siendo una pagina de la compania —aunque hable
- * como la etapa anterior— y esta marcada REWRITE para la etapa 2. Sacarla ahora
- * la dejaria sin sustituto.
+ * ── ACTUALIZADO EN LA FASE 0 (19-sep-2026) ──────────────────────────────────
+ * Las cuatro llevan AHORA ADEMAS `noindex, follow` en su propia metadata. Este
+ * comentario decia solo la mitad: salir del sitemap deja de ofrecerlas, pero no
+ * pide su retirada del indice. Hacian falta las dos cosas y ya estan las dos.
+ * Siguen respondiendo 200 y siguen sin borrarse.
+ *
+ * ── POR QUE /terminos Y /privacidad SE QUEDAN AQUI ──────────────────────────
+ * Las dos describen «prueba gratuita», «planes y precios» y «los datos de tu
+ * despacho»: 1.343 palabras en el sitemap que cuentan la etapa anterior. Y aun
+ * asi NO salen, por tres motivos:
+ *
+ *   1. Son obligacion legal y estan enlazadas desde el pie de todas las
+ *      paginas. Alguien que busca los terminos de VELIA tiene derecho a
+ *      encontrarlos.
+ *   2. Sacarlas del sitemap NO las desindexa —siguen enlazadas y en 200—, asi
+ *      que el gesto no resolveria el problema de entidad y si reduciria su
+ *      descubribilidad legitima. Seria un cambio cosmetico con coste real.
+ *   3. Lo que hay que corregir es su TEXTO, y eso es una decision juridica con
+ *      efectos, no una decision de arquitectura. HUMAN_DECISION.
+ *
+ * La separacion que importa: el texto juridico es de quien responde de el; su
+ * presencia en las senales de descubrimiento es de esta capa. Son separables, y
+ * aqui solo se decide la segunda.
+ *
+ * `/sobre-velia` se queda: es una pagina de la compania, ya reescrita en la
+ * etapa 2.
  *
  * ⚠️ `/seguridad` SALE tambien (12-sep). No por ser legacy —no lo es, es
  * REWRITE— sino porque publica DOS claims que `verified-claims.ts` marca
