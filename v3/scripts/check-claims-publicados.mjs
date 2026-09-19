@@ -80,6 +80,9 @@ const RUTAS = [
   '/ai-search/preparar-una-web',
   '/precios', '/demo', '/fundadores', '/legal',
   '/aviso-legal', '/privacidad', '/cookies', '/terminos', '/ia-responsable',
+  /* El llms.txt es texto que se publica para que lo lean máquinas: un claim
+     escrito ahí está tan publicado como en una página (19-sep-2026). */
+  '/llms.txt',
 ]
 
 // ── Los claims que NO pueden publicarse, leídos del registro ─────────────────

@@ -22,6 +22,9 @@
  * 5. El grafo de entidad está entero y sus referencias resuelven.
  * 6. Ninguna ruta INDEXABLE publica «VELIA Legal», que es el nombre que la
  *    marca pública ya no usa.
+ * 7. El `llms.txt` (19-sep): responde, tiene su H1, no publica «VELIA Legal»,
+ *    sólo enlaza superficies vivas y no congeladas, y no se queda atrás del
+ *    sitemap. Los claims que publica los vigila `check:claims`.
  *
  * ── LO QUE NO COMPRUEBA, Y SE DICE ─────────────────────────────────────────
  * El vocabulario de las páginas legales. `/terminos` y `/privacidad` siguen
@@ -158,6 +161,38 @@ try {
   await browser.close()
 }
 
+/* ── EL llms.txt ES OTRA COPIA DE LA IDENTIDAD ───────────────────────────────
+   Añadido el 19-sep-2026. Ese día el `llms.txt` que servía veliacorp.com
+   (la web anterior) seguía describiendo el producto descontinuado —con su
+   nombre, su precio y su prueba gratuita— y ninguna guarda lo leía: todas
+   miraban páginas HTML. Es la superficie que se escribe pensando en las
+   máquinas, y era la única que no comprobaba nadie.
+
+   Se le exige lo mismo que a una página indexable, más lo que sólo tiene
+   él: que enlace únicamente superficies vivas y no congeladas, y que no se
+   quede atrás del sitemap. */
+{
+  const res = await fetch(`${BASE}/llms.txt`, { cache: 'no-store' })
+  const texto = res.ok ? await res.text() : ''
+  const tipo = res.headers.get('content-type') ?? ''
+  comprobar('/llms.txt responde 200 como texto', res.ok && /^text\/(plain|markdown)/.test(tipo), `HTTP ${res.status} · ${tipo}`)
+  // La propuesta sólo exige una sección: un H1 con el nombre del sitio.
+  comprobar('/llms.txt empieza por un H1', /^﻿?#\s+\S/.test(texto.trimStart()))
+  comprobar('/llms.txt no publica «VELIA Legal»', !/VELIA\s+Legal/i.test(texto))
+
+  const ORIGEN = 'https://veliacorp.com'
+  const aRuta = u => { const p = new URL(u).pathname.replace(/\/$/, ''); return p === '' ? '/' : p }
+  const enlazadas = [...texto.matchAll(/\]\((https:\/\/veliacorp\.com[^)\s]*)\)/g)].map(m => aRuta(m[1]))
+  const clase = new Map(SUPERFICIES.map(s => [s.ruta, s.clase]))
+  const malas = enlazadas.filter(r => !['NUEVA', 'LEGAL_KEEP'].includes(clase.get(r)))
+  comprobar('/llms.txt sólo enlaza superficies vivas y no congeladas', enlazadas.length > 0 && malas.length === 0, malas.length ? malas.join(' · ') : `${enlazadas.length} enlaces`)
+
+  const sitemap = await (await fetch(`${BASE}/sitemap.xml`, { cache: 'no-store' })).text()
+  const delSitemap = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => aRuta(m[1].replace(/^https?:\/\/[^/]+/, ORIGEN)))
+  const faltan = delSitemap.filter(r => !enlazadas.includes(r))
+  comprobar('/llms.txt cubre todas las rutas del sitemap', delSitemap.length > 0 && faltan.length === 0, faltan.length ? `faltan: ${faltan.join(' · ')}` : `${delSitemap.length} rutas`)
+}
+
 // ── EL REGISTRO ─────────────────────────────────────────────────────────────
 console.log(`\n${gris('IDENTIDAD PROYECTADA POR CADA SUPERFICIE')}`)
 console.log(gris('─'.repeat(104)))
@@ -171,13 +206,19 @@ for (const r of registro) {
 }
 console.log(gris('─'.repeat(104)))
 
+/* `process.exitCode` y no `process.exit()`: el bloque del llms.txt usa `fetch`,
+   que deja sockets keep-alive abiertos, y cortar el proceso con ellos vivos
+   hace saltar en Windows una aserción de libuv que sale con 127 — con el
+   veredicto en verde ya impreso. Una guarda que aprueba y sale con error
+   rompe la cadena de `npm run check` igual que una que falla. */
 const fallos = resultados.filter(r => !r.ok)
 console.log('')
 if (fallos.length === 0) {
   console.log(verde(`✅ ${resultados.length} comprobaciones sobre ${SUPERFICIES.length} superficies, todas en verde.`))
-  process.exit(0)
+  process.exitCode = 0
+} else {
+  console.log(rojo(`❌ ${fallos.length} de ${resultados.length} comprobaciones han fallado:`))
+  for (const f of fallos) console.log(rojo(`   · ${f.titulo}${f.detalle ? ` (${f.detalle})` : ''}`))
+  console.log('')
+  process.exitCode = 1
 }
-console.log(rojo(`❌ ${fallos.length} de ${resultados.length} comprobaciones han fallado:`))
-for (const f of fallos) console.log(rojo(`   · ${f.titulo}${f.detalle ? ` (${f.detalle})` : ''}`))
-console.log('')
-process.exit(1)
