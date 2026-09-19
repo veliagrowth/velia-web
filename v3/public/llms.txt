@@ -1,62 +1,55 @@
 # VELIA
 
-> VELIA es una compañía española de transformación y operación digital. Diseña, construye, integra, automatiza y opera la infraestructura digital de empresas y profesionales para la era de la IA, la automatización y los agentes. No vende un producto de software: construye el sistema digital de un negocio y se queda operándolo.
+> VELIA es una compañía española de transformación y operación digital. Diseña, construye, integra, automatiza y opera la infraestructura digital de empresas y profesionales para la era de la IA, la automatización y los agentes. No vende una herramienta ni entrega un proyecto y desaparece: construye el sistema digital de un negocio y se queda operándolo.
 
 Actualizado: septiembre de 2026.
 
-## Qué es VELIA
+**Qué es y qué no es.** Una compañía de transformación y operación digital. No es una agencia que entrega y se va, ni una consultora que recomienda y se va, ni un SaaS que da la herramienta para que la llene el cliente. Lo que la distingue es operar: construye la infraestructura y responde de ella mientras el negocio la necesite.
 
-- **Categoría**: compañía de transformación y operación digital. No es una agencia de marketing, ni una consultora que solo recomienda, ni un SaaS, ni una empresa de automatizaciones sueltas.
-- **Qué la diferencia**: VELIA no entrega un proyecto y desaparece. Construye la infraestructura y la **opera** de forma continuada.
-- **Modelo**: proyecto inicial + infraestructura + operación recurrente + optimización + expansión.
-- **Mercado**: España. Empresas, autónomos y profesionales con dependencia real de su presencia digital.
+**Mercado.** España. Empresas, autónomos y profesionales.
 
-## Las cuatro capacidades
+**Cuatro capacidades.** Un proyecto casi nunca necesita las cuatro a la vez: se empieza por la que está bloqueando a las demás.
 
-- **Digital Foundation**: web y su arquitectura, dominio, alojamiento, analítica, seguimiento, formularios, CRM, integraciones, identidad digital y presencia local.
-- **AI Search & Digital Visibility**: preparar la infraestructura digital de un negocio para que buscadores, búsqueda generativa, rastreadores y agentes puedan descubrirlo, interpretarlo y contextualizarlo correctamente.
-- **Growth & Automation**: el recorrido completo de captación y conversión — atención, visita, contacto, captura, CRM, cualificación, seguimiento, conversión y retención.
-- **Digital Operations**: mantenimiento, monitorización, medición, corrección y evolución continua de los sistemas construidos. Es la capacidad diferencial.
+- **Digital Foundation**: la web y su arquitectura, el dominio, el alojamiento, la analítica, el seguimiento, los formularios, el CRM, las integraciones y la identidad digital, como un sistema con dueño y no como piezas que alguien conectó una vez.
+- **AI Search & Digital Visibility**: preparar la infraestructura para que buscadores, búsqueda generativa, rastreadores y agentes encuentren información correcta, completa y contextualizada sobre el negocio. Incluye estructura semántica, datos estructurados, legibilidad por máquinas, presencia local y contenido.
+- **Growth & Automation**: el recorrido completo de atención, visita, contacto, captura, CRM, cualificación, seguimiento, conversión y retención, automatizado donde automatizar mejora el resultado y sólo ahí.
+- **Digital Operations**: mantenimiento, monitorización, medición, corrección y evolución de los sistemas construidos. Es la capacidad que separa a VELIA de quien entrega un proyecto y se va.
 
-## Cómo trabaja
+**Cómo trabaja.** Seis fases: Discover, Diagnose, Design, Build, Operate y Optimize. Las cuatro primeras tienen final; Operate y Optimize no: el sistema se mantiene, se mide, se corrige y se amplía mientras el negocio lo necesite.
 
-Seis fases: Discover, Diagnose, Design, Build, Operate, Optimize. Las dos últimas no tienen fecha de fin — ahí está la diferencia entre encargar un proyecto y tener una infraestructura operada.
+**Qué existe hoy y qué todavía no.** VELIA separa lo que funciona de lo que está en construcción, y no publica como disponible una capacidad que aún no lo está.
 
-## Infraestructura propia (VELIA OS)
+- En producción: infraestructura propia —VELIA no opera el negocio de un cliente desde una carpeta compartida y cinco suscripciones—, automatización de procesos que se ejecuta a diario con registro de lo que hizo y de lo que no, y un portal por cliente con lo que está en marcha, lo entregado, lo pedido y lo medido.
+- En construcción: el Control Plane, agentes con permisos explícitos y acotados, y VELIA 4.0 Audit, un diagnóstico como punto de partida en lugar de una propuesta comercial.
+- Hacia dónde va: un ciclo de observar, entender, diagnosticar, planificar, ejecutar, verificar y aprender. Verificar significa comprobar que lo ejecutado produjo el efecto prometido, que es el paso que casi nadie implementa.
 
-VELIA opera sobre infraestructura propia, no únicamente sobre suscripciones de terceros.
+La infraestructura con la que VELIA trabaja (VELIA OS) no es un producto que se venda por separado.
 
-- **En producción**: infraestructura propia · automatización de procesos en marcha · un portal por cliente donde ver el estado de su infraestructura y sus servicios.
-- **En construcción**: el Control Plane (observar, entender, diagnosticar, planificar, ejecutar, verificar, aprender) · agentes con permisos explícitos y acotados · VELIA 4.0 Audit, el diagnóstico como punto de partida.
+**Lo que VELIA no promete.** Ni posiciones concretas en Google o en cualquier otro buscador, ni apariciones en las respuestas de ChatGPT, de Google o de cualquier sistema de IA, ni recomendaciones de sistemas generativos. Lo que ofrece es mejorar las condiciones para que un negocio pueda ser descubierto, entendido, puesto en contexto y tenido en cuenta, por personas y por máquinas.
 
-Esta distinción es deliberada: VELIA no publica como disponible una capacidad que todavía no lo está.
+**Un caso real.** Cónsul Jurídico (Fraga, España; consuljuridico.com) es cliente de VELIA: un despacho que arrancó de cero con herramientas de terceros enganchadas entre sí y cuya infraestructura —captación, expedientes, documentos, agenda y un portal para sus propios clientes— acabó construyéndose a medida. VELIA la sigue operando. VELIA no es una empresa jurídica: es la compañía que construyó y opera la infraestructura de ese despacho.
 
-## Lo que VELIA no promete
+**La etapa anterior.** VELIA tuvo una línea de producto vertical para el sector legal. Quedó descontinuada en septiembre de 2026, y las páginas y las novedades de aquella etapa describen ese producto, no a la compañía actual.
 
-- No promete posiciones concretas en Google ni en ningún buscador.
-- No promete apariciones en las respuestas de ChatGPT, de Google ni de ningún sistema de IA.
-- No garantiza recomendaciones por parte de sistemas generativos.
-
-La propuesta honesta es mejorar las condiciones para que un negocio pueda ser **descubierto, entendido, contextualizado y considerado** — por personas y por máquinas.
-
-## Un caso real
-
-**Cónsul Jurídico** (Fraga, España — consuljuridico.com) es cliente de VELIA. Un despacho que arrancaba de cero y empezó con herramientas de terceros enganchadas entre sí; lo que necesitaba de verdad acabó construyéndose a medida: captación, expedientes, documentos, agenda y un portal para sus propios clientes. VELIA sigue operando esa infraestructura.
-
-VELIA **no** es una empresa jurídica ni un proveedor de software para abogados: es la compañía que construyó y opera la infraestructura digital de ese despacho. La línea anterior de producto vertical para el sector legal quedó descontinuada en septiembre de 2026; el sector es hoy una configuración sobre el núcleo de VELIA, no un producto independiente.
+**Empresa.** Titular: VELIA Marketing SL (España). Responden Joaquín Paiva (producto y tecnología) y Axel Soto (legal y relación con el cliente). Contacto: admin@veliacorp.com. Portal de clientes: https://app.veliacorp.com.
 
 ## Páginas
 
-- [Inicio](https://veliacorp.com/): qué es VELIA, sus capacidades, cómo trabaja y su infraestructura
-- [Sobre VELIA](https://veliacorp.com/sobre-velia): el modelo, las reglas con las que decide qué construir y quién responde
+- [Inicio](https://veliacorp.com/): qué es VELIA, sus cuatro capacidades, cómo trabaja, qué infraestructura existe hoy y un caso real
+- [Sobre VELIA](https://veliacorp.com/sobre-velia): el modelo, las cuatro reglas con las que decide qué construir y quién responde de cada cliente
+- [Seguridad](https://veliacorp.com/seguridad): cómo se aísla a cada cliente, qué medidas concretas existen y qué todavía no hay
 - [Contacto](https://veliacorp.com/contacto): hablar con el equipo
-- [Novedades](https://veliacorp.com/novedades): anuncios de la compañía y mejoras incorporadas a los sistemas que opera
-- [Cómo preparar una web para buscadores y sistemas de IA](https://veliacorp.com/ai-search/preparar-una-web): guía con lo que se puede hacer, lo que se puede medir y lo que no se puede garantizar, y las decisiones que VELIA tomó en su propia web
+- [Novedades](https://veliacorp.com/novedades): anuncios de la compañía y mejoras incorporadas a los sistemas que opera, con su fecha; las entradas anteriores a septiembre de 2026 corresponden a la línea de producto descontinuada
+
+## Conocimiento
+
+- [Cómo preparar una web para buscadores y sistemas de IA](https://veliacorp.com/ai-search/preparar-una-web): qué necesita una web para que buscadores y sistemas de IA la rastreen, la entiendan y puedan citarla; qué se puede medir y qué no se puede garantizar
 - [¿Qué es llms.txt y sirve realmente para algo?](https://veliacorp.com/ai-search/llms-txt): qué es este fichero, qué está documentado y qué no, en qué se diferencia de robots.txt y qué conviene resolver antes de crear uno
-- [Aviso legal](https://veliacorp.com/aviso-legal) · [Privacidad](https://veliacorp.com/privacidad) · [Cookies](https://veliacorp.com/cookies) · [Términos](https://veliacorp.com/terminos) · [IA responsable](https://veliacorp.com/ia-responsable)
 
-## Empresa
+## Documentación legal
 
-- Titular: VELIA Marketing SL (España)
-- Contacto: admin@veliacorp.com
-- Portal de clientes: https://app.veliacorp.com
+- [Aviso legal](https://veliacorp.com/aviso-legal): titular del sitio y condiciones de uso
+- [Privacidad](https://veliacorp.com/privacidad): qué datos se tratan, con qué finalidad y qué derechos tiene el interesado
+- [Cookies](https://veliacorp.com/cookies): qué cookies se usan y cómo cambiar el consentimiento
+- [Términos](https://veliacorp.com/terminos): condiciones del servicio
+- [IA responsable](https://veliacorp.com/ia-responsable): cómo se usa la IA, con qué límites y qué supervisa una persona

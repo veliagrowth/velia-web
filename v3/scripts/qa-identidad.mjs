@@ -22,9 +22,10 @@
  * 5. El grafo de entidad está entero y sus referencias resuelven.
  * 6. Ninguna ruta INDEXABLE publica «VELIA Legal», que es el nombre que la
  *    marca pública ya no usa.
- * 7. El `llms.txt` (19-sep): responde, tiene su H1, no publica «VELIA Legal»,
- *    sólo enlaza superficies vivas y no congeladas, y no se queda atrás del
- *    sitemap. Los claims que publica los vigila `check:claims`.
+ * 7. El `llms.txt` (19-sep): responde, sigue el formato de la propuesta, no
+ *    describe la identidad retirada, sus URL propias existen y son superficies
+ *    vivas, y no se queda atrás del sitemap. Los claims que publica los vigila
+ *    `check:claims`.
  *
  * ── LO QUE NO COMPRUEBA, Y SE DICE ─────────────────────────────────────────
  * El vocabulario de las páginas legales. `/terminos` y `/privacidad` siguen
@@ -171,25 +172,72 @@ try {
 
    Se le exige lo mismo que a una página indexable, más lo que sólo tiene
    él: que enlace únicamente superficies vivas y no congeladas, y que no se
-   quede atrás del sitemap. */
+   quede atrás del sitemap.
+
+   Ampliado el mismo día, al probarla rompiendo el fichero a propósito: sólo
+   reconocía el nombre retirado —una frase con la categoría, el precio o la
+   prueba gratuita de la etapa anterior pasaba en verde— y sólo veía enlaces
+   escritos exactamente como `https://veliacorp.com/…`: uno relativo o con
+   `www.` a una página inexistente también pasaba. Ahora cada causa tiene su
+   comprobación, para que el fallo diga cuál fue. */
 {
   const res = await fetch(`${BASE}/llms.txt`, { cache: 'no-store' })
   const texto = res.ok ? await res.text() : ''
   const tipo = res.headers.get('content-type') ?? ''
   comprobar('/llms.txt responde 200 como texto', res.ok && /^text\/(plain|markdown)/.test(tipo), `HTTP ${res.status} · ${tipo}`)
-  // La propuesta sólo exige una sección: un H1 con el nombre del sitio.
-  comprobar('/llms.txt empieza por un H1', /^\uFEFF?#\s+\S/.test(texto.trimStart()))
-  comprobar('/llms.txt no publica «VELIA Legal»', !/VELIA\s+Legal/i.test(texto))
 
-  const ORIGEN = 'https://veliacorp.com'
-  const aRuta = u => { const p = new URL(u).pathname.replace(/\/$/, ''); return p === '' ? '/' : p }
-  const enlazadas = [...texto.matchAll(/\]\((https:\/\/veliacorp\.com[^)\s]*)\)/g)].map(m => aRuta(m[1]))
+  /* ── 1 · El formato de la propuesta: un H1 con el nombre del sitio (lo único
+     obligatorio), contenido sin encabezados, y después secciones H2 que sólo
+     contienen listas de enlaces. Nuestra propia pieza sobre llms.txt describe
+     este formato: el fichero no puede incumplirlo. */
+  const lineas = texto.replace(/^\uFEFF/, '').split(/\r?\n/).map(l => l.trimEnd()).filter(l => l.trim())
+  const primerH2 = lineas.findIndex(l => /^##\s/.test(l))
+  const fueraDeFormato = [
+    ...(/^#\s+\S/.test(lineas[0] ?? '') ? [] : ['no empieza por un H1']),
+    ...lineas.slice(1, primerH2 === -1 ? undefined : primerH2).filter(l => /^#/.test(l)).map(l => `encabezado antes de las secciones: «${l}»`),
+    ...(primerH2 === -1 ? [] : lineas.slice(primerH2).filter(l => !/^##\s+\S/.test(l) && !/^-\s+\[[^\]]+\]\([^)\s]+\)(:\s*\S.*)?$/.test(l)).map(l => `bajo un H2, algo que no es un enlace: «${l.slice(0, 50)}»`)),
+  ]
+  comprobar('/llms.txt sigue el formato de la propuesta', fueraDeFormato.length === 0, fueraDeFormato.join(' · '))
+
+  /* ── 2 · La identidad retirada. Una lista DECLARADA de lo que definía a la
+     etapa anterior —su nombre, su categoría, su precio, su prueba gratuita y su
+     programa de lanzamiento—, no una búsqueda de la palabra «legal»: el fichero
+     puede y debe decir que esa línea de producto existió y se descontinuó. */
+  const IDENTIDAD_RETIRADA = [
+    ['el nombre retirado', /VELIA\s+Legal/i],
+    ['la categoría de software para despachos', /plataforma[^.\n]{0,40}software|software[^.\n]{0,25}(para|de) (despachos|abogados)/i],
+    ['un precio', /\d[\d.,]*\s*€|€\s*\d/],
+    ['una prueba gratuita', /prueba gratuita|periodo de prueba|free trial/i],
+    ['el Programa Fundadores', /programa fundadores/i],
+  ]
+  const retirada = IDENTIDAD_RETIRADA.filter(([, re]) => re.test(texto)).map(([nombre]) => nombre)
+  comprobar('/llms.txt no describe la identidad retirada', retirada.length === 0, retirada.length ? `publica ${retirada.join(', ')}` : undefined)
+
+  /* ── 3 · Los enlaces propios, en cualquiera de sus formas: absolutos, con
+     `www.` o relativos. Un enlace a otro dominio no es asunto de esta guarda. */
+  const aRuta = u => {
+    let url
+    try { url = new URL(u, 'https://veliacorp.com') } catch { return null }
+    if (!/^(www\.)?veliacorp\.com$/i.test(url.hostname)) return null
+    const p = url.pathname.replace(/\/$/, '')
+    return p === '' ? '/' : p
+  }
+  const enlazadas = [...new Set([...texto.matchAll(/\]\(([^)\s]+)\)/g)].map(m => aRuta(m[1])).filter(Boolean))]
+  const estado = new Map()
+  for (const r of enlazadas) estado.set(r, (await fetch(`${BASE}${r}`, { cache: 'no-store', redirect: 'manual' })).status)
+  const inexistentes = enlazadas.filter(r => estado.get(r) !== 200)
+  comprobar('/llms.txt: todas las URL propias que enlaza existen', enlazadas.length > 0 && inexistentes.length === 0, inexistentes.length ? inexistentes.map(r => `${r} (HTTP ${estado.get(r)})`).join(' · ') : `${enlazadas.length} URL`)
+
+  // ── 4 · De las que existen, sólo superficies clasificadas como vivas.
   const clase = new Map(SUPERFICIES.map(s => [s.ruta, s.clase]))
-  const malas = enlazadas.filter(r => !['NUEVA', 'LEGAL_KEEP'].includes(clase.get(r)))
-  comprobar('/llms.txt sólo enlaza superficies vivas y no congeladas', enlazadas.length > 0 && malas.length === 0, malas.length ? malas.join(' · ') : `${enlazadas.length} enlaces`)
+  const noVivas = enlazadas
+    .filter(r => estado.get(r) === 200 && !['NUEVA', 'LEGAL_KEEP'].includes(clase.get(r)))
+    .map(r => `${r} (${clase.get(r) ?? 'sin clasificar en SUPERFICIES'})`)
+  comprobar('/llms.txt no enlaza superficies congeladas ni sin clasificar', noVivas.length === 0, noVivas.join(' · '))
 
+  // ── 5 · No se queda atrás del sitemap.
   const sitemap = await (await fetch(`${BASE}/sitemap.xml`, { cache: 'no-store' })).text()
-  const delSitemap = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => aRuta(m[1].replace(/^https?:\/\/[^/]+/, ORIGEN)))
+  const delSitemap = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => aRuta(m[1].replace(/^https?:\/\/[^/]+/, 'https://veliacorp.com')))
   const faltan = delSitemap.filter(r => !enlazadas.includes(r))
   comprobar('/llms.txt cubre todas las rutas del sitemap', delSitemap.length > 0 && faltan.length === 0, faltan.length ? `faltan: ${faltan.join(' · ')}` : `${delSitemap.length} rutas`)
 }
