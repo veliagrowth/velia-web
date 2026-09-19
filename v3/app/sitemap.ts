@@ -64,6 +64,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // porque es la unica pagina del sitio que responde una pregunta que alguien
     // haria a un buscador sin conocer ya a VELIA.
     { path: '/ai-search/preparar-una-web', priority: 0.8 },
+    // El hub del grupo (20-sep-2026): la entrada al tema, y el padre de las
+    // dos piezas. Prioridad por encima de ellas porque es por donde se entra.
+    { path: '/ai-search', priority: 0.8 },
     // La segunda pieza (19-sep-2026): una pregunta más concreta que la guía.
     { path: '/ai-search/llms-txt', priority: 0.7 },
     { path: '/aviso-legal', priority: 0.2 },

@@ -28,16 +28,16 @@ interface Capacidad {
   /** Solo Digital Operations. Es la capacidad diferencial y se pinta distinta. */
   destacada?: boolean
   /**
-   * Una pieza de conocimiento publicada que explica la capacidad (19-sep-2026).
+   * El conocimiento publicado que explica la capacidad (19-sep-2026).
    *
-   * Sólo la lleva la capacidad que TIENE una pieza escrita. No se rellena en las
+   * Sólo la lleva la capacidad que TIENE algo escrito. No se rellena en las
    * demás por simetría: un enlace a una página que no existe es un 404, y uno a
-   * una página genérica es relleno. Cuando exista la siguiente pieza, se añade
-   * aquí; mientras tanto, la asimetría es la verdad.
+   * una página genérica es relleno. Mientras tanto, la asimetría es la verdad.
    *
-   * Existe para que la guía no quede huérfana. Sin esto sólo la encontraría quien
-   * leyera el sitemap, y el hub `/ai-search` —que sería su padre natural— todavía
-   * no está construido.
+   * ⚠️ 20-sep: apuntaba a la guía porque el hub no existía. Ahora existe, y es
+   * a él: desde la Home se entra al tema, y el tema reparte a sus piezas. Si
+   * esto siguiera apuntando a una de las hijas, la otra sólo se encontraría
+   * desde dentro de la primera.
    */
   guia?: { href: string; texto: string }
 }
@@ -59,8 +59,8 @@ const CAPACIDADES: readonly Capacidad[] = [
       'Buscadores, búsqueda generativa, rastreadores y agentes leen tu negocio antes que ningún cliente. Preparamos la infraestructura para que lo que encuentren sea correcto, completo y contextualizado.',
     piezas: ['Estructura semántica', 'Datos estructurados', 'Legibilidad por máquinas', 'Presencia local', 'Contenido'],
     guia: {
-      href: '/ai-search/preparar-una-web',
-      texto: 'Cómo preparar una web para buscadores y sistemas de IA',
+      href: '/ai-search',
+      texto: 'Qué es AI Search y qué significa para una empresa',
     },
   },
   {

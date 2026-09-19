@@ -54,6 +54,7 @@ const SUPERFICIES = [
      distintas y aquí se comprueba la segunda. */
   { ruta: '/seguridad', clase: 'NUEVA' },
   // Fase 1: la primera pieza de conocimiento.
+  { ruta: '/ai-search', clase: 'NUEVA' },
   { ruta: '/ai-search/preparar-una-web', clase: 'NUEVA' },
   { ruta: '/ai-search/llms-txt', clase: 'NUEVA' },
 

@@ -43,6 +43,7 @@ La infraestructura con la que VELIA trabaja (VELIA OS) no es un producto que se 
 
 ## Conocimiento
 
+- [Qué es AI Search y qué significa para una empresa](https://veliacorp.com/ai-search): qué es AI Search, en qué se diferencia de la búsqueda tradicional, qué tiene que entender una máquina sobre una empresa y qué puede hacer una empresa hoy
 - [Cómo preparar una web para buscadores y sistemas de IA](https://veliacorp.com/ai-search/preparar-una-web): qué necesita una web para que buscadores y sistemas de IA la rastreen, la entiendan y puedan citarla; qué se puede medir y qué no se puede garantizar
 - [¿Qué es llms.txt y sirve realmente para algo?](https://veliacorp.com/ai-search/llms-txt): qué es este fichero, qué está documentado y qué no, en qué se diferencia de robots.txt y qué conviene resolver antes de crear uno
 
