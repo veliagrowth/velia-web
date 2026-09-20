@@ -1,5 +1,5 @@
-import TrackedLink from '@/components/TrackedLink'
 import Link from 'next/link'
+import { CtaSobreOscuro } from '@/components/Conocimiento'
 import Umbral from '@/components/Umbral'
 import SectionViewMarker from '@/components/SectionViewMarker'
 import ElCambio from '@/components/ElCambio'
@@ -7,7 +7,6 @@ import Distancia from '@/components/Distancia'
 import Capacidades from '@/components/Capacidades'
 import Casos from '@/components/Casos'
 import ModeloOperativo from '@/components/ModeloOperativo'
-import { CTA_CONTACTO, CONTACTO_MICROCOPY } from '@/lib/cta'
 
 /**
  * Home — VELIA WEB REWORK 2026.
@@ -215,28 +214,20 @@ export default function Home() {
             La primera conversación no es una demostración de producto ni una propuesta
             comercial. Es entender cómo trabajáis hoy y decir con qué empezaríamos.
           </p>
-          {/* `TrackedLink` y no `Link` pelado: este es el ÚNICO CTA de toda la
-              Home, y su evento —`final_contacto_click`— llevaba declarado en
-              `lib/analytics.ts` y aceptado por el buzón del portal desde que se
-              escribió la Home nueva, sin que lo emitiera nadie.
+          {/* El MISMO componente que usan las piezas de conocimiento, y no una
+              copia (20-sep). Era el mismo botón con el mismo evento y el mismo
+              microcopy escrito dos veces, y ya habían divergido en un detalle:
+              aquí el microcopy iba en `cream/60` y en el componente en
+              `cream/70`. Dos versiones de lo mismo dejan de parecerse en el
+              tercer cambio.
 
-              No daba ningún error, y ésa es justo la forma del fallo: el embudo
-              habría enseñado los `nav_contacto_click` del header y CERO
-              conversiones desde el cierre, que se lee como «el cierre no
-              convierte» cuando lo que pasa es que no se mide. Un evento
+              El evento `final_contacto_click` sigue siendo el de siempre, con
+              `cta_location: 'home_cierre'`: llevaba declarado en
+              `lib/analytics.ts` y aceptado por el buzón del portal desde que se
+              escribió la Home nueva, sin que lo emitiera nadie. Un evento
               declarado sin emisor no es una métrica pendiente: es una métrica
               que miente con un cero. */}
-          <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-            <TrackedLink
-              href={CTA_CONTACTO.href}
-              event="final_contacto_click"
-              properties={{ cta_location: 'home_cierre' }}
-              className="btn inline-flex items-center justify-center rounded-full bg-cream text-void px-8 py-4 text-[13px] font-600 tracking-[0.02em] hover:opacity-90"
-            >
-              {CTA_CONTACTO.label}
-            </TrackedLink>
-            <p className="text-[13px] text-cream/60">{CONTACTO_MICROCOPY}</p>
-          </div>
+          <CtaSobreOscuro ubicacion="home_cierre" />
         </div>
       </section>
     </>
