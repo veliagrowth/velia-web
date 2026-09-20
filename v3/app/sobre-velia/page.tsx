@@ -140,11 +140,11 @@ export default function SobreVeliaPage() {
       {/* ═══ 1 · AFIRMACIÓN ═══════════════════════════════════════════════
           El h1 no repite el de la Home. Aquél dice qué hace VELIA; éste, qué
           la hace distinta, que es a lo que se viene a una página «sobre». */}
-      <section className="mx-auto max-w-6xl px-6 md:px-10 pt-20 pb-16 md:pt-28 md:pb-24">
+      <section aria-labelledby="t-sv-afirmacion" className="mx-auto max-w-6xl px-6 md:px-10 pt-20 pb-16 md:pt-28 md:pb-24">
         <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
           Sobre VELIA
         </p>
-        <h1 className="mt-6 text-[clamp(2.15rem,5.6vw,4.5rem)] font-600 tracking-[-0.035em] leading-[1.04] text-void max-w-[17ch]">
+        <h1 id="t-sv-afirmacion" className="mt-6 text-[clamp(2.15rem,5.6vw,4.5rem)] font-600 tracking-[-0.035em] leading-[1.04] text-void max-w-[17ch]">
           Casi nadie se queda después de entregar. Ahí empieza el trabajo.
         </h1>
         <p className="mt-8 text-lg md:text-xl leading-[1.6] text-void/70 max-w-prose">
@@ -159,12 +159,12 @@ export default function SobreVeliaPage() {
           de quiénes somos a en qué se diferencia el modelo. Es el único sitio
           de la página donde una comparación está justificada — y se hace sin
           nombrar a nadie ni descalificar a nadie. */}
-      <section className="velia-dark-stage bg-void text-cream">
+      <section aria-labelledby="t-sv-modelo" className="velia-dark-stage bg-void text-cream">
         <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
           <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85">
             El modelo
           </p>
-          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]">
+          <h2 id="t-sv-modelo" className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]">
             La palabra que carga con la diferencia es operar.
           </h2>
           <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-cream/70 max-w-prose">
@@ -209,11 +209,11 @@ export default function SobreVeliaPage() {
           Composición editorial en filas, igual que las capacidades de la Home:
           índice a la izquierda, hairline de separación, el ojo lee una
           secuencia. Deliberadamente NO es una rejilla de cuatro cajas. */}
-      <section className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
+      <section aria-labelledby="t-sv-reglas" className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
         <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">
           Cómo decidimos
         </p>
-        <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[21ch]">
+        <h2 id="t-sv-reglas" className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[21ch]">
           Cuatro reglas que deciden qué se construye y qué no.
         </h2>
         <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-void/65 max-w-prose">
@@ -251,11 +251,11 @@ export default function SobreVeliaPage() {
           atravesar la arquitectura interna antes de saber qué gana un negocio.
           El bucle del Control Plane no viene: era el detalle más interno de
           todos y no ayuda a decidir si trabajar con VELIA. */}
-      <section id="infraestructura" className="velia-dark-stage bg-void text-cream scroll-mt-20">
+      <section aria-labelledby="t-sv-infra" id="infraestructura" className="velia-dark-stage bg-void text-cream scroll-mt-20">
         <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
           <SectionViewMarker event="velia_os_view" />
           <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85">VELIA OS</p>
-          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]">
+          <h2 id="t-sv-infra" className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]">
             Detrás de cada cliente hay infraestructura nuestra.
           </h2>
           <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-cream/70 max-w-prose">
@@ -269,14 +269,14 @@ export default function SobreVeliaPage() {
       {/* ═══ 4 · QUIÉN RESPONDE ═══════════════════════════════════════════
           Blanco sobre Pearl Cloud: es el momento más concreto de la página y
           conviene que respire distinto, igual que «La distancia» en la Home. */}
-      <section className="bg-white border-y border-mist">
+      <section aria-labelledby="t-sv-quien" className="bg-white border-y border-mist">
         <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
             <div>
               <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">
                 Quién responde
               </p>
-              <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
+              <h2 id="t-sv-quien" className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
                 Quien decide lo que se construye habla con quien lo usa.
               </h2>
               <p className="mt-6 text-[15px] md:text-base leading-[1.6] text-void/70 max-w-prose">
@@ -324,9 +324,9 @@ export default function SobreVeliaPage() {
           `TrialButton` que había aquí se va —no hay prueba gratuita que
           ofrecer— pero NO se borra del repositorio: `/precios`, `/demo` y
           `/fundadores` siguen vivas y lo siguen usando. */}
-      <section className="velia-dark-stage bg-void text-cream">
+      <section aria-labelledby="t-sv-cierre" className="velia-dark-stage bg-void text-cream">
         <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
-          <h2 className="text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]">
+          <h2 id="t-sv-cierre" className="text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]">
             Si quieres saber cómo trabajaríamos contigo, se empieza hablando.
           </h2>
           <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">

@@ -76,11 +76,11 @@ export default function Home() {
           El único h1 de la página. Una sola frase sostiene la home: dice quién
           hace qué, para qué, y no se podría copiar a la web de otro sin que
           quedara mal. */}
-      <section className="mx-auto max-w-6xl px-6 md:px-10 pt-20 pb-16 md:pt-32 md:pb-24">
+      <section aria-labelledby="t-afirmacion" className="mx-auto max-w-6xl px-6 md:px-10 pt-20 pb-16 md:pt-32 md:pb-24">
         <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
           Transformación y operación digital
         </p>
-        <h1 className="mt-6 text-[clamp(2.15rem,5.6vw,4.5rem)] font-600 tracking-[-0.035em] leading-[1.04] text-void max-w-[17ch]">
+        <h1 id="t-afirmacion" className="mt-6 text-[clamp(2.15rem,5.6vw,4.5rem)] font-600 tracking-[-0.035em] leading-[1.04] text-void max-w-[17ch]">
           Construimos y operamos la infraestructura digital con la que una empresa compite en
           la nueva era.
         </h1>
@@ -96,10 +96,10 @@ export default function Home() {
           primera contaba historia durante media pantalla antes de llegar a lo
           único que le importa a quien lee: qué cambia en su negocio. Ahora el
           contexto ocupa tres líneas y la sección entera va de eso. */}
-      <section id="resultado" className="mx-auto max-w-6xl px-6 md:px-10 pb-20 md:pb-28 scroll-mt-20">
+      <section id="resultado" aria-labelledby="t-resultado" className="mx-auto max-w-6xl px-6 md:px-10 pb-20 md:pb-28 scroll-mt-20">
         <SectionViewMarker event="shift_section_view" />
         <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Qué cambia</p>
-        <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[22ch]">
+        <h2 id="t-resultado" className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[22ch]">
           El problema casi nunca es que falte una herramienta.
         </h2>
         <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-void/65 max-w-prose">
@@ -110,11 +110,11 @@ export default function Home() {
       </section>
 
       {/* ═══ 3 · CAPACIDADES ══════════════════════════════════════════════ */}
-      <section id="capacidades" className="bg-white border-y border-mist scroll-mt-20">
+      <section id="capacidades" aria-labelledby="t-capacidades" className="bg-white border-y border-mist scroll-mt-20">
         <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
           <SectionViewMarker event="capabilities_section_view" />
           <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Qué hacemos</p>
-          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
+          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]" id="t-capacidades">
             Cuatro capacidades, no un catálogo de servicios.
           </h2>
           <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-void/65 max-w-prose">
@@ -129,10 +129,10 @@ export default function Home() {
           Sustituye al antiguo corte oscuro, que era la sección de
           infraestructura. La prueba de que una compañía sabe hacer algo no es
           su arquitectura: son los proyectos donde se ve. */}
-      <section id="casos" className="velia-dark-stage bg-void text-cream scroll-mt-20">
+      <section id="casos" aria-labelledby="t-casos" className="velia-dark-stage bg-void text-cream scroll-mt-20">
         <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
           <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85">Trabajo</p>
-          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]">
+          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]" id="t-casos">
             Cuatro proyectos con nombre y dominio.
           </h2>
           <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-cream/70 max-w-prose">
@@ -143,11 +143,11 @@ export default function Home() {
       </section>
 
       {/* ═══ 5 · CÓMO TRABAJAMOS ══════════════════════════════════════════ */}
-      <section id="operamos" className="bg-white border-b border-mist scroll-mt-20">
+      <section id="operamos" aria-labelledby="t-operamos" className="bg-white border-b border-mist scroll-mt-20">
         <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
           <SectionViewMarker event="operating_model_view" />
           <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Cómo trabajamos</p>
-          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
+          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]" id="t-operamos">
             Seis fases. Las dos últimas no tienen fecha de fin.
           </h2>
           <ModeloOperativo />
@@ -159,9 +159,9 @@ export default function Home() {
           que ya se afirma en otra parte de esta web y que se puede comprobar.
           El detalle de qué hay montado y qué se está construyendo está en
           /sobre-velia — aquí sólo se dice que existe y se enlaza. */}
-      <section id="por-que" className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28 scroll-mt-20">
+      <section id="por-que" aria-labelledby="t-por-que" className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28 scroll-mt-20">
         <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Por qué VELIA</p>
-        <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
+        <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]" id="t-por-que">
           Lo que casi nadie hace: quedarse.
         </h2>
         <ul className="mt-12 md:mt-16 grid gap-10 md:grid-cols-3 md:gap-12">
@@ -202,13 +202,13 @@ export default function Home() {
           Una acción. Sin formulario embebido, sin segundo botón, sin «o si
           prefieres…». Quien ha llegado hasta aquí ya ha decidido si quiere
           hablar; lo único que hace falta es no ponérselo difícil. */}
-      <section className="velia-dark-stage bg-void text-cream">
+      <section aria-labelledby="t-cierre" className="velia-dark-stage bg-void text-cream">
         <div className="mx-auto max-w-6xl px-6 md:px-10 py-24 md:py-32">
           {/* Es un h2, no un <p>: es el encabezado de esta sección, y sin él
               la última sección de la página no existe en el esquema de
               encabezados — quien navega por titulares se salta el cierre.
               La serif es la ÚNICA vez que aparece en toda la web. */}
-          <h2 className="font-serif font-400 text-[clamp(2rem,5vw,3.5rem)] leading-[1.15] tracking-[-0.02em] max-w-[19ch]">
+          <h2 id="t-cierre" className="font-serif font-400 text-[clamp(2rem,5vw,3.5rem)] leading-[1.15] tracking-[-0.02em] max-w-[19ch]">
             La infraestructura digital de tu empresa ya está decidiendo si compites.
           </h2>
           <p className="mt-8 text-[15px] md:text-base leading-[1.6] text-cream/70 max-w-prose">

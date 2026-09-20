@@ -159,11 +159,11 @@ export default async function NovedadesPage() {
   return (
     <>
       {/* ═══ CABECERA ═════════════════════════════════════════════════════ */}
-      <section className="mx-auto max-w-6xl px-6 md:px-10 pt-20 pb-12 md:pt-28 md:pb-16">
+      <section aria-labelledby="t-nv-titulo" className="mx-auto max-w-6xl px-6 md:px-10 pt-20 pb-12 md:pt-28 md:pb-16">
         <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
           Novedades
         </p>
-        <h1 className="mt-6 text-[clamp(2.15rem,5.6vw,4.5rem)] font-600 tracking-[-0.035em] leading-[1.04] text-void max-w-[16ch]">
+        <h1 id="t-nv-titulo" className="mt-6 text-[clamp(2.15rem,5.6vw,4.5rem)] font-600 tracking-[-0.035em] leading-[1.04] text-void max-w-[16ch]">
           Lo que hace VELIA, contado con fechas.
         </h1>
         <p className="mt-8 text-lg md:text-xl leading-[1.6] text-void/70 max-w-prose">
@@ -176,9 +176,9 @@ export default async function NovedadesPage() {
       {/* ═══ CARRIL 1 · LA COMPAÑÍA ═══════════════════════════════════════
           Secuencia con hairline, no rejilla de tarjetas: ninguna entrada se
           destaca por haber caído la primera en el array. */}
-      <section className="mx-auto max-w-6xl px-6 md:px-10 pb-16 md:pb-20">
+      <section aria-labelledby="t-nv-compania" className="mx-auto max-w-6xl px-6 md:px-10 pb-16 md:pb-20">
         <div className="hairline pt-12 md:pt-16">
-          <h2 className="text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
+          <h2 id="t-nv-compania" className="text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
             La compañía
           </h2>
           <p className="mt-4 text-[15px] leading-[1.6] text-void/65 max-w-prose">
@@ -214,9 +214,9 @@ export default async function NovedadesPage() {
           columna entera y el eje izquierdo saltaba entre una sección y la
           siguiente — se ve a simple vista en cuanto se mira la página de
           arriba abajo. Es el mismo patrón que «La distancia» en la Home. */}
-      <section className="bg-white border-t border-mist">
+      <section aria-labelledby="t-nv-producto" className="bg-white border-t border-mist">
         <div className="mx-auto max-w-6xl px-6 md:px-10 py-16 md:py-24">
-          <h2 className="text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
+          <h2 id="t-nv-producto" className="text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
             Lo que construimos
           </h2>
           <p className="mt-4 text-[15px] leading-[1.6] text-void/65 max-w-prose">
