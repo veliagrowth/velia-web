@@ -135,6 +135,11 @@ p, li, dd, figcaption {
 /* Botón: feedback táctil (Emil: 100ms press) */
 a.btn, button.btn {
   transition: transform 100ms cubic-bezier(0.16, 1, 0.3, 1), opacity 150ms ease;
+  /* Sin el rectángulo gris que Android pinta al tocar (20-sep). Se puede
+     quitar porque la respuesta al toque ya existe aquí abajo —`scale(0.97)`—;
+     quitarlo de un control SIN estado activo propio sería dejarlo mudo. Por
+     eso va sólo en `.btn` y no en todos los enlaces. */
+  -webkit-tap-highlight-color: transparent;
 }
 a.btn:active, button.btn:active {
   transform: scale(0.97);
