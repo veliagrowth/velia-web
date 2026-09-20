@@ -181,8 +181,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/* Enlace de salto (WCAG 2.4.1 «Bypass Blocks», nivel A). La cabecera
+            es pegajosa y pone cinco enlaces y una acción ANTES del contenido en
+            TODAS las páginas: sin esto, quien navega con teclado los recorre
+            otra vez en cada una. Sólo se ve al recibir el foco, y es lo primero
+            que lo recibe. `tabIndex={-1}` en el `<main>` para que el foco
+            aterrice de verdad ahí, y no sólo la vista. */}
+        <a
+          href="#contenido"
+          className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:top-3 focus-visible:left-3 focus-visible:z-[60] focus-visible:rounded-full focus-visible:bg-void focus-visible:px-5 focus-visible:py-3 focus-visible:text-[13px] focus-visible:font-600 focus-visible:text-cream"
+        >
+          Saltar al contenido
+        </a>
         <Nav />
-        <main>{children}</main>
+        <main id="contenido" tabIndex={-1}>{children}</main>
         <Footer />
         <CookieNotice />
         <ScrollDepthTracker />
