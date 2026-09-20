@@ -5,9 +5,15 @@ import { APP_URL } from '@/lib/constants'
  *
  * Un solo feed público (`/api/public/novedades` del portal) con DOS naturalezas
  * de contenido, distinguidas por `audience`:
- *  - 'empresa'      → anuncios de COMPAÑÍA: lanzamientos de vertical, cierre del
- *                     Programa Fundadores, notas de prensa. Solo web pública.
- *  - 'all'|'legal'  → changelog de PRODUCTO: lo que ya tienen los despachos.
+ *  - 'empresa'      → anuncios de COMPAÑÍA.
+ *  - 'all'|'legal'  → changelog de PRODUCTO: lo que ya tienen los clientes.
+ *
+ * ⚠️ NINGUNA DE LAS DOS ES «PÚBLICA» POR SÍ SOLA (20-sep-2026). Esa lectura es
+ * la que tenía esta web —publicaba las dos, tal cual llegaran— y la decisión de
+ * producto es la contraria: una novedad nace interna, llegar al panel de un
+ * cliente es un acto explícito y llegar a la web pública es otro. `all`
+ * significa «todos los clientes», no «todo el mundo». Ver `AUDIENCIA_PUBLICA`
+ * más abajo: el filtro niega por defecto.
  *
  * Antes esto vivía en components/LiveUpdates.tsx (sección de la home). La home ya
  * no lo muestra (Joaquín, 25-jul) y el tablón pasó a ser la página /novedades.
@@ -74,6 +80,25 @@ export type UpdatesResult =
   | { estado: 'ok'; updates: ProductUpdate[] }
   | { estado: 'sin_fuente'; updates: [] }
 
+/**
+ * La audiencia que autoriza a publicar una entrada EN LA WEB PÚBLICA.
+ *
+ * Negación por defecto: **si una entrada no está marcada explícitamente como
+ * pública, no se publica**. Medido el 20-sep, el feed traía 13 entradas con
+ * `audience` ∈ {`legal`, `empresa`, `all`} —segmentos de CLIENTE del producto
+ * anterior—, todas fechadas en julio de 2026 y todas publicadas aquí sin que
+ * nadie hubiera decidido publicarlas. Entre ellas, el Programa Fundadores con
+ * su precio de lanzamiento, que es la oferta del modelo descontinuado.
+ *
+ * ⚠️ DEPENDENCIA DE velia-portal: hoy ninguna entrada trae este valor, así que
+ * el tablón público queda vacío — y eso es lo correcto mientras el portal no
+ * tenga la acción «publicar en la web». Cuando la tenga, basta con que emita
+ * este valor, o con cambiar esta constante si allí se llama de otra forma.
+ * Desde aquí no se borra, no se reescribe y no se reordena ni una entrada: el
+ * SSoT sigue siendo el portal, y el histórico se queda donde está.
+ */
+export const AUDIENCIA_PUBLICA = 'publica'
+
 export async function fetchUpdates(): Promise<UpdatesResult> {
   try {
     const res = await fetch(`${APP_URL}/api/public/novedades`, {
@@ -84,7 +109,10 @@ export async function fetchUpdates(): Promise<UpdatesResult> {
     /* Un cuerpo sin `updates`, o con algo que no es una lista, NO es un tablón
        vacío: es una respuesta que no cumple el contrato. Va al cajón correcto. */
     if (!Array.isArray(json.updates)) return { estado: 'sin_fuente', updates: [] }
-    return { estado: 'ok', updates: json.updates }
+    /* La fuente contestó: el estado es `ok` aunque no quede ninguna entrada al
+       filtrar. Un tablón público vacío es una ausencia legítima, no una avería,
+       y la página las pinta distinto. */
+    return { estado: 'ok', updates: json.updates.filter(u => u.audience === AUDIENCIA_PUBLICA) }
   } catch {
     return { estado: 'sin_fuente', updates: [] }
   }

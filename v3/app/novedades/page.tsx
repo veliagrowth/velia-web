@@ -56,22 +56,41 @@ import { metadatosDePagina } from '@/lib/metadatos'
  * del portal (`/admin/novedades`) y su SSoT vive allí. Desde aquí no se filtra
  * ni se reescribe ni una entrada.
  *
- * ⚠️ ABIERTO Y REPORTADO, NO RESUELTO: ese mismo anuncio promociona el Programa
- * Fundadores, que es la oferta del modelo SaaS descontinuado. Quitarlo del
- * tablón es una decisión comercial y se toma en el portal, no aquí.
+ * ⚠️ CERRADO EL 20-sep-2026, POR LA VÍA CORRECTA. Ese anuncio promocionaba el
+ * Programa Fundadores —la oferta del modelo descontinuado— y seguía publicado
+ * porque esta web pintaba lo que trajera el feed. Ya no: `fetchUpdates()` niega
+ * por defecto y sólo publica lo que venga marcado como público (ver
+ * `AUDIENCIA_PUBLICA` en `lib/updates.ts`). No se ha borrado ninguna entrada ni
+ * se ha tocado el portal: lo que cambia es que publicar en la web pública pasa
+ * a ser un acto explícito, que es la decisión de producto.
+ *
+ * CONSECUENCIA DE HOY: ninguna de las 13 entradas del feed está marcada así, de
+ * modo que el tablón sale vacío y lo dice con el estado `ok` —ausencia
+ * legítima—, no con el de avería. Por eso la página es `noindex` mientras tanto.
  */
 
 /* Por `metadatosDePagina`, para que `og:title` y `og:url` se deriven de la
    MISMA declaración que el <title> y el canonical. Hasta el 18-sep esta página
    heredaba el openGraph entero del layout: compartirla enseñaba el título de la
    portada y su `og:url` apuntaba a la raíz del sitio. */
-export const metadata: Metadata = metadatosDePagina({
-  titulo: 'Novedades — VELIA',
-  tituloAlCompartir: 'Novedades de VELIA — lo que hace, contado con fechas',
-  descripcion:
-    'El tablón de VELIA: anuncios de la compañía y lo que se va incorporando a los sistemas que construimos y operamos, con su fecha.',
-  ruta: '/novedades',
-})
+export const metadata: Metadata = {
+  ...metadatosDePagina({
+    titulo: 'Novedades — VELIA',
+    tituloAlCompartir: 'Novedades de VELIA — lo que hace, contado con fechas',
+    descripcion:
+      'El tablón de VELIA: los anuncios de la compañía que se publican aquí, con su fecha.',
+    ruta: '/novedades',
+  }),
+  /* `noindex, follow` desde el 20-sep-2026, y no es un castigo a la página: es
+     que mientras el portal no tenga la acción «publicar en la web», el tablón
+     está vacío por contrato, y ofrecer a un buscador una página sin contenido
+     es pedirle que indexe un hueco. La página sigue viva y respondiendo 200 a
+     quien tenga el enlace.
+
+     Se revierte el día que exista una entrada pública: quitar estas líneas y
+     devolver la ruta al sitemap y al llms.txt. */
+  robots: { index: false, follow: true },
+}
 
 /** Una entrada del tablón. Misma pieza en los dos carriles: lo que cambia entre
  *  ellos es la composición que las contiene, no la entrada. */

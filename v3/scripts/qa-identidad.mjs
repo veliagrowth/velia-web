@@ -47,7 +47,11 @@ const SUPERFICIES = [
   // La web nueva: tiene que ser indexable.
   { ruta: '/', clase: 'NUEVA' },
   { ruta: '/sobre-velia', clase: 'NUEVA' },
-  { ruta: '/novedades', clase: 'NUEVA' },
+  /* /novedades NO es legacy y no está congelada: su tablón público está
+     vacío por contrato mientras el portal no tenga la acción «publicar en la
+     web» (20-sep-2026). Se le exige lo contrario que a una NUEVA —noindex—
+     y lo mismo que a todas: seguir viva. */
+  { ruta: '/novedades', clase: 'AISLADA_SIN_CONTENIDO' },
   { ruta: '/contacto', clase: 'NUEVA' },
   /* `/seguridad` es NUEVA y es indexable, pero está FUERA del sitemap porque
      publica claims `pending`. Salir del sitemap no es `noindex`: son dos cosas
@@ -136,6 +140,8 @@ try {
       comprobar(`${ruta} (NUEVA) es indexable`, !noindex, datos.robots ?? undefined)
     } else if (clase === 'LEGACY_AISLADA') {
       comprobar(`${ruta} (LEGACY) está aislada con noindex`, noindex, datos.robots ?? 'sin meta robots')
+    } else if (clase === 'AISLADA_SIN_CONTENIDO') {
+      comprobar(`${ruta} (SIN CONTENIDO PÚBLICO) está aislada con noindex`, noindex, datos.robots ?? 'sin meta robots')
     } else {
       comprobar(`${ruta} (LEGAL) sigue indexable`, !noindex, datos.robots ?? undefined)
     }

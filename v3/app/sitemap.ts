@@ -59,7 +59,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/', priority: 1 },
     { path: '/contacto', priority: 0.9 },
     { path: '/sobre-velia', priority: 0.7 },
-    { path: '/novedades', priority: 0.6 },
+    /* ⚠️ /novedades SALE del sitemap el 20-sep-2026. No es legacy y sigue
+       viva: es que su tablón público está vacío por contrato mientras el
+       portal no tenga la acción «publicar en la web» (ver AUDIENCIA_PUBLICA en
+       lib/updates.ts). Proponerle a un buscador una página sin contenido es
+       pedirle que indexe un hueco. Vuelve con la primera entrada pública. */
     // Fase 1 (19-sep-2026): la primera pieza de conocimiento. Prioridad alta
     // porque es la unica pagina del sitio que responde una pregunta que alguien
     // haria a un buscador sin conocer ya a VELIA.
@@ -78,7 +82,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return pages.map(p => ({
     url: `${SITE_URL}${p.path}`,
     lastModified: new Date(),
-    changeFrequency: p.path === '/novedades' ? 'weekly' : 'monthly',
+    changeFrequency: 'monthly',
     priority: p.priority,
   }))
 }

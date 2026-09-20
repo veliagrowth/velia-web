@@ -60,7 +60,11 @@ export const FOOTER_NAV = {
     title: 'Contacto',
     links: [
       { href: '/contacto', label: 'Hablemos' },
-      { href: '/novedades', label: 'Novedades' },
+      /* ⚠️ «Novedades» sale del pie el 20-sep-2026. La ruta sigue viva y
+         respondiendo 200 —no se ha roto ningún enlace ya enviado—, pero su
+         tablón público está vacío mientras el portal no tenga la acción de
+         publicar, y un enlace en el pie de todas las páginas hacia una página
+         vacía es un callejón. Vuelve con la primera entrada pública. */
     ],
   },
   legal: {

@@ -38,7 +38,6 @@ La infraestructura con la que VELIA trabaja (VELIA OS) no es un producto que se 
 - [Sobre VELIA](https://veliacorp.com/sobre-velia): el modelo, las cuatro reglas con las que decide qué construir, qué infraestructura hay en marcha y qué está en construcción, y quién responde de cada cliente
 - [Seguridad](https://veliacorp.com/seguridad): cómo se aísla a cada cliente, qué medidas concretas existen y qué todavía no hay
 - [Contacto](https://veliacorp.com/contacto): hablar con el equipo
-- [Novedades](https://veliacorp.com/novedades): anuncios de la compañía y mejoras incorporadas a los sistemas que opera, con su fecha; las entradas anteriores a septiembre de 2026 corresponden a la línea de producto descontinuada
 
 ## Conocimiento
 
