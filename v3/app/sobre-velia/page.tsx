@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Reveal from '@/components/Reveal'
 import TrackedLink from '@/components/TrackedLink'
+import SectionViewMarker from '@/components/SectionViewMarker'
+import VeliaOS from '@/components/VeliaOS'
 import { metadatosDePagina } from '@/lib/metadatos'
 import { CTA_CONTACTO, CONTACTO_MICROCOPY } from '@/lib/cta'
 
@@ -96,7 +98,7 @@ const PRINCIPIOS = [
     n: '03',
     titular: 'Lo que no está terminado se dice.',
     cuerpo:
-      'En esta misma web hay una sección que separa lo que está en producción de lo que está en construcción. No es una cautela legal: una compañía que dice qué le falta es una compañía a la que se le puede creer lo que dice que tiene.',
+      'Más abajo en esta página hay una sección que separa lo que está en marcha de lo que está en construcción. No es una cautela legal: una compañía que dice qué le falta es una compañía a la que se le puede creer lo que dice que tiene.',
   },
   {
     n: '04',
@@ -240,6 +242,28 @@ export default function SobreVeliaPage() {
             </Reveal>
           ))}
         </ul>
+      </section>
+
+      {/* ═══ 3b · QUÉ HAY MONTADO ═════════════════════════════════════════
+          Llegó aquí el 20-sep desde la Home, donde era el primer corte oscuro.
+          Es el sitio correcto: la regla 03 de arriba dice que lo que no está
+          terminado se dice, y aquí es donde se dice. En la Home obligaba a
+          atravesar la arquitectura interna antes de saber qué gana un negocio.
+          El bucle del Control Plane no viene: era el detalle más interno de
+          todos y no ayuda a decidir si trabajar con VELIA. */}
+      <section id="infraestructura" className="velia-dark-stage bg-void text-cream scroll-mt-20">
+        <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
+          <SectionViewMarker event="velia_os_view" />
+          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85">VELIA OS</p>
+          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]">
+            Detrás de cada cliente hay infraestructura nuestra.
+          </h2>
+          <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-cream/70 max-w-prose">
+            No es un producto que se venda por separado: es con lo que VELIA trabaja. Y como
+            aquí es fácil prometer de más, esto es lo que funciona hoy y lo que todavía no.
+          </p>
+          <VeliaOS />
+        </div>
       </section>
 
       {/* ═══ 4 · QUIÉN RESPONDE ═══════════════════════════════════════════

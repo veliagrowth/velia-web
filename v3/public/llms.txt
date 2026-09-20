@@ -19,9 +19,8 @@ Actualizado: septiembre de 2026.
 
 **Qué existe hoy y qué todavía no.** VELIA separa lo que funciona de lo que está en construcción, y no publica como disponible una capacidad que aún no lo está.
 
-- En producción: infraestructura propia —VELIA no opera el negocio de un cliente desde una carpeta compartida y cinco suscripciones—, automatización de procesos que se ejecuta a diario con registro de lo que hizo y de lo que no, y un portal por cliente con lo que está en marcha, lo entregado, lo pedido y lo medido.
+- En marcha: infraestructura propia —VELIA no opera el negocio de un cliente desde una carpeta compartida y cinco suscripciones—, automatización de procesos que se ejecuta a diario con registro de lo que hizo y de lo que no, y un portal por cliente con lo que está en marcha, lo entregado, lo pedido y lo medido.
 - En construcción: el Control Plane, agentes con permisos explícitos y acotados, y VELIA 4.0 Audit, un diagnóstico como punto de partida en lugar de una propuesta comercial.
-- Hacia dónde va: un ciclo de observar, entender, diagnosticar, planificar, ejecutar, verificar y aprender. Verificar significa comprobar que lo ejecutado produjo el efecto prometido, que es el paso que casi nadie implementa.
 
 La infraestructura con la que VELIA trabaja (VELIA OS) no es un producto que se venda por separado.
 
@@ -35,8 +34,8 @@ La infraestructura con la que VELIA trabaja (VELIA OS) no es un producto que se 
 
 ## Páginas
 
-- [Inicio](https://veliacorp.com/): qué es VELIA, sus cuatro capacidades, cómo trabaja, qué infraestructura existe hoy y un caso real
-- [Sobre VELIA](https://veliacorp.com/sobre-velia): el modelo, las cuatro reglas con las que decide qué construir y quién responde de cada cliente
+- [Inicio](https://veliacorp.com/): qué es VELIA, qué cambia para un negocio, sus cuatro capacidades, cuatro proyectos con nombre y dominio, y cómo trabaja
+- [Sobre VELIA](https://veliacorp.com/sobre-velia): el modelo, las cuatro reglas con las que decide qué construir, qué infraestructura hay en marcha y qué está en construcción, y quién responde de cada cliente
 - [Seguridad](https://veliacorp.com/seguridad): cómo se aísla a cada cliente, qué medidas concretas existen y qué todavía no hay
 - [Contacto](https://veliacorp.com/contacto): hablar con el equipo
 - [Novedades](https://veliacorp.com/novedades): anuncios de la compañía y mejoras incorporadas a los sistemas que opera, con su fecha; las entradas anteriores a septiembre de 2026 corresponden a la línea de producto descontinuada

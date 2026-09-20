@@ -261,7 +261,11 @@ const browser = await puppeteer.launch({
   // reglas distinto).
   {
     const oscura = await page.evaluate(() => {
-      const s = document.querySelector('#velia-os')
+      /* Por CLASE y no por id (20-sep): el primer corte oscuro de la Home
+         era `#velia-os` y ahora es `#casos`. Un id que deja de existir no rompe
+         esta comprobación: la salta en silencio, que es peor. La clase la lleva
+         cualquier sección oscura, hoy y la que venga. */
+      const s = document.querySelector('.velia-dark-stage')
       return s ? s.getBoundingClientRect().top + window.scrollY + 400 : null
     })
     if (oscura) {

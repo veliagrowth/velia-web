@@ -577,7 +577,7 @@ export default function PrepararUnaWebPage() {
           hecho={
             <>
               A la fecha de esta guía, VELIA tiene un cliente que se puede citar y comprobar —
-              <Link href="/#caso" className={enlace}>Cónsul Jurídico</Link>, cuya infraestructura
+              <Link href="/#casos" className={enlace}>Cónsul Jurídico</Link>, cuya infraestructura
               construimos y seguimos operando— y ningún perfil externo declarado en su web.
             </>
           }

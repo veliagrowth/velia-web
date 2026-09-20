@@ -21,10 +21,16 @@
  * toca porque es obligación legal.
  */
 
+/* ⚠️ 20-sep-2026: «VELIA OS» sale del menú y entra «Trabajo».
+   La sección `#velia-os` ya no está en la Home —la infraestructura se movió a
+   `/sobre-velia`—, así que ese enlace apuntaba a un ancla inexistente: el
+   navegador se habría quedado arriba sin decir nada. Y lo que ocupa su lugar
+   responde mejor a por qué alguien mira el menú de una compañía que no conoce:
+   ver si ha hecho algo. Siguen siendo cuatro secciones y una acción. */
 export const HEADER_LINKS = [
   { href: '/#capacidades', label: 'Qué hacemos' },
+  { href: '/#casos', label: 'Trabajo' },
   { href: '/#operamos', label: 'Cómo trabajamos' },
-  { href: '/#velia-os', label: 'VELIA OS' },
   { href: '/contacto', label: 'Contacto' },
 ] as const
 
@@ -34,8 +40,11 @@ export const FOOTER_NAV = {
     links: [
       { href: '/#capacidades', label: 'Qué hacemos' },
       { href: '/#operamos', label: 'Cómo trabajamos' },
-      { href: '/#velia-os', label: 'VELIA OS' },
-      { href: '/#caso', label: 'Un caso real' },
+      /* `#velia-os` y `#caso` eran dos anclas de la Home anterior. La primera
+         se fue a `/sobre-velia#infraestructura`; la segunda la absorbió
+         `#casos`, que ya no es un caso sino cuatro. */
+      { href: '/#casos', label: 'Trabajo' },
+      { href: '/sobre-velia#infraestructura', label: 'VELIA OS' },
       /* Etapa 2 (17-sep). `/sobre-velia` entra aquí y NO en el header: §7 de la
          dirección fija cuatro elementos y una acción arriba, y esa decisión no
          la cambia el hecho de que la página ya esté reescrita. El pie es donde

@@ -1,11 +1,11 @@
 import TrackedLink from '@/components/TrackedLink'
+import Link from 'next/link'
 import Umbral from '@/components/Umbral'
-import Reveal from '@/components/Reveal'
 import SectionViewMarker from '@/components/SectionViewMarker'
 import ElCambio from '@/components/ElCambio'
 import Distancia from '@/components/Distancia'
 import Capacidades from '@/components/Capacidades'
-import VeliaOS from '@/components/VeliaOS'
+import Casos from '@/components/Casos'
 import ModeloOperativo from '@/components/ModeloOperativo'
 import { CTA_CONTACTO, CONTACTO_MICROCOPY } from '@/lib/cta'
 
@@ -18,19 +18,27 @@ import { CTA_CONTACTO, CONTACTO_MICROCOPY } from '@/lib/cta'
  *
  * Dirección completa: velia-core/docs/design/VELIA_WEB_DIRECTION_2026.md
  *
- * OCHO MOMENTOS, no diez secciones con la misma forma. Ninguna sección tiene la
- * composición de la anterior, y el fondo solo cambia cuando cambia lo que se
- * está contando:
+ * ── SIMPLIFICACIÓN DEL 20-sep-2026 ────────────────────────────────────────
+ * La versión anterior tenía ocho momentos y dedicaba dos a explicar la
+ * maquinaria: «VELIA OS» (producción / construcción / Control Plane) y las seis
+ * fases. Para entender qué gana un cliente había que atravesar antes la
+ * arquitectura interna de la casa.
  *
- *   0  UMBRAL        blanco puro  · el logotipo · nada más
- *   1  AFIRMACIÓN    Pearl Cloud  · el ÚNICO h1 de la página
- *   2  EL CAMBIO     Pearl Cloud  · 1.0 → 4.0, y dónde está tu empresa
- *   3  LA DISTANCIA  blanco       · fragmentos sueltos → una sola infraestructura
- *   4  CAPACIDADES   Pearl Cloud  · las cuatro, en composición editorial
- *   5  VELIA OS      NIGHT        ← corte 1: aquí se entra en la infraestructura
- *   6  CÓMO OPERAMOS blanco       · seis fases, y las dos últimas no terminan
- *   7  PRUEBA        Pearl Cloud  · Cónsul Jurídico, sin una cifra inventada
- *   8  CIERRE        NIGHT        ← corte 2: una sola acción
+ * Ahora el orden es RESULTADO → CAPACIDAD → PRUEBA → ACCIÓN:
+ *
+ *   0  UMBRAL      blanco puro  · el logotipo · nada más
+ *   1  AFIRMACIÓN  Pearl Cloud  · el ÚNICO h1
+ *   2  RESULTADO   Pearl Cloud  · qué cambia: de siete herramientas sueltas a un sistema
+ *   3  CAPACIDADES Pearl Cloud  · las cuatro
+ *   4  TRABAJO     NIGHT        ← corte 1: cuatro proyectos con nombre y dominio
+ *   5  CÓMO        blanco       · seis fases, y las dos últimas no terminan
+ *   6  POR QUÉ     Pearl Cloud  · tres diferencias, sin adjetivos
+ *   7  CIERRE      NIGHT        ← corte 2: una sola acción
+ *
+ * LO QUE SE FUE, Y DÓNDE ESTÁ: el detalle de infraestructura —qué está en
+ * marcha y qué se está construyendo— vive ahora en `/sobre-velia`. No se ha
+ * borrado ni suavizado: se ha movido al sitio donde lo busca quien quiere ese
+ * nivel de detalle. La Home dice que existe y enlaza.
  *
  * UNA SOLA ACCIÓN EN TODA LA PÁGINA. La home anterior tenía dos que competían
  * («Probar gratis» y «Ver demo») porque había un producto que probar. Aquí no lo
@@ -65,9 +73,9 @@ export default function Home() {
       <Umbral />
 
       {/* ═══ 1 · AFIRMACIÓN ═══════════════════════════════════════════════
-          El único h1 de la página. Una sola frase sostiene la home, como en
-          Block: dice quién hace qué, para qué, y no se podría copiar a la web
-          de otro sin que quedara mal. */}
+          El único h1 de la página. Una sola frase sostiene la home: dice quién
+          hace qué, para qué, y no se podría copiar a la web de otro sin que
+          quedara mal. */}
       <section className="mx-auto max-w-6xl px-6 md:px-10 pt-20 pb-16 md:pt-32 md:pb-24">
         <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
           Transformación y operación digital
@@ -77,71 +85,64 @@ export default function Home() {
           la nueva era.
         </h1>
         <p className="mt-8 text-lg md:text-xl leading-[1.6] text-void/70 max-w-prose">
-          No vendemos una herramienta ni entregamos un proyecto y desaparecemos. Diseñamos el
-          sistema digital de un negocio, lo construimos, lo integramos, lo automatizamos y nos
-          quedamos operándolo.
+          Estrategia, presencia digital, sistemas, automatización e IA para empresas y
+          autónomos. No vendemos una herramienta ni entregamos un proyecto y desaparecemos:
+          construimos el sistema digital de un negocio y nos quedamos operándolo.
         </p>
       </section>
 
-      {/* ═══ 2 · EL CAMBIO ════════════════════════════════════════════════ */}
-      <section className="mx-auto max-w-6xl px-6 md:px-10 pb-20 md:pb-28">
+      {/* ═══ 2 · RESULTADO ════════════════════════════════════════════════
+          Antes eran dos secciones: la Revolución 4.0 y «la distancia». La
+          primera contaba historia durante media pantalla antes de llegar a lo
+          único que le importa a quien lee: qué cambia en su negocio. Ahora el
+          contexto ocupa tres líneas y la sección entera va de eso. */}
+      <section id="resultado" className="mx-auto max-w-6xl px-6 md:px-10 pb-20 md:pb-28 scroll-mt-20">
         <SectionViewMarker event="shift_section_view" />
-        <div className="hairline pt-12 md:pt-16">
-          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">El cambio</p>
-          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
-            La infraestructura de una empresa envejece más despacio que su entorno.
-          </h2>
-        </div>
-        <ElCambio />
-      </section>
-
-      {/* ═══ 3 · LA DISTANCIA ═════════════════════════════════════════════
-          Blanco, no Pearl Cloud: es el momento más concreto de la página y
-          conviene que respire distinto al resto. */}
-      <section className="bg-white border-y border-mist">
-        <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
-          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">La distancia</p>
-          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[22ch]">
-            El problema casi nunca es que falte una herramienta.
-          </h2>
-          <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-void/65 max-w-prose">
-            Es que hay siete, no se hablan entre ellas, y nadie responde del conjunto.
-          </p>
-          <Distancia />
-        </div>
-      </section>
-
-      {/* ═══ 4 · CAPACIDADES ══════════════════════════════════════════════ */}
-      <section id="capacidades" className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28 scroll-mt-20">
-        <SectionViewMarker event="capabilities_section_view" />
-        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Qué hacemos</p>
-        <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
-          Cuatro capacidades, no un catálogo de servicios.
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Qué cambia</p>
+        <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[22ch]">
+          El problema casi nunca es que falte una herramienta.
         </h2>
         <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-void/65 max-w-prose">
-          Un proyecto casi nunca necesita las cuatro a la vez. Necesita empezar por la que
-          está bloqueando a las demás.
+          Es que hay siete, no se hablan entre ellas, y nadie responde del conjunto.
         </p>
-        <Capacidades />
+        <ElCambio />
+        <Distancia />
       </section>
 
-      {/* ═══ 5 · VELIA OS · CORTE OSCURO 1 ════════════════════════════════ */}
-      <section id="velia-os" className="velia-dark-stage bg-void text-cream scroll-mt-20">
-        <SectionViewMarker event="velia_os_view" />
+      {/* ═══ 3 · CAPACIDADES ══════════════════════════════════════════════ */}
+      <section id="capacidades" className="bg-white border-y border-mist scroll-mt-20">
         <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
-          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85">VELIA OS</p>
-          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]">
-            Detrás de cada cliente hay infraestructura nuestra.
+          <SectionViewMarker event="capabilities_section_view" />
+          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Qué hacemos</p>
+          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
+            Cuatro capacidades, no un catálogo de servicios.
           </h2>
-          <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-cream/70 max-w-prose">
-            No es un producto que se venda por separado: es con lo que VELIA trabaja. Y como
-            aquí es fácil prometer de más, esto es lo que funciona hoy y lo que todavía no.
+          <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-void/65 max-w-prose">
+            Un proyecto casi nunca necesita las cuatro a la vez. Necesita empezar por la que
+            está bloqueando a las demás.
           </p>
-          <VeliaOS />
+          <Capacidades />
         </div>
       </section>
 
-      {/* ═══ 6 · CÓMO OPERAMOS ════════════════════════════════════════════ */}
+      {/* ═══ 4 · TRABAJO · CORTE OSCURO 1 ═════════════════════════════════
+          Sustituye al antiguo corte oscuro, que era la sección de
+          infraestructura. La prueba de que una compañía sabe hacer algo no es
+          su arquitectura: son los proyectos donde se ve. */}
+      <section id="casos" className="velia-dark-stage bg-void text-cream scroll-mt-20">
+        <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
+          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85">Trabajo</p>
+          <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]">
+            Cuatro proyectos con nombre y dominio.
+          </h2>
+          <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-cream/70 max-w-prose">
+            Sin cifras: qué es cada proyecto, qué hizo VELIA y dónde comprobarlo.
+          </p>
+          <Casos />
+        </div>
+      </section>
+
+      {/* ═══ 5 · CÓMO TRABAJAMOS ══════════════════════════════════════════ */}
       <section id="operamos" className="bg-white border-b border-mist scroll-mt-20">
         <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
           <SectionViewMarker event="operating_model_view" />
@@ -153,74 +154,51 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ 7 · PRUEBA ═══════════════════════════════════════════════════
-          Sin una sola cifra. Las que había —+260 % de consultas, menos de 5 min
-          de respuesta, 12 h/semana— se retiraron el 29-jul: eran métricas de
-          captación, no de producto, y su fuente no era verificable. Queda lo que
-          sí se puede comprobar: un cliente con nombre, un enlace que funciona, y
-          un proceso. */}
-      <section id="caso" className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28 scroll-mt-20">
-        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Un caso real</p>
-        <div className="mt-5 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-          <div>
-            <h2 className="text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
-              Cónsul Jurídico no necesitaba un programa. Necesitaba un sistema.
-            </h2>
-            <p className="mt-6 text-[15px] md:text-base leading-[1.6] text-void/70 max-w-prose">
-              Un despacho en Fraga que arrancaba de cero. Empezó con herramientas de terceros
-              enganchadas entre sí, porque era lo que había. Lo que necesitaba de verdad
-              —captación, expedientes, documentos, agenda, un portal para sus propios
-              clientes— acabó construyéndose a medida.
-            </p>
-            <p className="mt-4 text-[15px] md:text-base leading-[1.6] text-void/70 max-w-prose">
-              Sigue siendo cliente, y VELIA sigue operando su infraestructura. Lo que se
-              aprendió construyéndola es hoy parte de lo que se le ofrece a cualquier otro
-              negocio: ese es el modelo entero, en un caso.
-            </p>
-            <p className="mt-8">
-              <a
-                href="https://consuljuridico.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[14px] font-600 text-gold-ink underline decoration-gold-ink/30 underline-offset-4 hover:decoration-gold-ink transition-colors"
-              >
-                consuljuridico.com
-              </a>
-            </p>
-          </div>
-
-          <Reveal delay={80}>
-            <div className="rounded-lg border border-mist bg-white p-7 md:p-9">
-              <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65 mb-6">
-                El proceso, que es lo que se repite
-              </p>
-              <ol className="space-y-4">
-                {[
-                  'Una necesidad real, no un catálogo',
-                  'Se diseña la solución',
-                  'Se construye la infraestructura',
-                  'Se opera',
-                  'Se aprende',
-                  'El aprendizaje se convierte en infraestructura reutilizable',
-                ].map((paso, i) => (
-                  <li key={paso} className="flex gap-4">
-                    <span className="text-[12px] font-600 text-void/65 tabular-nums pt-0.5 w-5 shrink-0">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-[15px] leading-[1.5] text-void/80">{paso}</span>
-                  </li>
-                ))}
-              </ol>
-              <p className="mt-7 pt-6 border-t border-mist text-[13px] leading-[1.6] text-void/65">
-                VELIA no es una empresa jurídica: es la compañía que construyó y opera la
-                infraestructura de este despacho.
-              </p>
-            </div>
-          </Reveal>
-        </div>
+      {/* ═══ 6 · POR QUÉ VELIA ════════════════════════════════════════════
+          Tres frases, sin adjetivos y sin una capacidad nueva: cada una es algo
+          que ya se afirma en otra parte de esta web y que se puede comprobar.
+          El detalle de qué hay montado y qué se está construyendo está en
+          /sobre-velia — aquí sólo se dice que existe y se enlaza. */}
+      <section id="por-que" className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28 scroll-mt-20">
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Por qué VELIA</p>
+        <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
+          Lo que casi nadie hace: quedarse.
+        </h2>
+        <ul className="mt-12 md:mt-16 grid gap-10 md:grid-cols-3 md:gap-12">
+          {[
+            {
+              t: 'Construimos, no sólo recomendamos.',
+              d: 'Una consultora entrega un informe y una agencia entrega un entregable. Aquí se diseña, se construye y se integra con lo que ya hay.',
+            },
+            {
+              t: 'Operamos lo que construimos.',
+              d: 'El sistema funciona todos los días y alguien responde de que funcione. Sin eso, un sistema digital no se queda como estaba: se degrada.',
+            },
+            {
+              t: 'Decimos lo que todavía no está.',
+              d: 'Ninguna afirmación llega a esta web sin una fuente detrás, y lo que está a medio construir se publica como lo que es.',
+            },
+          ].map(x => (
+            <li key={x.t}>
+              <h3 className="text-base md:text-lg font-600 tracking-[-0.01em] text-void">{x.t}</h3>
+              <p className="mt-2.5 text-[15px] leading-[1.6] text-void/70">{x.d}</p>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-10 text-[15px] leading-[1.6] text-void/70 max-w-prose">
+          Cómo decidimos qué construir, qué infraestructura hay montada hoy y qué estamos
+          construyendo:{' '}
+          <Link
+            href="/sobre-velia"
+            className="font-600 text-gold-ink underline decoration-gold-ink/30 underline-offset-4 hover:decoration-gold-ink transition-colors"
+          >
+            sobre VELIA
+          </Link>
+          .
+        </p>
       </section>
 
-      {/* ═══ 8 · CIERRE · CORTE OSCURO 2 ══════════════════════════════════
+      {/* ═══ 7 · CIERRE · CORTE OSCURO 2 ══════════════════════════════════
           Una acción. Sin formulario embebido, sin segundo botón, sin «o si
           prefieres…». Quien ha llegado hasta aquí ya ha decidido si quiere
           hablar; lo único que hace falta es no ponérselo difícil. */}
