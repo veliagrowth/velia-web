@@ -27,7 +27,11 @@ export default function Footer() {
 
         {Object.entries(FOOTER_NAV).map(([key, grupo]) => (
           <div key={key} className="text-xs space-y-2.5">
-            <p className="text-[10px] font-700 tracking-[0.06em] uppercase text-cream/55 mb-3">
+            {/* 11 px y peso 600, como TODOS los demás rótulos de la web
+                (20-sep). Estos eran los únicos a 10 px y en 700: dos valores
+                que sólo existían aquí, y 10 px queda por debajo del mínimo que
+                cualquier revisión de tipografía pide para una etiqueta. */}
+            <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-cream/55 mb-3">
               {grupo.title}
             </p>
             {grupo.links.map(l => (
