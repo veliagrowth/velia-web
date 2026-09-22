@@ -453,6 +453,117 @@ const browser = await puppeteer.launch({
   }
 }
 
+// ── 6 · LA NAVEGACION Y LA ACCION RESPONDEN ─────────────────────────────────
+// 22-sep-2026. El indicador de seccion, el relleno del CTA y el menu movil son
+// estado: o dicen la verdad o desorientan. Un indicador que senala la seccion
+// equivocada es peor que no tener indicador, y no da ningun error.
+//
+//   claim:    arriba del todo NINGUN enlace esta activo
+//   medicion: cero `[aria-current]` con scroll 0 — el hero no es ninguna de las
+//             cuatro secciones, y marcar una seria mentir
+//
+//   claim:    el indicador sigue a la seccion que se lee
+//   medicion: dentro de #casos hay EXACTAMENTE uno activo y es el que apunta a
+//             #casos. El relleno y el `aria-current` son el mismo atributo
+//
+//   claim:    la accion se rellena al enfocarla con el teclado
+//   medicion: el `clip-path` de su capa cambia al recibir foco, y vuelve al
+//             perder. No se mide el hover: con teclado tiene que funcionar
+//
+//   claim:    en movil la accion NO se esconde tras el menu
+//   medicion: a 390 el CTA esta visible en la barra sin abrir nada, y el menu
+//             abre con los cuatro enlaces
+{
+  const page = await browser.newPage()
+  await page.setViewport({ width: 1440, height: 900 })
+  await page.goto(URL, { waitUntil: 'networkidle0' })
+  await new Promise(r => setTimeout(r, 2500))
+
+  const enlacesSeg = await page.evaluate(() => document.querySelectorAll('.seg__enlace').length)
+  comprobar('La barra tiene su control de secciones', enlacesSeg >= 4, `${enlacesSeg} enlaces`)
+
+  const arriba = await page.evaluate(() => document.querySelectorAll('.seg__enlace[aria-current]').length)
+  comprobar('Arriba del todo no hay ninguna sección activa', arriba === 0, `${arriba} activos`)
+
+  await page.evaluate(() => {
+    const el = document.getElementById('casos')
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + 300, behavior: 'instant' })
+  })
+  await new Promise(r => setTimeout(r, 700))
+  const enCasos = await page.evaluate(() => {
+    const act = [...document.querySelectorAll('.seg__enlace[aria-current]')]
+    return { n: act.length, href: act[0]?.getAttribute('href') ?? null, relleno: act[0] ? getComputedStyle(act[0]).backgroundColor : null }
+  })
+  comprobar(
+    'El indicador sigue a la sección que se lee',
+    enCasos.n === 1 && enCasos.href === '/#casos' && enCasos.relleno === 'rgb(255, 255, 255)',
+    `${enCasos.n} activo(s) · ${enCasos.href} · ${enCasos.relleno}`,
+  )
+
+  /* El CTA con TECLADO DE VERDAD, y esperando a que la transición TERMINE.
+     Las dos cosas por un motivo medido: `element.focus()` desde un script NO
+     activa `:focus-visible` —la heurística del navegador mira si la última
+     interacción fue de teclado—, y leer el `clip-path` en el mismo instante lo
+     pilla a medio camino (medido: `calc(91,06% − 28,85px)` a los 60 ms,
+     `inset(0px)` a los 500). Las dos versiones anteriores de esta comprobación
+     daban ROJO con el botón funcionando perfectamente. */
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
+  await new Promise(r => setTimeout(r, 400))
+  const reposoCta = await page.evaluate(() => {
+    const a = document.querySelector('.cta-flecha')
+    return a ? getComputedStyle(a.querySelector('.cta-flecha__capa')).clipPath : null
+  })
+  let cta = null
+  for (let i = 0; i < 25 && !cta; i++) {
+    await page.keyboard.press('Tab')
+    await new Promise(r => setTimeout(r, 60))
+    cta = await page.evaluate(() => {
+      const a = document.activeElement
+      return a && a.classList.contains('cta-flecha') ? { href: a.getAttribute('href'), focusVisible: a.matches(':focus-visible') } : null
+    })
+  }
+  if (cta) {
+    await new Promise(r => setTimeout(r, 500))
+    cta.enfocado = await page.evaluate(() => getComputedStyle(document.activeElement.querySelector('.cta-flecha__capa')).clipPath)
+  }
+  const heroCta = await page.evaluate(() => {
+    const a = document.querySelector('section[aria-labelledby=t-afirmacion] .cta-flecha')
+    return a ? a.getAttribute('href') : null
+  })
+  comprobar('El hero tiene su acción, y lleva a /contacto', heroCta === '/contacto', heroCta ?? 'NO HAY CTA')
+  comprobar(
+    'La acción se rellena al enfocarla con el teclado',
+    Boolean(cta) && cta.focusVisible && cta.enfocado !== reposoCta && cta.enfocado.startsWith('inset(0px'),
+    cta ? `reposo ${String(reposoCta).slice(0, 20)}… → foco ${cta.enfocado}` : 'ningún CTA alcanzado con Tab',
+  )
+  await page.close()
+
+  // Móvil: la acción a la vista sin abrir nada, y el menú con sus enlaces.
+  const movil = await browser.newPage()
+  await movil.setViewport({ width: 390, height: 844 })
+  await movil.goto(URL, { waitUntil: 'networkidle0' })
+  await new Promise(r => setTimeout(r, 2000))
+  /* El VISIBLE, no el primero: la barra lleva dos CTA —el de escritorio y el
+     de móvil—, y a 390 el primero está en `display:none`. Preguntar por el
+     primero devolvía un rectángulo de 0×0 y daba ROJO con el botón a la vista
+     en la pantalla. La medición tiene que buscar lo que se ve. */
+  const ctaVisible = await movil.evaluate(() => {
+    const visibles = [...document.querySelectorAll('header .cta-flecha')]
+      .map(a => a.getBoundingClientRect())
+      .filter(r => r.width > 40)
+    return visibles.length === 1 && visibles[0].right <= window.innerWidth + 1 && visibles[0].top >= 0
+  })
+  comprobar('En móvil la acción está en la barra, sin abrir el menú', ctaVisible)
+  await movil.click('header button[aria-controls="menu-movil"]')
+  await new Promise(r => setTimeout(r, 500))
+  const menu = await movil.evaluate(() => {
+    const p = document.getElementById('menu-movil')
+    return { abierto: Boolean(p), enlaces: p ? p.querySelectorAll('a[href]').length : 0 }
+  })
+  comprobar('El menú móvil abre con sus enlaces', menu.abierto && menu.enlaces >= 5, `${menu.enlaces} enlaces`)
+  await movil.close()
+}
+
 await browser.close()
 
 const fallos = resultados.filter(r => !r.ok)
