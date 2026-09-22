@@ -13,53 +13,119 @@ import { CASOS } from '@/lib/casos'
  * Así que la prueba es tipográfica: nombre, qué es, qué hizo VELIA y el dominio
  * para comprobarlo. Un dominio que abre es más verificable que un mockup.
  *
- * ── COMPOSICIÓN ───────────────────────────────────────────────────────────
- * Dos columnas en escritorio y una en móvil, separadas por líneas finas y no
- * por tarjetas: cuatro cajas iguales pedirían comparar los proyectos entre sí,
- * y no son comparables —uno es un cliente con infraestructura operada y otro un
- * trabajo creativo puntual—. La jerarquía la marca el orden, no el tamaño.
+ * ── LA COMPOSICIÓN CAMBIA EL 22-sep, Y NO POR ESTÉTICA ────────────────────
+ * Eran cuatro celdas iguales en dos columnas. El comentario de este mismo
+ * archivo llevaba meses diciendo que los proyectos «no son comparables —uno es
+ * un cliente con infraestructura operada y otro un trabajo creativo puntual—» y
+ * la rejilla los pintaba exactamente igual. Un texto que dice una cosa y una
+ * composición que dice la contraria: gana la composición, porque se ve antes.
  *
+ * Ahora manda uno. Cónsul Jurídico ocupa la fila entera, con tipografía mayor y
+ * su párrafo completo; los otros tres van debajo en tres columnas estrechas, con
+ * una línea cada uno. La jerarquía la marcan el tamaño y el sitio, no un rótulo
+ * que diga «destacado». Quién manda se declara en los datos (`principal`), no
+ * en el orden del array: el orden es un accidente, y un día alguien lo cambia.
+ *
+ * ── EL PUNTO, Y LOS CUATRO RÓTULOS QUE SE FUERON ──────────────────────────
+ * Cada caso llevaba un rótulo «SU ENTORNO» encima de su línea: cuatro etiquetas
+ * idénticas en la misma pantalla, que es la firma de una plantilla. El dato que
+ * daban —tiene entorno o no— ahora lo da un punto lleno o hueco, el mismo
+ * lenguaje de `.estado` que la web ya usa en `/sobre-velia` para «en marcha» y
+ * «en construcción». Se entiende sin leer, que era justo el objetivo.
+ *
+ * El punto es `aria-hidden` y la frase que lo acompaña dice lo mismo con
+ * palabras: quien no ve el punto no pierde nada.
+ */
+export default function Casos() {
+  const principal = CASOS.find(c => c.principal) ?? CASOS[0]
+  const resto = CASOS.filter(c => c !== principal)
+
+  return (
+    <div className="mt-10 md:mt-14 grid gap-px bg-white/10 overflow-hidden rounded-lg">
+      {/* ── El que manda ──────────────────────────────────────────────── */}
+      <article className="bg-void px-6 py-9 md:px-10 md:py-12">
+        <Reveal>
+          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85">
+            {principal.tipo}
+          </p>
+          {/* El dominio va en la columna IZQUIERDA, debajo del nombre, y no al
+              final del texto. Con el nombre solo, esa columna dejaba ~200 px de
+              hueco muerto bajo una palabra: aire que no es respiración, es una
+              celda a medio llenar. El enlace la ancla por abajo, y además es lo
+              que pertenece al nombre —es su prueba—, no al párrafo de al lado. */}
+          <div className="mt-4 md:grid md:grid-cols-[1fr_1.05fr] md:gap-x-12 md:items-start">
+            <div>
+              <h3 className="text-2xl md:text-4xl font-600 tracking-[-0.025em] leading-[1.05] text-cream">
+                {principal.nombre}
+              </h3>
+              <Dominio dominio={principal.dominio} />
+            </div>
+            <div className="mt-5 md:mt-1">
+              <p className="text-[15px] leading-[1.6] text-cream/70 max-w-prose">{principal.que}</p>
+              <p className="mt-3 text-[15px] leading-[1.6] text-cream/85 max-w-prose">
+                {principal.velia}
+              </p>
+              <p className="mt-4 flex items-baseline gap-2.5 text-[14px] leading-[1.6] text-cream/70 max-w-prose">
+                <Punto lleno={principal.tieneEntorno} />
+                <span>{principal.entorno}</span>
+              </p>
+            </div>
+          </div>
+        </Reveal>
+      </article>
+
+      {/* ── El contrapunto: tres columnas estrechas ───────────────────── */}
+      <div className="grid gap-px bg-white/10 sm:grid-cols-3">
+        {resto.map((c, i) => (
+          <article key={c.dominio} className="bg-void px-6 py-8 md:px-7 md:py-9">
+            <Reveal delay={i * 60}>
+              <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85">{c.tipo}</p>
+              <h3 className="mt-3.5 text-xl font-600 tracking-[-0.02em] text-cream">{c.nombre}</h3>
+              <p className="mt-3 text-[14px] leading-[1.6] text-cream/70">{c.que}</p>
+              <p className="mt-2.5 text-[14px] leading-[1.6] text-cream/85">{c.velia}</p>
+              <p className="mt-3.5 flex items-baseline gap-2.5 text-[13px] leading-[1.6] text-cream/70">
+                <Punto lleno={c.tieneEntorno} />
+                <span>{c.entorno}</span>
+              </p>
+              <Dominio dominio={c.dominio} />
+            </Reveal>
+          </article>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/**
+ * Lleno = tiene entorno · hueco = todavía no. El mismo gesto que `.estado`, sin
+ * importar la clase: aquí el color y el tamaño son los del corte oscuro.
+ * `translate-y` porque va alineado a la línea base del texto que acompaña.
+ */
+function Punto({ lleno }: { lleno: boolean }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`mt-[0.45em] h-1.5 w-1.5 flex-none rounded-full ${
+        lleno ? 'bg-gold/85' : 'ring-1 ring-inset ring-cream/40'
+      }`}
+    />
+  )
+}
+
+/**
  * El enlace lleva el dominio como texto: se ve a dónde va antes de pulsarlo, y
  * `inline-block py-1` le da los 24 px de destino que pide WCAG 2.2 (2.5.8) sin
  * depender de la excepción de los enlaces en línea.
  */
-export default function Casos() {
+function Dominio({ dominio }: { dominio: string }) {
   return (
-    <ul className="mt-14 md:mt-20 grid gap-px bg-white/10 sm:grid-cols-2 overflow-hidden rounded-lg">
-      {CASOS.map((c, i) => (
-        <li key={c.dominio} className="bg-void px-6 py-8 md:px-8 md:py-10">
-          <Reveal delay={i * 60}>
-            <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85">{c.tipo}</p>
-            <h3 className="mt-4 text-xl md:text-2xl font-600 tracking-[-0.02em] text-cream">{c.nombre}</h3>
-            <p className="mt-3 text-[15px] leading-[1.6] text-cream/70 max-w-prose">{c.que}</p>
-            <p className="mt-3 text-[15px] leading-[1.6] text-cream/85 max-w-prose">{c.velia}</p>
-
-            {/* ── SU ENTORNO (22-sep-2026) ────────────────────────────────
-                La fila que convierte la lista en un argumento. Antes los cuatro
-                proyectos se leían como cuatro encargos del mismo tamaño; aquí se
-                ve que dos no tienen entorno de gestión y uno lo tiene entero, y
-                eso es exactamente lo que la sección de arriba afirma.
-
-                Separada por una línea y no por una tarjeta: es un dato más del
-                mismo proyecto, no una segunda ficha. `border-white/10` es el
-                mismo valor que separa las celdas de la rejilla, para que la
-                división interna no pese más que la externa. */}
-            <p className="mt-6 border-t border-white/10 pt-5 text-[11px] font-600 tracking-[0.06em] uppercase text-cream/70">
-              Su entorno
-            </p>
-            <p className="mt-2 text-[14px] leading-[1.6] text-cream/70 max-w-prose">{c.entorno}</p>
-
-            <a
-              href={`https://${c.dominio}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-block py-1 text-[14px] font-600 text-gold/85 underline decoration-gold/30 underline-offset-4 hover:decoration-gold/85 transition-colors"
-            >
-              {c.dominio}
-            </a>
-          </Reveal>
-        </li>
-      ))}
-    </ul>
+    <a
+      href={`https://${dominio}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-4 inline-block py-1 text-[14px] font-600 text-gold/85 underline decoration-gold/30 underline-offset-4 hover:decoration-gold/85 transition-colors"
+    >
+      {dominio}
+    </a>
   )
 }

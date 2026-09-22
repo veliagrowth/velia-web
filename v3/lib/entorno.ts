@@ -57,32 +57,28 @@ export const ESCALONES: readonly Escalon[] = [
   {
     n: '01',
     titulo: 'Ver lo que está pasando',
-    cuerpo:
-      'El escalón mínimo, y para muchos negocios el único que hace falta. Un sitio donde está lo que VELIA tiene en marcha, lo entregado, lo que se decidió y lo que se ha medido. Deja de haber una carpeta compartida, un hilo de correo y tres conversaciones sueltas.',
+    cuerpo: 'Para muchos negocios, el único que hace falta. Se acabó la carpeta compartida y el hilo de correo.',
     piezas: ['Entregables', 'Decisiones', 'Lo medido', 'Comunicación'],
   },
   {
     n: '02',
     titulo: 'Lo que el negocio dice hacia fuera',
     encadena: 'Y además',
-    cuerpo:
-      'La web y el contenido dejan de ser un encargo puntual y pasan a ser algo que se gobierna desde dentro: qué se publica, cuándo, y qué pasó después de publicarlo.',
+    cuerpo: 'La web y el contenido dejan de ser un encargo puntual y pasan a gobernarse desde dentro.',
     piezas: ['Web', 'Contenido', 'Publicaciones', 'Formularios'],
   },
   {
     n: '03',
     titulo: 'El trabajo que entra todos los días',
     encadena: 'Y además',
-    cuerpo:
-      'Quién ha preguntado, en qué punto está, qué hay que hacer y cuándo. Es el escalón donde la automatización empieza a notarse, porque ya hay un sitio al que llega el trabajo y del que sale.',
+    cuerpo: 'Quién ha preguntado, en qué punto está y qué toca ahora. Aquí la automatización empieza a notarse.',
     piezas: ['Contactos', 'Oportunidades', 'Citas', 'Seguimiento'],
   },
   {
     n: '04',
     titulo: 'El negocio por dentro',
     encadena: 'Y además',
-    cuerpo:
-      'Lo propio de cada actividad, que no se parece a la de al lado: expedientes en un despacho, pedidos en una tienda. Y, cuando tiene sentido, un espacio para los clientes de tu cliente.',
+    cuerpo: 'Lo que no se parece a nadie: expedientes en un despacho, pedidos en una tienda.',
     piezas: ['Lo propio del sector', 'Operación diaria', 'Un espacio para sus clientes'],
   },
 ]

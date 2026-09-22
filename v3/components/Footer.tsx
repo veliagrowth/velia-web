@@ -7,6 +7,23 @@ import { FOOTER_NAV, FOOTER_CLAIM } from '@/lib/navigation'
 /**
  * Footer.
  *
+ * ── EL HUECO BLANCO ANTES DEL PIE (22-sep-2026) ────────────────────────────
+ * Este pie llevaba `mt-24`. Medido: **96 px exactos** entre el final de la
+ * ultima seccion y el borde del pie, en TODAS las paginas.
+ *
+ * En una pagina que termina en claro eso es aire razonable. El problema es que
+ * la Home termina en el cierre oscuro (`bg-void`) y el pie tambien es
+ * `bg-void`: el margen no separaba dos bloques, metia una FRANJA PEARL CLOUD DE
+ * 96 px ENTRE DOS BLOQUES OSCUROS. De ahi la banda vacia; no era padding del
+ * cierre ni un `min-h-screen` ni un spacer escondido.
+ *
+ * La reparacion no es «subir el pie»: es que el margen no pertenecia al pie.
+ * Un componente que no sabe que hay encima no puede decidir cuanto aire deja.
+ * Ahora el pie va a hueso y cada pagina es duena de su propio cierre:
+ *   · Home  -> el cierre oscuro y el pie se funden en un solo bloque, que es
+ *              exactamente lo que se le pide a un final;
+ *   · resto -> el canto limpio de claro a oscuro, que es un corte, no un error.
+ *
  * Dos cambios de fondo respecto a la versión anterior:
  *
  * 1. El claim era «La plataforma sobre la que los despachos españoles operan el
@@ -18,8 +35,8 @@ import { FOOTER_NAV, FOOTER_CLAIM } from '@/lib/navigation'
  */
 export default function Footer() {
   return (
-    <footer className="bg-void text-cream/60 mt-24">
-      <div className="mx-auto max-w-6xl px-6 py-16 grid gap-10 md:grid-cols-[1.4fr_auto_auto_auto]">
+    <footer className="bg-void text-cream/60">
+      <div className="mx-auto max-w-6xl px-6 py-12 grid gap-10 md:grid-cols-[1.4fr_auto_auto_auto]">
         <div>
           <Image src="/VELIA_logotipo_claro.svg" alt="VELIA" width={120} height={30} className="h-[22px] w-auto mb-4" />
           <p className="text-xs leading-relaxed max-w-[34ch]">{FOOTER_CLAIM}</p>

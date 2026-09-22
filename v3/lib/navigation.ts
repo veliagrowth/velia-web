@@ -38,8 +38,12 @@ export const FOOTER_NAV = {
   compania: {
     title: 'Compañía',
     links: [
+      /* ⚠️ Dos enlaces MENOS el 22-sep, y no por higiene: un pie con catorce
+         destinos es una lista, no un cierre. Salen los dos que ya se alcanzan
+         de sobra desde otro sitio — «Cómo trabajamos» está en la cabecera de
+         todas las páginas, y «VELIA OS» es un ancla DENTRO de `/sobre-velia`,
+         que sigue aquí debajo. Nada deja de ser alcanzable. */
       { href: '/#capacidades', label: 'Qué hacemos' },
-      { href: '/#operamos', label: 'Cómo trabajamos' },
       /* `#velia-os` y `#caso` eran dos anclas de la Home anterior. La primera
          se fue a `/sobre-velia#infraestructura`; la segunda la absorbió
          `#casos`, que ya no es un caso sino cuatro. */
@@ -50,7 +54,6 @@ export const FOOTER_NAV = {
          navegación no se reabre porque la página nueva nos guste. Que sea
          importante es un argumento para su sitio en la Home, no para el menú. */
       { href: '/#entorno', label: 'Tu entorno' },
-      { href: '/sobre-velia#infraestructura', label: 'VELIA OS' },
       /* Etapa 2 (17-sep). `/sobre-velia` entra aquí y NO en el header: §7 de la
          dirección fija cuatro elementos y una acción arriba, y esa decisión no
          la cambia el hecho de que la página ya esté reescrita. El pie es donde

@@ -43,7 +43,7 @@ export default function Distancia() {
        vacío de doscientos píxeles entre ellos y la flecha que no significaba
        nada. Aquí el espacio en blanco tiene que estar DENTRO de la columna
        izquierda —el desorden es el argumento—, no entre las dos. */
-    <div className="mt-14 md:mt-20 grid gap-8 lg:grid-cols-[auto_auto_minmax(0,1fr)] lg:items-center lg:gap-x-12">
+    <div className="mt-10 md:mt-14 grid gap-8 lg:grid-cols-[auto_auto_minmax(0,1fr)] lg:items-center lg:gap-x-12">
       {/* ── Lo que hay ─────────────────────────────────────────────────────── */}
       <div>
         <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65 mb-6">

@@ -58,6 +58,23 @@ export type Caso = {
    * el encargo, no una carencia del cliente.
    */
   entorno: string
+  /**
+   * Si este proyecto tiene entorno VELIA o no. Es un BOOLEANO y no se deduce
+   * del texto: el texto se lee, esto se pinta. Alimenta el punto —lleno o
+   * hueco— que traduce la frase a un golpe de vista, con el mismo lenguaje de
+   * `.estado` que ya usa `/sobre-velia`.
+   */
+  tieneEntorno: boolean
+  /**
+   * El caso que MANDA en la composición. Sólo uno. Ocupa la fila entera y se
+   * pinta más grande; los otros tres son contrapunto.
+   *
+   * No es un capricho de maquetación: cuatro celdas iguales piden comparar
+   * cuatro proyectos que no son comparables —uno es un cliente con
+   * infraestructura operada y otro un trabajo creativo puntual—, y la web lo
+   * dice desde hace meses en un comentario mientras los pintaba iguales.
+   */
+  principal?: true
   evidencia: 'documentado' | 'parcial'
 }
 
@@ -70,36 +87,40 @@ export const CASOS: readonly Caso[] = [
       'Cliente. VELIA construyó su infraestructura —captación, expedientes, documentos, agenda y un portal para sus propios clientes— y la sigue operando.',
     tipo: 'Infraestructura construida y operada',
     entorno:
-      'Entorno completo: el trabajo del despacho vive dentro, y sus propios clientes tienen un espacio donde seguir sus asuntos, sus citas y sus mensajes.',
+      'Entorno completo. El trabajo del despacho vive dentro, y sus clientes tienen el suyo para seguir asuntos, citas y mensajes.',
+    tieneEntorno: true,
+    principal: true,
     evidencia: 'documentado',
   },
   {
     nombre: 'KREA HOGAR',
     dominio: 'kreahogar.com',
-    que: 'Sofás y colchones fabricados en España, con tienda en Lleida y venta online.',
+    que: 'Sofás y colchones fabricados en España. Tienda en Lleida y venta online.',
     velia: 'Trabajo de VELIA en su presencia digital: web, contenido y campañas.',
     tipo: 'Presencia digital',
-    entorno: 'Sin entorno de gestión: el encargo era la presencia digital, y no hacía falta más.',
+    entorno: 'Sin entorno. El encargo era la presencia digital.',
+    tieneEntorno: false,
     evidencia: 'parcial',
   },
   {
     nombre: 'Method 9989',
     dominio: 'method9989.com',
-    que: 'Proyecto de marca y lanzamientos. Hoy su web es el teaser del próximo.',
+    que: 'Marca y lanzamientos. Hoy su web es el teaser del próximo.',
     velia: 'VELIA construye y mantiene la web, y despliega cada cambio.',
     tipo: 'Web construida y mantenida',
-    entorno:
-      'Sin portal: lo que necesita hoy es que la web esté en pie y se despliegue sola. El entorno crecerá cuando lo haga el proyecto.',
+    entorno: 'Sin portal. Hoy necesita que la web esté en pie y se despliegue sola.',
+    tieneEntorno: false,
     evidencia: 'documentado',
   },
   {
     nombre: 'The Drop Agency',
     dominio: 'thedrop.agency',
-    que: 'Agencia creativa y de management de artistas. Su web está en construcción.',
+    que: 'Agencia creativa y de management de artistas.',
     velia:
       'Apoyo de VELIA en producción creativa. La transformación de sus procesos está prevista, no hecha.',
     tipo: 'Trabajo creativo',
-    entorno: 'Sin entorno todavía: el trabajo hecho es creativo, y la transformación está prevista.',
+    entorno: 'Sin entorno todavía. La transformación está prevista, no hecha.',
+    tieneEntorno: false,
     evidencia: 'parcial',
   },
 ]

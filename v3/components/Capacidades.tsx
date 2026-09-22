@@ -23,7 +23,10 @@ interface Capacidad {
   n: string
   nombre: string
   titular: string
-  cuerpo: string
+  /* ⚠️ `cuerpo` SE FUE el 22-sep. Eran cuatro párrafos de ~200 caracteres que
+     repetían lo que ya dicen el titular (por qué importa) y las piezas (qué hay
+     dentro): 900 caracteres y ~400 px sin añadir un dato nuevo. La prueba que no
+     pasaban: *¿hace falta leer esto para entender la propuesta?* */
   piezas: readonly string[]
   /** Solo Digital Operations. Es la capacidad diferencial y se pinta distinta. */
   destacada?: boolean
@@ -47,16 +50,12 @@ const CAPACIDADES: readonly Capacidad[] = [
     n: '01',
     nombre: 'Digital Foundation',
     titular: 'La base sobre la que se apoya todo lo demás.',
-    cuerpo:
-      'La web, su arquitectura, el dominio, el alojamiento, la analítica, el seguimiento, los formularios y el CRM. No como piezas sueltas que alguien conectó una vez, sino como un sistema con dueño.',
     piezas: ['Web y arquitectura', 'Dominio y alojamiento', 'Analítica y tracking', 'CRM', 'Integraciones', 'Identidad digital'],
   },
   {
     n: '02',
     nombre: 'AI Search & Digital Visibility',
     titular: 'Que te encuentren las personas y te entiendan las máquinas.',
-    cuerpo:
-      'Buscadores, búsqueda generativa, rastreadores y agentes leen tu negocio antes que ningún cliente. Preparamos la infraestructura para que lo que encuentren sea correcto, completo y contextualizado.',
     piezas: ['Estructura semántica', 'Datos estructurados', 'Legibilidad por máquinas', 'Presencia local', 'Contenido'],
     guia: {
       href: '/ai-search',
@@ -67,16 +66,12 @@ const CAPACIDADES: readonly Capacidad[] = [
     n: '03',
     nombre: 'Growth & Automation',
     titular: 'De la atención al cliente, sin que nada se caiga por el camino.',
-    cuerpo:
-      'El recorrido completo: atención, visita, contacto, captura, CRM, cualificación, seguimiento, conversión y retención. Automatizado donde automatizar mejora el resultado, y solo ahí.',
     piezas: ['Captación', 'Seguimiento', 'Cualificación', 'Automatización de procesos', 'Conversión'],
   },
   {
     n: '04',
     nombre: 'Digital Operations',
     titular: 'Lo que casi nadie hace: quedarse.',
-    cuerpo:
-      'Mantenimiento, monitorización, medición, corrección y evolución. Un sistema digital no se termina: se opera. Es la capacidad que separa a VELIA de quien entrega un proyecto y se va.',
     piezas: ['Monitorización', 'Medición', 'Mantenimiento', 'Optimización continua', 'Evolución'],
     destacada: true,
   },
@@ -84,10 +79,10 @@ const CAPACIDADES: readonly Capacidad[] = [
 
 export default function Capacidades() {
   return (
-    <ul className="mt-14 md:mt-20">
+    <ul className="mt-10 md:mt-14">
       {CAPACIDADES.map((c, i) => (
         <Reveal as="li" key={c.n} delay={i === 0 ? 0 : 60} className="hairline">
-          <div className="grid gap-x-10 gap-y-4 py-10 md:py-14 md:grid-cols-[auto_1fr] lg:grid-cols-[auto_1.1fr_0.9fr]">
+          <div className="grid gap-x-10 gap-y-4 py-8 md:py-10 md:grid-cols-[auto_1fr] lg:grid-cols-[auto_1.1fr_0.9fr]">
             <span className={`indice ${c.destacada ? 'text-gold-ink' : 'text-slate'}`} aria-hidden="true">
               {c.n}
             </span>
@@ -108,10 +103,9 @@ export default function Capacidades() {
                 ensanchaba y estrujaba el nombre de la capacidad contra el borde
                 derecho. Se veía roto a 768 px y perfecto a 390 y a 1440. */}
             <div className="md:col-span-2 lg:col-span-1 lg:pt-1">
-              <p className="text-[15px] leading-[1.6] text-void/65 max-w-prose">{c.cuerpo}</p>
               {/* Texto corrido separado por puntos medios, no «chips»: una fila de
                   píldoras convierte capacidades en un catálogo de funciones. */}
-              <p className="mt-4 text-[13px] leading-[1.7] text-void/65">
+              <p className="text-[13px] leading-[1.7] text-void/65">
                 {c.piezas.join(' · ')}
               </p>
               {/* `inline-block py-1`: enlace suelto, no dentro de un párrafo, así

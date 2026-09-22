@@ -31,14 +31,18 @@ import { ESCALONES, REGLA_ENTORNO } from '@/lib/entorno'
  */
 export default function Entorno({ regla }: { regla: string | null }) {
   return (
-    <div className="mt-14 md:mt-20">
+    <div className="mt-10 md:mt-14">
       <ul>
         {ESCALONES.map((e, i) => (
           <Reveal as="li" key={e.n} delay={i === 0 ? 0 : 60} className="hairline">
-            <div className="grid gap-x-10 gap-y-4 py-10 md:py-14 md:grid-cols-[auto_1fr] lg:grid-cols-[auto_1.1fr_0.9fr]">
+            <div className="grid gap-x-10 gap-y-3 py-7 md:py-8 md:grid-cols-[auto_1fr] lg:grid-cols-[auto_1fr_1fr]">
               {/* El índice y, debajo, la escala. `items-start` para que el
                   número no se centre respecto a una fila alta. */}
-              <div className="flex flex-col gap-3">
+              {/* Número y escala EN LÍNEA, no apilados (22-sep). Apilados, la
+                  columna del índice medía lo que el número más la fila de puntos
+                  más el hueco entre los dos, y eso fijaba la altura mínima de
+                  cada fila aunque el texto de al lado fuera una sola línea. */}
+              <div className="flex items-center gap-3 md:flex-col md:items-start md:gap-2.5">
                 <span className="indice text-slate" aria-hidden="true">
                   {e.n}
                 </span>
@@ -88,13 +92,11 @@ export default function Entorno({ regla }: { regla: string | null }) {
 
       {regla && (
         <Reveal delay={100}>
-          <p className="mt-10 md:mt-12 text-lg md:text-xl font-500 tracking-[-0.01em] leading-[1.4] text-void max-w-[42ch]">
+          <p className="mt-9 md:mt-10 text-xl md:text-2xl font-500 tracking-[-0.015em] leading-[1.35] text-void max-w-[36ch]">
             {REGLA_ENTORNO}
           </p>
           <p className="mt-3 text-[15px] leading-[1.6] text-void/65 max-w-prose">
-            {regla} No es una política que prometamos cumplir: es cómo está construido el
-            sistema, y por eso hay clientes con casi todo encendido y clientes con tres
-            piezas.
+            {regla} No es una política: es cómo está construido el sistema.
           </p>
         </Reveal>
       )}
