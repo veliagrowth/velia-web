@@ -126,7 +126,11 @@ export default function Nav() {
             <Link
               key={l.href}
               href={l.href}
-              className={`text-[11px] font-600 tracking-[0.06em] uppercase transition-colors duration-control whitespace-nowrap ${
+              /* `nav-enlace` (22-sep): subrayado que entra por la izquierda al
+                 pasar y sale por la derecha al irse — globals.css, bloque 6.
+                 Sólo en los cuatro enlaces de sección: el CTA ya responde con
+                 su pulsación y «Iniciar sesión» es una salida, no un sitio. */
+              className={`nav-enlace text-[11px] font-600 tracking-[0.06em] uppercase transition-colors duration-control whitespace-nowrap ${
                 claro ? 'text-cream/75 hover:text-cream' : 'text-void/60 hover:text-void'
               }`}
             >

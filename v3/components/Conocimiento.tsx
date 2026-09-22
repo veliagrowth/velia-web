@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import TrackedLink from '@/components/TrackedLink'
+import CtaFlecha from '@/components/CtaFlecha'
 import { CTA_CONTACTO, CONTACTO_MICROCOPY } from '@/lib/cta'
 import { fechaLarga, type Fuente } from '@/lib/conocimiento'
 
@@ -77,18 +77,22 @@ export function Terminos({ filas, className = 'mt-12 md:mt-14' }: { filas: [stri
   )
 }
 
-/** La única llamada a la acción de una pieza, sobre su cierre oscuro. */
+/** La única llamada a la acción de una pieza, sobre su cierre oscuro.
+ *
+ *  Desde el 22-sep pinta el `CtaFlecha`, y es el ÚNICO sitio donde se decide
+ *  eso para los cierres oscuros: la Home, `/sobre-velia` y las piezas de
+ *  `/ai-search` pasan por aquí, así que cambian las cuatro a la vez y no hay
+ *  una que se quede con la píldora anterior. */
 export function CtaSobreOscuro({ ubicacion }: { ubicacion: string }) {
   return (
     <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-      <TrackedLink
+      <CtaFlecha
         href={CTA_CONTACTO.href}
-        event="final_contacto_click"
-        properties={{ cta_location: ubicacion }}
-        className="btn inline-flex items-center justify-center rounded-full bg-cream text-void px-8 py-4 text-[13px] font-600 tracking-[0.02em] hover:opacity-90"
-      >
-        {CTA_CONTACTO.label}
-      </TrackedLink>
+        etiqueta={CTA_CONTACTO.label}
+        evento="final_contacto_click"
+        propiedades={{ cta_location: ubicacion }}
+        sobre="oscuro"
+      />
       <p className="text-[13px] text-cream/70">{CONTACTO_MICROCOPY}</p>
     </div>
   )

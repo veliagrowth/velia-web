@@ -46,6 +46,12 @@ export type Escalon = {
   n: string
   /** Lo que el negocio mete dentro en este escalón. Un verbo, no un plan. */
   titulo: string
+  /**
+   * Una o dos palabras para el estrato del diagrama (22-sep). No es copy nuevo:
+   * es el mismo escalón dicho con el mínimo de palabras, porque en el diagrama
+   * cada planta mide 56 px de alto y lo que tiene que caber es un nombre.
+   */
+  corto: string
   /** La frase que encadena con el anterior. El primero no la lleva. */
   encadena?: string
   cuerpo: string
@@ -56,12 +62,14 @@ export type Escalon = {
 export const ESCALONES: readonly Escalon[] = [
   {
     n: '01',
+    corto: 'Ver',
     titulo: 'Ver lo que está pasando',
     cuerpo: 'Para muchos negocios, el único que hace falta. Se acabó la carpeta compartida y el hilo de correo.',
     piezas: ['Entregables', 'Decisiones', 'Lo medido', 'Comunicación'],
   },
   {
     n: '02',
+    corto: 'Publicar',
     titulo: 'Lo que el negocio dice hacia fuera',
     encadena: 'Y además',
     cuerpo: 'La web y el contenido dejan de ser un encargo puntual y pasan a gobernarse desde dentro.',
@@ -69,6 +77,7 @@ export const ESCALONES: readonly Escalon[] = [
   },
   {
     n: '03',
+    corto: 'Operar',
     titulo: 'El trabajo que entra todos los días',
     encadena: 'Y además',
     cuerpo: 'Quién ha preguntado, en qué punto está y qué toca ahora. Aquí la automatización empieza a notarse.',
@@ -76,6 +85,7 @@ export const ESCALONES: readonly Escalon[] = [
   },
   {
     n: '04',
+    corto: 'El negocio',
     titulo: 'El negocio por dentro',
     encadena: 'Y además',
     cuerpo: 'Lo que no se parece a nadie: expedientes en un despacho, pedidos en una tienda.',
@@ -87,4 +97,8 @@ export const ESCALONES: readonly Escalon[] = [
  * La regla que impide leer la escala como una tabla de planes. Va debajo, en
  * grande, y es la frase que más trabajo hace de toda la sección.
  */
-export const REGLA_ENTORNO = 'Se construye el escalón que hace falta. No el siguiente.'
+export const REGLA_ENTORNO_LINEAS = ['Se construye el escalón que hace falta.', 'No el siguiente.'] as const
+/* Las dos líneas son las del revelado rectangular: un corte decidido, no uno
+   que calcule el navegador. La frase entera se deriva de ellas, para que no
+   puedan dejar de decir lo mismo. */
+export const REGLA_ENTORNO = REGLA_ENTORNO_LINEAS.join(' ')

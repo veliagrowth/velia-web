@@ -43,7 +43,7 @@ export default function Casos() {
   return (
     <div className="mt-10 md:mt-14 grid gap-px bg-white/10 overflow-hidden rounded-lg">
       {/* ── El que manda ──────────────────────────────────────────────── */}
-      <article className="bg-void px-6 py-9 md:px-10 md:py-12">
+      <article className="caso bg-void px-6 py-9 md:px-10 md:py-12">
         <Reveal>
           <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85">
             {principal.tipo}
@@ -55,7 +55,7 @@ export default function Casos() {
               que pertenece al nombre —es su prueba—, no al párrafo de al lado. */}
           <div className="mt-4 md:grid md:grid-cols-[1fr_1.05fr] md:gap-x-12 md:items-start">
             <div>
-              <h3 className="text-2xl md:text-4xl font-600 tracking-[-0.025em] leading-[1.05] text-cream">
+              <h3 className="caso__nombre text-2xl md:text-4xl font-600 tracking-[-0.025em] leading-[1.05] text-cream">
                 {principal.nombre}
               </h3>
               <Dominio dominio={principal.dominio} />
@@ -77,10 +77,10 @@ export default function Casos() {
       {/* ── El contrapunto: tres columnas estrechas ───────────────────── */}
       <div className="grid gap-px bg-white/10 sm:grid-cols-3">
         {resto.map((c, i) => (
-          <article key={c.dominio} className="bg-void px-6 py-8 md:px-7 md:py-9">
+          <article key={c.dominio} className="caso bg-void px-6 py-8 md:px-7 md:py-9">
             <Reveal delay={i * 60}>
               <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85">{c.tipo}</p>
-              <h3 className="mt-3.5 text-xl font-600 tracking-[-0.02em] text-cream">{c.nombre}</h3>
+              <h3 className="caso__nombre mt-3.5 text-xl font-600 tracking-[-0.02em] text-cream">{c.nombre}</h3>
               <p className="mt-3 text-[14px] leading-[1.6] text-cream/70">{c.que}</p>
               <p className="mt-2.5 text-[14px] leading-[1.6] text-cream/85">{c.velia}</p>
               <p className="mt-3.5 flex items-baseline gap-2.5 text-[13px] leading-[1.6] text-cream/70">
@@ -118,14 +118,22 @@ function Punto({ lleno }: { lleno: boolean }) {
  * depender de la excepción de los enlaces en línea.
  */
 function Dominio({ dominio }: { dominio: string }) {
+  /* La flecha ↗ sale en diagonal al pasar o al enfocar (RESPOND, 220 ms) y a
+     la vez dice lo que el enlace hace: abrir fuera. Por eso el aviso también
+     va en palabras para quien no la ve — un enlace que abre pestaña sin
+     decirlo desorienta a quien navega con lector de pantalla (22-sep). */
   return (
     <a
       href={`https://${dominio}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="mt-4 inline-block py-1 text-[14px] font-600 text-gold/85 underline decoration-gold/30 underline-offset-4 hover:decoration-gold/85 transition-colors"
+      className="dominio mt-4 inline-flex items-baseline gap-1.5 py-1 text-[14px] font-600 text-gold/85 underline decoration-gold/30 underline-offset-4 hover:decoration-gold/85 transition-colors"
     >
       {dominio}
+      <span className="dominio__flecha no-underline" aria-hidden="true">
+        ↗
+      </span>
+      <span className="sr-only"> (se abre en una pestaña nueva)</span>
     </a>
   )
 }

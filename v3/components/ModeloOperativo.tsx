@@ -51,8 +51,17 @@ export default function ModeloOperativo() {
         ))}
       </ol>
 
-      <Reveal delay={60}>
-        <ol className="mt-5 grid gap-px bg-mist border border-mist sm:grid-cols-2 overflow-hidden rounded-lg">
+      {/* La SEÑAL (22-sep): una línea Iris recorre el borde de las dos fases
+          que no terminan, dos veces, y se detiene. Es lo único que se mueve
+          sin que nadie lo toque en toda la sección, y está donde está el
+          argumento — lo que sigue funcionando después de entregar. No es un
+          indicador de actividad real ni lo pretende: no hay datos detrás, y por
+          eso no lleva cifra, ni estado, ni la palabra «en vivo».
+          `relative` en el contenedor, no en el `ol`: el `ol` recorta (overflow)
+          y la línea va sobre su borde superior. */}
+      <Reveal delay={60} className="relative mt-5">
+        <span className="senal" aria-hidden="true" />
+        <ol className="grid gap-px bg-mist border border-mist sm:grid-cols-2 overflow-hidden rounded-lg">
           {RECURRENTES.map(f => (
             <li key={f.n} className="bg-cream px-6 py-7">
               <p className="text-[12px] font-600 tracking-[0.06em] text-gold-ink tabular-nums">{f.n}</p>
@@ -108,7 +117,9 @@ export default function ModeloOperativo() {
             </p>
           </div>
           <div className="bg-cream px-6 py-7">
-            <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
+            {/* `.estado`: el mismo punto lleno que en /sobre-velia significa «en
+                marcha». Aquí dice lo mismo, sin moverse: la operación continúa. */}
+            <p className="estado text-gold-ink">
               Digital Operations
             </p>
             <p className="mt-2.5 text-[15px] leading-[1.6] text-void/75 max-w-prose">

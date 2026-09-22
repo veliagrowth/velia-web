@@ -7,6 +7,10 @@ import Capacidades from '@/components/Capacidades'
 import Casos from '@/components/Casos'
 import Entorno from '@/components/Entorno'
 import ModeloOperativo from '@/components/ModeloOperativo'
+import CtaFlecha from '@/components/CtaFlecha'
+import RevealRect from '@/components/motion/RevealRect'
+import TextFill from '@/components/motion/TextFill'
+import { CTA_CONTACTO } from '@/lib/cta'
 import { claim } from '@/lib/verified-claims'
 
 /**
@@ -100,28 +104,55 @@ export default function Home() {
           El único h1 de la página. Una sola frase sostiene la home: dice quién
           hace qué, para qué, y no se podría copiar a la web de otro sin que
           quedara mal. */}
-      <section aria-labelledby="t-afirmacion" className="mx-auto max-w-6xl px-6 md:px-10 pt-16 pb-14 md:pt-28 md:pb-20">
+      <section aria-labelledby="t-afirmacion" className="mx-auto max-w-6xl px-6 md:px-10 pt-14 pb-14 md:pt-24 md:pb-20">
         <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
           Transformación y operación digital
         </p>
-        {/* Mas grande el 22-sep: el tope sube de 4,5rem a 5,25rem y la medida
-            baja de 17 a 15 caracteres. Las dos cosas van juntas — subir el
-            cuerpo sin estrechar la columna solo hace lineas mas largas, y lo que
-            da presencia a un titular no es el tamano sino cuantas lineas ocupa y
-            como cortan. A 1440 pasa de tres lineas anchas a tres lineas densas.
-            La altura que gana el hero se la devuelve el resto de la pagina. */}
-        <h1 id="t-afirmacion" className="mt-6 text-[clamp(2.3rem,6vw,5.25rem)] font-600 tracking-[-0.04em] leading-[1.0] text-void max-w-[15ch]">
-          Construimos y operamos la infraestructura digital con la que una empresa compite en
-          la nueva era.
+        {/* ── RECOMPUESTO EL 22-sep, CON LAS MISMAS PALABRAS ────────────────
+            Eran seis líneas del mismo tamaño y el mismo peso: un muro. Lo que
+            separa a VELIA de una agencia son los dos verbos, y estaban
+            enterrados en mitad de la frase con el mismo cuerpo que «la nueva
+            era». Ahora el enunciado tiene dos registros:
+
+              «Construimos / y operamos»   a escala máxima, con el revelado
+              «la infraestructura…»        en un segundo registro, desplazado
+                                           a la derecha en escritorio
+
+            Es UNA sola frase y UN solo h1: lectores de pantalla, buscadores y
+            `llms.txt` siguen leyendo «Construimos y operamos la infraestructura
+            digital con la que una empresa compite en la nueva era.» Ni una
+            palabra cambia; cambia cuánto pesa cada una.
+
+            Las medidas van en `em` y no en `ch`: `ch` es el ancho del «0» de la
+            fuente CARGADA, así que al llegar Geist cambiaba el ancho de la
+            columna y el párrafo se recolocaba. Era el único desplazamiento de
+            la Home (CLS 0,0202, medido). `em` no depende de qué fuente llegó. */}
+        <h1 id="t-afirmacion" className="mt-6 text-void">
+          <RevealRect
+            al="cargar"
+            lineas={['Construimos', 'y operamos']}
+            className="text-[clamp(3.1rem,10.8vw,9rem)] font-600 tracking-[-0.05em] leading-[0.92]"
+          />{' '}
+          <span className="mt-6 md:mt-9 block text-[clamp(1.35rem,2.5vw,2.15rem)] font-500 tracking-[-0.02em] leading-[1.18] text-void/75 max-w-[19em] lg:ml-[44%] lg:max-w-[17em]">
+            la infraestructura digital con la que una empresa compite en la nueva era.
+          </span>
         </h1>
-        {/* Una linea, no tres. La version anterior tenia 229 caracteres y decia
-            tres cosas: que hacemos, que no vendemos y que nos quedamos. Las dos
-            primeras las dice la seccion de capacidades, que esta a un scroll.
-            La tercera es la unica que no dice nadie mas, asi que es la unica que
-            se queda arriba. Statement primero, explicacion despues. */}
-        <p className="mt-7 text-xl md:text-2xl leading-[1.45] text-void/70 max-w-[30ch]">
-          No entregamos un proyecto y desaparecemos. Nos quedamos operándolo.
-        </p>
+        {/* La acción entra en el hero, y NO es una segunda acción: es la misma
+            de toda la página (`/contacto`), que ahora está donde se decide. El
+            evento `hero_contacto_click` llevaba declarado en `lib/analytics.ts`
+            sin que nadie lo emitiera — un evento sin emisor es una métrica que
+            miente con un cero. Ahora tiene uno. */}
+        <div className="mt-12 md:mt-16 pt-8 border-t border-mist flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-lg md:text-xl leading-[1.45] text-void/70 max-w-[24em]">
+            No entregamos un proyecto y desaparecemos. Nos quedamos operándolo.
+          </p>
+          <CtaFlecha
+            href={CTA_CONTACTO.href}
+            etiqueta={CTA_CONTACTO.label}
+            evento="hero_contacto_click"
+            propiedades={{ cta_location: 'home_hero' }}
+          />
+        </div>
       </section>
 
       {/* ═══ 2 · RESULTADO ════════════════════════════════════════════════
@@ -132,12 +163,16 @@ export default function Home() {
       <section id="resultado" aria-labelledby="t-resultado" className="mx-auto max-w-6xl px-6 md:px-10 pb-16 md:pb-20 scroll-mt-20">
         <SectionViewMarker event="shift_section_view" />
         <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Qué cambia</p>
-        <h2 id="t-resultado" className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[22ch]">
-          El problema casi nunca es que falte una herramienta.
-        </h2>
-        <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-void/65 max-w-prose">
-          Es que hay siete, no se hablan entre ellas, y nadie responde del conjunto.
-        </p>
+        {/* LLENADO DE TEXTO (22-sep). Titular y bajada eran dos elementos que
+            decían una sola idea en dos tiempos. Ahora son un enunciado, y es el
+            primer premio del scroll: se llena según sube. Mismas palabras. El
+            tono tenue es Slate, que ya cumple contraste para texto grande. */}
+        <TextFill
+          como="h2"
+          id="t-resultado"
+          texto="El problema casi nunca es que falte una herramienta. Es que hay siete, no se hablan entre ellas, y nadie responde del conjunto."
+          className="mt-5 text-[clamp(1.75rem,3.6vw,3rem)] font-600 tracking-[-0.03em] leading-[1.14] text-void max-w-[15em]"
+        />
         {/* ⚠️ `ElCambio` SALE DE LA HOME el 22-sep. Eran las cuatro revoluciones
             industriales en una rejilla de cuatro celdas: 360 px y 250 caracteres
             de contexto historico antes de llegar a lo unico que le importa a
@@ -146,9 +181,14 @@ export default function Home() {
             esta web evita en todas partes.
 
             No se borra el componente: queda sin uso, como los demas de la etapa
-            anterior. Lo unico que valia de el era una frase, y esa frase vive
-            ahora debajo de `Distancia`, que es donde el argumento ya esta hecho
-            visualmente y una linea lo remata en vez de prepararlo. */}
+            anterior.
+
+            ⚠️ CORREGIDO el 22-sep (tarde). Aqui ponia que su unica frase util
+            «vive ahora debajo de `Distancia`». No vive en ninguna parte: se
+            borro con el componente y nunca se recoloco. Lo cazo un grep de la
+            frase, no la lectura del comentario, que llevaba horas afirmandolo
+            con total seguridad. La Revolucion 4.0 ya no aparece en la Home;
+            si tiene que volver, es una decision de contenido, no un arreglo. */}
         <Distancia />
       </section>
 
@@ -168,13 +208,21 @@ export default function Home() {
           Sustituye al antiguo corte oscuro, que era la sección de
           infraestructura. La prueba de que una compañía sabe hacer algo no es
           su arquitectura: son los proyectos donde se ve. */}
-      <section id="casos" aria-labelledby="t-casos" className="velia-dark-stage bg-void text-cream scroll-mt-20">
+      {/* ENCASTRADO en escritorio (22-sep). Es el único principio que se
+          tomó de «Project One» de ObsidianUI, y se tomó sólo él: el bloque
+          oscuro deja de ser una banda a sangre y queda colocado ENCIMA de la
+          página clara, con aire Pearl alrededor. Profundidad por capas, sin una
+          sombra. En móvil y tableta sigue a sangre: 24 px de margen en una
+          pantalla de 390 convierten un escenario en una tarjeta. */}
+      <section id="casos" aria-labelledby="t-casos" className="scroll-mt-20 lg:px-6 lg:py-6">
+        <div className="velia-dark-stage bg-void text-cream lg:rounded-[28px] overflow-hidden">
         <div className="mx-auto max-w-6xl px-6 md:px-10 py-16 md:py-20">
           <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85">Trabajo</p>
           <h2 className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]" id="t-casos">
             Cuatro proyectos con nombre y dominio.
           </h2>
           <Casos />
+        </div>
         </div>
       </section>
 
@@ -270,9 +318,17 @@ export default function Home() {
               la última sección de la página no existe en el esquema de
               encabezados — quien navega por titulares se salta el cierre.
               La serif es la ÚNICA vez que aparece en toda la web. */}
-          <h2 id="t-cierre" className="font-serif font-400 text-[clamp(2rem,5vw,3.5rem)] leading-[1.15] tracking-[-0.02em] max-w-[19ch]">
-            La infraestructura digital de tu empresa ya está decidiendo si compites.
-          </h2>
+          {/* Segundo y último llenado de la página (22-sep), y el único sobre
+              oscuro: el enunciado de cierre gana intensidad al llegar. Tenue =
+              Pearl al 42 % (3,6:1 sobre Night, texto grande). Medida en `em`
+              por lo mismo que en el hero: `ch` cambia al llegar la fuente. */}
+          <TextFill
+            como="h2"
+            id="t-cierre"
+            oscuro
+            texto="La infraestructura digital de tu empresa ya está decidiendo si compites."
+            className="font-serif font-400 text-[clamp(2rem,5vw,3.5rem)] leading-[1.15] tracking-[-0.02em] text-cream max-w-[10.5em]"
+          />
           <p className="mt-8 text-[15px] md:text-base leading-[1.6] text-cream/70 max-w-prose">
             Ni demostración de producto ni propuesta comercial. Entender cómo trabajáis hoy y
             decir con qué empezaríamos.

@@ -148,7 +148,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               // enseña: un umbral repetido molesta más que su ausencia.
               "try{if(sessionStorage.getItem(k)==='1')return;sessionStorage.setItem(k,'1')}catch(e){return}" +
               "r.setAttribute('data-umbral','1');" +
-              "var f=function(){r.setAttribute('data-umbral','saltado');q();setTimeout(function(){r.removeAttribute('data-umbral')},300)};" +
+              // `data-entrada` es PERSISTENTE, a diferencia de `data-umbral`, que
+              // se retira a los 1100 ms. Lo lee la entrada del hero para saber
+              // cuánto esperar (globals.css, bloque 1): si el umbral se ve, sus
+              // barras se van cuando él se desvanece; si el visitante lo salta,
+              // la espera cae a cero. No decide si algo SE VE: sólo cuándo se
+              // mueve. Sin esta marca, las barras se van a los 140 ms.
+              "r.setAttribute('data-entrada','umbral');" +
+              "var f=function(){r.setAttribute('data-umbral','saltado');r.setAttribute('data-entrada','saltado');q();setTimeout(function(){r.removeAttribute('data-umbral')},300)};" +
               "var q=function(){removeEventListener('keydown',f);removeEventListener('pointerdown',f);removeEventListener('wheel',f);removeEventListener('touchstart',f)};" +
               "addEventListener('keydown',f,{once:true});addEventListener('pointerdown',f,{once:true});" +
               "addEventListener('wheel',f,{once:true,passive:true});addEventListener('touchstart',f,{once:true,passive:true});" +

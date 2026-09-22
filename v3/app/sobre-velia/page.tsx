@@ -1,11 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Reveal from '@/components/Reveal'
-import TrackedLink from '@/components/TrackedLink'
+import { CtaSobreOscuro } from '@/components/Conocimiento'
 import SectionViewMarker from '@/components/SectionViewMarker'
 import VeliaOS from '@/components/VeliaOS'
 import { metadatosDePagina } from '@/lib/metadatos'
-import { CTA_CONTACTO, CONTACTO_MICROCOPY } from '@/lib/cta'
 
 /**
  * /sobre-velia — REESCRITA EN EL REWORK 2026, etapa 2.
@@ -347,17 +346,12 @@ export default function SobreVeliaPage() {
           <h2 id="t-sv-cierre" className="text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]">
             Si quieres saber cómo trabajaríamos contigo, se empieza hablando.
           </h2>
-          <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-            <TrackedLink
-              href={CTA_CONTACTO.href}
-              event="final_contacto_click"
-              properties={{ cta_location: 'sobre_velia' }}
-              className="btn inline-flex items-center justify-center rounded-full bg-cream text-void px-8 py-4 text-[13px] font-600 tracking-[0.02em] hover:opacity-90"
-            >
-              {CTA_CONTACTO.label}
-            </TrackedLink>
-            <p className="text-[13px] text-cream/70">{CONTACTO_MICROCOPY}</p>
-          </div>
+          {/* Era una COPIA de `CtaSobreOscuro` —mismo enlace, mismo evento, mismas
+              clases, mismo microcopy— escrita a mano (22-sep). Dos versiones de
+              lo mismo dejan de parecerse en el tercer cambio, y este era el
+              tercero: al pasar la acción al `CtaFlecha`, esta página se habría
+              quedado con la píldora anterior. Ahora pasa por el componente. */}
+          <CtaSobreOscuro ubicacion="sobre_velia" />
           <p className="mt-10 text-[13px] leading-[1.6] text-cream/70 max-w-prose">
             ¿Prefieres ver primero qué hacemos?{' '}
             <Link
