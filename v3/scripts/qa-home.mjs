@@ -318,6 +318,141 @@ const browser = await puppeteer.launch({
   await page.close()
 }
 
+// ── 5 · LA CAPA DE MOVIMIENTO NO PUEDE ESCONDER NADA ─────────────────────────
+// 22-sep-2026. La capa de interacción trae cuatro formas nuevas de que la Home
+// quede ilegible SIN UN SOLO ERROR: una barra que se queda tapando el h1,
+// palabras que se quedan tenues, un enunciado bajo el pliegue que no se
+// descubre, y el diagrama del entorno que no se enciende. Ninguna rompe el
+// build, ni el servidor, ni la consola. Es la familia de fallo por la que
+// existe este script — el umbral tapando la web —, así que va aquí.
+//
+//   claim:    las barras del hero se retiran solas
+//   medición: a los 3 s, TODAS las barras con escala horizontal 0 — y al menos
+//             una barra encontrada: si el selector no casa, falla, no aprueba
+//
+//   claim:    cada enunciado con llenado está lleno al llegar a la zona de lectura
+//   medición: con su parte alta al 35 % de la pantalla, todas sus palabras
+//             llevan `data-on`
+//
+//   claim:    ningún revelado bajo el pliegue deja su texto oculto
+//   medición: tras recorrer la página, texto a opacity 1 y barras a escala 0
+//
+//   claim:    el diagrama del entorno termina construido
+//   medición: tras pasar la sección, las cuatro plantas en Night
+//
+//   claim:    con reduced-motion y sin JavaScript no hay NADA a medio estado
+//   medición: barras a escala 0 desde el primer instante y palabras con el
+//             color pleno de su enunciado, sin haber hecho scroll
+{
+  const escalaX = m => (m === 'none' ? 1 : Number((m.match(/matrix\(([^,]+)/) || [])[1]))
+  /* ⚠️ TODOS los saltos van con `behavior: 'instant'`. La web declara
+     `scroll-behavior: smooth`, así que un `scrollTo` normal es una ANIMACIÓN:
+     en la primera versión de este bloque, el salto de ~5.000 px hasta el cierre
+     seguía en vuelo cuando se leyó el estado, y la guarda dio «0/11 palabras»
+     con el enunciado todavía al 120 % de la pantalla, por debajo del borde.
+     Medido: al llegar, 11/11. Fue una espera que se cumplió demasiado rápido,
+     midiendo el objeto antes de que estuviera donde se decía. Estas
+     comprobaciones afirman algo sobre el estado EN una posición, no sobre el
+     viaje hasta ella: el viaje se quita. */
+  const saltar = (pagina, y) => pagina.evaluate(v => window.scrollTo({ top: v, behavior: 'instant' }), y)
+  const recorrer = pagina =>
+    pagina.evaluate(async () => {
+      const alto = document.documentElement.scrollHeight
+      for (let y = 0; y < alto; y += 300) {
+        window.scrollTo({ top: y, behavior: 'instant' })
+        await new Promise(r => setTimeout(r, 160))
+      }
+    })
+
+  // 5a · recorrido normal, primera visita (con umbral)
+  const page = await browser.newPage()
+  await page.setViewport({ width: 1440, height: 900 })
+  await page.goto(URL, { waitUntil: 'networkidle0' })
+  await new Promise(r => setTimeout(r, 3000))
+
+  const barras = await page.evaluate(() =>
+    [...document.querySelectorAll('.rr[data-rr=cargar] .rr-barra')].map(b => getComputedStyle(b).transform),
+  )
+  comprobar(
+    'Las barras del hero se retiran solas',
+    barras.length > 0 && barras.every(m => Math.abs(escalaX(m)) < 0.01),
+    `${barras.length} barra(s) · ${barras.join(' | ') || 'NINGUNA ENCONTRADA'}`,
+  )
+
+  const enunciados = await page.evaluate(() => [...document.querySelectorAll('.tf')].map(e => e.id))
+  comprobar('Hay enunciados con llenado que medir', enunciados.length > 0, `${enunciados.length}`)
+  for (const id of enunciados) {
+    await page.evaluate(i => {
+      const el = document.getElementById(i)
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.35, behavior: 'instant' })
+    }, id)
+    await new Promise(r => setTimeout(r, 700))
+    const [on, total] = await page.evaluate(i => {
+      const n = [...document.querySelectorAll(`#${i} .tf-p`)]
+      return [n.filter(x => x.hasAttribute('data-on')).length, n.length]
+    }, id)
+    comprobar(`«#${id}» está lleno al llegar a la zona de lectura`, total > 0 && on === total, `${on}/${total} palabras`)
+  }
+
+  await saltar(page, 0)
+  await recorrer(page)
+  await new Promise(r => setTimeout(r, 1200))
+  const entrar = await page.evaluate(() => {
+    const textos = [...document.querySelectorAll('.rr[data-rr=entrar] .rr-texto')]
+    const barrasE = [...document.querySelectorAll('.rr[data-rr=entrar] .rr-barra')]
+    return {
+      n: textos.length,
+      ocultos: textos.filter(t => getComputedStyle(t).opacity !== '1').length,
+      barras: barrasE.map(b => getComputedStyle(b).transform),
+    }
+  })
+  comprobar(
+    'Ningún revelado bajo el pliegue deja su texto oculto',
+    entrar.n > 0 && entrar.ocultos === 0 && entrar.barras.every(m => Math.abs(escalaX(m)) < 0.01),
+    `${entrar.n} línea(s) · ${entrar.ocultos} oculta(s)`,
+  )
+
+  const estratos = await page.evaluate(() =>
+    [...document.querySelectorAll('.estrato')].map(e => getComputedStyle(e).backgroundColor),
+  )
+  comprobar(
+    'El diagrama del entorno termina construido',
+    estratos.length === 4 && estratos.every(c => c === 'rgb(13, 16, 23)'),
+    `${estratos.filter(c => c === 'rgb(13, 16, 23)').length}/${estratos.length} plantas`,
+  )
+  await page.close()
+
+  // 5b · reduced-motion y 5c · sin JavaScript: nada a medio estado, sin scroll
+  for (const [nombre, preparar] of [
+    ['Con reduced-motion', async p => p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }])],
+    ['Sin JS', async p => p.setJavaScriptEnabled(false)],
+  ]) {
+    const p = await browser.newPage()
+    await preparar(p)
+    await p.setViewport({ width: 1440, height: 900 })
+    await p.goto(URL, { waitUntil: 'domcontentloaded' })
+    await new Promise(r => setTimeout(r, 150))
+    const e = await p.evaluate(() => {
+      const barrasTodas = [...document.querySelectorAll('.rr-barra')].map(b => getComputedStyle(b).transform)
+      const palabras = [...document.querySelectorAll('.tf-p')]
+      const tenues = palabras.filter(w => getComputedStyle(w).color !== getComputedStyle(w.closest('.tf')).color).length
+      const ocultos = [...document.querySelectorAll('.rr-texto')].filter(t => getComputedStyle(t).opacity !== '1').length
+      return { barrasTodas, palabras: palabras.length, tenues, ocultos }
+    })
+    comprobar(
+      `${nombre}: ninguna barra tapa texto`,
+      e.barrasTodas.length > 0 && e.barrasTodas.every(m => Math.abs(escalaX(m)) < 0.01),
+      `${e.barrasTodas.length} barra(s)`,
+    )
+    comprobar(
+      `${nombre}: ninguna palabra queda tenue ni ningún texto oculto`,
+      e.palabras > 0 && e.tenues === 0 && e.ocultos === 0,
+      `${e.tenues}/${e.palabras} tenues · ${e.ocultos} oculto(s)`,
+    )
+    await p.close()
+  }
+}
+
 await browser.close()
 
 const fallos = resultados.filter(r => !r.ok)
