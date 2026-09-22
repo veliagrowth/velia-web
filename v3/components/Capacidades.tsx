@@ -114,9 +114,10 @@ export default function Capacidades() {
               {c.guia && (
                 <Link
                   href={c.guia.href}
-                  className="mt-4 inline-block py-1 text-[15px] font-600 text-gold-ink underline decoration-gold-ink/30 underline-offset-4 hover:decoration-gold-ink transition-colors"
+                  className="enlace-flecha mt-4 inline-flex items-baseline gap-1.5 py-1 text-[15px] font-600 text-gold-ink underline decoration-gold-ink/30 underline-offset-4 hover:decoration-gold-ink transition-colors"
                 >
                   {c.guia.texto}
+                  <span className="enlace-flecha__flecha no-underline" aria-hidden="true">→</span>
                 </Link>
               )}
             </div>

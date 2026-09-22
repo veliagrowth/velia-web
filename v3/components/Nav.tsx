@@ -8,28 +8,55 @@ import { APP_URL } from '@/lib/constants'
 import { HEADER_LINKS } from '@/lib/navigation'
 import { CTA_CONTACTO } from '@/lib/cta'
 import { trackEvent } from '@/lib/analytics'
+import CtaFlecha from '@/components/CtaFlecha'
 
 /**
- * Header.
+ * Header — una superficie de control compacta.
  *
- * Cuatro secciones y dos acciones. Antes eran ocho elementos, y había un
- * comentario en este mismo archivo explicando que se había apretado el `gap`
- * porque no cabían y el bloque se montaba sobre el logotipo.
+ * ── QUÉ CAMBIA EL 22-sep, Y DE DÓNDE SALE ─────────────────────────────────
+ * Estudiado en obsidianui.dev MIDIENDO su cabecera, no mirándola: 52 px de
+ * alto, sin blur, sin sombra, sin radio, y los enlaces en cajas de 32 px donde
+ * el activo RELLENA el fondo. El indicador es el relleno; no hay subrayado que
+ * viaje ni pastilla que deslice.
  *
- * También se retiró el mega-menú de «Producto». Enseñaba bien el producto, pero
- * era un panel a pantalla completa con hover-intent, gestión de foco y cierre por
- * clic fuera para llegar a una página que está a un clic. «Producto» es ahora un
- * enlace.
+ * Aquí la barra baja de 64 a 56 px y los cuatro enlaces entran en un CARRIL
+ * hundido. Ese carril es la única licencia sobre la referencia, y es
+ * deliberada: convierte cuatro enlaces sueltos en UN control —una pieza de
+ * hardware, no una lista— y da la sensación de superficie física sin
+ * desprender la barra de la página.
+ *
+ * ⚠️ NO se hizo flotante. Se consideró: una barra despegada con sombra y radio
+ * es el cliché que el propio encargo pide evitar, y además tapa contenido en
+ * cuanto la ventana es baja. La referencia tampoco flota — eso era una
+ * suposición del encargo, y al medirla resultó ser una barra `sticky` normal.
+ *
+ * ── EL ESTADO ACTIVO ES REAL ──────────────────────────────────────────────
+ * Lo decide un `IntersectionObserver` sobre las secciones que los enlaces
+ * apuntan, con una franja estrecha a la altura de lectura. Arriba del todo no
+ * hay ninguno activo, y eso es correcto: el hero no es ninguna de las cuatro
+ * secciones, y fingir que sí lo es sería un indicador que miente.
+ *
+ * El relleno y el `aria-current` son EL MISMO atributo: quien ve el relleno y
+ * quien usa un lector de pantalla reciben la misma información, y no pueden
+ * divergir porque no son dos cosas.
+ *
+ * ── LO QUE SE RETIRÓ, Y POR QUÉ ───────────────────────────────────────────
+ * Toda la rama de «tinta clara sobre hero oscuro». El comentario que había aquí
+ * decía «hoy sólo la home lo tiene», y era FALSO desde que el rework puso el
+ * hero en Pearl Cloud: medido con un grep, NINGUNA página declara
+ * `[data-hero="dark"]`. Era una rama inalcanzable y, por tanto, nunca probada —
+ * código que existe no es funcionalidad que existe. Si algún día vuelve un hero
+ * oscuro, vuelve con ella, probada.
  */
 export default function Nav() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [sobreOscuro, setSobreOscuro] = useState(false)
+  const [activo, setActivo] = useState<string | null>(null)
   const pathname = usePathname()
   const menuBtn = useRef<HTMLButtonElement>(null)
   const panel = useRef<HTMLDivElement>(null)
 
-  // Fondo sólido al bajar; translúcido sobre el hero.
+  // Fondo sólido al bajar; casi transparente sobre el arranque de la página.
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
     onScroll()
@@ -37,27 +64,35 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // ¿Arranca la página con un hero OSCURO debajo?
-  //
-  // Se pregunta al DOM (`[data-hero="dark"]`) en vez de mirar la ruta: hoy solo
-  // la home lo tiene, pero si mañana lo tiene /precios este header ya lo sabe y
-  // nadie tiene que acordarse de venir a añadir una ruta a una lista.
-  //
-  // DEPENDE DE `pathname` Y NO DE NADA (bug cazado 1-ago): el header vive en el
-  // layout, así que al navegar de la home a /precios el componente NO se vuelve
-  // a montar. Con las dependencias vacías, el efecto corría una única vez —en la
-  // home, donde sí hay hero oscuro— y el estado se quedaba pegado: en el resto
-  // de páginas el logotipo seguía invertido a blanco sobre fondo Pearl Cloud, o
-  // sea invisible. Solo se veía navegando; recargando la página directamente
-  // salía bien, que es por lo que no apareció al revisar la home.
-  useEffect(() => {
-    setSobreOscuro(Boolean(document.querySelector('[data-hero="dark"]')))
-  }, [pathname])
+  /* Qué sección se está leyendo. La franja `-42% / -53%` es una banda de un 5 %
+     a la altura donde de verdad se lee: con el criterio habitual —«la sección
+     que ocupa más pantalla»— dos secciones consecutivas se turnan el indicador
+     a cada rueda del ratón, y un indicador que parpadea es peor que ninguno.
 
-  // Sobre el hero oscuro el header va en tinta clara; en cuanto se hace sólido
-  // (Pearl Cloud) vuelve a tinta oscura. El estado intermedio no existe: o una
-  // cosa o la otra, porque a mitad de transición el contraste no cumple.
-  const claro = sobreOscuro && !scrolled
+     Sólo corre en la Home, que es donde los enlaces son anclas. En el resto de
+     páginas no hay nada que observar y el estado se limpia: un indicador
+     heredado de otra página señalaría a un sitio donde no estás. */
+  useEffect(() => {
+    setActivo(null)
+    if (pathname !== '/') return
+    const ids = HEADER_LINKS.filter(l => l.href.startsWith('/#')).map(l => l.href.slice(2))
+    const secciones = ids.map(id => document.getElementById(id)).filter(Boolean) as HTMLElement[]
+    if (!secciones.length || typeof IntersectionObserver === 'undefined') return
+
+    const dentro = new Set<string>()
+    const io = new IntersectionObserver(
+      entradas => {
+        for (const e of entradas) {
+          if (e.isIntersecting) dentro.add(e.target.id)
+          else dentro.delete(e.target.id)
+        }
+        setActivo(ids.find(id => dentro.has(id)) ?? null)
+      },
+      { rootMargin: '-42% 0px -53% 0px', threshold: 0 },
+    )
+    for (const s of secciones) io.observe(s)
+    return () => io.disconnect()
+  }, [pathname])
 
   // Menú móvil: bloquea el scroll de fondo, cierra con Escape y DEVUELVE EL FOCO
   // al botón que lo abrió. Sin lo último, al cerrar el foco se va al principio del
@@ -70,7 +105,6 @@ export default function Nav() {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setOpen(false)
       if (e.key !== 'Tab' || !panel.current) return
-      // Ciclo de foco dentro del panel mientras está abierto.
       const focusables = panel.current.querySelectorAll<HTMLElement>('a[href], button')
       if (!focusables.length) return
       const primero = focusables[0]
@@ -94,87 +128,77 @@ export default function Nav() {
   return (
     <header
       className={`sticky top-0 z-50 border-b transition-colors duration-panel ease-velia ${
-        scrolled
-          ? 'bg-cream/90 backdrop-blur-md border-mist'
-          : claro
-            ? 'bg-transparent border-transparent'
-            : 'bg-cream/70 backdrop-blur-sm border-transparent'
+        scrolled ? 'bg-cream/90 backdrop-blur-md border-mist' : 'bg-cream/70 backdrop-blur-sm border-transparent'
       }`}
     >
-      <nav className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between gap-6">
-        <Link href="/" aria-label="VELIA — inicio" className="shrink-0">
-          <Image
-            src="/velia_logotipo.svg"
-            alt="VELIA"
-            width={120}
-            height={30}
-            priority
-            /* El logotipo es tinta oscura. Sobre el hero Night se invierte con
-               un filtro en vez de servir un segundo SVG: es un archivo menos
-               que mantener y no hay parpadeo al conmutar. */
-            className={`h-[24px] w-auto transition-[filter] duration-panel ease-velia ${claro ? 'invert brightness-0 contrast-200' : ''}`}
-          />
+      {/* REJILLA de tres columnas con posición EXPLÍCITA, no `justify-between`
+          (22-sep): el carril queda centrado en la barra pase lo que pase, y un
+          elemento oculto (`hidden`) no descoloca a los demás porque no compite
+          por una columna — la tiene asignada.
+
+          ⚠️ Se probó esperando que además quitara el desplazamiento horizontal
+          de la barra al cargar la fuente. NO LO QUITA, medido antes y después:
+          0,0046 las dos veces, y la barra sigue apareciendo como fuente del
+          desplazamiento. La columna central se dimensiona por su contenido, y
+          ese contenido es texto que cambia de ancho cuando llega Geist. Se
+          queda por lo estructural, no por lo que no arregla. */}
+      <nav className="mx-auto max-w-6xl px-6 h-14 grid grid-cols-[1fr_auto_1fr] items-center gap-4">
+        <Link href="/" aria-label="VELIA — inicio" className="col-start-1 justify-self-start shrink-0">
+          <Image src="/velia_logotipo.svg" alt="VELIA" width={120} height={30} priority className="h-[22px] w-auto" />
         </Link>
 
         {/* `lg` y no `md` (19-sep-2026): cuatro secciones, «Iniciar sesión» y el
             CTA necesitan ~835 px, y `md` las activaba a 768. Entre esos dos
-            anchos el botón «Hablemos» quedaba medio fuera de la pantalla, sin
-            scroll con que alcanzarlo. Por debajo de `lg` manda la variante con
-            menú, que siempre deja el CTA a la vista. */}
-        <div className="hidden lg:flex items-center gap-7">
-          {HEADER_LINKS.map(l => (
-            <Link
-              key={l.href}
-              href={l.href}
-              /* `nav-enlace` (22-sep): subrayado que entra por la izquierda al
-                 pasar y sale por la derecha al irse — globals.css, bloque 6.
-                 Sólo en los cuatro enlaces de sección: el CTA ya responde con
-                 su pulsación y «Iniciar sesión» es una salida, no un sitio. */
-              className={`nav-enlace text-[11px] font-600 tracking-[0.06em] uppercase transition-colors duration-control whitespace-nowrap ${
-                claro ? 'text-cream/75 hover:text-cream' : 'text-void/60 hover:text-void'
-              }`}
-            >
-              {l.label}
-            </Link>
-          ))}
+            anchos el botón quedaba medio fuera de la pantalla, sin scroll con
+            que alcanzarlo. Por debajo manda la variante con menú. */}
+        <div className="seg col-start-2 hidden lg:flex lg:items-center">
+          {HEADER_LINKS.map(l => {
+            const esActivo = l.href.startsWith('/#') && l.href.slice(2) === activo
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                aria-current={esActivo ? 'true' : undefined}
+                className="seg__enlace"
+              >
+                {l.label}
+              </Link>
+            )
+          })}
+        </div>
+
+        <div className="col-start-3 justify-self-end hidden lg:flex items-center gap-5">
           <a
             href={APP_URL}
             onClick={() => trackEvent('login_click')}
-            className={`text-[11px] font-600 tracking-[0.06em] uppercase transition-colors duration-control whitespace-nowrap ${
-              claro ? 'text-cream/75 hover:text-cream' : 'text-void/60 hover:text-void'
-            }`}
+            className="nav-enlace text-[11px] font-600 tracking-[0.06em] uppercase text-void/65 hover:text-void transition-colors duration-control whitespace-nowrap"
           >
             Iniciar sesión
           </a>
-          {/* Iris 600 y no Night: sobre el hero oscuro un botón Night desaparece,
-              y el acento es justo lo que debe destacar. Blanco sobre Iris 600
-              cumple; sobre Iris 500 daría 3,65:1 y no llegaría. */}
-          <Link
+          {/* El mismo botón de la Home a la talla de la barra: la acción se
+              reconoce de una sección a otra porque es literalmente la misma. */}
+          <CtaFlecha
             href={CTA_CONTACTO.href}
-            onClick={() => trackEvent('nav_contacto_click', { cta_location: 'header' })}
-            className={`btn text-[11px] font-600 tracking-[0.04em] rounded-full px-5 py-2.5 hover:opacity-90 whitespace-nowrap ${
-              claro ? 'bg-gold-dark text-white' : 'bg-void text-cream'
-            }`}
-          >
-            {CTA_CONTACTO.label}
-          </Link>
+            etiqueta={CTA_CONTACTO.label}
+            evento="nav_contacto_click"
+            propiedades={{ cta_location: 'header' }}
+            compacto
+          />
         </div>
 
         {/* Móvil: el CTA principal NO se esconde detrás del menú. */}
-        <div className="flex lg:hidden items-center gap-2">
-          <Link
+        <div className="col-start-3 justify-self-end flex lg:hidden items-center gap-2">
+          <CtaFlecha
             href={CTA_CONTACTO.href}
-            onClick={() => trackEvent('nav_contacto_click', { cta_location: 'header_mobile' })}
-            className={`btn inline-flex items-center min-h-[44px] text-[11px] font-600 tracking-[0.04em] rounded-full px-4 whitespace-nowrap ${
-              claro ? 'bg-gold-dark text-white' : 'bg-void text-cream'
-            }`}
-          >
-            {CTA_CONTACTO.label}
-          </Link>
+            etiqueta={CTA_CONTACTO.label}
+            evento="nav_contacto_click"
+            propiedades={{ cta_location: 'header_mobile' }}
+            compacto
+          />
           <button
             ref={menuBtn}
             type="button"
-            className={`w-11 h-11 flex items-center justify-center transition-colors duration-control ${claro ? 'text-cream/80' : 'text-void/70'}`}
+            className="w-11 h-11 flex items-center justify-center text-void/70 transition-colors duration-control"
             onClick={() => setOpen(o => !o)}
             aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={open}
@@ -185,36 +209,29 @@ export default function Nav() {
         </div>
       </nav>
 
+      {/* El panel móvil usa `menu-in`, la entrada que ya existía en el sistema
+          (fundido con 3 px de desplazamiento y escalonado del contenido): no se
+          inventa una animación nueva para una superficie nueva. */}
       {open && (
-        <div
-          ref={panel}
-          id="menu-movil"
-          className="lg:hidden border-t border-void/10 bg-cream px-6 py-4"
-        >
+        <div ref={panel} id="menu-movil" className="menu-in lg:hidden border-t border-mist bg-cream px-6 pt-2 pb-6">
           {HEADER_LINKS.map(l => (
             <Link
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="block py-3 text-sm font-600 text-void/75"
+              className="enlace-flecha flex items-baseline justify-between gap-4 py-3.5 text-lg font-600 tracking-[-0.01em] text-void border-b border-mist"
             >
               {l.label}
+              <span className="enlace-flecha__flecha text-[13px] text-void/65" aria-hidden="true">→</span>
             </Link>
           ))}
           <a
             href={APP_URL}
             onClick={() => { setOpen(false); trackEvent('login_click') }}
-            className="block py-3 text-sm font-600 text-void/75"
+            className="block py-4 text-[13px] font-600 tracking-[0.06em] uppercase text-void/65"
           >
             Iniciar sesión
           </a>
-          <Link
-            href={CTA_CONTACTO.href}
-            onClick={() => { setOpen(false); trackEvent('nav_contacto_click', { cta_location: 'menu_movil' }) }}
-            className="block py-3 text-sm font-600 text-gold-ink"
-          >
-            {CTA_CONTACTO.label}
-          </Link>
         </div>
       )}
     </header>

@@ -1167,3 +1167,131 @@ html[data-js] .entorno:has(.escalon-4[data-visible='true']) .estrato-4 {
   .caso:hover .caso__nombre, .dominio:hover .dominio__flecha,
   .dominio:focus-visible .dominio__flecha { transform: none; }
 }
+
+/* ═════════════════════════════════════════════════════════════════════════
+   NAVEGACIÓN Y HERO · 22-sep-2026
+   Principios de interacción estudiados en obsidianui.dev (MIT) y llevados al
+   lenguaje de VELIA. Qué se tomó y qué no: THIRD_PARTY_NOTICES.md.
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* ── 8 · CONTROL SEGMENTADO DE LA NAVEGACIÓN ────────────── RESPOND ───────
+   Medido en la referencia, no supuesto: su cabecera son 52 px, sin blur, sin
+   sombra y sin radio; los enlaces son cajas de 32 px con radio 8 y el activo
+   simplemente RELLENA el fondo (`aria-current`). Ni indicador deslizante, ni
+   subrayado que viaja: el relleno es el indicador.
+
+   Lo que cambia al traerlo: allí los enlaces están sueltos sobre la barra;
+   aquí van dentro de un carril hundido. Ese carril es lo que convierte cuatro
+   enlaces en UN control —una pieza, no una lista— y es lo que da la sensación
+   de superficie física que se buscaba, sin desprender la barra de la página.
+   Una barra flotante con sombra habría sido el cliché que el propio encargo
+   pide evitar, y además tapa contenido en cuanto la ventana es baja.
+
+   ⚠️ El carril es hundido, así que el texto inactivo se lee sobre un fondo un
+   3,5 % más oscuro que la barra: por eso va en Night/65 (el atenuado pequeño
+   del resto de la web) y no en /60. Tres décimas de contraste que la guarda
+   mide y el ojo no. */
+/* ⚠️ `.seg` NO declara `display`. Lo declaraba, y como este bloque va DESPUÉS
+   de las utilidades de Tailwind, su `display: flex` le ganaba a `hidden` —misma
+   especificidad, gana el último— y el carril se pintaba también en móvil,
+   empujando el CTA y el botón de menú fuera de la pantalla. Lo cazó la guarda
+   de contenido cortado a 768, 390 y 375 en su primera ejecución.
+   El display lo deciden las utilidades del marcado (`hidden lg:flex`); aquí
+   sólo vive el aspecto. */
+.seg {
+  gap: 2px;
+  padding: 3px;
+  border-radius: 11px;
+  background: rgba(13, 16, 23, 0.035);
+  box-shadow: inset 0 0 0 1px rgba(13, 16, 23, 0.06);
+}
+.seg__enlace {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 11px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(13, 16, 23, 0.65);
+  transition:
+    color var(--motion-control) var(--ease-velia),
+    background-color var(--motion-control) var(--ease-velia),
+    transform var(--motion-fast) var(--ease-velia);
+}
+@media (hover: hover) {
+  .seg__enlace:hover { color: #0D1017; background: rgba(13, 16, 23, 0.05); }
+}
+/* El estado activo lo pone el observador de secciones. `aria-current` es a la
+   vez el selector y la información para quien no ve el relleno: el indicador
+   visual y el semántico son EL MISMO atributo, así que no pueden divergir. */
+.seg__enlace[aria-current] {
+  color: #0D1017;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 1px rgba(13, 16, 23, 0.06);
+}
+.seg__enlace:active { transform: scale(0.96); }
+
+/* ── 9 · CTA COMPACTO ───────────────────────────────────── RESPOND ───────
+   El mismo `.cta-flecha` de la Home a la escala de la barra: 36 px de alto en
+   vez de 52. No es otro botón, es el mismo con otra talla — si fueran dos
+   componentes, dentro de dos cambios dejarían de parecerse. */
+.cta-flecha--compacto {
+  height: 2.25rem;
+  padding: 0 2.7rem 0 1.05rem;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.cta-flecha--compacto .cta-flecha__capa {
+  padding: 0 2.7rem 0 calc(1.05rem + 1px);
+  clip-path: inset(0.28rem 0.28rem 0.28rem calc(100% - 1.98rem) round 9999px);
+}
+.cta-flecha--compacto .cta-flecha__flecha {
+  right: 0.78rem;
+  width: 0.62rem;
+  height: 0.62rem;
+}
+
+/* ── 10 · SALIDA DEL HERO ─────────────────────────────── TRANSITION ──────
+   El hero no se limita a desaparecer: se aparta. Sube unos píxeles y cede
+   intensidad mientras la primera sección —que se llena al pasar— toma el
+   relevo. Las dos cosas ocurren en la misma franja de scroll, así que la
+   transición se lee como una sola composición y no como dos bloques.
+
+   `--salida` la escribe `HeroSalida` (0 → 1 en el primer alto de pantalla).
+   Sin JS, con `reduced-motion` o si el componente no monta, la variable no
+   existe, el `var()` cae a 0 y el hero se queda quieto y entero: el estado de
+   reposo vuelve a ser el visible. Sólo `transform` y `opacity`, y ninguna de
+   las dos mueve el layout: no puede introducir un desplazamiento. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-js] .hero-salida {
+    transform: translateY(calc(var(--salida, 0) * -26px));
+    opacity: calc(1 - var(--salida, 0) * 0.5);
+    will-change: transform, opacity;
+  }
+}
+
+/* ── 11 · FLECHA DE ENLACE ──────────────────────────────── RESPOND ───────
+   La flecha como sistema, no como adorno suelto: la misma señal en el botón
+   de acción, en los dominios de los casos y en los enlaces de texto que
+   llevan a otra página. Lo que cambia es el destino, no el gesto.
+     →  lleva a otro sitio de esta web
+     ↗  sale fuera (ya vive en `.dominio__flecha`) */
+.enlace-flecha__flecha {
+  display: inline-block;
+  transition: transform var(--motion-control) var(--ease-velia);
+}
+@media (hover: hover) {
+  .enlace-flecha:hover .enlace-flecha__flecha { transform: translateX(3px); }
+}
+.enlace-flecha:focus-visible .enlace-flecha__flecha { transform: translateX(3px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .seg__enlace, .enlace-flecha__flecha { transition: none; }
+  .seg__enlace:active { transform: none; }
+  .enlace-flecha:hover .enlace-flecha__flecha,
+  .enlace-flecha:focus-visible .enlace-flecha__flecha { transform: none; }
+}

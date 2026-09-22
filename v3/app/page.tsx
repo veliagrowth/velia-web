@@ -9,6 +9,7 @@ import Entorno from '@/components/Entorno'
 import ModeloOperativo from '@/components/ModeloOperativo'
 import CtaFlecha from '@/components/CtaFlecha'
 import RevealRect from '@/components/motion/RevealRect'
+import HeroSalida from '@/components/motion/HeroSalida'
 import TextFill from '@/components/motion/TextFill'
 import { CTA_CONTACTO } from '@/lib/cta'
 import { claim } from '@/lib/verified-claims'
@@ -104,55 +105,64 @@ export default function Home() {
           El único h1 de la página. Una sola frase sostiene la home: dice quién
           hace qué, para qué, y no se podría copiar a la web de otro sin que
           quedara mal. */}
-      <section aria-labelledby="t-afirmacion" className="mx-auto max-w-6xl px-6 md:px-10 pt-14 pb-14 md:pt-24 md:pb-20">
-        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
-          Transformación y operación digital
-        </p>
-        {/* ── RECOMPUESTO EL 22-sep, CON LAS MISMAS PALABRAS ────────────────
-            Eran seis líneas del mismo tamaño y el mismo peso: un muro. Lo que
-            separa a VELIA de una agencia son los dos verbos, y estaban
-            enterrados en mitad de la frase con el mismo cuerpo que «la nueva
-            era». Ahora el enunciado tiene dos registros:
+      {/* ── COMPOSICIÓN ASIMÉTRICA (22-sep) ──────────────────────────────
+          Medido en la referencia: su hero funciona porque el enunciado y el
+          texto de apoyo NO compiten — uno pesa y el otro acompaña, y están en
+          columnas distintas. Aquí el enunciado entero ocupa la izquierda y el
+          apoyo con su acción se van a la derecha, alineados por abajo.
 
-              «Construimos / y operamos»   a escala máxima, con el revelado
-              «la infraestructura…»        en un segundo registro, desplazado
-                                           a la derecha en escritorio
+          Gana dos cosas a la vez, que es lo raro: más tensión —dos pesos
+          claramente distintos en vez de una pila centrada— y MENOS ALTURA, que
+          es donde estaba la fila a todo lo ancho que antes llevaba el CTA.
 
-            Es UNA sola frase y UN solo h1: lectores de pantalla, buscadores y
-            `llms.txt` siguen leyendo «Construimos y operamos la infraestructura
-            digital con la que una empresa compite en la nueva era.» Ni una
-            palabra cambia; cambia cuánto pesa cada una.
+          El borde inferior de la sección es la MISMA línea con la que abre la
+          siguiente. No hay hueco entre hero y primera sección: hay un canto
+          compartido, y lo que viene después se lee como consecuencia. */}
+      <section aria-labelledby="t-afirmacion" className="border-b border-mist">
+        <HeroSalida>
+          <div className="mx-auto max-w-6xl px-6 md:px-10 pt-12 pb-14 md:pt-20 md:pb-20 lg:grid lg:grid-cols-[1.25fr_1fr] lg:gap-x-14 lg:items-end">
+            <div>
+              <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
+                Transformación y operación digital
+              </p>
+              {/* Un solo h1 y UNA sola frase, con dos registros: los dos verbos
+                  a escala máxima y el resto del enunciado en cuerpo medio. Ni
+                  una palabra cambia respecto al original — cambia cuánto pesa
+                  cada una. Las medidas van en `em` y no en `ch`: `ch` es el
+                  ancho del «0» de la fuente CARGADA, así que con `ch` la
+                  columna cambiaba al llegar Geist y el párrafo se recolocaba. */}
+              <h1 id="t-afirmacion" className="mt-5 text-void">
+                <RevealRect
+                  al="cargar"
+                  lineas={['Construimos', 'y operamos']}
+                  className="text-[clamp(3.1rem,10.8vw,9rem)] font-600 tracking-[-0.05em] leading-[0.92]"
+                />{' '}
+                <span className="mt-5 md:mt-7 block text-[clamp(1.3rem,2.2vw,1.95rem)] font-500 tracking-[-0.02em] leading-[1.2] text-void/75 max-w-[21em]">
+                  la infraestructura digital con la que una empresa compite en la nueva era.
+                </span>
+              </h1>
+            </div>
 
-            Las medidas van en `em` y no en `ch`: `ch` es el ancho del «0» de la
-            fuente CARGADA, así que al llegar Geist cambiaba el ancho de la
-            columna y el párrafo se recolocaba. Era el único desplazamiento de
-            la Home (CLS 0,0202, medido). `em` no depende de qué fuente llegó. */}
-        <h1 id="t-afirmacion" className="mt-6 text-void">
-          <RevealRect
-            al="cargar"
-            lineas={['Construimos', 'y operamos']}
-            className="text-[clamp(3.1rem,10.8vw,9rem)] font-600 tracking-[-0.05em] leading-[0.92]"
-          />{' '}
-          <span className="mt-6 md:mt-9 block text-[clamp(1.35rem,2.5vw,2.15rem)] font-500 tracking-[-0.02em] leading-[1.18] text-void/75 max-w-[19em] lg:ml-[44%] lg:max-w-[17em]">
-            la infraestructura digital con la que una empresa compite en la nueva era.
-          </span>
-        </h1>
-        {/* La acción entra en el hero, y NO es una segunda acción: es la misma
-            de toda la página (`/contacto`), que ahora está donde se decide. El
-            evento `hero_contacto_click` llevaba declarado en `lib/analytics.ts`
-            sin que nadie lo emitiera — un evento sin emisor es una métrica que
-            miente con un cero. Ahora tiene uno. */}
-        <div className="mt-12 md:mt-16 pt-8 border-t border-mist flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-lg md:text-xl leading-[1.45] text-void/70 max-w-[24em]">
-            No entregamos un proyecto y desaparecemos. Nos quedamos operándolo.
-          </p>
-          <CtaFlecha
-            href={CTA_CONTACTO.href}
-            etiqueta={CTA_CONTACTO.label}
-            evento="hero_contacto_click"
-            propiedades={{ cta_location: 'home_hero' }}
-          />
-        </div>
+            {/* La acción NO es una segunda acción: es la misma de toda la
+                página (`/contacto`), puesta donde se decide. El evento
+                `hero_contacto_click` llevaba declarado en `lib/analytics.ts`
+                sin que nadie lo emitiera — un evento sin emisor es una métrica
+                que miente con un cero. */}
+            <div className="mt-10 lg:mt-0 lg:pb-2">
+              <p className="text-base md:text-lg leading-[1.5] text-void/70 max-w-[25em]">
+                No entregamos un proyecto y desaparecemos. Nos quedamos operándolo.
+              </p>
+              <div className="mt-7">
+                <CtaFlecha
+                  href={CTA_CONTACTO.href}
+                  etiqueta={CTA_CONTACTO.label}
+                  evento="hero_contacto_click"
+                  propiedades={{ cta_location: 'home_hero' }}
+                />
+              </div>
+            </div>
+          </div>
+        </HeroSalida>
       </section>
 
       {/* ═══ 2 · RESULTADO ════════════════════════════════════════════════
@@ -160,7 +170,7 @@ export default function Home() {
           primera contaba historia durante media pantalla antes de llegar a lo
           único que le importa a quien lee: qué cambia en su negocio. Ahora el
           contexto ocupa tres líneas y la sección entera va de eso. */}
-      <section id="resultado" aria-labelledby="t-resultado" className="mx-auto max-w-6xl px-6 md:px-10 pb-16 md:pb-20 scroll-mt-20">
+      <section id="resultado" aria-labelledby="t-resultado" className="mx-auto max-w-6xl px-6 md:px-10 pt-14 md:pt-20 pb-16 md:pb-20 scroll-mt-20">
         <SectionViewMarker event="shift_section_view" />
         <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Qué cambia</p>
         {/* LLENADO DE TEXTO (22-sep). Titular y bajada eran dos elementos que
@@ -294,9 +304,14 @@ export default function Home() {
           Qué hay montado hoy y qué se está construyendo:{' '}
           <Link
             href="/sobre-velia"
-            className="font-600 text-gold-ink underline decoration-gold-ink/30 underline-offset-4 hover:decoration-gold-ink transition-colors"
+            className="enlace-flecha font-600 text-gold-ink underline decoration-gold-ink/30 underline-offset-4 hover:decoration-gold-ink transition-colors"
           >
             sobre VELIA
+            {/* La flecha como SISTEMA (22-sep): el mismo gesto en el botón de
+                acción, en los dominios de los casos y aquí. Lo que cambia es el
+                destino, no el gesto — «→» lleva a otro sitio de esta web, «↗»
+                sale fuera. Es `aria-hidden`: el enlace ya dice a dónde va. */}
+            <span className="enlace-flecha__flecha ml-1 no-underline" aria-hidden="true">→</span>
           </Link>
           .
         </p>

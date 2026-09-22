@@ -32,6 +32,7 @@ export default function CtaFlecha({
   evento,
   propiedades,
   sobre = 'claro',
+  compacto = false,
 }: {
   href: string
   etiqueta: string
@@ -39,13 +40,21 @@ export default function CtaFlecha({
   propiedades?: Record<string, string | number | boolean>
   /** El fondo sobre el que se pinta: `claro` → botón Night; `oscuro` → botón Pearl. */
   sobre?: 'claro' | 'oscuro'
+  /**
+   * Talla de barra: 36 px en vez de 52 (22-sep). NO es otro botón — mismo
+   * marcado, mismo comportamiento, mismos estados— sino el mismo a otra escala.
+   * Dos componentes para la misma acción dejan de parecerse en el tercer
+   * cambio, y la acción es justo lo que tiene que reconocerse de una sección a
+   * otra.
+   */
+  compacto?: boolean
 }) {
   return (
     <TrackedLink
       href={href}
       event={evento}
       properties={propiedades}
-      className={`btn cta-flecha ${sobre === 'oscuro' ? 'cta-flecha--oscuro' : ''}`}
+      className={`btn cta-flecha ${sobre === 'oscuro' ? 'cta-flecha--oscuro' : ''} ${compacto ? 'cta-flecha--compacto' : ''}`}
     >
       <span className="cta-flecha__texto">{etiqueta}</span>
       <span aria-hidden="true" className="cta-flecha__capa">
