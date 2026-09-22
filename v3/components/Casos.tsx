@@ -33,6 +33,22 @@ export default function Casos() {
             <h3 className="mt-4 text-xl md:text-2xl font-600 tracking-[-0.02em] text-cream">{c.nombre}</h3>
             <p className="mt-3 text-[15px] leading-[1.6] text-cream/70 max-w-prose">{c.que}</p>
             <p className="mt-3 text-[15px] leading-[1.6] text-cream/85 max-w-prose">{c.velia}</p>
+
+            {/* ── SU ENTORNO (22-sep-2026) ────────────────────────────────
+                La fila que convierte la lista en un argumento. Antes los cuatro
+                proyectos se leían como cuatro encargos del mismo tamaño; aquí se
+                ve que dos no tienen entorno de gestión y uno lo tiene entero, y
+                eso es exactamente lo que la sección de arriba afirma.
+
+                Separada por una línea y no por una tarjeta: es un dato más del
+                mismo proyecto, no una segunda ficha. `border-white/10` es el
+                mismo valor que separa las celdas de la rejilla, para que la
+                división interna no pese más que la externa. */}
+            <p className="mt-6 border-t border-white/10 pt-5 text-[11px] font-600 tracking-[0.06em] uppercase text-cream/70">
+              Su entorno
+            </p>
+            <p className="mt-2 text-[14px] leading-[1.6] text-cream/70 max-w-prose">{c.entorno}</p>
+
             <a
               href={`https://${c.dominio}`}
               target="_blank"

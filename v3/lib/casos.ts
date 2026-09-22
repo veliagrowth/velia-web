@@ -38,6 +38,26 @@ export type Caso = {
   velia: string
   /** Rótulo corto del tipo de trabajo. */
   tipo: string
+  /**
+   * Qué entorno VELIA tiene este proyecto — o por qué no tiene ninguno.
+   *
+   * ── AÑADIDO EL 22-sep-2026, Y ES LA COLUMNA QUE MÁS TRABAJO HACE ────────
+   * Sin ella, los cuatro proyectos se leen como cuatro encargos equivalentes, y
+   * la idea de que VELIA construye lo que hace falta y nada más se queda en una
+   * frase. Con ella, la lista misma es la prueba: dos de los cuatro no tienen
+   * entorno de gestión, y uno lo tiene entero.
+   *
+   * ⚠️ NO SE ESCRIBE DE MEMORIA. Cada línea se contrasta contra
+   * `tenants.active_modules` en la base de producción (medido el 22-sep):
+   * Cónsul Jurídico nueve módulos con `portal` y `legal` dentro; METHOD NUMBERS
+   * tres, sin `portal`; KREA HOGAR y The Drop Agency no son tenants. Decir «no
+   * tiene entorno» de quien sí lo tiene sería tan falso como lo contrario, y es
+   * más fácil de cometer: el impulso es rellenar las cuatro filas por simetría.
+   *
+   * Y se dice en positivo. «No necesitó un entorno de gestión» es un hecho sobre
+   * el encargo, no una carencia del cliente.
+   */
+  entorno: string
   evidencia: 'documentado' | 'parcial'
 }
 
@@ -49,6 +69,8 @@ export const CASOS: readonly Caso[] = [
     velia:
       'Cliente. VELIA construyó su infraestructura —captación, expedientes, documentos, agenda y un portal para sus propios clientes— y la sigue operando.',
     tipo: 'Infraestructura construida y operada',
+    entorno:
+      'Entorno completo: el trabajo del despacho vive dentro, y sus propios clientes tienen un espacio donde seguir sus asuntos, sus citas y sus mensajes.',
     evidencia: 'documentado',
   },
   {
@@ -57,6 +79,7 @@ export const CASOS: readonly Caso[] = [
     que: 'Sofás y colchones fabricados en España, con tienda en Lleida y venta online.',
     velia: 'Trabajo de VELIA en su presencia digital: web, contenido y campañas.',
     tipo: 'Presencia digital',
+    entorno: 'Sin entorno de gestión: el encargo era la presencia digital, y no hacía falta más.',
     evidencia: 'parcial',
   },
   {
@@ -65,6 +88,8 @@ export const CASOS: readonly Caso[] = [
     que: 'Proyecto de marca y lanzamientos. Hoy su web es el teaser del próximo.',
     velia: 'VELIA construye y mantiene la web, y despliega cada cambio.',
     tipo: 'Web construida y mantenida',
+    entorno:
+      'Sin portal: lo que necesita hoy es que la web esté en pie y se despliegue sola. El entorno crecerá cuando lo haga el proyecto.',
     evidencia: 'documentado',
   },
   {
@@ -74,6 +99,7 @@ export const CASOS: readonly Caso[] = [
     velia:
       'Apoyo de VELIA en producción creativa. La transformación de sus procesos está prevista, no hecha.',
     tipo: 'Trabajo creativo',
+    entorno: 'Sin entorno todavía: el trabajo hecho es creativo, y la transformación está prevista.',
     evidencia: 'parcial',
   },
 ]

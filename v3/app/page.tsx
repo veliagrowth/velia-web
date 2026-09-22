@@ -6,7 +6,20 @@ import ElCambio from '@/components/ElCambio'
 import Distancia from '@/components/Distancia'
 import Capacidades from '@/components/Capacidades'
 import Casos from '@/components/Casos'
+import Entorno from '@/components/Entorno'
 import ModeloOperativo from '@/components/ModeloOperativo'
+import { claim } from '@/lib/verified-claims'
+
+/**
+ * La atadura de Product Truth de esta página.
+ *
+ * Tiene que estar AQUÍ y no dentro del componente ni en `lib/entorno.ts`:
+ * `verified-claims.test.ts` lee el código de `app/<ruta>/page.tsx` y comprueba
+ * que la ruta declarada en `usedIn` tenga de verdad su `claim: '<clave>'`. Es la
+ * prueba que evita que el registro diga que un claim se usa en una página que ya
+ * no lo usa, y sólo funciona si la atadura se escribe donde la prueba mira.
+ */
+const ATADURA_ENTORNO = { claim: 'modularEnvironment' } as const
 
 /**
  * Home — VELIA WEB REWORK 2026.
@@ -30,9 +43,22 @@ import ModeloOperativo from '@/components/ModeloOperativo'
  *   2  RESULTADO   Pearl Cloud  · qué cambia: de siete herramientas sueltas a un sistema
  *   3  CAPACIDADES Pearl Cloud  · las cuatro
  *   4  TRABAJO     NIGHT        ← corte 1: cuatro proyectos con nombre y dominio
- *   5  CÓMO        blanco       · seis fases, y las dos últimas no terminan
- *   6  POR QUÉ     Pearl Cloud  · tres diferencias, sin adjetivos
- *   7  CIERRE      NIGHT        ← corte 2: una sola acción
+ *   5  ENTORNO     Pearl Cloud  · dónde ve el cliente lo que se construye y se opera
+ *   6  CÓMO        blanco       · seis fases, y las dos últimas no terminan
+ *   7  POR QUÉ     Pearl Cloud  · tres diferencias, sin adjetivos
+ *   8  CIERRE      NIGHT        ← corte 2: una sola acción
+ *
+ * ── QUÉ CAMBIÓ EL 22-sep-2026 ─────────────────────────────────────────────
+ * Entra el momento 5. La web explicaba que VELIA construye y OPERA
+ * infraestructura, y no decía en ningún sitio dónde ve el cliente eso: la única
+ * mención del portal vivía en una lista de `/sobre-velia`. Sin ese momento, la
+ * promesa de «nos quedamos operándolo» no tiene dónde aterrizar, y la compañía
+ * se parece más de lo que debería a una agencia que entrega bien.
+ *
+ * Lo que NO se ha hecho, y es deliberado: ni una página `/portal`, ni una
+ * sección de funcionalidades, ni una captura del producto. Convertir el entorno
+ * en una ficha de producto haría parecer a VELIA una empresa de software, que es
+ * exactamente lo contrario de lo que es.
  *
  * LO QUE SE FUE, Y DÓNDE ESTÁ: el detalle de infraestructura —qué está en
  * marcha y qué se está construyendo— vive ahora en `/sobre-velia`. No se ha
@@ -141,7 +167,36 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ 5 · CÓMO TRABAJAMOS ══════════════════════════════════════════ */}
+      {/* ═══ 5 · EL ENTORNO DEL CLIENTE ═══════════════════════════════════
+          NUEVO el 22-sep-2026. Hasta hoy la web contaba que VELIA construye y
+          opera infraestructura y no decía en ninguna parte DÓNDE ve el cliente
+          eso. La única mención del portal estaba enterrada en una lista de
+          `/sobre-velia`: el diferenciador más fuerte del modelo, sin decir.
+
+          VA AQUÍ, después de los cuatro proyectos, y el orden es el argumento.
+          Quien acaba de leer cuatro trabajos que no se parecen en nada llega con
+          la pregunta ya hecha: «¿y esto qué forma tendría para mí?». Puesto
+          antes de los casos sería la presentación de un producto — y §21 del
+          encargo es justamente que esto no puede parecer una empresa de
+          software.
+
+          FONDO PEARL CLOUD entre el corte oscuro de los casos y el blanco de
+          «cómo trabajamos»: mantiene la alternancia que ya tenía la página sin
+          añadir un tercer corte oscuro, que habría partido la Home en dos. */}
+      <section id="entorno" aria-labelledby="t-entorno" className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28 scroll-mt-20">
+        <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Tu entorno</p>
+        <h2 id="t-entorno" className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[21ch]">
+          Lo que construimos no termina en una web pública.
+        </h2>
+        <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-void/65 max-w-prose">
+          Cada cliente tiene un entorno propio donde ve y gestiona lo que VELIA está
+          construyendo y operando para él. No es el mismo para todos, y no tiene por qué
+          serlo: crece hasta donde llega el negocio y se para ahí.
+        </p>
+        <Entorno regla={claim(ATADURA_ENTORNO.claim)} />
+      </section>
+
+      {/* ═══ 6 · CÓMO TRABAJAMOS ══════════════════════════════════════════ */}
       <section id="operamos" aria-labelledby="t-operamos" className="bg-white border-b border-mist scroll-mt-20">
         <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
           <SectionViewMarker event="operating_model_view" />
@@ -153,7 +208,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ 6 · POR QUÉ VELIA ════════════════════════════════════════════
+      {/* ═══ 7 · POR QUÉ VELIA ════════════════════════════════════════════
           Tres frases, sin adjetivos y sin una capacidad nueva: cada una es algo
           que ya se afirma en otra parte de esta web y que se puede comprobar.
           El detalle de qué hay montado y qué se está construyendo está en
@@ -197,7 +252,7 @@ export default function Home() {
         </p>
       </section>
 
-      {/* ═══ 7 · CIERRE · CORTE OSCURO 2 ══════════════════════════════════
+      {/* ═══ 8 · CIERRE · CORTE OSCURO 2 ══════════════════════════════════
           Una acción. Sin formulario embebido, sin segundo botón, sin «o si
           prefieres…». Quien ha llegado hasta aquí ya ha decidido si quiere
           hablar; lo único que hace falta es no ponérselo difícil. */}

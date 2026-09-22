@@ -200,6 +200,24 @@ export default function SobreVeliaPage() {
                 sistema del que responde alguien: se mantiene, se mide, se corrige y se amplía
                 mientras el negocio lo necesite.
               </p>
+              {/* ── EL ENTORNO NO ES UN EXTRA (22-sep-2026) ─────────────────
+                  Sin este párrafo, quien lee la Home puede entender el entorno
+                  como lo que entiende de cualquier proveedor: un panel que te
+                  venden aparte y que se paga aunque no lo uses. Es la lectura
+                  por defecto, porque es la que el mercado ha enseñado, y deshace
+                  el argumento entero del modelo: si el entorno es un producto
+                  adicional, VELIA vuelve a ser un SaaS con servicios.
+
+                  Va aquí y no en la Home porque la Home ya enseña QUÉ es el
+                  entorno y hasta dónde llega. Lo que falta responder es por qué
+                  existe, y eso es una pregunta sobre el modelo — que es
+                  literalmente el título de esta sección. */}
+              <p className="mt-4 text-[15px] leading-[1.6] text-cream/70 max-w-prose">
+                Y explica por qué cada cliente acaba teniendo su propio entorno. No se vende
+                aparte: si alguien tiene que operar un sistema todos los días, hace falta un
+                sitio donde se vea lo que está pasando. El entorno es la consecuencia de
+                operar, no un añadido a la factura.
+              </p>
             </div>
           </Reveal>
         </div>

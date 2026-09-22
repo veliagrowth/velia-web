@@ -130,6 +130,44 @@ export const CLAIMS = {
     usedIn: [],
   },
 
+  modularEnvironment: {
+    /* ── EL CLAIM QUE SOSTIENE «NO SOBRECONSTRUIMOS» (22-sep-2026) ───────────
+       Es el único de este registro que no describe una política ni un
+       principio: describe una COLUMNA. `tenants.active_modules` decide qué
+       existe en el entorno de cada cliente, y no es una convención que alguien
+       recuerde respetar — la valida el trigger `trg_validate_tenant_config`
+       ANTES de cada INSERT/UPDATE sobre `tenants`, contra el catálogo de
+       `lib/modules.ts`, con su esquema Zod en el borde de la API.
+
+       POR QUÉ IMPORTA QUE SEA UNA COLUMNA Y NO UN FOLLETO: «cada cliente recibe
+       lo que necesita» lo dice cualquiera. Esto se puede consultar. Medido el
+       22-sep-2026 contra la base de producción, contando sólo clientes reales
+       —fuera los tenants de demostración, el de la propia VELIA y el canario
+       sintético—:
+
+         Cónsul Jurídico  9 módulos   monitor · email · onboarding · whatsapp ·
+                                      lead-nurturing · pipeline · calendar ·
+                                      portal · legal
+         METHOD NUMBERS   3 módulos   email · pipeline · ecommerce
+
+       Dos clientes reales que no comparten ni la mitad. Y uno de los dos NO
+       tiene el módulo `portal` — que es justamente por lo que este claim existe:
+       impide publicar «todos nuestros clientes tienen su portal», que sería
+       falso y que este mismo repositorio llegó a escribir en `VeliaOS.tsx`.
+
+       ⚠️ LO QUE ESTE CLAIM NO AUTORIZA A DECIR: nada sobre permisos, roles ni
+       accesos acotados de terceros. Ése es otro hecho, con otra fuente, y hoy
+       tiene un defecto abierto en el portal (ficha `7a3ed49e`). Un claim
+       verificado no le presta su verificación al de al lado. */
+    text: 'Cada cliente tiene activados sólo los módulos que usa.',
+    status: 'verified',
+    source:
+      'Columna `tenants.active_modules` en la base de producción, validada por el trigger Postgres `trg_validate_tenant_config` contra el catálogo de `lib/modules.ts` (velia-portal) y por el esquema Zod `activeModulesSchema`. Medido el 22-sep-2026: Cónsul Jurídico 9 módulos, METHOD NUMBERS 3. El trigger se comprobó en `pg_trigger`, no en la documentación que dice que existe.',
+    verifiedAt: '2026-09-22',
+    owner: 'Joaquín',
+    usedIn: ['/'],
+  },
+
   // ── Pendientes: NO se renderizan ───────────────────────────────────────────
   noModelTraining: {
     text: 'Tratamiento empresarial bajo las condiciones de los proveedores contratados.',

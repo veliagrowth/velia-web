@@ -34,8 +34,21 @@ const EN_MARCHA = [
     d: 'Procesos que se ejecutan solos todos los días, con su registro de lo que hicieron y de lo que no.',
   },
   {
-    t: 'Un espacio por cliente',
-    d: 'Cada cliente tiene su portal: lo que está en marcha, lo que se ha entregado, lo que ha pedido y lo que se ha medido.',
+    /* ⚠️ CORREGIDO EL 22-sep-2026. Decía: «Un espacio por cliente — Cada cliente
+       tiene su portal». Medido ese día contra la base de producción, era FALSO:
+       de los dos clientes reales, uno no tiene activado el módulo `portal`. No
+       por un descuido, sino porque no lo necesita — que es precisamente el
+       argumento de la compañía.
+
+       La forma del error merece quedarse escrita, porque es la de siempre: la
+       frase describía el caso que teníamos delante (Cónsul Jurídico) y lo
+       enunciaba como universal. Nadie la habría cazado leyendo la página; se
+       cazó consultando la columna. Ahora dice lo que la columna dice.
+
+       La escala completa de qué puede llegar a contener un entorno vive en la
+       Home (`#entorno`), sostenida por el claim `modularEnvironment`. */
+    t: 'Un entorno por cliente',
+    d: 'Cada cliente tiene el suyo, con activado sólo lo que usa. Unos llevan dentro el negocio entero; a otros les basta con ver lo que hay en marcha, lo entregado y lo medido.',
   },
 ] as const
 
@@ -51,6 +64,23 @@ const EN_CONSTRUCCION = [
   {
     t: 'VELIA 4.0 Audit',
     d: 'El diagnóstico como punto de partida: hallazgos clasificados y un plan, en vez de una propuesta comercial.',
+  },
+  {
+    /* ── POR QUÉ ESTO ESTÁ EN LA COLUMNA DE LA DERECHA (22-sep-2026) ───────
+       Hay proyectos —producción de vídeo, campañas, contenido— donde dentro del
+       entorno del cliente tienen que entrar terceros: una productora, una
+       agencia, un filmmaker. El portal ya distingue roles, así que la tentación
+       de anunciarlo como disponible es fuerte y sería un error medible: hoy hay
+       un defecto abierto en el cierre de puerta por rol —cinco de siete
+       pantallas marcadas no cierran— y publicarlo aquí sería vender como
+       garantía algo que está roto.
+
+       No se calla y no se promete: se dice dónde está. Es exactamente para lo
+       que existe esta columna, y es el único sitio de la web donde la frase
+       puede aparecer sin mentir. Sube a «En marcha» el día que el cierre se
+       demuestre, no el día que se arregle. */
+    t: 'Terceros dentro del entorno',
+    d: 'Que una productora, una agencia o un colaborador externo trabaje dentro del entorno de un cliente viendo sólo lo suyo. El control de acceso por rol existe; lo que falta es demostrar que cierra en todas las pantallas antes de ofrecerlo.',
   },
 ] as const
 

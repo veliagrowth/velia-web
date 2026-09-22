@@ -58,6 +58,52 @@ export default function ModeloOperativo() {
           Ahí está la diferencia entre encargar un proyecto y tener una infraestructura
           operada. Un sistema digital sin nadie detrás no se queda como estaba: se degrada.
         </p>
+
+        {/* ── EL MODELO, DICHO SIN CIFRAS (22-sep-2026) ────────────────────
+            La sección explicaba el PROCESO y no lo que se contrata. Quien leía
+            entendía cómo trabaja VELIA y seguía sin saber qué compra ni qué pasa
+            el mes siguiente — y ese hueco lo rellena solo el visitante, casi
+            siempre con el modelo que conoce: una licencia de software.
+
+            NI UN NÚMERO, Y ES DELIBERADO. No hay precio, ni «desde», ni tramos,
+            ni una página de precios: la estructura comercial y su denominación
+            pública son decisión de negocio, no de esta web, y publicarlas aquí
+            las daría por decididas. Lo que sí se puede decir hoy sin comprometer
+            nada es la FORMA del modelo — que son dos cosas y no una—, porque es
+            la consecuencia directa de las seis fases que están justo encima.
+
+            El nombre que se usa para la parte continua es `Digital Operations`,
+            que no es un término inventado para este párrafo: es una de las
+            cuatro capacidades, ya publicada más arriba en esta misma página. Un
+            nombre nuevo aquí sería una quinta capacidad por la puerta de atrás. */}
+        {/* `border border-mist` NO es decoración: sin él la pareja se lee mal.
+            Esta sección tiene fondo blanco, así que la celda «Un proyecto»
+            —también blanca— se fundía con él y sólo la de la derecha parecía un
+            panel. El resultado era una rejilla que se veía a medio pintar, y no
+            fallaba en ninguna guarda porque no es un error de código: es que dos
+            superficies del mismo color no tienen borde entre ellas. El marco
+            cierra las dos y deja que la diferencia la marque el tinte, que es lo
+            que tiene que decirla. */}
+        <div className="mt-8 grid gap-px bg-mist border border-mist sm:grid-cols-2 overflow-hidden rounded-lg">
+          <div className="bg-white px-6 py-7">
+            <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">
+              Un proyecto
+            </p>
+            <p className="mt-2.5 text-[15px] leading-[1.6] text-void/75 max-w-prose">
+              Tiene alcance, orden y final: lo que se diseña, se construye y se pone en
+              marcha.
+            </p>
+          </div>
+          <div className="bg-cream px-6 py-7">
+            <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
+              Digital Operations
+            </p>
+            <p className="mt-2.5 text-[15px] leading-[1.6] text-void/75 max-w-prose">
+              Continúa: la infraestructura funcionando, vigilada, medida y creciendo con el
+              negocio. Es servicio, no una licencia — no hay herramienta que alquilar.
+            </p>
+          </div>
+        </div>
       </Reveal>
     </div>
   )

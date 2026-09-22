@@ -44,6 +44,12 @@ export const FOOTER_NAV = {
          se fue a `/sobre-velia#infraestructura`; la segunda la absorbió
          `#casos`, que ya no es un caso sino cuatro. */
       { href: '/#casos', label: 'Trabajo' },
+      /* `#entorno` entra el 22-sep en el PIE y deliberadamente NO en el header.
+         La sección es de las más importantes de la Home, y aun así el §7 de la
+         dirección fija cuatro elementos y una acción arriba: una decisión de
+         navegación no se reabre porque la página nueva nos guste. Que sea
+         importante es un argumento para su sitio en la Home, no para el menú. */
+      { href: '/#entorno', label: 'Tu entorno' },
       { href: '/sobre-velia#infraestructura', label: 'VELIA OS' },
       /* Etapa 2 (17-sep). `/sobre-velia` entra aquí y NO en el header: §7 de la
          dirección fija cuatro elementos y una acción arriba, y esa decisión no
