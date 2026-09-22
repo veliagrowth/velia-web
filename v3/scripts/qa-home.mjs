@@ -306,9 +306,13 @@ const browser = await puppeteer.launch({
   }
 
   // Scroll horizontal: cero, en los tres anchos de referencia.
-  for (const { ancho, desborde, recortados } of await medirDesborde(page, ANCHOS)) {
+  for (const { ancho, desborde, recortados, cortado } of await medirDesborde(page, ANCHOS)) {
     comprobar(`Sin scroll horizontal a ${ancho}px`, desborde <= 0, `desborde=${desborde}px`)
     comprobar(`Ningún control recortado a ${ancho}px`, recortados.length === 0, recortados.join(' · '))
+    /* La tercera propiedad, y la que las otras dos no ven: con `overflow-x:
+       clip` un elemento puede quedarse fuera del viewport sin crear scroll y
+       sin ser un control. Demostrado con un elemento de 420 px a 375. */
+    comprobar(`Nada del contenido se corta a ${ancho}px`, cortado.length === 0, cortado.slice(0, 4).join(' · '))
   }
 
   await page.close()

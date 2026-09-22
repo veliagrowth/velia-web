@@ -231,9 +231,12 @@ try {
       fallos.length ? fallos.map(f => `"${f.texto}" ${f.ratio}:1 (min ${f.minimo})`).join(' · ') : undefined,
     )
 
-    for (const { ancho, desborde, recortados } of await medirDesborde(page, ANCHOS)) {
+    for (const { ancho, desborde, recortados, cortado } of await medirDesborde(page, ANCHOS)) {
       comprobar(ruta, `${ruta} · sin scroll horizontal a ${ancho}px`, desborde <= 0, `desborde=${desborde}px`)
       comprobar(ruta, `${ruta} · ningún control recortado a ${ancho}px`, recortados.length === 0, recortados.join(' · '))
+      /* La propiedad que las otras dos no ven: con `overflow-x: clip` el
+         contenido se corta sin crear scroll y sin ser un control. */
+      comprobar(ruta, `${ruta} · nada del contenido se corta a ${ancho}px`, cortado.length === 0, cortado.slice(0, 4).join(' · '))
     }
 
     await page.close()

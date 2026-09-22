@@ -38,8 +38,32 @@
  */
 export const LEGACY = ['/precios', '/demo', '/fundadores', '/legal']
 
-/** Los tres anchos de referencia. 390 es el objetivo real de móvil. */
-export const ANCHOS = [[1440, 900], [768, 1024], [390, 844]]
+/**
+ * Los anchos de referencia. 390 es el objetivo real de móvil.
+ *
+ * ── DE TRES A SEIS (22-sep-2026) ──────────────────────────────────────────
+ * Eran tres —1440, 768, 390— y los demás anchos de la revisión (375, 1024,
+ * 1280, 1920) se medían A MANO en la sesión que tocara. Una medición a mano no
+ * es una guarda: no se repite sola, no falla el push y nadie la vuelve a correr.
+ * Es el mismo razonamiento por el que este módulo existe, aplicado a sí mismo.
+ *
+ * Entran los tres que más cubren de lo que faltaba:
+ *   375   el móvil pequeño que sigue vivo (iPhone SE / mini). Es el ancho donde
+ *         primero se rompe un titular largo o una rejilla de dos columnas.
+ *   1024  el punto exacto donde Tailwind cambia a `lg:`, o sea donde más
+ *         rejillas cambian de forma a la vez: el ancho con más superficie de
+ *         fallo de todo el sitio.
+ *   1280  el portátil más común, y hasta hoy no lo miraba nada automático.
+ *
+ * NO entra 1920: por encima de 1440 el contenido ya está limitado por
+ * `max-w-6xl` y lo único que crece es el margen. Medirlo repite 1440 y cuesta
+ * tiempo de ejecución. Si algún día algo se sale a pantalla completa, entra.
+ *
+ * Coste: dobla el número de comprobaciones de desborde y recorte. Vale la pena
+ * — las tres roturas que esta familia de guardas ha cazado se vieron todas en un
+ * ancho intermedio y en ninguno de los tres que había.
+ */
+export const ANCHOS = [[1440, 900], [1280, 800], [1024, 768], [768, 1024], [390, 844], [375, 812]]
 
 /** Un solo h1, y ningún salto de nivel en los encabezados. */
 export async function medirJerarquia(page) {
@@ -181,7 +205,38 @@ export async function medirDesborde(page, anchos = ANCHOS) {
           return (b.right > ancho + 1 || b.left < -1) && !enFranjaConScroll(el)
         })
         .map(el => (el.textContent || el.getAttribute('aria-label') || '').trim().slice(0, 30))
-      return { desborde: document.documentElement.scrollWidth - ancho, recortados }
+
+      /* ── CONTENIDO CORTADO, NO SÓLO CONTROLES (22-sep-2026) ──────────────
+         El comentario de arriba ya sabía que `scrollWidth` es ciego con
+         `overflow-x: clip`, y la respuesta fue mirar los CONTROLES recortados.
+         Cubre el caso que mordió —el botón «Hablemos» medio fuera—, y deja
+         fuera todo lo demás: un párrafo, una rejilla, una tarjeta o una imagen
+         que se salgan del viewport se cortan en silencio y ninguna de las dos
+         mediciones lo ve.
+
+         Medido hoy, y no supuesto: se metió un `<div>` de 420 px en la Home,
+         se construyó y se sirvió. A 375 px la guarda entera se quedó EN VERDE
+         —`desborde=0px` y cero controles recortados— mientras el elemento
+         estaba a `right: 420`. Con el build íntegro al lado como control, 0.
+         `BASE → PASS · ROMPER → FAIL · RESTAURAR → PASS`.
+
+         Misma exclusión que arriba: dentro de una franja con scroll propio
+         salirse del borde es el diseño. Y se ignora lo que no ocupa sitio. */
+      const cortado = []
+      for (const el of document.querySelectorAll('body *')) {
+        const b = el.getBoundingClientRect()
+        if (b.width < 2 || b.height < 2) continue
+        if (getComputedStyle(el).visibility === 'hidden') continue
+        if (b.right <= ancho + 1 && b.left >= -1) continue
+        if (enFranjaConScroll(el)) continue
+        cortado.push(
+          el.tagName.toLowerCase() +
+            (el.className ? '.' + String(el.className).trim().split(/\s+/)[0] : '') +
+            '@' + Math.round(b.right),
+        )
+      }
+
+      return { desborde: document.documentElement.scrollWidth - ancho, recortados, cortado }
     }, w)
     out.push({ ancho: w, ...r })
   }
