@@ -526,11 +526,37 @@ const browser = await puppeteer.launch({
     await new Promise(r => setTimeout(r, 500))
     cta.enfocado = await page.evaluate(() => getComputedStyle(document.activeElement.querySelector('.cta-flecha__capa')).clipPath)
   }
-  const heroCta = await page.evaluate(() => {
-    const a = document.querySelector('section[aria-labelledby=t-afirmacion] .cta-flecha')
-    return a ? a.getAttribute('href') : null
+  /* ── 24-sep-2026: el hero pasa de UNA acción a DOS ──────────────────────
+     Medía `.cta-flecha` —la pastilla del resto de la web— y el hero ahora usa
+     `.boton-accion`, que es rectangular y va en par. El CLAIM no se ha
+     relajado para que pase: se ha reforzado. Antes se comprobaba un destino;
+     ahora se comprueban los dos y que sean exactamente dos, porque una tercera
+     acción en el hero es la forma que tiene esta página de empezar a pedir
+     cosas distintas a la vez.
+
+     `APP_URL` no se lee de `lib/constants.ts`: se escribe aquí. Si alguien
+     cambia la constante, esta guarda tiene que CHILLAR, no seguirle la
+     corriente — el destino del acceso al portal es una decisión, no un
+     detalle. */
+  const heroCtas = await page.evaluate(() => {
+    const as = [...document.querySelectorAll('section[aria-labelledby=t-afirmacion] .boton-accion')]
+    return as.map(a => a.getAttribute('href'))
   })
-  comprobar('El hero tiene su acción, y lleva a /contacto', heroCta === '/contacto', heroCta ?? 'NO HAY CTA')
+  comprobar(
+    'El hero tiene DOS acciones, y ninguna más',
+    heroCtas.length === 2,
+    `${heroCtas.length}: ${heroCtas.join(' · ') || 'NINGUNA'}`,
+  )
+  comprobar(
+    'La acción primaria lleva al acceso real del portal',
+    heroCtas[0] === 'https://app.veliacorp.com',
+    heroCtas[0] ?? 'NO HAY PRIMARIA',
+  )
+  comprobar(
+    'La acción secundaria lleva a /contacto',
+    heroCtas[1] === '/contacto',
+    heroCtas[1] ?? 'NO HAY SECUNDARIA',
+  )
   comprobar(
     'La acción se rellena al enfocarla con el teclado',
     Boolean(cta) && cta.focusVisible && cta.enfocado !== reposoCta && cta.enfocado.startsWith('inset(0px'),

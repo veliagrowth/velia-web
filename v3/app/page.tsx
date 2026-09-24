@@ -7,13 +7,14 @@ import Capacidades from '@/components/Capacidades'
 import Casos from '@/components/Casos'
 import Entorno from '@/components/Entorno'
 import ModeloOperativo from '@/components/ModeloOperativo'
-import CtaFlecha from '@/components/CtaFlecha'
 import RevealRect from '@/components/motion/RevealRect'
 import HeroSalida from '@/components/motion/HeroSalida'
-import VeliaOSDemo from '@/components/os/VeliaOSDemo'
+import DemoEmbed from '@/components/DemoEmbed'
+import BotonAccion from '@/components/BotonAccion'
 import FondoIris from '@/components/os/FondoIris'
 import TextFill from '@/components/motion/TextFill'
 import { CTA_CONTACTO } from '@/lib/cta'
+import { APP_URL } from '@/lib/constants'
 import { claim } from '@/lib/verified-claims'
 
 /**
@@ -105,100 +106,110 @@ export default function Home() {
       <Umbral />
 
       {/* ═══ 1 · AFIRMACIÓN ═══════════════════════════════════════════════
-          El único h1 de la página. Una sola frase sostiene la home: dice quién
-          hace qué, para qué, y no se podría copiar a la web de otro sin que
-          quedara mal. */}
-      {/* ── COMPOSICIÓN ASIMÉTRICA (22-sep) ──────────────────────────────
-          Medido en la referencia: su hero funciona porque el enunciado y el
-          texto de apoyo NO compiten — uno pesa y el otro acompaña, y están en
-          columnas distintas. Aquí el enunciado entero ocupa la izquierda y el
-          apoyo con su acción se van a la derecha, alineados por abajo.
+          El único h1 de la página, centrado, y debajo el producto REAL.
 
-          Gana dos cosas a la vez, que es lo raro: más tensión —dos pesos
-          claramente distintos en vez de una pila centrada— y MENOS ALTURA, que
-          es donde estaba la fila a todo lo ancho que antes llevaba el CTA.
+          ── QUÉ CAMBIÓ EL 24-sep-2026 (tarde), Y POR QUÉ ──────────────────
+          Por la mañana esta sección llevaba un panel de VELIA OS construido
+          desde cero: marco de ventana, cuatro espacios de cliente, cinco
+          módulos y ~370 líneas de datos inventados. Estaba bien hecho y era
+          el error: un producto IMAGINADO puesto donde tiene que ir el que
+          existe. La pregunta que lo destapa es de una línea —«¿estamos
+          enseñando VELIA o estamos imaginando VELIA?»— y la respuesta era la
+          segunda.
 
-          El borde inferior de la sección es la MISMA línea con la que abre la
-          siguiente. No hay hueco entre hero y primera sección: hay un canto
-          compartido, y lo que viene después se lee como consecuencia. */}
+          Ahora hay el portal de verdad, `DemoEmbed`, que ya existía y que la
+          web anterior YA usaba justo debajo de su hero. No se ha inventado un
+          mecanismo: se ha vuelto a él. Es `demo.app.veliacorp.com` —el portal
+          real en modo demostración, solo lectura, con un despacho ficticio
+          dentro— y se puede recorrer.
+
+          ── LA COMPOSICIÓN ES CENTRADA, Y NO POR GUSTO ────────────────────
+          La versión asimétrica del 22-sep funcionaba cuando debajo no había
+          nada: el peso lo tenía que sostener la tipografía sola. Con una
+          aplicación debajo, el enunciado tiene que CEDER el protagonismo y
+          conducir hasta ella. Centrado y algo más pequeño hace justo eso.
+
+          El h1 baja de `clamp(3.1rem, 10.8vw, 9rem)` a
+          `clamp(2.5rem, 6.4vw, 5rem)`. No es «menos impacto»: es que el
+          impacto lo da ahora la composición —aire arriba, aire abajo, una sola
+          columna estrecha— y no el cuerpo de letra. */}
       <section aria-labelledby="t-afirmacion" className="border-b border-mist">
         <HeroSalida>
-          <div className="mx-auto max-w-6xl px-6 md:px-10 pt-12 pb-10 md:pt-20 md:pb-12 lg:grid lg:grid-cols-[1.25fr_1fr] lg:gap-x-14 lg:items-end">
-            <div>
-              <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
-                Transformación y operación digital
-              </p>
-              {/* Un solo h1 y UNA sola frase, con dos registros: los dos verbos
-                  a escala máxima y el resto del enunciado en cuerpo medio. Ni
-                  una palabra cambia respecto al original — cambia cuánto pesa
-                  cada una. Las medidas van en `em` y no en `ch`: `ch` es el
-                  ancho del «0» de la fuente CARGADA, así que con `ch` la
-                  columna cambiaba al llegar Geist y el párrafo se recolocaba. */}
-              <h1 id="t-afirmacion" className="mt-5 text-void">
-                <RevealRect
-                  al="cargar"
-                  lineas={['Construimos', 'y operamos']}
-                  className="text-[clamp(3.1rem,10.8vw,9rem)] font-600 tracking-[-0.05em] leading-[0.92]"
-                />{' '}
-                <span className="mt-5 md:mt-7 block text-[clamp(1.3rem,2.2vw,1.95rem)] font-500 tracking-[-0.02em] leading-[1.2] text-void/75 max-w-[21em]">
-                  la infraestructura digital con la que una empresa compite en la nueva era.
-                </span>
-              </h1>
-            </div>
+          <div className="mx-auto max-w-4xl px-6 md:px-10 pt-14 pb-10 md:pt-24 md:pb-12 text-center">
+            <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
+              Transformación y operación digital
+            </p>
+            {/* Mismas palabras que antes. Cambia el peso y el eje. */}
+            <h1 id="t-afirmacion" className="mt-6 text-void">
+              <RevealRect
+                al="cargar"
+                lineas={['Construimos', 'y operamos']}
+                className="text-[clamp(2.5rem,6.4vw,5rem)] font-600 tracking-[-0.04em] leading-[0.98]"
+              />{' '}
+              <span className="mt-4 md:mt-5 block text-[clamp(1.15rem,1.9vw,1.6rem)] font-500 tracking-[-0.02em] leading-[1.25] text-void/75 max-w-[24em] mx-auto">
+                la infraestructura digital con la que una empresa compite en la nueva era.
+              </span>
+            </h1>
 
-            {/* La acción NO es una segunda acción: es la misma de toda la
-                página (`/contacto`), puesta donde se decide. El evento
-                `hero_contacto_click` llevaba declarado en `lib/analytics.ts`
-                sin que nadie lo emitiera — un evento sin emisor es una métrica
-                que miente con un cero. */}
-            <div className="mt-10 lg:mt-0 lg:pb-2">
-              <p className="text-base md:text-lg leading-[1.5] text-void/70 max-w-[25em]">
-                No entregamos un proyecto y desaparecemos. Nos quedamos operándolo.
-              </p>
-              <div className="mt-7">
-                <CtaFlecha
-                  href={CTA_CONTACTO.href}
-                  etiqueta={CTA_CONTACTO.label}
-                  evento="hero_contacto_click"
-                  propiedades={{ cta_location: 'home_hero' }}
-                />
-              </div>
+            <p className="mt-6 text-[15px] md:text-base leading-[1.6] text-void/70 max-w-[34em] mx-auto">
+              No entregamos un proyecto y desaparecemos. Nos quedamos operándolo.
+            </p>
+
+            {/* ── DOS ACCIONES, Y NINGUNA INVENTA NADA ────────────────────
+                «Empieza» va al acceso REAL del portal (`APP_URL`), el mismo
+                destino que «Iniciar sesión» de la barra y con su mismo evento
+                `login_click`. No se ha creado ninguna autenticación, ninguna
+                ruta de alta y ningún acceso falso.
+
+                «Contacto» va a `/contacto`, la ruta que ya existe.
+
+                Ni un evento de analítica nuevo: los dos llevan los que ya
+                estaban declarados y aceptados por el buzón. */}
+            <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+              <BotonAccion href={APP_URL} evento="login_click" externo>
+                Empieza
+              </BotonAccion>
+              <BotonAccion href={CTA_CONTACTO.href} variante="secundaria" evento="hero_contacto_click">
+                Contacto
+              </BotonAccion>
             </div>
           </div>
         </HeroSalida>
 
-        {/* ═══ 1b · EL ESPECIMEN ══════════════════════════════════════════
-            NUEVO el 24-sep-2026. La home decía que VELIA construye y opera
-            infraestructura, enseñaba cuatro proyectos y describía el entorno
-            del cliente con palabras — y no enseñaba NADA. La única prueba
-            visual de que existe un sistema detrás era tipográfica.
+        {/* ═══ 1b · EL PORTAL, DE VERDAD ══════════════════════════════════
+            `demo.app.veliacorp.com` dentro de un marco de navegador. Lo que se
+            ve es el portal que VELIA opera, no una reconstrucción suya.
 
-            VA AQUÍ, pegado al enunciado, y el sitio es el argumento: quien
-            acaba de leer «construimos y operamos» tiene la pregunta hecha —«¿y
-            eso qué forma tiene?»— y la respuesta aparece sin tener que bajar.
+            ── POR QUÉ ES SEGURO, Y NO ES UNA OPINIÓN ────────────────────
+            · El portal entra solo en modo demostración (`/api/demo/enter`) y
+              BLOQUEA toda mutación: es de solo lectura por construcción.
+            · El despacho de dentro es ficticio —Nelson & Murdock—. No hay ni
+              un dato de Cónsul Jurídico ni de ningún cliente real.
+            · El encuadre lo autoriza el propio portal:
+              `frame-ancestors 'self' https://veliacorp.com
+              https://*.veliacorp.com https://*.vercel.app` en su middleware.
+              El comodín cubre también `web-preview.veliacorp.com`, así que
+              esto se ve igual en la preview que en producción.
+            · No se ha tocado NADA del portal para conseguirlo. El mecanismo
+              estaba hecho y probado; aquí solo se consume.
 
-            ── LO QUE NO ES, Y CUESTA MANTENERLO ASÍ ──────────────────────
-            No es una demostración de producto. El espacio de trabajo es VELIA
-            y dentro están los cuatro clientes: se está mirando la consola de
-            quien OPERA, no la cuenta que se contrata. Por eso no hay ni un
-            «probar», ni un «crear», ni un plan, ni un precio, ni una sesión.
-            En el momento en que esta ventana ofrezca algo que se pueda
-            contratar, esta web habrá vuelto a vender software.
+            `DemoEmbed` trae de serie lo que costó afinar en su día: el splash
+            de VELIA se pinta al instante —cero bytes de red— para que el marco
+            nunca esté vacío, y el iframe empieza a cargar 600 px antes de
+            llegar al viewport, con la conexión ya caliente por el `preconnect`
+            del layout.
 
-            Los datos son ficticios y la pieza lo dice en su propio pie, no en
-            una nota al pie de página: las capturas reales llevan dentro el
-            trabajo de un cliente en producción. El vocabulario, en cambio, es
-            el del portal real — la demo sirve de dirección de diseño del
-            producto, no de postal que el producto no alcanzará.
-
-            `FondoIris` va DETRÁS y es decorativo: tres formas Iris que siguen
-            al cursor 26 px como mucho. Fuera de `HeroSalida` a propósito —el
-            hero se aparta al bajar, y el especimen no debe apartarse con él:
-            es lo que se ha venido a ver. */}
+            `FondoIris` va DETRÁS y es decorativo. Fuera de `HeroSalida` a
+            propósito: el hero se aparta al bajar y el portal no debe apartarse
+            con él, que es lo que se ha venido a ver. */}
         <div className="relative">
           <FondoIris />
           <div className="relative mx-auto max-w-6xl px-6 md:px-10 pb-16 md:pb-20">
-            <VeliaOSDemo />
+            <DemoEmbed heightClass="h-[62vh] min-h-[440px] md:min-h-[560px]" />
+            <p className="mt-3 text-center text-[12px] leading-[1.5] text-void/70">
+              El portal que VELIA opera, en modo demostración y solo lectura. El despacho de
+              dentro es ficticio.
+            </p>
           </div>
         </div>
       </section>

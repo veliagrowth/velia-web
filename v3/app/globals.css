@@ -1368,77 +1368,56 @@ html[data-js] .entorno:has(.escalon-4[data-visible='true']) .estrato-4 {
   transform: translate3d(calc(var(--mx) * 11px), calc(var(--my) * -9px), 0);
 }
 
-/* ── 13 · LA VENTANA DE VELIA OS ────────────────────────── RESPOND ───────
-   El chrome de `components/os/MacWindowFrame.tsx`. Casi todo vive en clases de
-   Tailwind dentro del componente; aquí queda lo que Tailwind no expresa bien.
+/* ── 13 · LA ACCIÓN DEL HERO ────────────────────────────── RESPOND ───────
+   Aquí vivía «LA VENTANA DE VELIA OS»: el chrome de un panel inventado que se
+   retiró el 24-sep-2026 al sustituirlo por el portal REAL (`DemoEmbed`). El
+   bloque entero se fue con él; lo único que se conserva de aquel código es la
+   regla de quietud del final, que también gobierna el fondo Iris.
 
-   La ventana se posa: entra una vez, al cargar, y no se vuelve a mover. No es
-   scroll-driven a propósito — el hero ya tiene `.hero-salida` gobernando su
-   salida, y dos movimientos compitiendo en el mismo espacio marean. */
-.os-ventana {
-  position: relative;
-  z-index: 1;
-  /* La línea clara de arriba es la que hace que parezca una superficie con
-     volumen y no un rectángulo pegado. Un borde entero no: solo el canto. */
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    0 18px 50px -24px rgba(13, 16, 23, 0.55);
+   Lo que hay ahora es el par de acciones del hero: rectangulares, con canto
+   duro y radio pequeño. Se parecen a un control de aplicación porque debajo hay
+   una aplicación — la forma del botón y la forma del producto se contestan. */
+.boton-accion {
+  /* El canto: desplazamiento fijo, SIN difuminar. Una sombra difusa sobre Pearl
+     Cloud se ve sucia; esto es un canto, y se comporta como tal al pulsar. */
+  box-shadow: 2px 2px 0 0 var(--canto);
+  transition:
+    transform var(--motion-fast) var(--ease-velia),
+    box-shadow var(--motion-fast) var(--ease-velia);
 }
-@media (prefers-reduced-motion: no-preference) {
-  html[data-js] .os-demo {
-    animation: os-posar var(--motion-section) var(--ease-velia) both;
-    animation-delay: 220ms;
-  }
+.boton-accion--primaria {
+  --canto: #838ca1;
 }
-@keyframes os-posar {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+.boton-accion--secundaria {
+  --canto: #0d1017;
 }
-
-/* Las dos barras que se deslizan en móvil pierden la barra de scroll: ocupa
-   11 px de una fila de 44 y no hace falta, porque los chips se ven cortados y
-   eso ya dice que hay más. */
-.os-espacios,
-.os-modulos {
-  scrollbar-width: none;
-}
-.os-espacios::-webkit-scrollbar,
-.os-modulos::-webkit-scrollbar {
-  display: none;
-}
-
-/* Foco visible DENTRO de una superficie oscura. El anillo del sistema es Iris
-   500 sólido (manual de marca: nunca el halo al 35 %), y aquí necesita además
-   separación del fondo oscuro o se confunde con el borde de la tarjeta. */
-.os-demo :is(button, [role='tab']):focus-visible {
-  outline: 2px solid #7479f2;
-  outline-offset: 2px;
-  border-radius: 6px;
-}
-
-/* El realce de una tarjeta al pasar por encima es de BORDE y FONDO, nunca de
-   tamaño: un `scale` dentro de una rejilla de tres columnas empuja a las
-   vecinas y desalinea la fila entera. */
 @media (hover: hover) {
-  .os-tarjeta {
-    transition:
-      background-color var(--motion-control) var(--ease-velia),
-      border-color var(--motion-control) var(--ease-velia);
+  .boton-accion:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 0 var(--canto);
   }
 }
+/* Al pulsar se hunde: recorre los 2 px del canto y el canto desaparece. */
+.boton-accion:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 0 var(--canto);
+}
+/* Anillo Iris SÓLIDO de 2 px (manual de marca), nunca el halo al 35 %. */
+.boton-accion:focus-visible {
+  outline: 2px solid #7479f2;
+  outline-offset: 3px;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .os-tarjeta,
-  .fondo-iris__forma {
+  .boton-accion {
     transition: none;
   }
-  html[data-js] .os-demo {
-    animation: none;
+  .boton-accion:hover,
+  .boton-accion:active {
+    transform: none;
+  }
+  .fondo-iris__forma {
+    transition: none;
   }
 }
 
