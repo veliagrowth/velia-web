@@ -34,46 +34,37 @@ export const HEADER_LINKS = [
   { href: '/contacto', label: 'Contacto' },
 ] as const
 
+/**
+ * Los grupos del pie. CUATRO, y el cuarto es nuevo el 24-sep-2026.
+ *
+ * ── POR QUÉ CRECE UN PIE QUE SE HABÍA PODADO ──────────────────────────────
+ * El 22-sep se le quitaron dos enlaces con un argumento bueno: «un pie con
+ * catorce destinos es una lista, no un cierre». Sigue siendo cierto, y por eso
+ * lo que entra no son enlaces sueltos: es un GRUPO con nombre —lo que VELIA
+ * sabe hacer— que hasta hoy no se podía enlazar porque tres de sus cuatro
+ * páginas no existían.
+ *
+ * Un pie con jerarquía y cuatro columnas cortas se lee mejor que uno con tres
+ * columnas y un hueco. Lo que hay que evitar es la lista sin cabeza, no el
+ * número de filas.
+ */
 export const FOOTER_NAV = {
+  capacidades: {
+    title: 'Qué hacemos',
+    links: [
+      { href: '/digital-foundation', label: 'Digital Foundation' },
+      { href: '/ai-search', label: 'AI Search & Digital Visibility' },
+      { href: '/growth-automation', label: 'Growth & Automation' },
+      { href: '/digital-operations', label: 'Digital Operations' },
+    ],
+  },
   compania: {
     title: 'Compañía',
     links: [
-      /* ⚠️ Dos enlaces MENOS el 22-sep, y no por higiene: un pie con catorce
-         destinos es una lista, no un cierre. Salen los dos que ya se alcanzan
-         de sobra desde otro sitio — «Cómo trabajamos» está en la cabecera de
-         todas las páginas, y «VELIA OS» es un ancla DENTRO de `/sobre-velia`,
-         que sigue aquí debajo. Nada deja de ser alcanzable. */
-      { href: '/#capacidades', label: 'Qué hacemos' },
-      /* `#velia-os` y `#caso` eran dos anclas de la Home anterior. La primera
-         se fue a `/sobre-velia#infraestructura`; la segunda la absorbió
-         `#casos`, que ya no es un caso sino cuatro. */
       { href: '/#casos', label: 'Trabajo' },
-      /* `#entorno` entra el 22-sep en el PIE y deliberadamente NO en el header.
-         La sección es de las más importantes de la Home, y aun así el §7 de la
-         dirección fija cuatro elementos y una acción arriba: una decisión de
-         navegación no se reabre porque la página nueva nos guste. Que sea
-         importante es un argumento para su sitio en la Home, no para el menú. */
+      { href: '/#operamos', label: 'Cómo trabajamos' },
       { href: '/#entorno', label: 'Tu entorno' },
-      /* Etapa 2 (17-sep). `/sobre-velia` entra aquí y NO en el header: §7 de la
-         dirección fija cuatro elementos y una acción arriba, y esa decisión no
-         la cambia el hecho de que la página ya esté reescrita. El pie es donde
-         vive lo secundario.
-
-         Hasta hoy la página no estaba enlazada desde ninguna parte de la web
-         nueva y sí propuesta en `sitemap.ts`: se ofrecía a los buscadores y no
-         a las personas. */
       { href: '/sobre-velia', label: 'Sobre VELIA' },
-    ],
-  },
-  contacto: {
-    title: 'Contacto',
-    links: [
-      { href: '/contacto', label: 'Hablemos' },
-      /* ⚠️ «Novedades» sale del pie el 20-sep-2026. La ruta sigue viva y
-         respondiendo 200 —no se ha roto ningún enlace ya enviado—, pero su
-         tablón público está vacío mientras el portal no tenga la acción de
-         publicar, y un enlace en el pie de todas las páginas hacia una página
-         vacía es un callejón. Vuelve con la primera entrada pública. */
     ],
   },
   legal: {
@@ -85,6 +76,15 @@ export const FOOTER_NAV = {
       { href: '/terminos', label: 'Términos del servicio' },
       { href: '/ia-responsable', label: 'IA responsable' },
     ],
+  },
+  contacto: {
+    /* «Conectar» y no «Contacto»: el grupo no es sólo el formulario — lleva
+       también el correo y la puerta de los clientes que ya trabajan con VELIA.
+       ⚠️ NO hay enlace a redes sociales, y no es un olvido: esta web no declara
+       perfiles externos (`sameAs`) porque no los tiene verificados, y un pie que
+       enlaza a un perfil que no se mantiene es peor que uno que no lo enlaza. */
+    title: 'Conectar',
+    links: [{ href: '/contacto', label: 'Hablemos' }],
   },
 } as const
 

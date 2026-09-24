@@ -26,15 +26,14 @@ import { CASOS } from '@/lib/casos'
  * que diga «destacado». Quién manda se declara en los datos (`principal`), no
  * en el orden del array: el orden es un accidente, y un día alguien lo cambia.
  *
- * ── EL PUNTO, Y LOS CUATRO RÓTULOS QUE SE FUERON ──────────────────────────
- * Cada caso llevaba un rótulo «SU ENTORNO» encima de su línea: cuatro etiquetas
- * idénticas en la misma pantalla, que es la firma de una plantilla. El dato que
- * daban —tiene entorno o no— ahora lo da un punto lleno o hueco, el mismo
- * lenguaje de `.estado` que la web ya usa en `/sobre-velia` para «en marcha» y
- * «en construcción». Se entiende sin leer, que era justo el objetivo.
+ * ── EL PUNTO Y LA LÍNEA DE ENTORNO SE FUERON (24-sep-2026) ────────────────
+ * Cada caso llevaba una línea diciendo qué entorno tenía —o no tenía—, con un
+ * punto lleno o hueco al lado. Hablaba del ALCANCE DEL ENCARGO, que es una
+ * conversación interna, delante de alguien que ha venido a ver trabajo. Un
+ * proyecto se presenta por lo que es, no por lo que no incluyó.
  *
- * El punto es `aria-hidden` y la frase que lo acompaña dice lo mismo con
- * palabras: quien no ve el punto no pierde nada.
+ * La idea que sostenía —se construye sólo el escalón que hace falta— no se ha
+ * perdido: es la sección `#entorno` entera de la Home, con su claim detrás.
  */
 export default function Casos() {
   const principal = CASOS.find(c => c.principal) ?? CASOS[0]
@@ -65,10 +64,6 @@ export default function Casos() {
               <p className="mt-3 text-[15px] leading-[1.6] text-cream/85 max-w-prose">
                 {principal.velia}
               </p>
-              <p className="mt-4 flex items-baseline gap-2.5 text-[14px] leading-[1.6] text-cream/70 max-w-prose">
-                <Punto lleno={principal.tieneEntorno} />
-                <span>{principal.entorno}</span>
-              </p>
             </div>
           </div>
         </Reveal>
@@ -83,32 +78,12 @@ export default function Casos() {
               <h3 className="caso__nombre mt-3.5 text-xl font-600 tracking-[-0.02em] text-cream">{c.nombre}</h3>
               <p className="mt-3 text-[14px] leading-[1.6] text-cream/70">{c.que}</p>
               <p className="mt-2.5 text-[14px] leading-[1.6] text-cream/85">{c.velia}</p>
-              <p className="mt-3.5 flex items-baseline gap-2.5 text-[13px] leading-[1.6] text-cream/70">
-                <Punto lleno={c.tieneEntorno} />
-                <span>{c.entorno}</span>
-              </p>
               <Dominio dominio={c.dominio} />
             </Reveal>
           </article>
         ))}
       </div>
     </div>
-  )
-}
-
-/**
- * Lleno = tiene entorno · hueco = todavía no. El mismo gesto que `.estado`, sin
- * importar la clase: aquí el color y el tamaño son los del corte oscuro.
- * `translate-y` porque va alineado a la línea base del texto que acompaña.
- */
-function Punto({ lleno }: { lleno: boolean }) {
-  return (
-    <span
-      aria-hidden="true"
-      className={`mt-[0.45em] h-1.5 w-1.5 flex-none rounded-full ${
-        lleno ? 'bg-gold/85' : 'ring-1 ring-inset ring-cream/40'
-      }`}
-    />
   )
 }
 

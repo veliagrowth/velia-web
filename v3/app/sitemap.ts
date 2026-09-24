@@ -71,6 +71,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // El hub del grupo (20-sep-2026): la entrada al tema, y el padre de las
     // dos piezas. Prioridad por encima de ellas porque es por donde se entra.
     { path: '/ai-search', priority: 0.8 },
+    /* Las tres capacidades que faltaban (24-sep-2026). Misma prioridad que el
+       hub de AI Search: son las cuatro puertas de «Qué hacemos» y ninguna pesa
+       más que otra. */
+    { path: '/digital-foundation', priority: 0.8 },
+    { path: '/growth-automation', priority: 0.8 },
+    { path: '/digital-operations', priority: 0.8 },
     // La segunda pieza (19-sep-2026): una pregunta más concreta que la guía.
     { path: '/ai-search/llms-txt', priority: 0.7 },
     { path: '/aviso-legal', priority: 0.2 },

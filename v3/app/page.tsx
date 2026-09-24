@@ -11,7 +11,7 @@ import RevealRect from '@/components/motion/RevealRect'
 import HeroSalida from '@/components/motion/HeroSalida'
 import DemoEmbed from '@/components/DemoEmbed'
 import BotonAccion from '@/components/BotonAccion'
-import FondoIris from '@/components/os/FondoIris'
+import AnomaliasIris from '@/components/os/AnomaliasIris'
 import TextFill from '@/components/motion/TextFill'
 import { CTA_CONTACTO } from '@/lib/cta'
 import { APP_URL } from '@/lib/constants'
@@ -120,7 +120,7 @@ export default function Home() {
           Ahora hay el portal de verdad, `DemoEmbed`, que ya existía y que la
           web anterior YA usaba justo debajo de su hero. No se ha inventado un
           mecanismo: se ha vuelto a él. Es `demo.app.veliacorp.com` —el portal
-          real en modo demostración, solo lectura, con un despacho ficticio
+          real en modo demostración y de solo lectura, con datos ficticios
           dentro— y se puede recorrer.
 
           ── LA COMPOSICIÓN ES CENTRADA, Y NO POR GUSTO ────────────────────
@@ -133,17 +133,32 @@ export default function Home() {
           `clamp(2.5rem, 6.4vw, 5rem)`. No es «menos impacto»: es que el
           impacto lo da ahora la composición —aire arriba, aire abajo, una sola
           columna estrecha— y no el cuerpo de letra. */}
-      <section aria-labelledby="t-afirmacion" className="border-b border-mist">
+      <section aria-labelledby="t-afirmacion" className="relative border-b border-mist">
+        {/* Detrás de TODO el hero, no sólo del portal: el relieve tiene que
+            existir ya cuando se lee el enunciado. `inset:0` sobre la sección,
+            así que no puede desbordarla ni crear scroll. */}
+        <AnomaliasIris />
         <HeroSalida>
-          <div className="mx-auto max-w-4xl px-6 md:px-10 pt-14 pb-10 md:pt-24 md:pb-12 text-center">
+          <div className="relative mx-auto max-w-4xl px-6 md:px-10 pt-14 pb-10 md:pt-24 md:pb-12 text-center">
             <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
               Transformación y operación digital
             </p>
             {/* Mismas palabras que antes. Cambia el peso y el eje. */}
             <h1 id="t-afirmacion" className="mt-6 text-void">
+              {/* ⚠️ `lineaClassName="mx-auto"` NO es un parche de centrado: es la
+                  corrección de la geometría. `.rr-linea` es `display:block` con
+                  `width:fit-content`, y una caja de BLOQUE con ancho propio se
+                  coloca contra el borde de inicio de su contenedor —`text-center`
+                  centra contenido EN LÍNEA, no cajas de bloque—. Por eso el
+                  titular salía desplazado a la izquierda aunque todo lo demás de
+                  la columna estuviera centrado. Lo que centra una caja de bloque
+                  de ancho propio es el margen automático, y eso es lo que hace.
+                  No se toca la regla global: `RevealRect` también se usa alineado
+                  a la izquierda en el cierre del entorno. */}
               <RevealRect
                 al="cargar"
                 lineas={['Construimos', 'y operamos']}
+                lineaClassName="mx-auto"
                 className="text-[clamp(2.5rem,6.4vw,5rem)] font-600 tracking-[-0.04em] leading-[0.98]"
               />{' '}
               <span className="mt-4 md:mt-5 block text-[clamp(1.15rem,1.9vw,1.6rem)] font-500 tracking-[-0.02em] leading-[1.25] text-void/75 max-w-[24em] mx-auto">
@@ -183,8 +198,9 @@ export default function Home() {
             ── POR QUÉ ES SEGURO, Y NO ES UNA OPINIÓN ────────────────────
             · El portal entra solo en modo demostración (`/api/demo/enter`) y
               BLOQUEA toda mutación: es de solo lectura por construcción.
-            · El despacho de dentro es ficticio —Nelson & Murdock—. No hay ni
-              un dato de Cónsul Jurídico ni de ningún cliente real.
+            · El tenant de dentro es el de demostración, renombrado a VELIA el
+              24-sep-2026, y sus datos son ficticios. No hay ni un dato de
+              Cónsul Jurídico ni de ningún cliente real.
             · El encuadre lo autoriza el propio portal:
               `frame-ancestors 'self' https://veliacorp.com
               https://*.veliacorp.com https://*.vercel.app` en su middleware.
@@ -199,16 +215,19 @@ export default function Home() {
             llegar al viewport, con la conexión ya caliente por el `preconnect`
             del layout.
 
-            `FondoIris` va DETRÁS y es decorativo. Fuera de `HeroSalida` a
-            propósito: el hero se aparta al bajar y el portal no debe apartarse
-            con él, que es lo que se ha venido a ver. */}
+            `AnomaliasIris` va DETRÁS y es decorativo. Sustituye a `FondoIris`
+            —tres círculos desenfocados— el 24-sep: aquello era un halo, y un
+            halo es justo lo que no se quería. Ahora son marcas discretas que
+            dibujan un relieve con canto, y que ceden bajo el cursor.
+
+            Fuera de `HeroSalida` a propósito: el hero se aparta al bajar y el
+            portal no debe apartarse con él, que es lo que se ha venido a ver. */}
         <div className="relative">
-          <FondoIris />
-          <div className="relative mx-auto max-w-6xl px-6 md:px-10 pb-16 md:pb-20">
+          <div className="mx-auto max-w-6xl px-6 md:px-10 pb-16 md:pb-20">
             <DemoEmbed heightClass="h-[62vh] min-h-[440px] md:min-h-[560px]" />
-            <p className="mt-3 text-center text-[12px] leading-[1.5] text-void/70">
-              El portal que VELIA opera, en modo demostración y solo lectura. El despacho de
-              dentro es ficticio.
+            <p className="mt-4 text-center text-[13px] leading-[1.6] text-void/70 max-w-[46em] mx-auto">
+              Una muestra del entorno digital que VELIA configura y opera para sus clientes,
+              adaptado a cada negocio, servicio y proyecto.
             </p>
           </div>
         </div>

@@ -15,12 +15,13 @@ Actualizado: septiembre de 2026.
 - **Growth & Automation**: el recorrido completo de atención, visita, contacto, captura, CRM, cualificación, seguimiento, conversión y retención, automatizado donde automatizar mejora el resultado y sólo ahí.
 - **Digital Operations**: mantenimiento, monitorización, medición, corrección y evolución de los sistemas construidos. Es la capacidad que separa a VELIA de quien entrega un proyecto y se va.
 
-**Cómo trabaja.** Seis fases: Discover, Diagnose, Design, Build, Operate y Optimize. Las cuatro primeras tienen final; Operate y Optimize no: el sistema se mantiene, se mide, se corrige y se amplía mientras el negocio lo necesite.
+**Cómo trabaja.** Seis fases: Descubrir, Diagnosticar, Diseñar, Construir, Operar y Optimizar. Las cuatro primeras tienen final; Operar y Optimizar no: el sistema se mantiene, se mide, se corrige y se amplía mientras el negocio lo necesite.
 
-**Qué existe hoy y qué todavía no.** VELIA separa lo que funciona de lo que está en construcción, y no publica como disponible una capacidad que aún no lo está.
+**Qué está en marcha.** VELIA no publica como disponible una capacidad que todavía no lo está.
 
-- En marcha: infraestructura propia —VELIA no opera el negocio de un cliente desde una carpeta compartida y cinco suscripciones—, automatización de procesos que se ejecuta a diario con registro de lo que hizo y de lo que no, y un entorno por cliente con activado sólo lo que usa: lo que está en marcha, lo entregado, lo pedido y lo medido.
-- En construcción: el Control Plane, agentes con permisos explícitos y acotados, y VELIA 4.0 Audit, un diagnóstico como punto de partida en lugar de una propuesta comercial.
+- Infraestructura propia: VELIA no opera el negocio de un cliente desde una carpeta compartida y cinco suscripciones.
+- Automatización de procesos que se ejecuta a diario, con registro de lo que hizo y de lo que no.
+- Un entorno por cliente, con activado sólo lo que usa: lo que está en marcha, lo entregado, lo pedido y lo medido.
 
 La infraestructura con la que VELIA trabaja (VELIA OS) no es un producto que se venda por separado.
 
@@ -41,6 +42,9 @@ La infraestructura con la que VELIA trabaja (VELIA OS) no es un producto que se 
 
 ## Conocimiento
 
+- [Qué es Digital Foundation y por qué casi todo lo demás depende de ella](https://veliacorp.com/digital-foundation): qué es la base digital de una empresa —web, dominio, alojamiento, datos, CRM e integraciones—, qué cambia cuando existe de verdad y cómo la construye VELIA
+- [Qué es Growth & Automation y qué cambia cuando el trabajo repetido deja de hacerse a mano](https://veliacorp.com/growth-automation): qué se automatiza en la captación y el seguimiento, qué no conviene automatizar y cómo lo trabaja VELIA
+- [Qué es Digital Operations y por qué un sistema sin nadie detrás se degrada](https://veliacorp.com/digital-operations): qué significa operar un sistema digital —vigilarlo, medirlo, corregirlo y ampliarlo— y qué incluye
 - [Qué es AI Search y qué significa para una empresa](https://veliacorp.com/ai-search): qué es AI Search, en qué se diferencia de la búsqueda tradicional, qué tiene que entender una máquina sobre una empresa y qué puede hacer una empresa hoy
 - [Cómo preparar una web para buscadores y sistemas de IA](https://veliacorp.com/ai-search/preparar-una-web): qué necesita una web para que buscadores y sistemas de IA la rastreen, la entiendan y puedan citarla; qué se puede medir y qué no se puede garantizar
 - [¿Qué es llms.txt y sirve realmente para algo?](https://veliacorp.com/ai-search/llms-txt): qué es este fichero, qué está documentado y qué no, en qué se diferencia de robots.txt y qué conviene resolver antes de crear uno

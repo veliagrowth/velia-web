@@ -972,81 +972,14 @@ html[data-js] .reveal.reveal--disparador { opacity: 1; transform: none; }
   100% { color: var(--tf-lleno); }
 }
 
-/* ── 3 · CTA CON FLECHA ─────────────────────────────────── RESPOND ───────
-   Un círculo con la flecha en el extremo del botón que, al pasar o al enfocar,
-   se abre hasta llenarlo entero. */
-/*! Técnica de relleno por clip-path adaptada de ObsidianUI «Arrow Fill Button»
-    — Copyright (c) 2026 ObsidianUI — Licencia MIT. Ver THIRD_PARTY_NOTICES.md */
-.cta-flecha {
-  --cf-fondo: #0D1017;
-  --cf-texto: #F6F7FA;
-  --cf-relleno: #4C51B9;
-  --cf-relleno-texto: #FFFFFF;
-  position: relative;
-  isolation: isolate;
-  display: inline-flex;
-  align-items: center;
-  height: 3.25rem;
-  padding: 0 3.9rem 0 1.75rem;
-  border-radius: 9999px;
-  overflow: hidden;
-  background: var(--cf-fondo);
-  color: var(--cf-texto);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  text-decoration: none;
-}
-.cta-flecha--oscuro {
-  --cf-fondo: #F6F7FA;
-  --cf-texto: #0D1017;
-}
-.cta-flecha__texto { position: relative; z-index: 1; }
-/* La capa duplica la etiqueta en los colores del relleno. Está recortada a un
-   círculo de 2,4rem en el extremo derecho y, al abrirse, cae exactamente
-   encima de la etiqueta de abajo: el texto no se mueve, cambia de color. Es
-   `aria-hidden`: el nombre accesible es el de la etiqueta de verdad. */
-.cta-flecha__capa {
-  position: absolute;
-  inset: -1px;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  padding: 0 3.9rem 0 calc(1.75rem + 1px);
-  border-radius: inherit;
-  background: var(--cf-relleno);
-  color: var(--cf-relleno-texto);
-  clip-path: inset(0.45rem 0.45rem 0.45rem calc(100% - 2.85rem) round 9999px);
-  transition: clip-path var(--motion-panel) var(--ease-revelado);
-}
-.cta-flecha__flecha {
-  position: absolute;
-  right: 1.12rem;
-  width: 0.75rem;
-  height: 0.75rem;
-  overflow: hidden;
-  color: var(--cf-relleno-texto);
-}
-.cta-flecha__trazo {
-  fill: currentColor;
-  transition: transform var(--motion-panel) var(--ease-revelado);
-}
-.cta-flecha__trazo:first-child { transform: translateX(-120%) scale(0); }
-/* Se abre al enfocar SIEMPRE, y al pasar sólo donde hay un puntero que pasa:
-   en táctil un :hover se queda pegado después del toque. En táctil, lo que
-   responde es la pulsación (:active). */
-.cta-flecha:focus-visible .cta-flecha__capa,
-.cta-flecha:active .cta-flecha__capa { clip-path: inset(0 round 9999px); }
-.cta-flecha:focus-visible .cta-flecha__trazo:first-child,
-.cta-flecha:active .cta-flecha__trazo:first-child { transform: none; }
-.cta-flecha:focus-visible .cta-flecha__trazo:last-child,
-.cta-flecha:active .cta-flecha__trazo:last-child { transform: translateX(120%) scale(0); }
-@media (hover: hover) {
-  .cta-flecha:hover .cta-flecha__capa { clip-path: inset(0 round 9999px); }
-  .cta-flecha:hover .cta-flecha__trazo:first-child { transform: none; }
-  .cta-flecha:hover .cta-flecha__trazo:last-child { transform: translateX(120%) scale(0); }
-}
+/* ── 3 · (RETIRADO) ─────────────────────────────────────────────────────
+   Aquí vivía el CTA con flecha: una pastilla cuyo relleno subía desde abajo al
+   pasar o al enfocar. Se retiró el 24-sep-2026 al converger todas las acciones
+   de la web en `.boton-accion` (bloque 13), que es rectangular y con canto.
+
+   No se conserva «por si acaso»: un botón que ya no pinta nadie es una forma
+   de seguir teniendo dos lenguajes para la misma acción, que es justo lo que
+   se ha venido a quitar. */
 
 /* ── 4 · ESTRATOS DEL ENTORNO ──────────────────────────── TRANSITION ─────
    El entorno se construye de abajo arriba mientras se leen sus escalones. Sin
@@ -1162,7 +1095,7 @@ html[data-js] .entorno:has(.escalon-4[data-visible='true']) .estrato-4 {
 /* Menos movimiento: nada se desplaza y nada transiciona. Los colores finales
    sí se aplican, que es lo que conserva la legibilidad. */
 @media (prefers-reduced-motion: reduce) {
-  .cta-flecha__capa, .cta-flecha__trazo, .nav-enlace::after,
+  .nav-enlace::after,
   .caso__nombre, .dominio__flecha { transition: none; }
   .caso:hover .caso__nombre, .dominio:hover .dominio__flecha,
   .dominio:focus-visible .dominio__flecha { transform: none; }
@@ -1235,25 +1168,10 @@ html[data-js] .entorno:has(.escalon-4[data-visible='true']) .estrato-4 {
 }
 .seg__enlace:active { transform: scale(0.96); }
 
-/* ── 9 · CTA COMPACTO ───────────────────────────────────── RESPOND ───────
-   El mismo `.cta-flecha` de la Home a la escala de la barra: 36 px de alto en
-   vez de 52. No es otro botón, es el mismo con otra talla — si fueran dos
-   componentes, dentro de dos cambios dejarían de parecerse. */
-.cta-flecha--compacto {
-  height: 2.25rem;
-  padding: 0 2.7rem 0 1.05rem;
-  font-size: 11px;
-  letter-spacing: 0.04em;
-}
-.cta-flecha--compacto .cta-flecha__capa {
-  padding: 0 2.7rem 0 calc(1.05rem + 1px);
-  clip-path: inset(0.28rem 0.28rem 0.28rem calc(100% - 1.98rem) round 9999px);
-}
-.cta-flecha--compacto .cta-flecha__flecha {
-  right: 0.78rem;
-  width: 0.62rem;
-  height: 0.62rem;
-}
+/* ── 9 · (RETIRADO CON EL BLOQUE 3) ─────────────────────────────────────
+   La talla de barra del CTA anterior. La escala compacta no se ha perdido:
+   vive ahora en `BotonAccion` con su prop `compacto`, en clases de utilidad y
+   sin una regla propia que mantener. */
 
 /* ── 10 · SALIDA DEL HERO ─────────────────────────────── TRANSITION ──────
    El hero no se limita a desaparecer: se aparta. Sube unos píxeles y cede
@@ -1296,76 +1214,23 @@ html[data-js] .entorno:has(.escalon-4[data-visible='true']) .estrato-4 {
   .enlace-flecha:focus-visible .enlace-flecha__flecha { transform: none; }
 }
 
-/* ── 12 · FONDO IRIS DEL HERO ───────────────────────────── RESPOND ───────
-   Tres formas Iris muy desenfocadas detrás del especimen de VELIA OS. Siguen
-   al cursor «ligeramente»: el recorrido máximo son 26 px y el suavizado lo da
-   una TRANSICIÓN larga sobre `transform`, no un lerp en JavaScript. El
-   componente escribe `--mx`/`--my` como mucho una vez por fotograma y el
-   navegador interpola el resto — una línea de CSS en vez de un bucle.
+/* ── 12 · ANOMALÍAS IRIS DEL HERO ───────────────────────── RESPOND ───────
+   Aquí vivían tres círculos con `blur(64px)` que seguían al cursor. Se
+   retiraron el 24-sep-2026: eran un halo, y un halo sobre blanco o no se ve o
+   parece la plantilla de una startup. Lo que hay ahora es un campo de marcas
+   discretas pintado en un canvas 2D (`components/os/AnomaliasIris.tsx`), con
+   relieve y canto en vez de difuminado.
 
-   SOLO TONOS IRIS. Pale Ice (#B5DFFF) queda fuera a propósito: el manual de
-   marca lo reserva a actividad de IA, y esto es ambiente, no una señal.
-
-   La opacidad es la que decide si esto es fondo o protagonista. Entre 0,10 y
-   0,18: si se sube, la ventana deja de ser lo primero que se mira. */
-.fondo-iris {
+   Aquí queda sólo su caja. Todo el dibujo vive en el componente, que es donde
+   se puede parar el reloj cuando no pasa nada. */
+.anomalias {
   position: absolute;
-  /* `inset: 0` y NO un margen negativo. La primera versión salía 6 % por cada
-     lado «para que el desenfoque no se viera cortado», y con eso el propio
-     contenedor medía más que la ventana: `qa:home` lo cazó a los siete anchos
-     —1526 px de ancho en un viewport de 1440—. `overflow-x: clip` lo escondía,
-     así que no había barra de scroll ni error: exactamente el fallo silencioso
-     por el que esa guarda existe. */
   inset: 0;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: block;
   pointer-events: none;
   z-index: 0;
-  --mx: 0;
-  --my: 0;
-}
-.fondo-iris__forma {
-  position: absolute;
-  display: block;
-  border-radius: 9999px;
-  filter: blur(64px);
-  /* El desenfoque de 64 px es caro de recalcular: `will-change` lo promueve a
-     su propia capa una vez y luego solo se compone. */
-  will-change: transform;
-  transition: transform 700ms var(--ease-velia);
-}
-/* ⚠️ CADA FORMA CABE EN EL VIEWPORT, y no se confía en el recorte del padre.
-   `getBoundingClientRect()` devuelve la caja de layout, no lo que se ve: una
-   forma de 544 px en una pantalla de 390 sigue midiendo 544 aunque el padre la
-   recorte, y la guarda —con razón— lo cuenta como contenido fuera de pantalla.
-   De ahí el `min(rem, vw)`: en escritorio manda el tamaño en `rem` y en móvil
-   lo hace el ancho de pantalla. El margen que queda a cada lado (≥ 4 %) es
-   mayor que el recorrido máximo del cursor (26 px), así que tampoco se sale al
-   moverlo. */
-.fondo-iris__forma--1 {
-  top: 2%;
-  left: 46%;
-  width: min(30rem, 50vw);
-  height: min(30rem, 50vw);
-  background: radial-gradient(circle, rgba(148, 154, 248, 0.18) 0%, rgba(148, 154, 248, 0) 70%);
-  transform: translate3d(calc(var(--mx) * 18px), calc(var(--my) * 14px), 0);
-}
-/* En sentido CONTRARIO al cursor: dos capas que se mueven igual son una sola
-   capa con más desenfoque. La profundidad la da la discrepancia. */
-.fondo-iris__forma--2 {
-  bottom: -6%;
-  left: 4%;
-  width: min(26rem, 44vw);
-  height: min(26rem, 44vw);
-  background: radial-gradient(circle, rgba(116, 121, 242, 0.15) 0%, rgba(116, 121, 242, 0) 70%);
-  transform: translate3d(calc(var(--mx) * -26px), calc(var(--my) * -18px), 0);
-}
-.fondo-iris__forma--3 {
-  top: 38%;
-  left: 30%;
-  width: min(18rem, 32vw);
-  height: min(18rem, 32vw);
-  background: radial-gradient(circle, rgba(141, 144, 250, 0.1) 0%, rgba(141, 144, 250, 0) 72%);
-  transform: translate3d(calc(var(--mx) * 11px), calc(var(--my) * -9px), 0);
 }
 
 /* ── 13 · LA ACCIÓN DEL HERO ────────────────────────────── RESPOND ───────
@@ -1416,9 +1281,10 @@ html[data-js] .entorno:has(.escalon-4[data-visible='true']) .estrato-4 {
   .boton-accion:active {
     transform: none;
   }
-  .fondo-iris__forma {
-    transition: none;
-  }
+  /* Las anomalías no necesitan regla aquí: el componente ni siquiera registra
+     el oyente del puntero con `prefers-reduced-motion`, así que el campo se
+     pinta una vez en reposo y no se mueve nunca. Apagarlo desde CSS sería
+     apagar algo que ya está quieto. */
 }
 
 /* ── 14 · ESCALERA PIXEL ────────────────────────────────── SCROLL ────────

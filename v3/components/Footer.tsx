@@ -1,4 +1,5 @@
 import ConsentLink from '@/components/ConsentLink'
+import BotonAccion from '@/components/BotonAccion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { APP_URL, CONTACT_EMAIL } from '@/lib/constants'
@@ -8,73 +9,116 @@ import { FOOTER_NAV, FOOTER_CLAIM } from '@/lib/navigation'
  * Footer.
  *
  * ── EL HUECO BLANCO ANTES DEL PIE (22-sep-2026) ────────────────────────────
- * Este pie llevaba `mt-24`. Medido: **96 px exactos** entre el final de la
- * ultima seccion y el borde del pie, en TODAS las paginas.
+ * Este pie llevaba `mt-24`: 96 px exactos entre el final de la última sección y
+ * su borde, en todas las páginas. En una página que termina en claro es aire
+ * razonable; la Home termina en un cierre `bg-void` y el pie también es
+ * `bg-void`, así que el margen metía una franja Pearl Cloud de 96 px ENTRE DOS
+ * BLOQUES OSCUROS. La reparación no fue «subir el pie»: fue que ese margen no
+ * pertenecía al pie. Un componente que no sabe qué hay encima no puede decidir
+ * cuánto aire deja.
  *
- * En una pagina que termina en claro eso es aire razonable. El problema es que
- * la Home termina en el cierre oscuro (`bg-void`) y el pie tambien es
- * `bg-void`: el margen no separaba dos bloques, metia una FRANJA PEARL CLOUD DE
- * 96 px ENTRE DOS BLOQUES OSCUROS. De ahi la banda vacia; no era padding del
- * cierre ni un `min-h-screen` ni un spacer escondido.
+ * ── REESCRITO EL 24-sep-2026 ──────────────────────────────────────────────
+ * Era una fila de enlaces al final de la página. Ahora es un CIERRE, con tres
+ * pisos y una jerarquía que se lee antes de leerse:
  *
- * La reparacion no es «subir el pie»: es que el margen no pertenecia al pie.
- * Un componente que no sabe que hay encima no puede decidir cuanto aire deja.
- * Ahora el pie va a hueso y cada pagina es duena de su propio cierre:
- *   · Home  -> el cierre oscuro y el pie se funden en un solo bloque, que es
- *              exactamente lo que se le pide a un final;
- *   · resto -> el canto limpio de claro a oscuro, que es un corte, no un error.
+ *   1. LLAMADA    la marca grande, la frase que la separa de una agencia y las
+ *                 dos acciones. Va primero porque es lo único que alguien puede
+ *                 hacer al llegar hasta aquí.
+ *   2. MAPA       cuatro columnas cortas CON NOMBRE. Un pie sin cabeceras es
+ *                 una lista; con ellas es un índice.
+ *   3. PIE LEGAL  lo obligatorio, en su sitio y sin competir.
  *
- * Dos cambios de fondo respecto a la versión anterior:
+ * El peso lo dan el aire y la escala del logotipo, no una tipografía nueva: ni
+ * un tamaño, ni un color, ni una familia que no estuvieran ya en la web.
  *
- * 1. El claim era «La plataforma sobre la que los despachos españoles operan el
- *    100 % de su software». Un absoluto que no se puede sostener y que además
- *    sonaba a folleto.
- * 2. La línea legal decía «© 2026 VELIA Marketing SL». La razón social no se
- *    oculta —es obligatoria— pero «Marketing» no puede ser la palabra dominante
- *    de una empresa que ya no es una agencia. Marca arriba, sociedad debajo.
+ * ── LAS DOS ACCIONES SON LAS DEL HERO, LITERALMENTE ───────────────────────
+ * Mismo componente y mismos destinos: «Empieza» al acceso real del portal y
+ * «Hablemos» a `/contacto`. Si el pie tuviera sus propios botones, en dos
+ * cambios dejarían de parecerse a los de arriba — que es exactamente lo que
+ * acaba de corregirse en el resto de la web.
+ *
+ * La línea legal: la razón social no se oculta —es obligatoria— pero no puede
+ * ser la palabra dominante. Marca arriba, sociedad debajo.
  */
 export default function Footer() {
   return (
-    <footer className="bg-void text-cream/60">
-      <div className="mx-auto max-w-6xl px-6 py-12 grid gap-10 md:grid-cols-[1.4fr_auto_auto_auto]">
-        <div>
-          <Image src="/VELIA_logotipo_claro.svg" alt="VELIA" width={120} height={30} className="h-[22px] w-auto mb-4" />
-          <p className="text-xs leading-relaxed max-w-[34ch]">{FOOTER_CLAIM}</p>
-        </div>
-
-        {Object.entries(FOOTER_NAV).map(([key, grupo]) => (
-          <div key={key} className="text-xs space-y-2.5">
-            {/* 11 px y peso 600, como TODOS los demás rótulos de la web
-                (20-sep). Estos eran los únicos a 10 px y en 700: dos valores
-                que sólo existían aquí, y 10 px queda por debajo del mínimo que
-                cualquier revisión de tipografía pide para una etiqueta. */}
-            <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-cream/55 mb-3">
-              {grupo.title}
+    <footer className="bg-void text-cream/70">
+      {/* ── 1 · LLAMADA ─────────────────────────────────────────────────── */}
+      <div className="mx-auto max-w-6xl px-6 md:px-10 pt-16 pb-12 md:pt-24 md:pb-16">
+        <div className="md:flex md:items-end md:justify-between md:gap-12">
+          <div>
+            <Image
+              src="/VELIA_logotipo_claro.svg"
+              alt="VELIA"
+              width={200}
+              height={50}
+              className="h-[30px] md:h-[38px] w-auto"
+            />
+            <p className="mt-5 text-[clamp(1.25rem,2.4vw,1.9rem)] font-500 tracking-[-0.02em] leading-[1.25] text-cream max-w-[18ch]">
+              {FOOTER_CLAIM}
             </p>
-            {grupo.links.map(l => (
-              <Link key={l.href + l.label} href={l.href} className="block hover:text-cream transition-colors">
-                {l.label}
-              </Link>
-            ))}
-            {key === 'contacto' && (
-              <>
-                <a href={`mailto:${CONTACT_EMAIL}`} className="block hover:text-cream transition-colors">
-                  {CONTACT_EMAIL}
-                </a>
-                <a href={APP_URL} className="block hover:text-cream transition-colors">
-                  Acceso clientes
-                </a>
-              </>
-            )}
           </div>
-        ))}
+          <div className="mt-8 md:mt-0 flex flex-wrap items-center gap-3">
+            <BotonAccion href={APP_URL} variante="oscura" evento="login_click" externo>
+              Empieza
+            </BotonAccion>
+            <BotonAccion
+              href="/contacto"
+              variante="secundaria"
+              evento="final_contacto_click"
+              propiedades={{ cta_location: 'footer' }}
+            >
+              Hablemos
+            </BotonAccion>
+          </div>
+        </div>
       </div>
 
+      {/* ── 2 · MAPA ────────────────────────────────────────────────────── */}
       <div className="border-t border-white/10">
-        <div className="mx-auto max-w-6xl px-6 py-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-1">
+        <div className="mx-auto max-w-6xl px-6 md:px-10 py-12 md:py-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          {Object.entries(FOOTER_NAV).map(([key, grupo]) => (
+            <div key={key} className="text-[13px] space-y-2.5">
+              {/* 11 px y peso 600, como TODOS los demás rótulos de la web. */}
+              <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-cream/70 mb-3">
+                {grupo.title}
+              </p>
+              {grupo.links.map(l => (
+                <Link
+                  key={l.href + l.label}
+                  href={l.href}
+                  className="block hover:text-cream transition-colors duration-control"
+                >
+                  {l.label}
+                </Link>
+              ))}
+              {key === 'contacto' && (
+                <>
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    className="block hover:text-cream transition-colors duration-control"
+                  >
+                    {CONTACT_EMAIL}
+                  </a>
+                  <a
+                    href={APP_URL}
+                    className="block hover:text-cream transition-colors duration-control"
+                  >
+                    Acceso clientes
+                  </a>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── 3 · PIE LEGAL ───────────────────────────────────────────────── */}
+      <div className="border-t border-white/10">
+        <div className="mx-auto max-w-6xl px-6 md:px-10 py-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-1">
           <div>
-            <p className="text-[11px] text-cream/60">© {new Date().getFullYear()} VELIA</p>
-            <p className="text-[11px] text-cream/55 mt-0.5">
+            <p className="text-[11px] text-cream/70">© {new Date().getFullYear()} VELIA</p>
+            <p className="text-[11px] text-cream/70 mt-0.5">
               VELIA es una marca operada por VELIA Solutions SL.
             </p>
           </div>
@@ -83,7 +127,7 @@ export default function Footer() {
               decidió no podría cambiar de idea nunca. RGPD art. 7.3. */}
           <div className="flex items-center gap-4">
             <ConsentLink />
-            <p className="text-[11px] text-cream/55">veliacorp.com</p>
+            <p className="text-[11px] text-cream/70">veliacorp.com</p>
           </div>
         </div>
       </div>

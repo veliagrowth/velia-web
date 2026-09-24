@@ -27,34 +27,23 @@
  * Si algún día un proyecto no llegara ni a 'parcial', no se publica: un caso
  * simple y honesto es mejor que una historia completa inventada.
  *
- * ── QUÉ CAMBIÓ EL 24-sep-2026, Y QUÉ NO ───────────────────────────────────
- * Las tres líneas de `entorno` de los proyectos sin portal empezaban por una
- * negación: «Sin entorno.», «Sin portal.», «Sin entorno todavía. La
- * transformación está prevista, no hecha.» El docstring de este mismo campo
- * lleva desde que se escribió diciendo que esto «se dice en positivo» y que
- * «no necesitó un entorno de gestión es un hecho sobre el encargo, no una
- * carencia del cliente». Los datos no obedecían a su propia regla: el texto
- * decía una cosa y las cuatro cadenas la contraria.
+ * ── QUÉ CAMBIÓ EL 24-sep-2026 (tarde) ────────────────────────────────────
+ * Sale el campo `entorno` entero, con su booleano y su punto. Contaba, proyecto
+ * a proyecto, qué NO tenía cada uno —«sin entorno», «sin portal»— y después, ya
+ * en positivo, qué sí. Las dos versiones compartían el mismo defecto: hablaban
+ * del alcance del encargo, que es una conversación interna, delante de alguien
+ * que ha venido a ver trabajo. Un proyecto se presenta por lo que es, no por lo
+ * que no incluyó.
  *
- * Leído desde fuera, además, no describía al cliente: describía el estado de
- * desarrollo de VELIA. «Todavía», «previsto», «no hecho» son vocabulario de
- * hoja de ruta interna, y la web pública no es el sitio donde se cuentan los
- * pendientes de quien la escribe.
+ * Lo que se pierde —la idea de que se construye sólo el escalón que hace falta—
+ * no se pierde: es la sección `#entorno` de la Home entera, sostenida por el
+ * claim `modularEnvironment`. Aquí sobraba.
  *
- * LO QUE NO CAMBIA, y es lo importante: `tieneEntorno` sigue siendo el booleano
- * MEDIDO contra `tenants.active_modules` el 22-sep. Tres de los cuatro siguen
- * en `false` y su punto sigue hueco. Se ha reescrito cómo se cuenta un hecho,
- * no el hecho. Si alguien quisiera además llenar un punto, eso ya no es copy:
- * es cambiar lo que el punto significa, y entonces hay que cambiar la leyenda,
- * este comentario y la medición que los sostiene.
- *
- * ── LA PROCEDENCIA DEL SHOPIFY DE KREA HOGAR ──────────────────────────────
- * La línea del comercio a medida NO sale del repositorio: no hay evidencia
- * localizable de esa tienda en este código. Viene del briefing de Joaquín del
- * 24-sep-2026, y se publica como dirección de copy con su origen declarado
- * aquí. Por eso `evidencia` se queda en 'parcial' y por eso no lleva ni una
- * cifra detrás: ni facturación, ni conversión, ni pedidos. Si algún día hace
- * falta afirmar un resultado de esa tienda, hace falta antes la fuente.
+ * Y KREA HOGAR deja de describirse por su tienda. El valor no es que VELIA le
+ * haya hecho un comercio: es que su infraestructura está VIVA y operada, y por
+ * eso el negocio no paga por mantener algo que sólo existe. La palabra Shopify
+ * sale del texto público: nombra una herramienta, y lo que se vende no es la
+ * herramienta.
  */
 
 export type Caso = {
@@ -67,33 +56,6 @@ export type Caso = {
   velia: string
   /** Rótulo corto del tipo de trabajo. */
   tipo: string
-  /**
-   * Qué entorno VELIA tiene este proyecto — o por qué no tiene ninguno.
-   *
-   * ── AÑADIDO EL 22-sep-2026, Y ES LA COLUMNA QUE MÁS TRABAJO HACE ────────
-   * Sin ella, los cuatro proyectos se leen como cuatro encargos equivalentes, y
-   * la idea de que VELIA construye lo que hace falta y nada más se queda en una
-   * frase. Con ella, la lista misma es la prueba: dos de los cuatro no tienen
-   * entorno de gestión, y uno lo tiene entero.
-   *
-   * ⚠️ NO SE ESCRIBE DE MEMORIA. Cada línea se contrasta contra
-   * `tenants.active_modules` en la base de producción (medido el 22-sep):
-   * Cónsul Jurídico nueve módulos con `portal` y `legal` dentro; METHOD NUMBERS
-   * tres, sin `portal`; KREA HOGAR y THE DROP AGENCY no son tenants. Decir «no
-   * tiene entorno» de quien sí lo tiene sería tan falso como lo contrario, y es
-   * más fácil de cometer: el impulso es rellenar las cuatro filas por simetría.
-   *
-   * Y se dice en positivo. «No necesitó un entorno de gestión» es un hecho sobre
-   * el encargo, no una carencia del cliente.
-   */
-  entorno: string
-  /**
-   * Si este proyecto tiene entorno VELIA o no. Es un BOOLEANO y no se deduce
-   * del texto: el texto se lee, esto se pinta. Alimenta el punto —lleno o
-   * hueco— que traduce la frase a un golpe de vista, con el mismo lenguaje de
-   * `.estado` que ya usa `/sobre-velia`.
-   */
-  tieneEntorno: boolean
   /**
    * El caso que MANDA en la composición. Sólo uno. Ocupa la fila entera y se
    * pinta más grande; los otros tres son contrapunto.
@@ -115,9 +77,6 @@ export const CASOS: readonly Caso[] = [
     velia:
       'Cliente. VELIA construyó su infraestructura —captación, expedientes, documentos, agenda y un portal para sus propios clientes— y la sigue operando.',
     tipo: 'Infraestructura construida y operada',
-    entorno:
-      'Entorno completo. El trabajo del despacho vive dentro, y sus clientes tienen el suyo para seguir asuntos, citas y mensajes.',
-    tieneEntorno: true,
     principal: true,
     evidencia: 'documentado',
   },
@@ -126,11 +85,8 @@ export const CASOS: readonly Caso[] = [
     dominio: 'kreahogar.com',
     que: 'Sofás y colchones fabricados en España. Tienda en Lleida y venta online.',
     velia:
-      'VELIA construye y opera su presencia digital y su comercio: un Shopify hecho a la medida de su sector, con la web, el contenido y las campañas alrededor.',
+      'Su infraestructura digital no es algo entregado y terminado: está viva. VELIA la mantiene, la mejora y la opera —catálogo, ofertas, contenido y la relación con sus clientes— para que el negocio no pague por sostener algo que simplemente existe.',
     tipo: 'Presencia digital y comercio',
-    entorno:
-      'Su tienda online es el entorno: se vende desde ahí. No necesitó además un panel de gestión interna.',
-    tieneEntorno: false,
     evidencia: 'parcial',
   },
   {
@@ -139,9 +95,6 @@ export const CASOS: readonly Caso[] = [
     que: 'Marca y lanzamientos. Hoy su web es el teaser del próximo.',
     velia: 'VELIA construye y mantiene la web, y despliega cada cambio.',
     tipo: 'Web construida y mantenida',
-    entorno:
-      'Lo que este encargo necesita es que la web esté en pie y se despliegue sola. Eso es lo que está operado.',
-    tieneEntorno: false,
     evidencia: 'documentado',
   },
   {
@@ -150,9 +103,6 @@ export const CASOS: readonly Caso[] = [
     que: 'Agencia creativa y de management de artistas.',
     velia: 'VELIA acompaña su producción creativa: piezas, campañas y el material con el que trabajan sus artistas.',
     tipo: 'Trabajo creativo',
-    entorno:
-      'El encargo vive en la producción, no en un panel. Lo que se opera es el trabajo creativo que sale de ahí.',
-    tieneEntorno: false,
     evidencia: 'parcial',
   },
 ]

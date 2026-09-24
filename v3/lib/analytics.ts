@@ -122,7 +122,6 @@ export type AnalyticsEvent =
   // Secciones de la Home nueva
   | 'shift_section_view'
   | 'capabilities_section_view'
-  | 'velia_os_view'
   | 'operating_model_view'
   // Profundidad de lectura
   | 'scroll_50'

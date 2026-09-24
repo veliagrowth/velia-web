@@ -33,9 +33,10 @@ interface Capacidad {
   /**
    * El conocimiento publicado que explica la capacidad (19-sep-2026).
    *
-   * Sólo la lleva la capacidad que TIENE algo escrito. No se rellena en las
-   * demás por simetría: un enlace a una página que no existe es un 404, y uno a
-   * una página genérica es relleno. Mientras tanto, la asimetría es la verdad.
+   * ⚠️ 24-sep-2026: ya la llevan las CUATRO. La regla de antes seguía siendo
+   * correcta —no se enlaza a una página que no existe— pero la respuesta no era
+   * quitar el enlace: era escribir las páginas. Desde la Home se entra a
+   * entender cualquiera de las cuatro, no sólo una.
    *
    * ⚠️ 20-sep: apuntaba a la guía porque el hub no existía. Ahora existe, y es
    * a él: desde la Home se entra al tema, y el tema reparte a sus piezas. Si
@@ -51,6 +52,7 @@ const CAPACIDADES: readonly Capacidad[] = [
     nombre: 'Digital Foundation',
     titular: 'La base sobre la que se apoya todo lo demás.',
     piezas: ['Web y arquitectura', 'Dominio y alojamiento', 'Analítica y tracking', 'CRM', 'Integraciones', 'Identidad digital'],
+    guia: { href: '/digital-foundation', texto: 'Qué es Digital Foundation' },
   },
   {
     n: '02',
@@ -67,6 +69,7 @@ const CAPACIDADES: readonly Capacidad[] = [
     nombre: 'Growth & Automation',
     titular: 'De la atención al cliente, sin que nada se caiga por el camino.',
     piezas: ['Captación', 'Seguimiento', 'Cualificación', 'Automatización de procesos', 'Conversión'],
+    guia: { href: '/growth-automation', texto: 'Qué es Growth & Automation' },
   },
   {
     n: '04',
@@ -74,6 +77,7 @@ const CAPACIDADES: readonly Capacidad[] = [
     titular: 'Lo que casi nadie hace: quedarse.',
     piezas: ['Monitorización', 'Medición', 'Mantenimiento', 'Optimización continua', 'Evolución'],
     destacada: true,
+    guia: { href: '/digital-operations', texto: 'Qué es Digital Operations' },
   },
 ]
 

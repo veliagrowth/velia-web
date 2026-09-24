@@ -61,6 +61,12 @@ const SUPERFICIES = [
   { ruta: '/ai-search', clase: 'NUEVA' },
   { ruta: '/ai-search/preparar-una-web', clase: 'NUEVA' },
   { ruta: '/ai-search/llms-txt', clase: 'NUEVA' },
+  /* Las otras tres capacidades (24-sep-2026). Hasta hoy sólo una de las cuatro
+     tenía página, y la Home enlazaba a una y dejaba las otras tres en un
+     titular. Son NUEVAS y son indexables: explican lo que VELIA hace. */
+  { ruta: '/digital-foundation', clase: 'NUEVA' },
+  { ruta: '/growth-automation', clase: 'NUEVA' },
+  { ruta: '/digital-operations', clase: 'NUEVA' },
 
   // Legacy: aislada, y viva.
   { ruta: '/precios', clase: 'LEGACY_AISLADA' },
@@ -122,8 +128,17 @@ try {
         canonical: document.querySelector('link[rel="canonical"]')?.getAttribute('href') ?? null,
         robots: meta('robots'),
         tipos,
-        // «VELIA Legal» en el texto visible, no en comentarios del marcado.
-        diceVeliaLegal: /VELIA\s+Legal/i.test(document.body.innerText || ''),
+        /* «VELIA Legal» en el texto visible, no en comentarios del marcado.
+           ⚠️ `[ 	]` y NO `\s` (24-sep-2026). `innerText` mete un SALTO DE LÍNEA
+           entre bloques, así que `\s+` unía dos textos que no tienen nada que
+           ver: el pie nuevo pone el enlace «Sobre VELIA» justo encima del
+           rótulo «Legal» de su columna legal, y la guarda dio ROJO en las doce
+           rutas indexables por una vecindad, no por un nombre.
+           El claim NO se ha tocado —ninguna ruta indexable puede publicar
+           «VELIA Legal»—: lo que se ha corregido es que un salto de línea deje
+           de contar como el espacio de un nombre propio. Probado por mutación:
+           con «VELIA Legal» escrito en una línea, esta guarda sigue mordiendo. */
+        diceVeliaLegal: /VELIA[ 	]+Legal/i.test(document.body.innerText || ''),
         orgId: org?.['@id'] ?? null,
         publisherId: site?.publisher?.['@id'] ?? null,
       }

@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Reveal from '@/components/Reveal'
 import { CtaSobreOscuro } from '@/components/Conocimiento'
-import SectionViewMarker from '@/components/SectionViewMarker'
-import VeliaOS from '@/components/VeliaOS'
 import { metadatosDePagina } from '@/lib/metadatos'
 
 /**
@@ -261,27 +259,29 @@ export default function SobreVeliaPage() {
         </ul>
       </section>
 
-      {/* ═══ 3b · QUÉ HAY MONTADO ═════════════════════════════════════════
-          Llegó aquí el 20-sep desde la Home, donde era el primer corte oscuro.
-          Es el sitio correcto: la regla 03 de arriba dice que lo que no está
-          terminado se dice, y aquí es donde se dice. En la Home obligaba a
-          atravesar la arquitectura interna antes de saber qué gana un negocio.
-          El bucle del Control Plane no viene: era el detalle más interno de
-          todos y no ayuda a decidir si trabajar con VELIA. */}
-      <section aria-labelledby="t-sv-infra" id="infraestructura" className="velia-dark-stage bg-void text-cream scroll-mt-20">
-        <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
-          <SectionViewMarker event="velia_os_view" />
-          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold/85">VELIA OS</p>
-          <h2 id="t-sv-infra" className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]">
-            Detrás de cada cliente hay infraestructura nuestra.
-          </h2>
-          <p className="mt-5 text-[15px] md:text-base leading-[1.6] text-cream/70 max-w-prose">
-            No es un producto que se venda por separado: es con lo que VELIA trabaja. Y como
-            aquí es fácil prometer de más, esto es lo que funciona hoy y lo que todavía no.
-          </p>
-          <VeliaOS />
-        </div>
-      </section>
+      {/* ═══ 3b · (RETIRADO EL 24-sep-2026) ═══════════════════════════════
+          Aquí iba «VELIA OS — Detrás de cada cliente hay infraestructura
+          nuestra», con dos columnas: «En marcha» y «En construcción».
+
+          La columna de la derecha era el backlog. Control Plane, agentes
+          gobernados, VELIA 4.0 Audit, terceros dentro del entorno: cuatro cosas
+          que VELIA todavía no tiene, publicadas en la página que alguien abre
+          para decidir si trabajar con nosotros.
+
+          El argumento con el que se escribió era bueno —una compañía que dice
+          qué le falta es una compañía a la que se le puede creer lo que dice
+          que tiene— y sigue siendo cierto de puertas adentro. De puertas
+          afuera hace otra cosa: convierte a una empresa que ya opera sistemas
+          reales en una empresa a medio construir. El visitante no está
+          evaluando nuestro roadmap; está mirando si sabemos hacer lo suyo.
+
+          Lo que se afirma sigue sin cambiar: esta página dice lo que VELIA
+          hace y no promete ninguna capacidad que no exista. Simplemente deja
+          de enumerar las que faltan.
+
+          NO SE BORRA EL CONOCIMIENTO: `components/VeliaOS.tsx` queda sin uso y
+          el estado real de cada capacidad vive donde se decide —`admin_tasks` y
+          la documentación de arquitectura—, que es donde sirve para trabajar. */}
 
       {/* ═══ 4 · QUIÉN RESPONDE ═══════════════════════════════════════════
           Blanco sobre Pearl Cloud: es el momento más concreto de la página y

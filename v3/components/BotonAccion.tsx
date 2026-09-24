@@ -15,9 +15,11 @@ import { trackEvent, type AnalyticsEvent } from '@/lib/analytics'
  * de aplicacion, que es exactamente lo que hay debajo. La forma del boton y la
  * forma del producto se contestan.
  *
- * ⚠️ `CtaFlecha` NO se toca y NO se sustituye. Sigue siendo la accion del resto
- * de la pagina. Esto es el hero y solo el hero: si acaba usandose en tres
- * sitios mas, entonces habra que decidir cual de los dos es el sistema.
+ * ⚠️ 24-sep (tarde): ESTE ES YA EL SISTEMA. `CtaFlecha` —la pastilla con la
+ * flecha que se rellenaba— se ha retirado y sus dos consumidores, la barra y el
+ * cierre oscuro de las piezas, pasan por aqui. Un solo componente con TRES
+ * pieles (clara, oscura y la de barra), que no es lo mismo que tres botones:
+ * cambian a la vez y no hay uno que se quede con el diseno anterior.
  *
  * ── EL CANTO, Y POR QUE NO ES UNA SOMBRA ──────────────────────────────────
  * Un `box-shadow` de desplazamiento fijo y sin difuminar —2 px abajo, 2 px a la
@@ -36,28 +38,38 @@ export default function BotonAccion({
   children,
   variante = 'primaria',
   evento,
+  propiedades,
   externo = false,
+  compacto = false,
 }: {
   href: string
   children: React.ReactNode
-  variante?: 'primaria' | 'secundaria'
+  /** `primaria` Night sobre claro · `secundaria` blanca con borde · `oscura` Pearl sobre Night. */
+  variante?: 'primaria' | 'secundaria' | 'oscura'
   evento?: AnalyticsEvent
+  propiedades?: Record<string, string | number | boolean>
   externo?: boolean
+  /** Talla de barra: 36 px. Mismo boton a otra escala, no otro boton. */
+  compacto?: boolean
 }) {
-  const base =
-    'boton-accion inline-flex items-center justify-center rounded-[6px] border px-6 py-[0.72rem] text-[13px] font-600 tracking-[0.01em] whitespace-nowrap'
+  const base = `boton-accion inline-flex items-center justify-center rounded-[6px] border font-600 tracking-[0.01em] whitespace-nowrap ${
+    compacto ? 'px-4 py-[0.42rem] text-[12px]' : 'px-6 py-[0.72rem] text-[13px]'
+  }`
 
   /* Primaria: Night sobre Pearl. Secundaria: blanco con el borde de control del
-     manual (neutral-450 #838CA1) — el paso 300 da 1,38:1 y no delimita nada. */
+     manual (neutral-450 #838CA1) — el paso 300 da 1,38:1 y no delimita nada.
+     Oscura: Pearl sobre Night, para los cierres. */
   const piel =
     variante === 'primaria'
       ? 'boton-accion--primaria border-void bg-void text-cream'
-      : 'boton-accion--secundaria border-[#838CA1] bg-white text-void'
+      : variante === 'secundaria'
+        ? 'boton-accion--secundaria border-[#838CA1] bg-white text-void'
+        : 'boton-accion--oscura border-cream bg-cream text-void'
 
   return (
     <a
       href={href}
-      onClick={evento ? () => trackEvent(evento) : undefined}
+      onClick={evento ? () => trackEvent(evento, propiedades) : undefined}
       {...(externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       className={`${base} ${piel}`}
     >

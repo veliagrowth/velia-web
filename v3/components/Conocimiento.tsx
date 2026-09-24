@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import CtaFlecha from '@/components/CtaFlecha'
+import BotonAccion from '@/components/BotonAccion'
 import { CTA_CONTACTO, CONTACTO_MICROCOPY } from '@/lib/cta'
 import { fechaLarga, type Fuente } from '@/lib/conocimiento'
 
@@ -79,20 +79,21 @@ export function Terminos({ filas, className = 'mt-12 md:mt-14' }: { filas: [stri
 
 /** La única llamada a la acción de una pieza, sobre su cierre oscuro.
  *
- *  Desde el 22-sep pinta el `CtaFlecha`, y es el ÚNICO sitio donde se decide
+ *  Desde el 24-sep pinta el `BotonAccion`, y es el ÚNICO sitio donde se decide
  *  eso para los cierres oscuros: la Home, `/sobre-velia` y las piezas de
  *  `/ai-search` pasan por aquí, así que cambian las cuatro a la vez y no hay
- *  una que se quede con la píldora anterior. */
+ *  una que se quede con el botón anterior. */
 export function CtaSobreOscuro({ ubicacion }: { ubicacion: string }) {
   return (
     <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-      <CtaFlecha
+      <BotonAccion
         href={CTA_CONTACTO.href}
-        etiqueta={CTA_CONTACTO.label}
+        variante="oscura"
         evento="final_contacto_click"
         propiedades={{ cta_location: ubicacion }}
-        sobre="oscuro"
-      />
+      >
+        {CTA_CONTACTO.label}
+      </BotonAccion>
       <p className="text-[13px] text-cream/70">{CONTACTO_MICROCOPY}</p>
     </div>
   )

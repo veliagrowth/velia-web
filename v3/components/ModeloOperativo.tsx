@@ -21,16 +21,21 @@ import Reveal from '@/components/Reveal'
 
    Las dos recurrentes SÍ conservan su línea, y la asimetría es deliberada: se
    ve que esas dos pesan más antes de haberlas leído. */
+/* ⚠️ EN ESPAÑOL desde el 24-sep-2026. Estaban en inglés —Discover, Diagnose,
+   Design, Build, Operate, Optimize— y no son naming oficial: los nombres
+   propios de VELIA son las CAPACIDADES (Digital Foundation, AI Search…), que
+   la dirección fijó así en su §8 y siguen en inglés. Las fases de un método no
+   son una marca; son lo que le pasa al cliente, y se le cuenta en su idioma. */
 const FASES = [
-  { n: '01', t: 'Discover' },
-  { n: '02', t: 'Diagnose' },
-  { n: '03', t: 'Design' },
-  { n: '04', t: 'Build' },
+  { n: '01', t: 'Descubrir' },
+  { n: '02', t: 'Diagnosticar' },
+  { n: '03', t: 'Diseñar' },
+  { n: '04', t: 'Construir' },
 ] as const
 
 const RECURRENTES = [
-  { n: '05', t: 'Operate',  d: 'Funciona todos los días, y alguien responde de que funcione.' },
-  { n: '06', t: 'Optimize', d: 'Se mide, se corrige y se amplía.' },
+  { n: '05', t: 'Operar',    d: 'Funciona todos los días, y alguien responde de que funcione.' },
+  { n: '06', t: 'Optimizar', d: 'Se mide, se corrige y se amplía.' },
 ] as const
 
 export default function ModeloOperativo() {

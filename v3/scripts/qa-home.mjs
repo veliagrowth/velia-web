@@ -466,7 +466,7 @@ const browser = await puppeteer.launch({
 //   medicion: dentro de #casos hay EXACTAMENTE uno activo y es el que apunta a
 //             #casos. El relleno y el `aria-current` son el mismo atributo
 //
-//   claim:    la accion se rellena al enfocarla con el teclado
+//   claim:    la accion se recorta con el anillo Iris al enfocarla con el teclado
 //   medicion: el `clip-path` de su capa cambia al recibir foco, y vuelve al
 //             perder. No se mide el hover: con teclado tiene que funcionar
 //
@@ -509,22 +509,27 @@ const browser = await puppeteer.launch({
      daban ROJO con el botón funcionando perfectamente. */
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }))
   await new Promise(r => setTimeout(r, 400))
-  const reposoCta = await page.evaluate(() => {
-    const a = document.querySelector('.cta-flecha')
-    return a ? getComputedStyle(a.querySelector('.cta-flecha__capa')).clipPath : null
-  })
+  /* ⚠️ 24-sep (tarde): el relleno que subía ya no existe. `CtaFlecha` se retiró
+     al converger TODAS las acciones de la web en `.boton-accion`, y el botón
+     nuevo no se rellena: se recorta con el anillo Iris sólido de 2 px del
+     manual de marca. El CLAIM es el mismo —la acción se distingue al llegar con
+     el teclado— y lo que cambia es la señal que lo demuestra. */
   let cta = null
   for (let i = 0; i < 25 && !cta; i++) {
     await page.keyboard.press('Tab')
     await new Promise(r => setTimeout(r, 60))
     cta = await page.evaluate(() => {
       const a = document.activeElement
-      return a && a.classList.contains('cta-flecha') ? { href: a.getAttribute('href'), focusVisible: a.matches(':focus-visible') } : null
+      if (!a || !a.classList.contains('boton-accion')) return null
+      const s = getComputedStyle(a)
+      return {
+        href: a.getAttribute('href'),
+        focusVisible: a.matches(':focus-visible'),
+        grosor: parseFloat(s.outlineWidth) || 0,
+        color: s.outlineColor,
+        estilo: s.outlineStyle,
+      }
     })
-  }
-  if (cta) {
-    await new Promise(r => setTimeout(r, 500))
-    cta.enfocado = await page.evaluate(() => getComputedStyle(document.activeElement.querySelector('.cta-flecha__capa')).clipPath)
   }
   /* ── 24-sep-2026: el hero pasa de UNA acción a DOS ──────────────────────
      Medía `.cta-flecha` —la pastilla del resto de la web— y el hero ahora usa
@@ -558,9 +563,9 @@ const browser = await puppeteer.launch({
     heroCtas[1] ?? 'NO HAY SECUNDARIA',
   )
   comprobar(
-    'La acción se rellena al enfocarla con el teclado',
-    Boolean(cta) && cta.focusVisible && cta.enfocado !== reposoCta && cta.enfocado.startsWith('inset(0px'),
-    cta ? `reposo ${String(reposoCta).slice(0, 20)}… → foco ${cta.enfocado}` : 'ningún CTA alcanzado con Tab',
+    'La acción se recorta con el anillo Iris al enfocarla con el teclado',
+    Boolean(cta) && cta.focusVisible && cta.grosor >= 2 && cta.estilo === 'solid' && cta.color === 'rgb(116, 121, 242)',
+    cta ? `${cta.estilo} ${cta.grosor}px ${cta.color}` : 'ningún CTA alcanzado con Tab',
   )
   await page.close()
 
@@ -574,7 +579,7 @@ const browser = await puppeteer.launch({
      primero devolvía un rectángulo de 0×0 y daba ROJO con el botón a la vista
      en la pantalla. La medición tiene que buscar lo que se ve. */
   const ctaVisible = await movil.evaluate(() => {
-    const visibles = [...document.querySelectorAll('header .cta-flecha')]
+    const visibles = [...document.querySelectorAll('header .boton-accion')]
       .map(a => a.getBoundingClientRect())
       .filter(r => r.width > 40)
     return visibles.length === 1 && visibles[0].right <= window.innerWidth + 1 && visibles[0].top >= 0

@@ -62,6 +62,12 @@ const RUTAS = [
   '/ai-search',
   '/ai-search/preparar-una-web',
   '/ai-search/llms-txt',
+  /* Las tres capacidades que faltaban (24-sep-2026). Entran aquí el mismo día
+     que se publican: una página indexable que ninguna guarda mira es una
+     página que puede romperse sin que nadie se entere. */
+  '/digital-foundation',
+  '/growth-automation',
+  '/digital-operations',
   '/aviso-legal',
   '/privacidad',
   '/cookies',

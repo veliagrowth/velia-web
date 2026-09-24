@@ -5,8 +5,12 @@ import { trackEvent } from '@/lib/analytics'
 import VeliaSplash from '@/components/VeliaSplash'
 
 /**
- * Demo en vivo embebida — el despacho de demostración (solo lectura) dentro de
- * un marco de navegador. Se usa en la home (justo bajo el hero) y en /demo.
+ * El entorno de VELIA, en vivo, dentro de un marco de ventana. Se usa en la
+ * home (justo bajo el hero) y en /demo.
+ *
+ * ⚠️ El vocabulario de este fichero dejó de hablar de «despachos» el 24-sep-2026:
+ * lo que se enseña es el entorno digital que VELIA configura y opera, y el
+ * sector del negocio que haya dentro es una configuración, no la identidad.
  *
  * Rendimiento (bug "la demo carga lenta", escritorio y móvil):
  *  1. El SPLASH de VELIA se pinta AL INSTANTE (cero bytes de red: SVG inline) →
@@ -40,14 +44,24 @@ export default function DemoEmbed({ heightClass = 'h-[70vh] min-h-[520px]' }: { 
 
   return (
     <div ref={ref} className="rounded-2xl border border-void/15 bg-deep overflow-hidden shadow-[0_30px_80px_-40px_rgba(13,16,23,0.45)]">
-      {/* Barra de navegador */}
-      <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/10">
-        <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden />
-        <span className="ml-3 rounded-md bg-white/5 px-3 py-1 text-[10px] tracking-[0.06em] text-cream/60">
-          demo.app.veliacorp.com · solo lectura
-        </span>
+      {/* ── Barra de ventana ──────────────────────────────────────────────
+          ⚠️ 24-sep-2026: SE VA LA ETIQUETA CON EL HOST. Decía
+          «demo.app.veliacorp.com · solo lectura», y las dos mitades sobraban por
+          motivos distintos. El host es información técnica que no le dice nada a
+          quien mira —y encima enseña la topología de los subdominios—; «solo
+          lectura» describe una limitación del escaparate, no una cualidad del
+          producto, y quien llega no está intentando escribir nada. El encuadre
+          ya comunica que esto es una demostración.
+
+          Los tres puntos pasan a tener su color —rojo, amarillo, verde— porque
+          es lo que hace que se lea «aplicación» en dos décimas de segundo. Son
+          un SIGNIFICANTE, no controles: sin `role`, sin foco y `aria-hidden`,
+          porque un botón que parece cerrar una ventana y no la cierra es peor
+          que no tenerlo. */}
+      <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/10" aria-hidden="true">
+        <span className="h-2.5 w-2.5 rounded-full bg-[#ED6A5E]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#F4BF50]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#61C554]" />
       </div>
 
       {/* Escenario: splash instantáneo + iframe que aparece por encima al cargar */}
@@ -60,7 +74,7 @@ export default function DemoEmbed({ heightClass = 'h-[70vh] min-h-[520px]' }: { 
         {load && (
           <iframe
             src={DEMO_URL}
-            title="Demo interactiva de VELIA — despacho de demostración en solo lectura"
+            title="Demostración del entorno digital que VELIA configura y opera para sus clientes"
             className={`absolute inset-0 h-full w-full transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`}
             loading="lazy"
             allow="clipboard-write"

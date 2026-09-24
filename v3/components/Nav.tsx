@@ -8,7 +8,7 @@ import { APP_URL } from '@/lib/constants'
 import { HEADER_LINKS } from '@/lib/navigation'
 import { CTA_CONTACTO } from '@/lib/cta'
 import { trackEvent } from '@/lib/analytics'
-import CtaFlecha from '@/components/CtaFlecha'
+import BotonAccion from '@/components/BotonAccion'
 
 /**
  * Header — una superficie de control compacta.
@@ -177,24 +177,26 @@ export default function Nav() {
           </a>
           {/* El mismo botón de la Home a la talla de la barra: la acción se
               reconoce de una sección a otra porque es literalmente la misma. */}
-          <CtaFlecha
+          <BotonAccion
             href={CTA_CONTACTO.href}
-            etiqueta={CTA_CONTACTO.label}
             evento="nav_contacto_click"
             propiedades={{ cta_location: 'header' }}
             compacto
-          />
+          >
+            {CTA_CONTACTO.label}
+          </BotonAccion>
         </div>
 
         {/* Móvil: el CTA principal NO se esconde detrás del menú. */}
         <div className="col-start-3 justify-self-end flex lg:hidden items-center gap-2">
-          <CtaFlecha
+          <BotonAccion
             href={CTA_CONTACTO.href}
-            etiqueta={CTA_CONTACTO.label}
             evento="nav_contacto_click"
             propiedades={{ cta_location: 'header_mobile' }}
             compacto
-          />
+          >
+            {CTA_CONTACTO.label}
+          </BotonAccion>
           <button
             ref={menuBtn}
             type="button"
