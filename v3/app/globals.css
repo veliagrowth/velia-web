@@ -1295,3 +1295,184 @@ html[data-js] .entorno:has(.escalon-4[data-visible='true']) .estrato-4 {
   .enlace-flecha:hover .enlace-flecha__flecha,
   .enlace-flecha:focus-visible .enlace-flecha__flecha { transform: none; }
 }
+
+/* ── 12 · FONDO IRIS DEL HERO ───────────────────────────── RESPOND ───────
+   Tres formas Iris muy desenfocadas detrás del especimen de VELIA OS. Siguen
+   al cursor «ligeramente»: el recorrido máximo son 26 px y el suavizado lo da
+   una TRANSICIÓN larga sobre `transform`, no un lerp en JavaScript. El
+   componente escribe `--mx`/`--my` como mucho una vez por fotograma y el
+   navegador interpola el resto — una línea de CSS en vez de un bucle.
+
+   SOLO TONOS IRIS. Pale Ice (#B5DFFF) queda fuera a propósito: el manual de
+   marca lo reserva a actividad de IA, y esto es ambiente, no una señal.
+
+   La opacidad es la que decide si esto es fondo o protagonista. Entre 0,10 y
+   0,18: si se sube, la ventana deja de ser lo primero que se mira. */
+.fondo-iris {
+  position: absolute;
+  /* `inset: 0` y NO un margen negativo. La primera versión salía 6 % por cada
+     lado «para que el desenfoque no se viera cortado», y con eso el propio
+     contenedor medía más que la ventana: `qa:home` lo cazó a los siete anchos
+     —1526 px de ancho en un viewport de 1440—. `overflow-x: clip` lo escondía,
+     así que no había barra de scroll ni error: exactamente el fallo silencioso
+     por el que esa guarda existe. */
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  --mx: 0;
+  --my: 0;
+}
+.fondo-iris__forma {
+  position: absolute;
+  display: block;
+  border-radius: 9999px;
+  filter: blur(64px);
+  /* El desenfoque de 64 px es caro de recalcular: `will-change` lo promueve a
+     su propia capa una vez y luego solo se compone. */
+  will-change: transform;
+  transition: transform 700ms var(--ease-velia);
+}
+/* ⚠️ CADA FORMA CABE EN EL VIEWPORT, y no se confía en el recorte del padre.
+   `getBoundingClientRect()` devuelve la caja de layout, no lo que se ve: una
+   forma de 544 px en una pantalla de 390 sigue midiendo 544 aunque el padre la
+   recorte, y la guarda —con razón— lo cuenta como contenido fuera de pantalla.
+   De ahí el `min(rem, vw)`: en escritorio manda el tamaño en `rem` y en móvil
+   lo hace el ancho de pantalla. El margen que queda a cada lado (≥ 4 %) es
+   mayor que el recorrido máximo del cursor (26 px), así que tampoco se sale al
+   moverlo. */
+.fondo-iris__forma--1 {
+  top: 2%;
+  left: 46%;
+  width: min(30rem, 50vw);
+  height: min(30rem, 50vw);
+  background: radial-gradient(circle, rgba(148, 154, 248, 0.18) 0%, rgba(148, 154, 248, 0) 70%);
+  transform: translate3d(calc(var(--mx) * 18px), calc(var(--my) * 14px), 0);
+}
+/* En sentido CONTRARIO al cursor: dos capas que se mueven igual son una sola
+   capa con más desenfoque. La profundidad la da la discrepancia. */
+.fondo-iris__forma--2 {
+  bottom: -6%;
+  left: 4%;
+  width: min(26rem, 44vw);
+  height: min(26rem, 44vw);
+  background: radial-gradient(circle, rgba(116, 121, 242, 0.15) 0%, rgba(116, 121, 242, 0) 70%);
+  transform: translate3d(calc(var(--mx) * -26px), calc(var(--my) * -18px), 0);
+}
+.fondo-iris__forma--3 {
+  top: 38%;
+  left: 30%;
+  width: min(18rem, 32vw);
+  height: min(18rem, 32vw);
+  background: radial-gradient(circle, rgba(141, 144, 250, 0.1) 0%, rgba(141, 144, 250, 0) 72%);
+  transform: translate3d(calc(var(--mx) * 11px), calc(var(--my) * -9px), 0);
+}
+
+/* ── 13 · LA VENTANA DE VELIA OS ────────────────────────── RESPOND ───────
+   El chrome de `components/os/MacWindowFrame.tsx`. Casi todo vive en clases de
+   Tailwind dentro del componente; aquí queda lo que Tailwind no expresa bien.
+
+   La ventana se posa: entra una vez, al cargar, y no se vuelve a mover. No es
+   scroll-driven a propósito — el hero ya tiene `.hero-salida` gobernando su
+   salida, y dos movimientos compitiendo en el mismo espacio marean. */
+.os-ventana {
+  position: relative;
+  z-index: 1;
+  /* La línea clara de arriba es la que hace que parezca una superficie con
+     volumen y no un rectángulo pegado. Un borde entero no: solo el canto. */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 18px 50px -24px rgba(13, 16, 23, 0.55);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html[data-js] .os-demo {
+    animation: os-posar var(--motion-section) var(--ease-velia) both;
+    animation-delay: 220ms;
+  }
+}
+@keyframes os-posar {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Las dos barras que se deslizan en móvil pierden la barra de scroll: ocupa
+   11 px de una fila de 44 y no hace falta, porque los chips se ven cortados y
+   eso ya dice que hay más. */
+.os-espacios,
+.os-modulos {
+  scrollbar-width: none;
+}
+.os-espacios::-webkit-scrollbar,
+.os-modulos::-webkit-scrollbar {
+  display: none;
+}
+
+/* Foco visible DENTRO de una superficie oscura. El anillo del sistema es Iris
+   500 sólido (manual de marca: nunca el halo al 35 %), y aquí necesita además
+   separación del fondo oscuro o se confunde con el borde de la tarjeta. */
+.os-demo :is(button, [role='tab']):focus-visible {
+  outline: 2px solid #7479f2;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* El realce de una tarjeta al pasar por encima es de BORDE y FONDO, nunca de
+   tamaño: un `scale` dentro de una rejilla de tres columnas empuja a las
+   vecinas y desalinea la fila entera. */
+@media (hover: hover) {
+  .os-tarjeta {
+    transition:
+      background-color var(--motion-control) var(--ease-velia),
+      border-color var(--motion-control) var(--ease-velia);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .os-tarjeta,
+  .fondo-iris__forma {
+    transition: none;
+  }
+  html[data-js] .os-demo {
+    animation: none;
+  }
+}
+
+/* ── 14 · ESCALERA PIXEL ────────────────────────────────── SCROLL ────────
+   El personaje que sube los estratos del entorno. Su `transform` lo escribe
+   JavaScript en cada fotograma, así que aquí NO hay transición: una transición
+   sobre una propiedad gobernada por el scroll va siempre un poco por detrás
+   del dedo, y eso se lee como retardo, no como suavidad.
+
+   Sólo aparece: de invisible a visible una vez, cuando ya se ha medido dónde
+   pisa. Sin esto se le ve un fotograma en la esquina superior izquierda antes
+   de colocarse. */
+.escalera-pixel {
+  opacity: 0;
+  transition: opacity var(--motion-panel) var(--ease-velia);
+  will-change: transform;
+  /* Por delante de los estratos: pisa encima de ellos, no por detrás. */
+  z-index: 1;
+}
+/* El pixel se mantiene duro a cualquier escala y en cualquier zoom. Sin esto,
+   el navegador suaviza el SVG al escalarlo y el personaje se vuelve una mancha
+   —que es exactamente lo que pasa al ampliar un PNG pequeño—. */
+.escalera-pixel svg {
+  image-rendering: pixelated;
+  /* ── EL CONTORNO, Y POR QUÉ NO ES UN ADORNO ────────────────────────────
+     El personaje cruza dos fondos: la página en Pearl Cloud y los estratos en
+     Night. Su torso es Deep Graphite (#1B1F2A), que sobre Pearl se ve perfecto
+     y sobre Night casi desaparece — medido mirándolo: al pisar un peldaño se
+     le quedaban el casco y el visor, y el cuerpo se fundía con la barra.
+
+     Cuatro sombras de 1 px en cruz dibujan un contorno Pearl alrededor de la
+     silueta. Sobre la página es invisible —es el mismo color del fondo— y
+     sobre la barra oscura lo recorta. Un solo sitio que resuelve los dos
+     fondos, en vez de dos versiones del personaje. */
+  filter: drop-shadow(1px 0 0 #f6f7fa) drop-shadow(-1px 0 0 #f6f7fa)
+    drop-shadow(0 1px 0 #f6f7fa) drop-shadow(0 -1px 0 #f6f7fa);
+}

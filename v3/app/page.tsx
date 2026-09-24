@@ -10,6 +10,8 @@ import ModeloOperativo from '@/components/ModeloOperativo'
 import CtaFlecha from '@/components/CtaFlecha'
 import RevealRect from '@/components/motion/RevealRect'
 import HeroSalida from '@/components/motion/HeroSalida'
+import VeliaOSDemo from '@/components/os/VeliaOSDemo'
+import FondoIris from '@/components/os/FondoIris'
 import TextFill from '@/components/motion/TextFill'
 import { CTA_CONTACTO } from '@/lib/cta'
 import { claim } from '@/lib/verified-claims'
@@ -44,6 +46,7 @@ const ATADURA_ENTORNO = { claim: 'modularEnvironment' } as const
  *
  *   0  UMBRAL      blanco puro  · el logotipo · nada más
  *   1  AFIRMACIÓN  Pearl Cloud  · el ÚNICO h1
+ *   1b ESPECIMEN   Pearl Cloud  · VELIA OS asoma bajo el enunciado
  *   2  RESULTADO   Pearl Cloud  · qué cambia: de siete herramientas sueltas a un sistema
  *   3  CAPACIDADES Pearl Cloud  · las cuatro
  *   4  TRABAJO     NIGHT        ← corte 1: cuatro proyectos con nombre y dominio
@@ -120,7 +123,7 @@ export default function Home() {
           compartido, y lo que viene después se lee como consecuencia. */}
       <section aria-labelledby="t-afirmacion" className="border-b border-mist">
         <HeroSalida>
-          <div className="mx-auto max-w-6xl px-6 md:px-10 pt-12 pb-14 md:pt-20 md:pb-20 lg:grid lg:grid-cols-[1.25fr_1fr] lg:gap-x-14 lg:items-end">
+          <div className="mx-auto max-w-6xl px-6 md:px-10 pt-12 pb-10 md:pt-20 md:pb-12 lg:grid lg:grid-cols-[1.25fr_1fr] lg:gap-x-14 lg:items-end">
             <div>
               <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
                 Transformación y operación digital
@@ -163,6 +166,41 @@ export default function Home() {
             </div>
           </div>
         </HeroSalida>
+
+        {/* ═══ 1b · EL ESPECIMEN ══════════════════════════════════════════
+            NUEVO el 24-sep-2026. La home decía que VELIA construye y opera
+            infraestructura, enseñaba cuatro proyectos y describía el entorno
+            del cliente con palabras — y no enseñaba NADA. La única prueba
+            visual de que existe un sistema detrás era tipográfica.
+
+            VA AQUÍ, pegado al enunciado, y el sitio es el argumento: quien
+            acaba de leer «construimos y operamos» tiene la pregunta hecha —«¿y
+            eso qué forma tiene?»— y la respuesta aparece sin tener que bajar.
+
+            ── LO QUE NO ES, Y CUESTA MANTENERLO ASÍ ──────────────────────
+            No es una demostración de producto. El espacio de trabajo es VELIA
+            y dentro están los cuatro clientes: se está mirando la consola de
+            quien OPERA, no la cuenta que se contrata. Por eso no hay ni un
+            «probar», ni un «crear», ni un plan, ni un precio, ni una sesión.
+            En el momento en que esta ventana ofrezca algo que se pueda
+            contratar, esta web habrá vuelto a vender software.
+
+            Los datos son ficticios y la pieza lo dice en su propio pie, no en
+            una nota al pie de página: las capturas reales llevan dentro el
+            trabajo de un cliente en producción. El vocabulario, en cambio, es
+            el del portal real — la demo sirve de dirección de diseño del
+            producto, no de postal que el producto no alcanzará.
+
+            `FondoIris` va DETRÁS y es decorativo: tres formas Iris que siguen
+            al cursor 26 px como mucho. Fuera de `HeroSalida` a propósito —el
+            hero se aparta al bajar, y el especimen no debe apartarse con él:
+            es lo que se ha venido a ver. */}
+        <div className="relative">
+          <FondoIris />
+          <div className="relative mx-auto max-w-6xl px-6 md:px-10 pb-16 md:pb-20">
+            <VeliaOSDemo />
+          </div>
+        </div>
       </section>
 
       {/* ═══ 2 · RESULTADO ════════════════════════════════════════════════
