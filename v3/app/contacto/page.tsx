@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import ContactForm from '@/components/ContactForm'
-import { CONTACT_EMAIL } from '@/lib/constants'
 import { metadatosDePagina } from '@/lib/metadatos'
 
 /* Por `metadatosDePagina`, y aquí importa más que en ninguna otra: ésta es la
@@ -57,17 +56,13 @@ export default function ContactoPage() {
         <ContactForm origen="contacto" />
       </div>
 
-      {/* Una sola alternativa, y en voz baja: quien prefiere el correo no debería
-          tener que rellenar un formulario para encontrarlo. */}
-      <p className="mt-10 text-[14px] leading-[1.6] text-void/65">
-        ¿Prefieres escribir directamente?{' '}
-        <a
-          href={`mailto:${CONTACT_EMAIL}`}
-          className="font-600 text-gold-ink underline decoration-gold-ink/30 underline-offset-4 hover:decoration-gold-ink transition-colors"
-        >
-          {CONTACT_EMAIL}
-        </a>
-      </p>
+      {/* ⚠️ 24-sep-2026: SE VA EL «¿prefieres escribir directamente?».
+          Publicaba `admin@veliacorp.com` —el buzón interno— en la página que
+          más se enlaza de toda la web. El formulario de arriba llega al mismo
+          sitio y además trae contexto; el correo suelto sólo servía para que lo
+          recogiera cualquier rastreador. Donde el correo tiene una función
+          legal —aviso legal, privacidad, cookies, términos, IA responsable—
+          sigue estando. */}
     </section>
   )
 }

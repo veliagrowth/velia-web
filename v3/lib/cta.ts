@@ -16,7 +16,7 @@
  *
  * Nunca escribir el texto de un CTA a mano en un componente: importarlo de aquí.
  */
-import { APP_URL, CONTACT_EMAIL } from './constants'
+import { APP_URL } from './constants'
 import { PRICING } from './pricing'
 
 /** Flujo de alta real. Es el destino de TODA acción primaria del sitio. */
@@ -57,9 +57,12 @@ export const CTA = {
     label: 'Ver demo interactiva',
     href: DEMO_PAGE,
   },
+  /* La terciaria llevaba al buzón interno por `mailto:`. Ahora va a
+     `/contacto`, que es donde va todo lo demás. La usa `PricingPlans`, de la
+     etapa anterior: no se rompe, deja de publicar el correo. */
   tertiary: {
     label: 'Hablar con el equipo',
-    href: `mailto:${CONTACT_EMAIL}`,
+    href: '/contacto',
   },
 } as const
 

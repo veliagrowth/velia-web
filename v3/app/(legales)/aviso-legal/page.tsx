@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { CONTACT_EMAIL } from '@/lib/constants'
+import { EMAIL_TITULAR_LEGAL } from '@/lib/constants'
 import { metadatosDePagina } from '@/lib/metadatos'
 
 /* Por `metadatosDePagina`: hasta el 18-sep esta pagina heredaba el openGraph
@@ -28,7 +28,7 @@ export default function AvisoLegalPage() {
         En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la
         Información y de Comercio Electrónico (LSSI-CE), se informa de que el titular de
         este sitio web (veliacorp.com y sus subdominios) es <strong>VELIA Solutions SL</strong>{' '}
-        (en adelante, «VELIA»). Contacto: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+        (en adelante, «VELIA»). Contacto: <a href={`mailto:${EMAIL_TITULAR_LEGAL}`}>{EMAIL_TITULAR_LEGAL}</a>.
       </p>
 
       <h2>2. Objeto</h2>

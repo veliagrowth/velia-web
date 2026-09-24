@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { CONTACT_EMAIL } from '@/lib/constants'
+import { EMAIL_TITULAR_LEGAL } from '@/lib/constants'
 import { metadatosDePagina } from '@/lib/metadatos'
 
 /* Por `metadatosDePagina`: hasta el 18-sep esta pagina heredaba el openGraph
@@ -29,7 +29,7 @@ export default function PrivacidadPage() {
       <p>
         El responsable del tratamiento de los datos personales recogidos a través de este
         sitio web es <strong>VELIA Solutions SL</strong> («VELIA»). Contacto para cualquier
-        cuestión de privacidad: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+        cuestión de privacidad: <a href={`mailto:${EMAIL_TITULAR_LEGAL}`}>{EMAIL_TITULAR_LEGAL}</a>.
       </p>
 
       <h2>2. Qué datos tratamos y para qué</h2>
@@ -70,7 +70,7 @@ export default function PrivacidadPage() {
         (DPA) que se suscribe con el servicio. Esos datos se alojan en infraestructura de la
         Unión Europea, con aislamiento por despacho a nivel de base de datos, y puedes
         solicitar su exportación completa en cualquier momento. Puedes pedirnos el modelo de
-        DPA en <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+        DPA en <a href={`mailto:${EMAIL_TITULAR_LEGAL}`}>{EMAIL_TITULAR_LEGAL}</a>.
       </p>
 
       <h2>4. Destinatarios y encargados</h2>
@@ -116,7 +116,7 @@ export default function PrivacidadPage() {
       <p>
         Puedes ejercer en cualquier momento tus derechos de acceso, rectificación, supresión,
         oposición, limitación del tratamiento y portabilidad escribiendo a{' '}
-        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. También tienes derecho a
+        <a href={`mailto:${EMAIL_TITULAR_LEGAL}`}>{EMAIL_TITULAR_LEGAL}</a>. También tienes derecho a
         retirar el consentimiento prestado y a presentar una reclamación ante la Agencia
         Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">aepd.es</a>).
       </p>

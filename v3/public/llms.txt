@@ -31,7 +31,7 @@ La infraestructura con la que VELIA trabaja (VELIA OS) no es un producto que se 
 
 **La etapa anterior.** VELIA tuvo una línea de producto vertical para el sector legal. Quedó descontinuada en septiembre de 2026, y las páginas y las novedades de aquella etapa describen ese producto, no a la compañía actual.
 
-**Empresa.** Titular: VELIA Solutions SL (España). Responden Joaquín Paiva (producto y tecnología) y Axel Soto (legal y relación con el cliente). Contacto: admin@veliacorp.com. Portal de clientes: https://app.veliacorp.com.
+**Empresa.** Titular: VELIA Solutions SL (España). Responden Joaquín Paiva (producto y tecnología) y Axel Soto (legal y relación con el cliente). Contacto: https://veliacorp.com/contacto. Portal de clientes: https://app.veliacorp.com.
 
 ## Páginas
 

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { CONTACT_EMAIL } from '@/lib/constants'
+import { EMAIL_TITULAR_LEGAL } from '@/lib/constants'
 import { metadatosDePagina } from '@/lib/metadatos'
 
 /* Por `metadatosDePagina`: hasta el 18-sep esta pagina heredaba el openGraph
@@ -82,7 +82,7 @@ export default function IaResponsablePage() {
       <h2>6. Contacto</h2>
       <p>
         Para cualquier consulta sobre el uso de IA en VELIA:{' '}
-        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+        <a href={`mailto:${EMAIL_TITULAR_LEGAL}`}>{EMAIL_TITULAR_LEGAL}</a>.
       </p>
     </>
   )

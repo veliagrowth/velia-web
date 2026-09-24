@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import DemoEmbed from '@/components/DemoEmbed'
 import TrialButton from '@/components/TrialButton'
 import TrackedLink from '@/components/TrackedLink'
-import { CONTACT_EMAIL, SITE_URL } from '@/lib/constants'
+import { SITE_URL } from '@/lib/constants'
 import { DEMO_URL } from '@/lib/cta'
 import { PRICING } from '@/lib/pricing'
 
@@ -100,7 +100,7 @@ export default function DemoPage() {
           <p className="mt-6 text-[13px] text-void/60">
             ¿Tienes una pregunta?{' '}
             <a
-              href={`mailto:${CONTACT_EMAIL}`}
+              href="/contacto"
               className="font-700 text-gold-ink hover:text-void transition-colors underline decoration-gold-ink/30"
             >
               Habla con el equipo

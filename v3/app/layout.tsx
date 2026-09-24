@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 import CookieNotice from '@/components/CookieNotice'
 import ClarityScript from '@/components/ClarityScript'
 import ScrollDepthTracker from '@/components/ScrollDepthTracker'
-import { SITE_URL, CONTACT_EMAIL } from '@/lib/constants'
+import { SITE_URL } from '@/lib/constants'
 import './globals.css'
 
 /* La descripción ya no menciona Verifactu ni el cómputo de plazos según la LEC:
@@ -81,7 +81,10 @@ const jsonLd = {
       legalName: 'VELIA Solutions SL',
       url: SITE_URL,
       logo: `${SITE_URL}/velia_logotipo.svg`,
-      email: CONTACT_EMAIL,
+      /* ⚠️ SIN `email` (24-sep-2026). Este JSON-LD lo sirve el layout, o sea
+         que iba en el HTML de TODAS las rutas —incluidas las que no son
+         legales—. Schema.org no lo exige, y la entidad sigue siendo
+         identificable por `name`, `url` y `logo`. */
       description:
         'Compañía de transformación y operación digital. VELIA diseña, construye, integra, automatiza y opera la infraestructura digital de empresas y profesionales para la era de la IA, la automatización y los agentes.',
       knowsAbout: [

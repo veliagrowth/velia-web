@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { CONTACT_EMAIL } from '@/lib/constants'
+import { EMAIL_TITULAR_LEGAL } from '@/lib/constants'
 import { metadatosDePagina } from '@/lib/metadatos'
 import ConsentLink from '@/components/ConsentLink'
 
@@ -131,7 +131,7 @@ export default function CookiesPage() {
       <p>
         Si incorporamos alguna tecnología nueva que requiera consentimiento, esta política se
         actualizará y te lo pediremos de forma expresa antes de activarla. Para cualquier
-        duda: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Más información sobre
+        duda: <a href={`mailto:${EMAIL_TITULAR_LEGAL}`}>{EMAIL_TITULAR_LEGAL}</a>. Más información sobre
         el tratamiento de datos en la <Link href="/privacidad">Política de privacidad</Link>.
       </p>
     </>

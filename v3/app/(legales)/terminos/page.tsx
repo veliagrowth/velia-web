@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { CONTACT_EMAIL } from '@/lib/constants'
+import { EMAIL_TITULAR_LEGAL } from '@/lib/constants'
 import { metadatosDePagina } from '@/lib/metadatos'
 
 /* Por `metadatosDePagina`: hasta el 18-sep esta pagina heredaba el openGraph
@@ -70,7 +70,7 @@ export default function TerminosPage() {
         despacho en completar la puesta en marcha y adoptar la plataforma — y después se
         renueva mes a mes, con 30 días de preaviso para la baja. El plan anual da acceso durante
         12 meses con renovación anual. Puedes comunicar la baja a{' '}
-        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+        <a href={`mailto:${EMAIL_TITULAR_LEGAL}`}>{EMAIL_TITULAR_LEGAL}</a>.
       </p>
 
       <h2>5. Los datos de tu despacho</h2>
@@ -106,7 +106,7 @@ export default function TerminosPage() {
         VELIA se presta como servicio en la nube con el objetivo de máxima disponibilidad. No
         obstante, pueden producirse interrupciones puntuales por mantenimiento o causas ajenas.
         El soporte se presta en horario laborable a través de los canales indicados en la
-        plataforma y en <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+        plataforma y en <a href={`mailto:${EMAIL_TITULAR_LEGAL}`}>{EMAIL_TITULAR_LEGAL}</a>.
       </p>
 
       <h2>9. Propiedad intelectual</h2>

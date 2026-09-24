@@ -3,7 +3,7 @@ import Link from 'next/link'
 import TrialButton from '@/components/TrialButton'
 import ContactForm from '@/components/ContactForm'
 import { PRICING, FOUNDERS, FOUNDERS_SEATS_LABEL, eur } from '@/lib/pricing'
-import { CONTACT_EMAIL, SITE_URL } from '@/lib/constants'
+import { SITE_URL } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Programa Fundadores — VELIA',
@@ -141,8 +141,8 @@ export default function FundadoresPage() {
             <p className="mt-8 text-[13px] text-void/45 leading-[1.6] max-w-prose">
               Estas condiciones están pendientes de revisión por asesoría jurídica. Para
               cualquier duda sobre el alcance antes de contratar, escríbenos a{' '}
-              <a href={`mailto:${CONTACT_EMAIL}`} className="underline decoration-void/25 hover:decoration-void">
-                {CONTACT_EMAIL}
+              <a href="/contacto" className="underline decoration-void/25 hover:decoration-void">
+                contacto
               </a>.
             </p>
           </div>

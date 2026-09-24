@@ -2,7 +2,7 @@ import ConsentLink from '@/components/ConsentLink'
 import BotonAccion from '@/components/BotonAccion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { APP_URL, CONTACT_EMAIL } from '@/lib/constants'
+import { APP_URL } from '@/lib/constants'
 import { FOOTER_NAV, FOOTER_CLAIM } from '@/lib/navigation'
 
 /**
@@ -94,12 +94,10 @@ export default function Footer() {
               ))}
               {key === 'contacto' && (
                 <>
-                  <a
-                    href={`mailto:${CONTACT_EMAIL}`}
-                    className="block hover:text-cream transition-colors duration-control"
-                  >
-                    {CONTACT_EMAIL}
-                  </a>
+                  {/* El correo del titular NO va aquí: el pie está en todas
+                      las páginas, así que publicarlo aquí es publicarlo en
+                      todas. «Hablemos» lleva al formulario, y las páginas
+                      legales siguen dando el dato donde es obligatorio. */}
                   <a
                     href={APP_URL}
                     className="block hover:text-cream transition-colors duration-control"
