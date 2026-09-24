@@ -26,6 +26,35 @@
  *
  * Si algún día un proyecto no llegara ni a 'parcial', no se publica: un caso
  * simple y honesto es mejor que una historia completa inventada.
+ *
+ * ── QUÉ CAMBIÓ EL 24-sep-2026, Y QUÉ NO ───────────────────────────────────
+ * Las tres líneas de `entorno` de los proyectos sin portal empezaban por una
+ * negación: «Sin entorno.», «Sin portal.», «Sin entorno todavía. La
+ * transformación está prevista, no hecha.» El docstring de este mismo campo
+ * lleva desde que se escribió diciendo que esto «se dice en positivo» y que
+ * «no necesitó un entorno de gestión es un hecho sobre el encargo, no una
+ * carencia del cliente». Los datos no obedecían a su propia regla: el texto
+ * decía una cosa y las cuatro cadenas la contraria.
+ *
+ * Leído desde fuera, además, no describía al cliente: describía el estado de
+ * desarrollo de VELIA. «Todavía», «previsto», «no hecho» son vocabulario de
+ * hoja de ruta interna, y la web pública no es el sitio donde se cuentan los
+ * pendientes de quien la escribe.
+ *
+ * LO QUE NO CAMBIA, y es lo importante: `tieneEntorno` sigue siendo el booleano
+ * MEDIDO contra `tenants.active_modules` el 22-sep. Tres de los cuatro siguen
+ * en `false` y su punto sigue hueco. Se ha reescrito cómo se cuenta un hecho,
+ * no el hecho. Si alguien quisiera además llenar un punto, eso ya no es copy:
+ * es cambiar lo que el punto significa, y entonces hay que cambiar la leyenda,
+ * este comentario y la medición que los sostiene.
+ *
+ * ── LA PROCEDENCIA DEL SHOPIFY DE KREA HOGAR ──────────────────────────────
+ * La línea del comercio a medida NO sale del repositorio: no hay evidencia
+ * localizable de esa tienda en este código. Viene del briefing de Joaquín del
+ * 24-sep-2026, y se publica como dirección de copy con su origen declarado
+ * aquí. Por eso `evidencia` se queda en 'parcial' y por eso no lleva ni una
+ * cifra detrás: ni facturación, ni conversión, ni pedidos. Si algún día hace
+ * falta afirmar un resultado de esa tienda, hace falta antes la fuente.
  */
 
 export type Caso = {
@@ -50,7 +79,7 @@ export type Caso = {
    * ⚠️ NO SE ESCRIBE DE MEMORIA. Cada línea se contrasta contra
    * `tenants.active_modules` en la base de producción (medido el 22-sep):
    * Cónsul Jurídico nueve módulos con `portal` y `legal` dentro; METHOD NUMBERS
-   * tres, sin `portal`; KREA HOGAR y The Drop Agency no son tenants. Decir «no
+   * tres, sin `portal`; KREA HOGAR y THE DROP AGENCY no son tenants. Decir «no
    * tiene entorno» de quien sí lo tiene sería tan falso como lo contrario, y es
    * más fácil de cometer: el impulso es rellenar las cuatro filas por simetría.
    *
@@ -96,30 +125,33 @@ export const CASOS: readonly Caso[] = [
     nombre: 'KREA HOGAR',
     dominio: 'kreahogar.com',
     que: 'Sofás y colchones fabricados en España. Tienda en Lleida y venta online.',
-    velia: 'Trabajo de VELIA en su presencia digital: web, contenido y campañas.',
-    tipo: 'Presencia digital',
-    entorno: 'Sin entorno. El encargo era la presencia digital.',
+    velia:
+      'VELIA construye y opera su presencia digital y su comercio: un Shopify hecho a la medida de su sector, con la web, el contenido y las campañas alrededor.',
+    tipo: 'Presencia digital y comercio',
+    entorno:
+      'Su tienda online es el entorno: se vende desde ahí. No necesitó además un panel de gestión interna.',
     tieneEntorno: false,
     evidencia: 'parcial',
   },
   {
-    nombre: 'Method 9989',
+    nombre: 'METHOD NUMBERS',
     dominio: 'method9989.com',
     que: 'Marca y lanzamientos. Hoy su web es el teaser del próximo.',
     velia: 'VELIA construye y mantiene la web, y despliega cada cambio.',
     tipo: 'Web construida y mantenida',
-    entorno: 'Sin portal. Hoy necesita que la web esté en pie y se despliegue sola.',
+    entorno:
+      'Lo que este encargo necesita es que la web esté en pie y se despliegue sola. Eso es lo que está operado.',
     tieneEntorno: false,
     evidencia: 'documentado',
   },
   {
-    nombre: 'The Drop Agency',
+    nombre: 'THE DROP AGENCY',
     dominio: 'thedrop.agency',
     que: 'Agencia creativa y de management de artistas.',
-    velia:
-      'Apoyo de VELIA en producción creativa. La transformación de sus procesos está prevista, no hecha.',
+    velia: 'VELIA acompaña su producción creativa: piezas, campañas y el material con el que trabajan sus artistas.',
     tipo: 'Trabajo creativo',
-    entorno: 'Sin entorno todavía. La transformación está prevista, no hecha.',
+    entorno:
+      'El encargo vive en la producción, no en un panel. Lo que se opera es el trabajo creativo que sale de ahí.',
     tieneEntorno: false,
     evidencia: 'parcial',
   },

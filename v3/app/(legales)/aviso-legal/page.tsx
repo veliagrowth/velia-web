@@ -27,7 +27,7 @@ export default function AvisoLegalPage() {
       <p>
         En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la
         Información y de Comercio Electrónico (LSSI-CE), se informa de que el titular de
-        este sitio web (veliacorp.com y sus subdominios) es <strong>VELIA Marketing SL</strong>{' '}
+        este sitio web (veliacorp.com y sus subdominios) es <strong>VELIA Solutions SL</strong>{' '}
         (en adelante, «VELIA»). Contacto: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
       </p>
 

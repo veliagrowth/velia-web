@@ -27,7 +27,7 @@ export default function TerminosPage() {
       <h2>1. Objeto</h2>
       <p>
         Estos términos regulan la contratación y el uso de VELIA, la plataforma de software
-        en la nube para despachos profesionales operada por <strong>VELIA Marketing SL</strong>{' '}
+        en la nube para despachos profesionales operada por <strong>VELIA Solutions SL</strong>{' '}
         («VELIA»). Al crear una cuenta o contratar el servicio aceptas estos términos y la{' '}
         <Link href="/privacidad">Política de privacidad</Link>.
       </p>

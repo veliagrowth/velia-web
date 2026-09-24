@@ -28,7 +28,7 @@ export default function PrivacidadPage() {
       <h2>1. Responsable del tratamiento</h2>
       <p>
         El responsable del tratamiento de los datos personales recogidos a través de este
-        sitio web es <strong>VELIA Marketing SL</strong> («VELIA»). Contacto para cualquier
+        sitio web es <strong>VELIA Solutions SL</strong> («VELIA»). Contacto para cualquier
         cuestión de privacidad: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
       </p>
 

@@ -19,7 +19,7 @@ Actualizado: septiembre de 2026.
 
 **Qué existe hoy y qué todavía no.** VELIA separa lo que funciona de lo que está en construcción, y no publica como disponible una capacidad que aún no lo está.
 
-- En marcha: infraestructura propia —VELIA no opera el negocio de un cliente desde una carpeta compartida y cinco suscripciones—, automatización de procesos que se ejecuta a diario con registro de lo que hizo y de lo que no, y un portal por cliente con lo que está en marcha, lo entregado, lo pedido y lo medido.
+- En marcha: infraestructura propia —VELIA no opera el negocio de un cliente desde una carpeta compartida y cinco suscripciones—, automatización de procesos que se ejecuta a diario con registro de lo que hizo y de lo que no, y un entorno por cliente con activado sólo lo que usa: lo que está en marcha, lo entregado, lo pedido y lo medido.
 - En construcción: el Control Plane, agentes con permisos explícitos y acotados, y VELIA 4.0 Audit, un diagnóstico como punto de partida en lugar de una propuesta comercial.
 
 La infraestructura con la que VELIA trabaja (VELIA OS) no es un producto que se venda por separado.
@@ -30,7 +30,7 @@ La infraestructura con la que VELIA trabaja (VELIA OS) no es un producto que se 
 
 **La etapa anterior.** VELIA tuvo una línea de producto vertical para el sector legal. Quedó descontinuada en septiembre de 2026, y las páginas y las novedades de aquella etapa describen ese producto, no a la compañía actual.
 
-**Empresa.** Titular: VELIA Marketing SL (España). Responden Joaquín Paiva (producto y tecnología) y Axel Soto (legal y relación con el cliente). Contacto: admin@veliacorp.com. Portal de clientes: https://app.veliacorp.com.
+**Empresa.** Titular: VELIA Solutions SL (España). Responden Joaquín Paiva (producto y tecnología) y Axel Soto (legal y relación con el cliente). Contacto: admin@veliacorp.com. Portal de clientes: https://app.veliacorp.com.
 
 ## Páginas
 

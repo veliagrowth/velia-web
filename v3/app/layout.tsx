@@ -78,7 +78,7 @@ const jsonLd = {
       '@type': 'Organization',
       '@id': `${SITE_URL}/#organization`,
       name: 'VELIA',
-      legalName: 'VELIA Marketing SL',
+      legalName: 'VELIA Solutions SL',
       url: SITE_URL,
       logo: `${SITE_URL}/velia_logotipo.svg`,
       email: CONTACT_EMAIL,

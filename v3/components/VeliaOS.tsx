@@ -78,9 +78,22 @@ const EN_CONSTRUCCION = [
        No se calla y no se promete: se dice dónde está. Es exactamente para lo
        que existe esta columna, y es el único sitio de la web donde la frase
        puede aparecer sin mentir. Sube a «En marcha» el día que el cierre se
-       demuestre, no el día que se arregle. */
+       demuestre, no el día que se arregle.
+
+       ⚠️ CORREGIDO EL 24-sep-2026 — QUÉ SE DICE Y QUÉ NO. El texto publicado
+       decía «El control de acceso por rol existe; lo que falta es demostrar que
+       cierra en todas las pantallas antes de ofrecerlo». Eso ya no es decir que
+       algo está en construcción: es publicar DÓNDE está la debilidad, en una
+       página indexable, de un sistema que hoy sirve a un cliente en producción.
+       Entre la honestidad y no escribirle a nadie el mapa de por dónde entrar,
+       gana lo segundo — y no hace falta elegir: «está en construcción y no se
+       ofrece hasta que se demuestre» es igual de cierto y no señala nada.
+
+       La regla que queda: en esta columna se nombra la CAPACIDAD que falta,
+       nunca el defecto que la sostiene abierta. El defecto vive en el registro
+       de trabajo interno, que es donde se arregla. */
     t: 'Terceros dentro del entorno',
-    d: 'Que una productora, una agencia o un colaborador externo trabaje dentro del entorno de un cliente viendo sólo lo suyo. El control de acceso por rol existe; lo que falta es demostrar que cierra en todas las pantallas antes de ofrecerlo.',
+    d: 'Que una productora, una agencia o un colaborador externo trabaje dentro del entorno de un cliente viendo sólo lo suyo. Está en construcción y no se ofrece hasta que se demuestre.',
   },
 ] as const
 

@@ -75,7 +75,7 @@ export default function Footer() {
           <div>
             <p className="text-[11px] text-cream/60">© {new Date().getFullYear()} VELIA</p>
             <p className="text-[11px] text-cream/55 mt-0.5">
-              VELIA es una marca operada por VELIA Marketing SL.
+              VELIA es una marca operada por VELIA Solutions SL.
             </p>
           </div>
           {/* Retirar el consentimiento tiene que ser tan fácil como darlo, y
