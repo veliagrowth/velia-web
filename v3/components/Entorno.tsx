@@ -1,5 +1,6 @@
 import Reveal from '@/components/Reveal'
 import RevealRect from '@/components/motion/RevealRect'
+import EscaleraPixel from '@/components/os/EscaleraPixel'
 import { ESCALONES, REGLA_ENTORNO_LINEAS } from '@/lib/entorno'
 
 /**
@@ -26,6 +27,16 @@ import { ESCALONES, REGLA_ENTORNO_LINEAS } from '@/lib/entorno'
  * (`globals.css`, bloque 4). Sin JS, los cuatro están encendidos: el entorno
  * entero, que es el estado seguro.
  *
+ * ── EL PERSONAJE (24-sep-2026) ────────────────────────────────────────────
+ * Sobre esos mismos estratos sube un personaje pixel, `components/os/`. No es
+ * una animación aparte: su posición es una función del scroll de la lista, así
+ * que va por el escalón que se está leyendo y baja si se sube la página.
+ *
+ * Cuelga DENTRO del contenedor `aria-hidden` y no toca el contenido: si no hay
+ * JS, si el usuario pidió menos movimiento o si la columna está oculta por
+ * ancho, la sección se lee exactamente igual. Es adorno, y tiene que poder
+ * desaparecer sin que se note en la información.
+ *
  * El diagrama es `aria-hidden`: repite en dibujo lo que la lista dice con
  * palabras, y un lector de pantalla no necesita oírlo dos veces. En móvil y en
  * tableta no está —no hay columna para él— y cada fila conserva su escala de
@@ -42,7 +53,12 @@ export default function Entorno({ regla }: { regla: string | null }) {
     <div className="entorno mt-10 md:mt-14 lg:grid lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-x-16">
       {/* ── Estratos · sólo escritorio ─────────────────────────────────── */}
       <div className="hidden lg:block" aria-hidden="true">
+        {/* `sticky` YA es un ancestro posicionado, así que el personaje se
+            coloca contra esta caja y mide los estratos en el mismo sistema de
+            coordenadas. No añadir `relative` aquí: emitiría dos `position` y
+            cuál gana lo decide el orden del CSS generado, no el del markup. */}
         <div className="sticky top-28 flex flex-col-reverse gap-2 pt-9">
+          <EscaleraPixel />
           {ESCALONES.map((e, i) => (
             <div
               key={e.n}
