@@ -16,14 +16,32 @@ export const metadata: Metadata = metadatosDePagina({
 
 /* Describe el modelo de datos ACTUAL (decisión 2026-07-16): los datos del servicio
    se alojan en infraestructura UE (Supabase) y VELIA actúa como encargado del
-   tratamiento respecto de los datos de los despachos. BYO-Drive es roadmap y NO
-   se menciona como realidad. Revisión legal (Axel) en paralelo — v1.0. */
+   tratamiento respecto de los datos del cliente. BYO-Drive es roadmap y NO se
+   menciona como realidad.
+
+   ── v1.2, 26-sep-2026 ──────────────────────────────────────────────────────
+   Describía dos flujos que YA NO EXISTEN —«Formulario de contacto / demo» y
+   «Alta en la prueba gratuita»— y trataba «despacho» como sinónimo de cliente.
+   Una política de privacidad que enumera finalidades de un alta inexistente no
+   es sólo vieja: declara tratamientos que no se hacen.
+
+   Lo que cambia: los dos supuestos del §2 pasan a los reales (contacto y alta
+   en el entorno contratado), y el sujeto se generaliza en §3, §5 y §8.
+   Lo que NO cambia, porque es lo que tiene efectos: responsable, bases
+   jurídicas (6.1.a y 6.1.b), art. 28 RGPD y DPA, infraestructura UE, Clarity
+   con consentimiento y transferencia fuera del EEE, plazos de conservación,
+   derechos y medidas de seguridad.
+
+   ⚠️ WAITING_FOR_HUMAN_LEGAL_DATA — el §1 identifica al responsable sólo por
+   denominación y correo. El RGPD (art. 13.1.a) pide identidad y datos de
+   contacto del responsable; sin CIF ni domicilio queda incompleto, igual que en
+   /aviso-legal. No se inventan. ⚠️ Revisión de Axel pendiente. */
 
 export default function PrivacidadPage() {
   return (
     <>
       <h1>Política de privacidad</h1>
-      <p className="legal-meta">Versión 1.1 · Última actualización: 10 de agosto de 2026</p>
+      <p className="legal-meta">Versión 1.2 · Última actualización: 26 de septiembre de 2026</p>
 
       <h2>1. Responsable del tratamiento</h2>
       <p>
@@ -35,18 +53,17 @@ export default function PrivacidadPage() {
       <h2>2. Qué datos tratamos y para qué</h2>
       <ul>
         <li>
-          <strong>Formulario de contacto / demo:</strong> nombre, nombre del despacho, email,
+          <strong>Formulario de contacto:</strong> nombre, nombre de la empresa, email,
           teléfono (opcional) y el mensaje que nos envías. Finalidad: responder a tu
-          solicitud, agendar la demostración y hacer el seguimiento comercial de la misma.
-          Base jurídica: tu consentimiento (art. 6.1.a RGPD) y la aplicación de medidas
-          precontractuales a petición tuya (art. 6.1.b RGPD).
+          solicitud, entender el encargo y hacer su seguimiento comercial. Base jurídica: tu
+          consentimiento (art. 6.1.a RGPD) y la aplicación de medidas precontractuales a
+          petición tuya (art. 6.1.b RGPD).
         </li>
         <li>
-          <strong>Alta en la prueba gratuita:</strong> nombre, email, teléfono, contraseña y
-          la información sobre tu despacho que aportas durante el registro. Finalidad: crear
-          tu cuenta, prestarte el servicio durante el periodo de prueba y acompañarte en su
-          uso. Base jurídica: ejecución del contrato / medidas precontractuales (art. 6.1.b
-          RGPD).
+          <strong>Alta en el entorno que VELIA opera para ti:</strong> nombre, email, teléfono,
+          credenciales de acceso y la información sobre tu negocio necesaria para configurarlo.
+          Finalidad: crear tu acceso, prestarte el servicio contratado y acompañarte en su uso.
+          Base jurídica: ejecución del contrato (art. 6.1.b RGPD).
         </li>
         <li>
           <strong>Navegación:</strong> medimos las páginas vistas y los eventos de uso con
@@ -61,16 +78,17 @@ export default function PrivacidadPage() {
         </li>
       </ul>
 
-      <h2>3. Los datos de tu despacho, cuando usas VELIA</h2>
+      <h2>3. Los datos de tu negocio, cuando VELIA opera tu entorno</h2>
       <p>
-        Si tu despacho contrata VELIA, los datos que gestionas dentro de la plataforma
-        (clientes, expedientes, documentos, agenda) <strong>son y siguen siendo de tu
-        despacho</strong>: tu despacho es el responsable del tratamiento y VELIA actúa como
-        encargado del tratamiento conforme al art. 28 RGPD, en virtud del acuerdo de encargo
-        (DPA) que se suscribe con el servicio. Esos datos se alojan en infraestructura de la
-        Unión Europea, con aislamiento por despacho a nivel de base de datos, y puedes
-        solicitar su exportación completa en cualquier momento. Puedes pedirnos el modelo de
-        DPA en <a href={`mailto:${EMAIL_TITULAR_LEGAL}`}>{EMAIL_TITULAR_LEGAL}</a>.
+        Si contratas a VELIA, los datos que gestionas dentro del entorno que opera para ti
+        (clientes, contactos, documentos, agenda y los registros propios de tu actividad)
+        <strong> son y siguen siendo tuyos</strong>: tu negocio es el responsable del
+        tratamiento y VELIA actúa como encargado del tratamiento conforme al art. 28 RGPD, en
+        virtud del acuerdo de encargo (DPA) que se suscribe con el servicio. Esos datos se
+        alojan en infraestructura de la Unión Europea, con aislamiento por cliente a nivel de
+        base de datos, y puedes solicitar su exportación completa en cualquier momento. Puedes
+        pedirnos el modelo de DPA en{' '}
+        <a href={`mailto:${EMAIL_TITULAR_LEGAL}`}>{EMAIL_TITULAR_LEGAL}</a>.
       </p>
 
       <h2>4. Destinatarios y encargados</h2>
@@ -106,10 +124,10 @@ export default function PrivacidadPage() {
       <h2>5. Conservación</h2>
       <p>
         Los datos de contacto comercial se conservan mientras dure la relación o hasta que
-        solicites su supresión. Los datos de cuentas de prueba que no continúan con el
-        servicio se eliminan pasado el plazo razonable de seguimiento. Los datos del servicio
-        contratado se conservan mientras la suscripción esté activa y se devuelven o eliminan
-        a su término, conforme al DPA.
+        solicites su supresión. Los datos de un encargo que no llega a contratarse se eliminan
+        pasado el plazo razonable de seguimiento. Los datos del servicio contratado se
+        conservan mientras el servicio esté activo y se devuelven o eliminan a su término,
+        conforme al DPA.
       </p>
 
       <h2>6. Tus derechos</h2>
@@ -124,7 +142,7 @@ export default function PrivacidadPage() {
       <h2>7. Seguridad</h2>
       <p>
         Aplicamos medidas técnicas y organizativas apropiadas: cifrado de las comunicaciones
-        (HTTPS/TLS), aislamiento de datos por despacho en el propio motor de base de datos
+        (HTTPS/TLS), aislamiento de datos por cliente en el propio motor de base de datos
         (Row Level Security), control de acceso por roles y registro de auditoría de las
         acciones sensibles. El detalle está publicado en{' '}
         <Link href="/seguridad">veliacorp.com/seguridad</Link>.

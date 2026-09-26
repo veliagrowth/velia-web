@@ -14,14 +14,24 @@ export const metadata: Metadata = metadatosDePagina({
   ruta: '/aviso-legal',
 })
 
-/* TODO (Axel): completar CIF, domicilio social y datos de inscripción registral
-   en cuanto la SL esté inscrita. Revisión legal en paralelo — v1.0. */
+/* ── v1.1, 26-sep-2026 ───────────────────────────────────────────────────────
+   El §2 decía que este sitio da a conocer «la plataforma de software para
+   despachos profesionales, sus características, PRECIOS y vías de contacto» y
+   «el alta en el periodo de prueba del servicio». Describía un producto
+   descontinuado y dos flujos que ya no existen. Reescrito al objeto real.
+   El resto del documento —titularidad, uso, propiedad intelectual, enlaces,
+   responsabilidad, protección de datos y ley aplicable— NO se toca.
+
+   ⚠️ WAITING_FOR_HUMAN_LEGAL_DATA — CIF, domicilio social y datos de
+   inscripción registral. La LSSI-CE (art. 10) los EXIGE en esta página y hoy
+   NO están: el §1 sólo da denominación y correo. No se inventan. Es de Axel, y
+   es un incumplimiento vivo mientras el sitio esté publicado. */
 
 export default function AvisoLegalPage() {
   return (
     <>
       <h1>Aviso legal</h1>
-      <p className="legal-meta">Versión 1.0 · Última actualización: 16 de julio de 2026</p>
+      <p className="legal-meta">Versión 1.1 · Última actualización: 26 de septiembre de 2026</p>
 
       <h2>1. Titular del sitio web</h2>
       <p>
@@ -33,10 +43,11 @@ export default function AvisoLegalPage() {
 
       <h2>2. Objeto</h2>
       <p>
-        Este sitio web tiene por objeto dar a conocer VELIA, la plataforma de software para
-        despachos profesionales, sus características, precios y vías de contacto, así como
-        permitir la solicitud de demostraciones y el alta en el periodo de prueba del servicio.
-        El uso del servicio contratado se rige por los{' '}
+        Este sitio web tiene por objeto dar a conocer VELIA —compañía de transformación y
+        operación digital: diseña, construye, integra, automatiza y opera la infraestructura
+        digital de empresas y profesionales—, sus capacidades y sus vías de contacto. Es un
+        sitio informativo: no permite contratar en línea ni constituye por sí mismo una oferta.
+        La contratación de cualquier servicio se rige por los{' '}
         <Link href="/terminos">Términos del servicio</Link>.
       </p>
 
