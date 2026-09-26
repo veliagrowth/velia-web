@@ -10,95 +10,110 @@ import { metadatosDePagina } from '@/lib/metadatos'
 export const metadata: Metadata = metadatosDePagina({
   titulo: 'Términos del servicio — VELIA',
   descripcion:
-    'Condiciones de contratación del servicio VELIA: prueba gratuita, planes y precios, datos del despacho, uso de la IA y responsabilidad.',
+    'Condiciones de contratación de los servicios de VELIA: cómo se contrata, alcance y precio, titularidad de los datos, uso de la IA y responsabilidad.',
   ruta: '/terminos',
 })
 
-/* Pricing modelo Axel (decidido 2026-07-21): plan 99€/mes, 2 usuarios, +29€,
-   permanencia 3 meses, Programa Fundadores = web premium con plan anual (20 plazas).
-   Revisión legal de estos términos en paralelo — v1.1. */
+/* ── v2.0, 26-sep-2026 · SE RETIRA UNA OFERTA QUE YA NO EXISTE ───────────────
+   Las cláusulas 1 a 4 describían el SaaS jurídico: «plataforma en la nube para
+   despachos», prueba gratuita de 15 días, «VELIA Despacho 99€/mes por despacho»,
+   29€/mes por usuario adicional, 990€/año, Programa Fundadores con 20 plazas y
+   precio congelado, y permanencia de 3 meses. Ese producto quedó DESCONTINUADO
+   en septiembre de 2026 y seguía publicado aquí como oferta vigente: no era una
+   página desactualizada, era una oferta contractual falsa.
+
+   Lo que se ha hecho, y lo que NO:
+     · se RETIRA la oferta y se sustituye por el modelo real (propuesta escrita
+       por encargo; proyecto + operación + ampliaciones), sin publicar cifras;
+     · se GENERALIZA el vocabulario del vertical —«despacho», «el abogado»— que
+       presuponía que todo cliente es un bufete. La sustancia jurídica de las
+       cláusulas 5 a 12 NO se toca: titularidad de datos, art. 28 RGPD, DPA,
+       infraestructura UE, límite de responsabilidad, ley aplicable;
+     · el caso regulado sigue contemplado EXPRESAMENTE en la cláusula de IA, que
+       es donde importa;
+     · NO se inventa ninguna cláusula, ningún importe ni ningún plazo. Lo que
+       antes afirmaba un número, ahora remite a la propuesta aceptada.
+
+   ⚠️ El CIF y el domicilio siguen siendo `WAITING_FOR_HUMAN_LEGAL_DATA` y no
+   aparecen aquí: viven en /aviso-legal y /privacidad. Esta página no los usa.
+   ⚠️ Revisión de Axel pendiente antes de publicar: el texto legal es suyo. */
 
 export default function TerminosPage() {
   return (
     <>
       <h1>Términos del servicio</h1>
-      <p className="legal-meta">Versión 1.1 · Última actualización: 21 de julio de 2026</p>
+      <p className="legal-meta">Versión 2.0 · Última actualización: 26 de septiembre de 2026</p>
 
       <h2>1. Objeto</h2>
       <p>
-        Estos términos regulan la contratación y el uso de VELIA, la plataforma de software
-        en la nube para despachos profesionales operada por <strong>VELIA Solutions SL</strong>{' '}
-        («VELIA»). Al crear una cuenta o contratar el servicio aceptas estos términos y la{' '}
+        Estos términos regulan la contratación y el uso de los servicios de{' '}
+        <strong>VELIA Solutions SL</strong> («VELIA»), compañía de transformación y operación
+        digital: diseña, construye, integra, automatiza y opera la infraestructura digital de
+        una empresa o profesional. Al contratar un servicio o usar el entorno que VELIA opera
+        para ti aceptas estos términos y la{' '}
         <Link href="/privacidad">Política de privacidad</Link>.
       </p>
 
-      <h2>2. Prueba gratuita</h2>
+      <h2>2. Cómo se contrata</h2>
       <p>
-        VELIA ofrece un periodo de prueba de 15 días sin coste y sin tarjeta. Durante la
-        prueba el servicio puede aplicar límites razonables de uso. Al finalizar, la cuenta
-        no se cobra automáticamente: si no contratas un plan, simplemente queda inactiva y
-        puedes solicitar la eliminación de sus datos.
+        VELIA no comercializa un plan cerrado de software con alta automática. Cada encargo
+        parte de un análisis del alcance y se concreta en una <strong>propuesta escrita</strong>{' '}
+        con los servicios incluidos, su duración y su precio. El contrato entre las partes es
+        esa propuesta una vez aceptada, junto con estos términos.
       </p>
 
-      <h2>3. Planes y precios</h2>
-      <ul>
-        <li>
-          <strong>VELIA Despacho:</strong> 99€/mes por despacho con dos usuarios incluidos, y
-          29€/mes por usuario adicional. Pago anual: dos meses gratis (990€/año, equivalente a
-          82,50€/mes).
-        </li>
-        <li>
-          <strong>Programa Fundadores:</strong> mismo precio para los primeros veinte despachos
-          que contraten en modalidad anual, con el precio de lanzamiento congelado y la web
-          premium de lanzamiento incluida (según el alcance descrito en la web), mientras la
-          suscripción se mantenga activa.
-        </li>
-        <li>
-          <strong>Bufetes grandes:</strong> sin tarifa de catálogo — onboarding y estudio de
-          integración a medida, con presupuesto específico.
-        </li>
-      </ul>
+      <h2>3. Alcance y precio</h2>
       <p>
-        Los precios se muestran sin IVA. La web del despacho, cuando esté incluida (Programa
-        Fundadores anual) o contratada como añadido, se diseña a medida y permanece disponible
-        mientras la suscripción esté activa, sin coste de mantenimiento aparte.
+        No existe una tarifa de catálogo. El precio de cada encargo depende del alcance, de la
+        infraestructura necesaria, de la complejidad de las integraciones y del nivel de
+        operación continuada que requiera el negocio. Un encargo suele tener dos componentes
+        distinguibles: un <strong>proyecto inicial</strong>, con principio y final, y una{' '}
+        <strong>operación recurrente</strong> de la infraestructura construida. Las ampliaciones
+        posteriores se acuerdan por separado.
+      </p>
+      <p>
+        Los importes aplicables, los impuestos repercutibles y la forma de pago son los que
+        figuren en la propuesta aceptada. Ninguna cifra publicada en este sitio constituye una
+        oferta.
       </p>
 
       <h2>4. Duración y baja</h2>
       <p>
-        El pago mensual tiene un compromiso inicial de 3 meses — el tiempo real que tarda un
-        despacho en completar la puesta en marcha y adoptar la plataforma — y después se
-        renueva mes a mes, con 30 días de preaviso para la baja. El plan anual da acceso durante
-        12 meses con renovación anual. Puedes comunicar la baja a{' '}
-        <a href={`mailto:${EMAIL_TITULAR_LEGAL}`}>{EMAIL_TITULAR_LEGAL}</a>.
+        La duración, la renovación y el preaviso de baja son los que figuren en la propuesta
+        aceptada para cada servicio. Puedes comunicar la baja a{' '}
+        <a href={`mailto:${EMAIL_TITULAR_LEGAL}`}>{EMAIL_TITULAR_LEGAL}</a>. La baja de la
+        operación recurrente no afecta a la titularidad de tus datos, que se rige por la
+        cláusula siguiente.
       </p>
 
-      <h2>5. Los datos de tu despacho</h2>
+      <h2>5. Los datos de tu negocio</h2>
       <p>
-        Los datos que tu despacho gestiona en VELIA (clientes, expedientes, documentos,
-        agenda) son titularidad de tu despacho. VELIA actúa como encargado del tratamiento
-        (art. 28 RGPD) conforme al acuerdo de encargo (DPA) disponible bajo solicitud. Los
-        datos se alojan en infraestructura de la Unión Europea con aislamiento por despacho.
-        A la finalización del servicio puedes solicitar la exportación completa de
-        expedientes, contactos y documentos.
+        Los datos que tu negocio gestiona en el entorno que VELIA opera (clientes, contactos,
+        documentos, agenda y los registros propios de tu actividad) son titularidad tuya.
+        VELIA actúa como encargado del tratamiento (art. 28 RGPD) conforme al acuerdo de
+        encargo (DPA) disponible bajo solicitud. Los datos se alojan en infraestructura de la
+        Unión Europea con aislamiento por cliente. A la finalización del servicio puedes
+        solicitar su exportación completa.
       </p>
 
       <h2>6. Uso de la inteligencia artificial</h2>
       <p>
-        Las funciones de IA de VELIA (redacción de borradores, informes, consultas con
-        fuentes oficiales) son herramientas de apoyo al profesional: generan borradores y
-        propuestas citando su fuente, pero <strong>no constituyen asesoramiento jurídico de
-        VELIA</strong>. La revisión, validación y firma de cualquier escrito o decisión
-        profesional corresponde siempre al abogado. Los datos enviados a la API de IA no se
-        utilizan para entrenar modelos, por política contractual del proveedor.
+        Las funciones de IA del entorno (redacción de borradores, informes, consultas a
+        fuentes) son herramientas de apoyo: generan borradores y propuestas citando su fuente,
+        pero <strong>no constituyen asesoramiento profesional de VELIA</strong>. La revisión,
+        la validación y la decisión final corresponden siempre a la persona responsable en tu
+        negocio. Cuando el entorno esté configurado para un sector regulado —por ejemplo el
+        jurídico—, esto incluye expresamente que ningún resultado de la IA sustituye al
+        criterio ni a la firma del profesional colegiado. Los datos enviados a la API de IA no
+        se utilizan para entrenar modelos, por política contractual del proveedor.
       </p>
 
       <h2>7. Uso aceptable</h2>
       <p>
-        Te comprometes a usar el servicio conforme a la ley y a la deontología profesional, a
-        custodiar tus credenciales de acceso y a no intentar acceder a datos de otros
-        despachos, vulnerar la seguridad de la plataforma o revender el servicio sin acuerdo
-        con VELIA.
+        Te comprometes a usar el servicio conforme a la ley y, cuando tu actividad esté
+        colegiada o regulada, a su deontología profesional; a custodiar tus credenciales de
+        acceso; y a no intentar acceder a datos de otros clientes, vulnerar la seguridad del
+        entorno o revender el servicio sin acuerdo con VELIA.
       </p>
 
       <h2>8. Disponibilidad y soporte</h2>
@@ -113,24 +128,24 @@ export default function TerminosPage() {
       <p>
         El software, la marca y los materiales de VELIA son titularidad de VELIA o de sus
         licenciantes. La contratación concede una licencia de uso no exclusiva e
-        intransferible durante la vigencia de la suscripción. Los contenidos y datos que el
-        despacho introduce en la plataforma siguen siendo suyos.
+        intransferible durante la vigencia del servicio contratado. Los contenidos y datos que
+        tu negocio introduce en el entorno siguen siendo suyos.
       </p>
 
       <h2>10. Responsabilidad</h2>
       <p>
         En la medida permitida por la ley, la responsabilidad total de VELIA por daños
-        derivados del servicio se limita al importe pagado por el despacho en los doce meses
-        anteriores al hecho que la origine. VELIA no responde de decisiones profesionales
-        adoptadas sobre la base de borradores o informes generados por la herramienta sin la
-        revisión del abogado.
+        derivados del servicio se limita al importe pagado por el cliente en los doce meses
+        anteriores al hecho que la origine. VELIA no responde de decisiones adoptadas sobre la
+        base de borradores o informes generados por la IA sin la revisión de la persona
+        responsable en el negocio del cliente.
       </p>
 
       <h2>11. Modificaciones</h2>
       <p>
-        VELIA puede actualizar estos términos y sus precios. Los cambios sustanciales se
-        comunicarán con antelación razonable por email o dentro de la plataforma; el precio
-        del Programa Fundadores permanece congelado conforme a su compromiso.
+        VELIA puede actualizar estos términos. Los cambios sustanciales se comunicarán con
+        antelación razonable por email o dentro del propio entorno. Los importes acordados en
+        una propuesta ya aceptada no se alteran por una actualización de estos términos.
       </p>
 
       <h2>12. Ley aplicable y jurisdicción</h2>
