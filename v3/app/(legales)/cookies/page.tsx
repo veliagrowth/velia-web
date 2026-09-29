@@ -113,7 +113,7 @@ export default function CookiesPage() {
       <h2>4. Cambiar de idea</h2>
       <p>
         Puedes revisar o retirar tu consentimiento cuando quieras desde aquí:{' '}
-        <ConsentLink />. Al retirarlo dejamos de cargar la herramienta{' '}
+        <ConsentLink variante="prosa" />. Al retirarlo dejamos de cargar la herramienta{' '}
         <strong>y borramos las cookies que hubiera dejado</strong>, porque dejar de cargarla
         no basta para que desaparezcan.
       </p>

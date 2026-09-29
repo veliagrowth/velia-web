@@ -141,7 +141,28 @@ export async function medirContraste(page) {
       return `rgb(${out.join(',')})`
     }
     const malos = []
-    for (const el of document.querySelectorAll('p, h1, h2, h3, li, span, a, time')) {
+    /* ── POR QUÉ LA LISTA CRECE (29-sep-2026) ───────────────────────────────
+       Eran ocho etiquetas: `p, h1, h2, h3, li, span, a, time`. Ninguna de las
+       que faltaban es exótica, y una de ellas escondía un fallo de nivel AA en
+       producción: el botón «Cookies» de `/cookies` —el control que el RGPD
+       art. 7.3 exige para RETIRAR el consentimiento— se pintaba con
+       `text-cream/55`, que es el token de superficie OSCURA, dentro de un
+       párrafo sobre Pearl Cloud. Medido: **1,00:1**. Pearl sobre Pearl. Un
+       botón invisible en la frase que dice «puedes retirarlo desde aquí».
+
+       Se coló porque `<button>` no estaba en esta lista, no porque el
+       algoritmo fallara: el algoritmo nunca lo miró. Es, otra vez, que una
+       guarda sólo mira donde la apuntas — y aquí se la apuntó a las etiquetas
+       de prosa, no a los controles.
+
+       Las que entran ahora y por qué: `button` (controles), `td`/`th`
+       (la tabla de cookies), `label` (formulario de /contacto), `code`,
+       `dt`/`dd` (las preguntas de /ai-search), `strong`, `em`, `summary`,
+       `figcaption`, `blockquote`. Todas son hojas de texto visible; el filtro
+       de «solo hojas» de abajo sigue descartando contenedores. */
+    const ETIQUETAS_CON_TEXTO =
+      'p, h1, h2, h3, li, span, a, time, button, td, th, label, code, dt, dd, strong, em, summary, figcaption, blockquote'
+    for (const el of document.querySelectorAll(ETIQUETAS_CON_TEXTO)) {
       const t = el.textContent?.trim()
       if (!t || t.length < 3) continue
       // Solo hojas de texto: un contenedor mide el color heredado, no el suyo.

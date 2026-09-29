@@ -124,7 +124,7 @@ export default function Footer() {
               estar SIEMPRE a mano: si solo se pudiera desde el banner, quien ya
               decidió no podría cambiar de idea nunca. RGPD art. 7.3. */}
           <div className="flex items-center gap-4">
-            <ConsentLink />
+            <ConsentLink variante="pie" />
             <p className="text-[11px] text-cream/70">veliacorp.com</p>
           </div>
         </div>
