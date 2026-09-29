@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { FAQ } from '@/lib/faq'
 
 /**
@@ -98,6 +99,22 @@ export default function Faq() {
                   {parrafo}
                 </p>
               ))}
+              {/* Donde la respuesta resume algo que otra superficie desarrolla
+                  —hoy, los términos del servicio—, se enlaza. Una FAQ que
+                  explica una condición y no dice dónde está escrita obliga a
+                  creérsela. Mismo gesto de flecha que el resto de la web: «→»
+                  lleva a otro sitio de este dominio. */}
+              {p.enlace && (
+                <p className="mt-4">
+                  <Link
+                    href={p.enlace.href}
+                    className="enlace-flecha text-[15px] font-600 text-gold-ink underline decoration-gold-ink/30 underline-offset-4 hover:decoration-gold-ink transition-colors"
+                  >
+                    {p.enlace.texto}
+                    <span className="enlace-flecha__flecha ml-1 no-underline" aria-hidden="true">→</span>
+                  </Link>
+                </p>
+              )}
             </div>
           </li>
         )

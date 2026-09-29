@@ -16,12 +16,23 @@
  * FAQ.
  *
  * Donde falta una decisión, la respuesta lo DICE en vez de rellenarlo: decir
- * «se define antes de empezar» es cierto y es útil; inventar «30 días de
- * preaviso» es un contrato escrito por quien no puede firmarlo.
+ * «se define antes de empezar» es cierto y es útil; inventar un plazo de
+ * preaviso es un contrato escrito por quien no puede firmarlo.
  *
- * Las que hoy esperan una decisión humana están marcadas con `gate: true`.
- * No es una etiqueta que se pinte —el visitante no tiene por qué ver nuestra
- * cocina—: es para que una búsqueda en este fichero diga qué queda abierto.
+ * ── EL CAMPO `decision` (29-sep-2026) ─────────────────────────────────────
+ * Antes era `gate: true`, un booleano que sólo sabía decir «esto falta». Su
+ * problema es que lo cerrado se representaba por AUSENCIA: una pregunta sin
+ * la marca podía ser una política aprobada o una que nadie se planteó nunca,
+ * y las dos se leen igual. Al aprobarse las tres primeras, quitar la marca
+ * habría borrado también la prueba de que hubo una decisión.
+ *
+ * Ahora `decision` es explícito y sólo lo llevan las preguntas que dependen
+ * de una política comercial: `APROBADA` con su fecha, o `PENDIENTE` diciendo
+ * qué falta exactamente. Las que no son política —la IA, las herramientas, la
+ * personalización— no lo llevan, y esa ausencia sí significa una sola cosa.
+ *
+ * No se pinta: el visitante no tiene por qué ver nuestra cocina. Es para que
+ * una búsqueda en este fichero diga qué está decidido y desde cuándo.
  * ⛔ No se escribe `TODO`, `TBD` ni un hueco visible: el texto que hay es
  * publicable tal cual, y se sustituye el día que exista la decisión.
  *
@@ -34,24 +45,37 @@
  *   va por `lib/verified-claims.ts` con su fuente y su fecha, como el resto.
  */
 
+/**
+ * El estado de la política comercial que sostiene una respuesta.
+ *
+ * `APROBADA` lleva fecha porque una política sin fecha no se puede auditar:
+ * el día que cambie hay que saber desde cuándo decíamos lo anterior.
+ * `PENDIENTE` lleva `falta` porque «pendiente» a secas no es accionable.
+ */
+export type Decision =
+  | { estado: 'APROBADA'; fecha: string }
+  | { estado: 'PENDIENTE'; falta: string }
+
 export type Pregunta = {
   /** El ancla, estable: se usa como `id` del panel y del botón. */
   id: string
   q: string
   /** Párrafos. Dos como mucho: una FAQ que necesita tres no es una FAQ. */
   a: readonly string[]
-  /** Espera una decisión comercial humana. No se pinta; se busca. */
-  gate?: true
+  /** Enlace a la superficie que desarrolla la respuesta. Opcional. */
+  enlace?: { href: string; texto: string }
+  /** Sólo en las preguntas que dependen de una política comercial. */
+  decision?: Decision
 }
 
 export const FAQ: readonly Pregunta[] = [
   {
     id: 'precio',
     q: '¿Cuánto cuesta trabajar con VELIA?',
-    gate: true,
+    decision: { estado: 'APROBADA', fecha: '2026-09-29' },
     a: [
-      'No hay una tarifa universal, y no es una evasiva: el coste depende del alcance de la transformación, de las capacidades que se incorporan, de las integraciones que hacen falta y del nivel de operación que pide cada caso. Un negocio que necesita poner en orden su base digital y otro que además quiere automatizar su captación y que alguien la opere no cuestan lo mismo.',
-      'Lo que sí es fijo es el orden: primero se entiende el contexto y se define el alcance, y el número sale de ahí. Nunca al revés.',
+      'No hay una tarifa universal, y tampoco una oculta: el precio se define a medida para cada proyecto, según su alcance, las capacidades que se incorporan, las integraciones que hacen falta y el nivel de operación que pide el caso. Poner en orden la base digital de un negocio y, además, automatizar su captación y operarla, no cuestan lo mismo.',
+      'Lo que sí es fijo es el orden: primero se entiende el contexto y se define el alcance; el número sale de ahí, por escrito y antes de empezar. Nunca al revés.',
     ],
   },
   {
@@ -73,20 +97,22 @@ export const FAQ: readonly Pregunta[] = [
   {
     id: 'salida',
     q: '¿Qué ocurre si dejo de trabajar con VELIA?',
-    gate: true,
+    decision: { estado: 'APROBADA', fecha: '2026-09-29' },
     a: [
-      'Las condiciones de salida dependen del servicio y del acuerdo contratado. Antes de empezar se define qué activos, datos, infraestructura e integraciones quedan bajo gestión de VELIA y qué ocurre con cada uno al terminar la relación.',
-      'Es una conversación que se tiene al principio, no al final. Un negocio que no sabe de quién son sus accesos hasta que quiere irse ya tiene un problema, y ese problema es justo el que VELIA existe para quitar.',
+      'La operación recurrente puede finalizar con un preaviso de 30 días. VELIA no aplica una permanencia obligatoria por defecto, y la duración y el preaviso concretos de cada servicio son los que figuren en la propuesta aceptada.',
+      'Algunos proyectos, servicios de terceros o compromisos específicos pueden tener condiciones particulares: se detallan antes de empezar, no al salir. Al finalizar, VELIA coordina la transición de los servicios y activos que correspondan según el alcance contratado.',
     ],
+    enlace: { href: '/terminos', texto: 'Términos del servicio' },
   },
   {
     id: 'propiedad',
     q: '¿Qué ocurre con mi web, mis datos, mis contenidos y mis automatizaciones?',
-    gate: true,
+    decision: { estado: 'APROBADA', fecha: '2026-09-29' },
     a: [
-      'No son la misma cosa y no se tratan igual. Están los activos del negocio —su dominio, sus datos, sus contenidos, sus cuentas—; la infraestructura que VELIA opera por él; los servicios de terceros, que tienen sus propias condiciones; y los componentes contratados para un caso concreto.',
-      'Qué pasa con cada uno se fija en el acuerdo, no en una política general que valga para todos. Lo que sí es principio: el negocio tiene que poder saber en todo momento quién controla cada pieza, y eso se deja documentado.',
+      'Son tres cosas distintas y conviene no mezclarlas. Lo tuyo sigue siendo tuyo: el dominio, la marca, los contenidos, las cuentas a tu nombre y los datos de tu negocio y de tus clientes. VELIA los trata como encargado del tratamiento y, al terminar, puedes pedir su exportación completa.',
+      'La infraestructura y las capacidades con las que VELIA opera —su plano de control, sus componentes reutilizables y sus herramientas internas— son de VELIA y no se transfieren al finalizar la relación. Y los servicios de terceros se rigen por quién sea su titular y por el acuerdo de cada uno. Saber quién controla cada pieza no debería depender de la memoria de nadie: queda documentado.',
     ],
+    enlace: { href: '/terminos', texto: 'Términos del servicio' },
   },
   {
     id: 'herramientas',
@@ -132,11 +158,20 @@ export const FAQ: readonly Pregunta[] = [
     id: 'operacion',
     q: '¿Qué ocurre después de la implantación?',
     a: [
-      'Ahí empieza la operación: vigilar que siga funcionando, arreglar lo que se rompe, ajustar lo que ya no encaja y ampliarlo cuando el negocio cambia. El alcance concreto es el que se haya contratado.',
+      'Termina el proyecto y empieza la operación recurrente, que es otra cosa y se contrata aparte: vigilar que siga funcionando, arreglar lo que se rompe, ajustar lo que ya no encaja y medir. Lo que añade capacidades nuevas no es operación, es una ampliación, y también va por su lado.',
       'Un sistema digital no se queda como se entregó. Los proveedores cambian sus reglas, las integraciones se caen y los datos se ensucian. Sin nadie detrás no se mantiene igual: se degrada, y casi siempre en silencio.',
     ],
   },
 ] as const
 
-/** Las que esperan una decisión comercial humana. Para buscar, no para pintar. */
-export const FAQ_CON_GATE = FAQ.filter(p => p.gate).map(p => p.id)
+/**
+ * El estado de las políticas comerciales publicadas. Para buscar y auditar,
+ * no para pintar.
+ *
+ * `PENDIENTES` vacío el 29-sep-2026: precio, salida y propiedad quedaron
+ * aprobadas ese día. Sigue existiendo porque la siguiente pregunta comercial
+ * nacerá pendiente, y porque una lista vacía dice algo —«no queda nada
+ * abierto»— que la ausencia de lista no dice.
+ */
+export const FAQ_PENDIENTES = FAQ.filter(p => p.decision?.estado === 'PENDIENTE').map(p => p.id)
+export const FAQ_APROBADAS = FAQ.filter(p => p.decision?.estado === 'APROBADA').map(p => p.id)
