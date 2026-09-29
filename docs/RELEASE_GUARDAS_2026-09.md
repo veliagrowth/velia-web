@@ -182,20 +182,70 @@ fiable: sería ruido con permiso. Se deja como auditoría que se repite en el re
 
 | Guarda | Estado | Salida |
 |---|---|---|
-| `build` | VERDE | 0 · 28 rutas |
+| `build` | VERDE | 0 · **24 rutas** (eran 28: se retiraron 4) |
 | `test:claims` | VERDE | 0 · 8/8 |
 | `test:rutas` | VERDE | 0 · 7/7 |
-| `check:opacidades` | VERDE | 0 · 297 |
+| `check:opacidades` | VERDE | 0 |
 | `check:analytics` | **DEPENDENCIA** | 2 · `velia-portal` |
 | `check:claims` | VERDE | 0 |
-| `check:email` | VERDE | 0 · 16 sin correo + 5 legales lo conservan |
+| `check:email` | VERDE | 0 · 5 legales conservan el correo |
 | `qa:home` | VERDE | 0 · 59 |
 | `qa:paginas` | VERDE | 0 · 418 |
-| `qa:identidad` | VERDE | 0 · 161 |
-| **Agregado** | **8 verdes + 1 dependencia** | **2** |
+| `qa:identidad` | VERDE | 0 |
+| `qa:faq` | VERDE | 0 · 33 |
+| **Agregado** | **9 verdes + 1 dependencia** | **2** |
 
-`qa:hero` existe en `package.json` y **no** está en el agregado. No se ha añadido en esta
-sesión: entra cuando se mida, no por estar en la lista.
+`qa:hero` existe en `package.json` y **no** está en el agregado. No se ha añadido: entra
+cuando se mida, no por estar en la lista.
+
+---
+
+## 10. Retirada de la superficie legacy (29-sep-2026)
+
+`/precios`, `/demo`, `/fundadores` y `/legal` **ya no existen**: sus `page.tsx` se
+borraron y Next responde **404**. Medido en el servidor, no supuesto.
+
+Antes estaban vivas a 200 con `noindex`. La política era «dejan de anunciarse, no se
+rompen», y se revirtió por un motivo concreto: `noindex` es una petición a un buscador,
+no un control de acceso. Escribiendo la URL se llegaba igual a 99 €/mes, a la prueba de
+15 días, al Programa Fundadores y a «un día de tu despacho».
+
+⚠️ **`/legal` (producto) no es `(legales)`.** Las cinco superficies legales vigentes
+—`/aviso-legal`, `/privacidad`, `/cookies`, `/terminos`, `/ia-responsable`— siguen vivas,
+indexables y en el sitemap. Son obligación legal.
+
+Medido tras la retirada: sitemap con 14 URL y ninguna retirada · `llms.txt` limpio ·
+la Home no enlaza ninguna · las cinco legales a 200.
+
+**La criba `enlacePublicable()` se queda** (ahora en `lib/rutas-retiradas.ts`, antes
+`rutas-congeladas.ts`). El 404 protege la ruta, no los enlaces que apuntan a ella: el
+feed del portal sigue trayendo `link` a `veliacorp.com/precios`, y pintar un enlace a un
+404 es peor que no pintarlo.
+
+**Huérfanos nuevos**, por quedarse sin sus únicas páginas: `TrialButton`, `PricingPlans`,
+`PricingSelector`, `ProductShot`, `PhoneShot` y `lib/pricing.ts`. Se clasifican, no se
+borran. Ninguno se renderiza, así que los 99 €/mes salen igualmente de la superficie
+pública.
+
+**Los eventos legacy de `lib/analytics.ts` NO se tocan.** Ya no los emite nadie, pero el
+buzón del portal los sigue aceptando: quitarlos encendería la otra mitad de
+`check:analytics` —«el buzón acepta y la web ya no emite»—, que es un fallo real con
+salida 1 en vez de la dependencia declarada. Los dos lados se retiran juntos.
+
+---
+
+## 11. FAQ pública
+
+Once preguntas en la Home (`#preguntas`), entre «por qué VELIA» y el cierre. Indexable:
+vive en `/`, que está en el sitemap con prioridad 1.
+
+**Sin JSON-LD `FAQPage`**, a propósito: la Fase 0 retiró esa señal y `qa:identidad` exige
+que ninguna ruta la publique. **Sin claims nuevos** en `lib/verified-claims.ts`: ninguna
+respuesta afirma un hecho que necesite fuente externa.
+
+**Tres gates comerciales humanos**, marcados con `gate: true` en `lib/faq.ts` — precio,
+condiciones de salida y propiedad de activos. El texto publicado es neutral, cierto y
+publicable tal cual; se sustituye cuando exista la decisión. Cero `TODO` o `TBD` visibles.
 
 ---
 
