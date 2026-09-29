@@ -1,10 +1,21 @@
 /**
  * Registro de afirmaciones comerciales y técnicas de la web pública.
  *
- * POR QUÉ: VELIA vende software a abogados. Un claim que no se puede sostener no
- * es una licencia de marketing, es un riesgo. Hasta ahora la web publicaba
- * «Facturación Verifactu», «Alojado en la UE» o «+260% consultas captadas» sin
- * que existiera en ningún sitio quién lo había comprobado ni cuándo.
+ * POR QUÉ: VELIA construye y opera la infraestructura digital de un negocio, y
+ * responde de ella. Un claim que no se puede sostener no es una licencia de
+ * marketing, es un riesgo. Hasta ahora la web publicaba «Facturación
+ * Verifactu», «Alojado en la UE» o «+260% consultas captadas» sin que existiera
+ * en ningún sitio quién lo había comprobado ni cuándo.
+ *
+ * ⚠️ Esta línea decía «VELIA vende software a abogados» hasta el 29-sep-2026.
+ * Esa tesis quedó DEROGADA el 9-sep (VELIA_DIRECCION_2026-09.md): VELIA Legal
+ * está descontinuado como producto y marca, y el vertical es una configuración.
+ * Importa aquí y no es cosmética: este fichero es el que decide qué se puede
+ * afirmar en público, y varios de sus claims siguen redactados en el vocabulario
+ * del vertical —«la práctica jurídica española», «la revisión del abogado»—.
+ * Son claims VERIFICADOS y no se reescriben de paso: reformular uno exige
+ * decidir si sigue diciendo el mismo hecho, y eso es una decisión humana. Se
+ * dejan como están y se declaran aquí para que no se confundan con un olvido.
  *
  * REGLA DURA: **solo se renderiza lo que está en `verified`.** `claim()` devuelve
  * `null` para todo lo demás, así que un claim sin verificar no se cuela por
