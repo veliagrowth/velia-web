@@ -17,19 +17,39 @@
  * no pasaban por ninguna criba, y el tablón de /novedades los pinta tal cual.
  *
  * Medido sobre el feed en producción: de sus 13 entradas, «El Programa
- * Fundadores sigue abierto» lleva `link` a `https://veliacorp.com/precios`. El
- * pie de TODAS las páginas de la web nueva lleva a /novedades, así que desde
+ * Fundadores sigue abierto» lleva `link` a `https://veliacorp.com/precios`.
+ * Entonces el pie de TODAS las páginas llevaba a /novedades, así que desde
  * cualquier punto del sitio se llegaba a la página de precios de la etapa
  * anterior en dos clics — mientras `qa:home` certificaba, con razón, que la
  * Home no la enlazaba. La guarda miraba donde la apuntaron.
+ *
+ * ── LO QUE CAMBIÓ DESPUÉS, Y POR QUÉ LA CRIBA SE QUEDA (29-sep-2026) ───────
+ * Ese camino de dos clics YA NO EXISTE, y este comentario afirmaba en presente
+ * que sí: `504a1c4` sacó /novedades del pie a la vez que el tablón pasó a negar
+ * por defecto. Hoy la ruta está aislada —`noindex, follow`, fuera del sitemap y
+ * sin un solo enlace entrante—. Medido el 29-sep sobre el HTML servido, no
+ * sobre el código: la Home no imprime ni una vez «/novedades».
+ *
+ * Eso NO deja a esta criba sin trabajo, y conviene decirlo para que nadie la
+ * retire creyendo que sobra. El aislamiento de /novedades es una decisión de
+ * producto REVERSIBLE —se revierte el día que exista una entrada pública— y la
+ * criba es lo que impide que, al revertirla, vuelva con ella el enlace a la
+ * oferta descontinuada. Es defensa en profundidad, no redundancia.
  *
  * Inventario y dependencias de cada ruta:
  * velia-core/docs/design/VELIA_WEB_LEGACY_INVENTORY_2026.md
  */
 
-/** ⚠️ Esta lista tiene un gemelo en `scripts/qa-home.mjs` (`const LEGACY`), y
- *  `lib/updates.test.ts` comprueba que las dos digan lo mismo. Dos listas de lo
- *  mismo en dos ficheros divergen: no se toca una sin la otra. */
+/** ⚠️ Esta lista tiene un gemelo en `scripts/lib/auditoria-pagina.mjs`
+ *  (`const LEGACY`), y `lib/rutas-congeladas.test.ts` comprueba que las dos
+ *  digan lo mismo. Dos listas de lo mismo en dos ficheros divergen: no se toca
+ *  una sin la otra.
+ *
+ *  ⚠️ Los dos nombres de esta nota estaban equivocados hasta el 29-sep-2026:
+ *  decía `scripts/qa-home.mjs` —de donde `LEGACY` se movió al módulo
+ *  compartido— y `lib/updates.test.ts`, que no existe. Una nota que manda
+ *  mantener dos ficheros sincronizados y nombra mal los dos manda a revisar el
+ *  sitio equivocado. */
 export const RUTAS_CONGELADAS = ['/precios', '/demo', '/fundadores', '/legal'] as const
 
 /**

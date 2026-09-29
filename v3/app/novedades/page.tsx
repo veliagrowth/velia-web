@@ -14,9 +14,16 @@ import { metadatosDePagina } from '@/lib/metadatos'
 /**
  * /novedades — REESCRITA EN EL REWORK 2026, etapa 2.
  *
- * Es la única ruta que la web nueva enlaza desde el pie de TODAS sus páginas y
- * que seguía hablando como la etapa anterior. Un clic desde cualquier punto del
- * sitio, frente a los dos saltos que exige /seguridad.
+ * Cuando se reescribió era la única ruta que la web nueva enlazaba desde el pie
+ * de TODAS sus páginas y que seguía hablando como la etapa anterior: un clic
+ * desde cualquier punto del sitio.
+ *
+ * ⚠️ YA NO SE ENLAZA (medido el 29-sep-2026 sobre el HTML servido: la Home no
+ * imprime ni una vez «/novedades»). El mismo cambio que hizo que el tablón
+ * negara por defecto la sacó del pie, así que hoy está aislada de las tres
+ * formas a la vez —sin enlace entrante, `noindex, follow` y fuera del
+ * sitemap—. No es un descuido: es la política que se describe abajo, y se
+ * revierte entera el día que exista una entrada pública.
  *
  * QUÉ DECÍA, y por qué no podía quedarse:
  *
