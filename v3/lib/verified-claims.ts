@@ -204,7 +204,11 @@ export const CLAIMS = {
     source: 'FALTA: verificación técnica y documental del cumplimiento del RD 1007/2023. Es un claim regulatorio: publicarlo sin respaldo expone a la sociedad.',
     verifiedAt: null,
     owner: 'Joaquín',
-    usedIn: ['/seguridad', '/legal'],
+    /* Era `['/seguridad', '/legal']`. `/legal` se retiró el 29-sep-2026 y con
+       ella su atadura, así que declararla aquí sería decir que verificar este
+       claim enciende un bloque que ya no existe. El claim NO cambia: sigue
+       `pending`, con su misma fuente, fecha y dueño. */
+    usedIn: ['/seguridad'],
   },
 
   lecDeadlines: {
@@ -213,7 +217,12 @@ export const CLAIMS = {
     source: 'FALTA: acotar el alcance exacto — qué plazos cubre, qué jurisdicciones, qué hace con los días inhábiles autonómicos. Hoy el producto PROPONE plazos y el abogado los aprueba; el claim, tal cual está, promete más.',
     verifiedAt: null,
     owner: 'Joaquín',
-    usedIn: ['/legal'],
+    /* Se queda VACÍO, y el claim se queda en el registro. `/legal` era su única
+       atadura y se retiró el 29-sep-2026; sin páginas que lo aten, verificarlo
+       hoy no encendería nada. Borrar la entrada sería peor: perdería su
+       `source`, que dice exactamente qué falta para poder afirmarlo, y el día
+       que vuelva a hacer falta se reescribiría desde cero sin ese trabajo. */
+    usedIn: [],
   },
 
   pilotMetrics: {

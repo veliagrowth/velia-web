@@ -107,7 +107,12 @@ test('toda atadura del código está declarada en usedIn — y al revés', () =>
   /* El otro sentido, que es el que se olvida. Una página puede atar un claim y
      no aparecer en `usedIn`: entonces el día que ese claim se verifique cambia
      una página que nadie esperaba. Los dos relojes tienen que marcar lo mismo. */
-  const paginas = ['/seguridad', '/legal', '/', '/contacto', '/sobre-velia', '/novedades', '/precios', '/demo', '/fundadores']
+  /* ⚠️ Salieron `/legal`, `/precios`, `/demo` y `/fundadores` (29-sep-2026):
+     se retiraron de la superficie pública y sus `page.tsx` ya no existen. El
+     `existsSync` de abajo las habría saltado en silencio, y una lista que
+     declara dónde se mira no debe llevar sitios donde ya no hay nada: el día
+     que alguien la lea creería que esas cuatro se están comprobando. */
+  const paginas = ['/seguridad', '/', '/contacto', '/sobre-velia', '/novedades']
   for (const ruta of paginas) {
     const fichero = join(process.cwd(), 'app', ruta.replace(/^\//, ''), 'page.tsx')
     if (!existsSync(fichero)) continue

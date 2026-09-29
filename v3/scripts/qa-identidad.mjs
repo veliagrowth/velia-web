@@ -68,11 +68,16 @@ const SUPERFICIES = [
   { ruta: '/growth-automation', clase: 'NUEVA' },
   { ruta: '/digital-operations', clase: 'NUEVA' },
 
-  // Legacy: aislada, y viva.
-  { ruta: '/precios', clase: 'LEGACY_AISLADA' },
-  { ruta: '/demo', clase: 'LEGACY_AISLADA' },
-  { ruta: '/fundadores', clase: 'LEGACY_AISLADA' },
-  { ruta: '/legal', clase: 'LEGACY_AISLADA' },
+  /* ⚠️ AQUÍ HABÍA CUATRO `LEGACY_AISLADA` (29-sep-2026).
+     `/precios`, `/demo`, `/fundadores` y `/legal` estaban vivas a 200 con
+     `noindex`: la política era «dejan de anunciarse, no se rompen». Esa
+     política se ha REVERTIDO por decisión de producto: un `noindex` esconde la
+     página del buscador pero no de quien escribe la URL, y lo que había detrás
+     —99 €/mes, prueba de 15 días, Programa Fundadores, «un día de tu
+     despacho»— es la oferta de un producto descontinuado.
+
+     Ya no se clasifican aquí porque ya no son superficies. Su contrato ahora
+     es el contrario y se comprueba abajo, en RETIRADAS: **deben dar 404**. */
 
   // Obligación legal: se quedan indexables.
   { ruta: '/aviso-legal', clase: 'LEGAL_KEEP' },
@@ -81,6 +86,28 @@ const SUPERFICIES = [
   { ruta: '/terminos', clase: 'LEGAL_KEEP' },
   { ruta: '/ia-responsable', clase: 'LEGAL_KEEP' },
 ]
+
+/**
+ * Las rutas RETIRADAS de la superficie pública (29-sep-2026).
+ *
+ * No están en SUPERFICIES porque ya no son superficies: su página se borró del
+ * repositorio, así que el App Router no tiene nada que servir y Next responde
+ * 404. Esta lista existe para que eso se COMPRUEBE, no se suponga — borrar un
+ * fichero y no volver a mirar es como se reintroduce una página sin enterarse.
+ *
+ * ⚠️ Un 200 aquí es un fallo, aunque venga con `noindex`. Ese era justamente el
+ * estado anterior, y es el que se decidió retirar: `noindex` es una petición a
+ * un buscador, no un control de acceso.
+ *
+ * ⚠️ NO confundir `/legal` —la página de producto de la etapa SaaS, retirada—
+ * con el grupo `(legales)`: `/aviso-legal`, `/privacidad`, `/cookies`,
+ * `/terminos` e `/ia-responsable` siguen vivas, indexables y arriba en
+ * SUPERFICIES. Son obligación legal.
+ *
+ * Tiene gemelos en `lib/rutas-retiradas.ts` y en `scripts/lib/auditoria-pagina.mjs`;
+ * `lib/rutas-retiradas.test.ts` comprueba que las listas no divergan.
+ */
+const RETIRADAS = ['/precios', '/demo', '/fundadores', '/legal']
 
 const rojo = t => `\x1b[31m${t}\x1b[0m`
 const verde = t => `\x1b[32m${t}\x1b[0m`
@@ -183,6 +210,24 @@ try {
   await page.close()
 } finally {
   await browser.close()
+}
+
+/* ── LAS RETIRADAS TIENEN QUE HABER DESAPARECIDO ─────────────────────────────
+   Se comprueba con `fetch` y no con el navegador: lo que se mide es el código
+   de estado del servidor, y para eso un navegador no aporta nada.
+
+   `redirect: 'manual'` a propósito: si alguien «arregla» un 404 metiendo una
+   redirección a otra página, esto tiene que verlo. Una 3xx hacia contenido que
+   reproduzca lo retirado no es retirarlo, es moverlo de sitio. */
+{
+  for (const ruta of RETIRADAS) {
+    const res = await fetch(`${BASE}${ruta}`, { cache: 'no-store', redirect: 'manual' })
+    comprobar(
+      `${ruta} RETIRADA · responde 404`,
+      res.status === 404,
+      `HTTP ${res.status}${res.headers.get('location') ? ` → ${res.headers.get('location')}` : ''}`,
+    )
+  }
 }
 
 /* ── EL llms.txt ES OTRA COPIA DE LA IDENTIDAD ───────────────────────────────

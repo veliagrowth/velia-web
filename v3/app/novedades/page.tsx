@@ -8,7 +8,7 @@ import {
   formatUpdateDate,
   type ProductUpdate,
 } from '@/lib/updates'
-import { enlacePublicable } from '@/lib/rutas-congeladas'
+import { enlacePublicable } from '@/lib/rutas-retiradas'
 import { metadatosDePagina } from '@/lib/metadatos'
 
 /**
@@ -49,7 +49,7 @@ import { metadatosDePagina } from '@/lib/metadatos'
  *    sitemap—; los que trae el feed entraban sin pasar por ninguna criba.
  *    Medido: la entrada «El Programa Fundadores sigue abierto» lleva `link` a
  *    veliacorp.com/precios. Se publica la entrada; no se publica el enlace.
- *    Quien criba es `enlacePublicable()`, en `lib/rutas-congeladas.ts`, con su
+ *    Quien criba es `enlacePublicable()`, en `lib/rutas-retiradas.ts`, con su
  *    prueba en los dos sentidos al lado.
  *
  * 3. JERARQUÍA VISUAL SIN JERARQUÍA REAL. Los rótulos de carril eran `h2` de

@@ -16,7 +16,7 @@
     "check:opacidades": "node scripts/check-opacidades.mjs",
     "check:claims": "node scripts/check-claims-publicados.mjs",
     "test:claims": "node --test lib/verified-claims.test.ts",
-    "test:rutas": "node --test lib/rutas-congeladas.test.ts",
+    "test:rutas": "node --test lib/rutas-retiradas.test.ts",
     "check:email": "node scripts/check-email.mjs"
   },
   "dependencies": {

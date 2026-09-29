@@ -93,10 +93,21 @@ export type AnalyticsEvent =
   | 'final_trial_click'
   | 'final_demo_click'
   /* ── REWORK 2026 ──────────────────────────────────────────────────────────
-     Eventos de la VELIA nueva. Los de arriba NO se borran: las páginas legacy
-     (`/precios`, `/demo`, `/fundadores`, `/legal`) siguen vivas y los siguen
-     emitiendo. Borrarlos aquí haría fallar la guarda por el otro lado — el
-     buzón los aceptaría y la web ya no los declararía.
+     Eventos de la VELIA nueva. Los de arriba siguen aquí, y desde el
+     29-sep-2026 por un motivo DISTINTO del que decía esta nota.
+
+     Decía que las páginas legacy «siguen vivas y los siguen emitiendo». Ya no:
+     `/precios`, `/demo`, `/fundadores` y `/legal` se retiraron y responden
+     404, así que nadie emite esos eventos. Aun así **no se borran de esta
+     lista**, y la segunda mitad del razonamiento original es justo la razón:
+     el buzón del portal los sigue aceptando. Quitarlos aquí encendería la otra
+     mitad de `check:analytics` —«el buzón acepta y la web YA NO emite»—, que
+     es un fallo REAL con salida 1, en lugar de la dependencia cross-repo
+     declarada que hay hoy.
+
+     Los dos lados se retiran juntos, cuando se toque el endpoint del portal, o
+     no se retira ninguno. Un evento declarado y no emitido no rompe nada; un
+     buzón que acepta lo que nadie declara, sí.
 
      Cada nombre de aquí abajo tiene que estar TAMBIÉN en la lista cerrada de
      velia-portal/app/api/public/web-analytics/route.ts. Si no está, el buzón

@@ -338,9 +338,15 @@ export default function SobreVeliaPage() {
 
       {/* ═══ 5 · CIERRE · CORTE OSCURO 2 ══════════════════════════════════
           Una sola acción, la misma de toda la web: `/contacto`. El
-          `TrialButton` que había aquí se va —no hay prueba gratuita que
-          ofrecer— pero NO se borra del repositorio: `/precios`, `/demo` y
-          `/fundadores` siguen vivas y lo siguen usando. */}
+          `TrialButton` que había aquí se fue: no hay prueba gratuita que
+          ofrecer.
+
+          ⚠️ 29-sep-2026: esta nota decía que el componente no se borraba del
+          repositorio «porque /precios, /demo y /fundadores siguen vivas y lo
+          siguen usando». Las tres se han RETIRADO y responden 404, así que
+          `TrialButton` ya no lo monta ninguna página: pasó de componente
+          compartido a código huérfano. Sigue en el repositorio, y se clasifica
+          como tal en vez de borrarse de paso. */}
       <section aria-labelledby="t-sv-cierre" className="velia-dark-stage bg-void text-cream">
         <div className="mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-28">
           <h2 id="t-sv-cierre" className="text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] max-w-[20ch]">

@@ -140,9 +140,10 @@ export default function ContactForm({ origen = 'contacto' }: { origen?: string }
           nivel 1 al 3 y quien navega por titulares se encontraba un hueco. Lo
           cazó `qa:paginas`, que mide la jerarquía en todas las páginas y no
           sólo en la Home.
-          En /fundadores, que también monta este formulario, el cambio tampoco
-          crea un salto: allí ya hay tres h2 por encima. Y el tamaño no depende
-          del tag — las clases son explícitas. */}
+          El tamaño no depende del tag: las clases son explícitas.
+          ⚠️ Aquí se justificaba también el caso de /fundadores, «que también
+          monta este formulario». Esa página se retiró el 29-sep-2026, así que
+          /contacto es hoy el ÚNICO sitio donde vive este componente. */}
       <h2 className="text-2xl md:text-3xl font-700 tracking-[-0.01em] max-w-[22ch]">
         Cuéntanos cómo trabajáis hoy.
       </h2>

@@ -31,8 +31,8 @@
 /**
  * Las rutas de la etapa SaaS, congeladas por el rework.
  *
- * ⚠️ Tiene un gemelo en `lib/rutas-congeladas.ts` (el que usa la aplicación), y
- * `lib/rutas-congeladas.test.ts` comprueba que las dos digan lo mismo. Son dos
+ * ⚠️ Tiene un gemelo en `lib/rutas-retiradas.ts` (el que usa la aplicación), y
+ * `lib/rutas-retiradas.test.ts` comprueba que las dos digan lo mismo. Son dos
  * porque una vive en TypeScript y otra en un script de Node, y no se importan
  * entre sí; lo que no puede pasar es que nadie las compare.
  */

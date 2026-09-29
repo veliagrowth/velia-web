@@ -1,7 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { enlacePublicable, RUTAS_CONGELADAS } from './rutas-congeladas.ts'
+import { enlacePublicable, RUTAS_RETIRADAS } from './rutas-retiradas.ts'
 
 /**
  * La criba de enlaces del feed, probada en los DOS sentidos.
@@ -24,7 +24,7 @@ import { enlacePublicable, RUTAS_CONGELADAS } from './rutas-congeladas.ts'
  */
 
 test('un enlace a una ruta congelada NO se publica, absoluto o relativo', () => {
-  for (const ruta of RUTAS_CONGELADAS) {
+  for (const ruta of RUTAS_RETIRADAS) {
     assert.equal(enlacePublicable(`https://veliacorp.com${ruta}`), false, `absoluto ${ruta}`)
     assert.equal(enlacePublicable(`https://www.veliacorp.com${ruta}`), false, `www ${ruta}`)
     assert.equal(enlacePublicable(ruta), false, `relativo ${ruta}`)
@@ -77,5 +77,5 @@ test('la lista de rutas congeladas es la MISMA que vigilan las guardas', () => {
   const linea = modulo.match(/export const LEGACY = \[([^\]]+)\]/)
   assert.ok(linea, 'no encuentro la lista LEGACY en scripts/lib/auditoria-pagina.mjs')
   const enLaGuarda = [...linea[1].matchAll(/'([^']+)'/g)].map(m => m[1]).sort()
-  assert.deepEqual(enLaGuarda, [...RUTAS_CONGELADAS].sort())
+  assert.deepEqual(enLaGuarda, [...RUTAS_RETIRADAS].sort())
 })

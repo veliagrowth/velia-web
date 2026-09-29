@@ -56,10 +56,11 @@ const NO_LEGALES = [
   '/ai-search/llms-txt',
   '/novedades',
   '/seguridad',
-  '/precios',
-  '/demo',
-  '/fundadores',
-  '/legal',
+  /* ⚠️ Aquí estaban `/precios`, `/demo`, `/fundadores` y `/legal`
+     (29-sep-2026). Salen porque ya no existen: sus páginas se borraron del
+     repositorio y responden 404. Comprobar que un 404 «no lleva el correo»
+     sería un verde que no demuestra nada. Que sigan retiradas lo comprueba
+     `qa:identidad` en su bloque RETIRADAS, que es donde toca. */
   '/llms.txt',
 ]
 

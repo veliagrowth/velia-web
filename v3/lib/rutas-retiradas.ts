@@ -7,12 +7,32 @@
  * dependencia, `node --test` puede cargarlo y probar la criba sin levantar la
  * web ni conocer los `paths` de tsconfig.
  *
- * ── QUÉ PROBLEMA RESUELVE (18-sep-2026) ────────────────────────────────────
- * `/precios`, `/demo`, `/fundadores` y `/legal` siguen vivas y respondiendo
- * 200: no se ha roto ningún enlace, ningún favorito ni ningún correo ya
- * enviado. Lo que dejan de hacer es anunciarse.
+ * ── LO QUE SON HOY: RETIRADAS, NO CONGELADAS (29-sep-2026) ─────────────────
+ * `/precios`, `/demo`, `/fundadores` y `/legal` **ya no existen**. Sus páginas
+ * se han borrado del repositorio, así que el App Router no tiene nada que
+ * servir y Next responde 404. Lo comprueba `qa:identidad`, en su bloque
+ * RETIRADAS: un 200 ahí es un fallo.
  *
- * Esa política se aplicó a la Home, a la navegación y al sitemap — los tres
+ * Este fichero se llamaba `rutas-congeladas.ts` y la política era la
+ * contraria: seguían vivas a 200 con `noindex`, «dejan de anunciarse, no se
+ * rompen». Se revirtió porque `noindex` es una petición a un buscador, no un
+ * control de acceso: escribiendo la URL se llegaba igual a 99 €/mes, a la
+ * prueba de 15 días, al Programa Fundadores y a «un día de tu despacho», que
+ * es la oferta de un producto descontinuado.
+ *
+ * ── ENTONCES, ¿POR QUÉ SIGUE HABIENDO UNA CRIBA? ───────────────────────────
+ * Porque el 404 protege la ruta, no los enlaces que apuntan a ella. El feed de
+ * /novedades lo escribe el portal y sigue trayendo `link` a
+ * `https://veliacorp.com/precios` en la entrada del Programa Fundadores.
+ * Sin esta criba, la web pintaría un enlace que lleva a un 404 — peor que no
+ * pintarlo: una página rota es una promesa incumplida, no una ausencia.
+ *
+ * Así que la función no cambia ni una línea; cambia lo que evita. Antes
+ * impedía anunciar una página viva que ya no representaba a VELIA. Ahora
+ * impide anunciar una página que no está.
+ *
+ * ── DE DÓNDE VENÍA (18-sep-2026) ───────────────────────────────────────────
+ * La política de no anunciarlas se aplicó a la Home, a la navegación y al sitemap — los tres
  * sitios donde los enlaces se escriben a mano. Los enlaces que llegan de FUERA
  * no pasaban por ninguna criba, y el tablón de /novedades los pinta tal cual.
  *
@@ -23,25 +43,21 @@
  * anterior en dos clics — mientras `qa:home` certificaba, con razón, que la
  * Home no la enlazaba. La guarda miraba donde la apuntaron.
  *
- * ── LO QUE CAMBIÓ DESPUÉS, Y POR QUÉ LA CRIBA SE QUEDA (29-sep-2026) ───────
- * Ese camino de dos clics YA NO EXISTE, y este comentario afirmaba en presente
- * que sí: `504a1c4` sacó /novedades del pie a la vez que el tablón pasó a negar
- * por defecto. Hoy la ruta está aislada —`noindex, follow`, fuera del sitemap y
- * sin un solo enlace entrante—. Medido el 29-sep sobre el HTML servido, no
- * sobre el código: la Home no imprime ni una vez «/novedades».
+ * Ese camino de dos clics ya no existe: `504a1c4` sacó /novedades del pie a la
+ * vez que el tablón pasó a negar por defecto. Hoy la ruta está aislada
+ * —`noindex, follow`, fuera del sitemap y sin un solo enlace entrante—. Medido
+ * el 29-sep sobre el HTML servido, no sobre el código: la Home no imprime ni
+ * una vez «/novedades».
  *
- * Eso NO deja a esta criba sin trabajo, y conviene decirlo para que nadie la
- * retire creyendo que sobra. El aislamiento de /novedades es una decisión de
- * producto REVERSIBLE —se revierte el día que exista una entrada pública— y la
- * criba es lo que impide que, al revertirla, vuelva con ella el enlace a la
- * oferta descontinuada. Es defensa en profundidad, no redundancia.
+ * Y ese aislamiento es REVERSIBLE —se revierte el día que exista una entrada
+ * pública—, que es la otra razón por la que la criba se queda.
  *
  * Inventario y dependencias de cada ruta:
  * velia-core/docs/design/VELIA_WEB_LEGACY_INVENTORY_2026.md
  */
 
 /** ⚠️ Esta lista tiene un gemelo en `scripts/lib/auditoria-pagina.mjs`
- *  (`const LEGACY`), y `lib/rutas-congeladas.test.ts` comprueba que las dos
+ *  (`const LEGACY`), y `lib/rutas-retiradas.test.ts` comprueba que las dos
  *  digan lo mismo. Dos listas de lo mismo en dos ficheros divergen: no se toca
  *  una sin la otra.
  *
@@ -50,7 +66,7 @@
  *  compartido— y `lib/updates.test.ts`, que no existe. Una nota que manda
  *  mantener dos ficheros sincronizados y nombra mal los dos manda a revisar el
  *  sitio equivocado. */
-export const RUTAS_CONGELADAS = ['/precios', '/demo', '/fundadores', '/legal'] as const
+export const RUTAS_RETIRADAS = ['/precios', '/demo', '/fundadores', '/legal'] as const
 
 /**
  * ¿Se puede pintar este enlace?
@@ -72,7 +88,7 @@ export function enlacePublicable(link: string | null | undefined): boolean {
     if (!esNuestro) return true
     // `pathname === r` y no `startsWith(r)` a secas: `/legales` no es `/legal`,
     // y una criba que se come rutas vecinas es un tapón, no una política.
-    return !RUTAS_CONGELADAS.some(r => pathname === r || pathname.startsWith(`${r}/`))
+    return !RUTAS_RETIRADAS.some(r => pathname === r || pathname.startsWith(`${r}/`))
   } catch {
     // Un enlace que ni siquiera se deja analizar no se publica.
     return false

@@ -72,13 +72,16 @@ const TERMINOS = {
   pilotMetrics: /\+\s*260\s*%|12\s*h\s*\/\s*semana|12 horas a la semana/i,
 }
 
-/* Las rutas públicas que se comprueban. Las legacy entran a propósito: estar
-   congeladas no las hace invisibles — siguen respondiendo 200 a quien tenga el
-   enlace. */
+/* Las rutas públicas que se comprueban.
+
+   ⚠️ 29-sep-2026: salen `/precios`, `/demo`, `/fundadores` y `/legal`. Estaban
+   aquí a propósito, y el motivo era bueno: «estar congeladas no las hace
+   invisibles — siguen respondiendo 200 a quien tenga el enlace». Ese motivo ha
+   dejado de existir con ellas: sus páginas se borraron del repositorio y ahora
+   responden 404. Un claim no se puede publicar en una página que no se sirve. */
 const RUTAS = [
   '/', '/contacto', '/seguridad', '/sobre-velia', '/novedades',
   '/ai-search', '/ai-search/preparar-una-web', '/ai-search/llms-txt',
-  '/precios', '/demo', '/fundadores', '/legal',
   '/aviso-legal', '/privacidad', '/cookies', '/terminos', '/ia-responsable',
   /* El llms.txt es texto que se publica para que lo lean máquinas: un claim
      escrito ahí está tan publicado como en una página (19-sep-2026). */
