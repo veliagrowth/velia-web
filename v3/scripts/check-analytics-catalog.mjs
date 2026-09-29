@@ -116,6 +116,10 @@ if (seDescartan.length === 0 && yaNoSeEmiten.length === 0) {
   process.exit(0)
 }
 
+/* ¿La divergencia se explica por otra rama del portal? Se decide abajo y se
+   lee en el código de salida. Ver la nota de `SALIDA 2` al final. */
+let otraRamaLoCubre = false
+
 if (seDescartan.length) {
   console.error(rojo(`\n✖ ${seDescartan.length} eventos que la web EMITE y el buzón TIRA (200 y a la basura):`))
   for (const e of seDescartan) console.error(`    ${e}`)
@@ -132,6 +136,7 @@ if (seDescartan.length) {
     const lista = listaEventos(git(repoPortal, 'show', `${r}:${RUTA_EN_EL_PORTAL}`) ?? '')
     return lista && seDescartan.every(e => lista.includes(e))
   })
+  otraRamaLoCubre = cubren.length > 0
   if (cubren.length) {
     console.error(ambar(`\n⚠ Estos ${seDescartan.length} nombres SÍ están en otra rama del portal:`))
     for (const r of cubren) console.error(ambar(`    ${r}`))
@@ -147,4 +152,24 @@ if (yaNoSeEmiten.length) {
   console.error('  → bórralos del endpoint, o vuelve a emitirlos si hacen falta')
 }
 console.error('')
-process.exit(1)
+
+/* ── SALIDA 2 · «no cuadra, y la causa está FUERA de este repositorio» ──────
+ * 29-sep-2026. Esta guarda tenía un solo código de fallo, y con él dos causas
+ * que no se arreglan en el mismo sitio:
+ *
+ *   · el catálogo DIVERGE de verdad            → se arregla tocando el endpoint
+ *   · el portal en disco está en otra rama     → no hay nada que arreglar aquí
+ *
+ * El veredicto NO se relaja: los dos siguen siendo NO VERDE, y los dos siguen
+ * fallando. Lo único que cambia es que el segundo se puede distinguir sin leer
+ * la prosa, porque `scripts/check-todo.mjs` necesita decidir si un fallo es de
+ * `velia-web` o una dependencia declarada de `velia-portal` — y decidirlo
+ * parseando un mensaje en castellano habría sido una guarda de cristal.
+ *
+ * `yaNoSeEmiten` fuerza el 1 aunque otra rama cubra los descartes: eso es un
+ * evento que el buzón acepta y la web ya no manda, y de ese lado sí se responde
+ * desde aquí.
+ *
+ * ⚠️ Un 2 NO es un aprobado. Quien lo trate como verde está haciendo
+ * exactamente lo que esta guarda existe para impedir. */
+process.exit(otraRamaLoCubre && !yaNoSeEmiten.length ? 2 : 1)
