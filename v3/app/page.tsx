@@ -7,6 +7,7 @@ import Capacidades from '@/components/Capacidades'
 import Casos from '@/components/Casos'
 import Entorno from '@/components/Entorno'
 import ModeloOperativo from '@/components/ModeloOperativo'
+import Faq from '@/components/Faq'
 import RevealRect from '@/components/motion/RevealRect'
 import HeroSalida from '@/components/motion/HeroSalida'
 import DemoEmbed from '@/components/DemoEmbed'
@@ -385,7 +386,29 @@ export default function Home() {
         </p>
       </section>
 
-      {/* ═══ 8 · CIERRE · CORTE OSCURO 2 ══════════════════════════════════
+      {/* ═══ 8 · PREGUNTAS ════════════════════════════════════════════════
+          Va AQUÍ, entre «por qué VELIA» y el cierre, y el sitio no es casual:
+          son las dudas que quedan justo antes de decidir si escribir. Ponerla
+          después del cierre sería contestarlas cuando ya se ha ido.
+
+          Blanco sobre Pearl Cloud, como «cómo trabajamos»: la alternancia
+          Pearl → blanco → Night marca el último tramo de la página.
+
+          ⚠️ Sin JSON-LD `FAQPage`. La Fase 0 lo retiró a propósito y
+          `qa:identidad` exige que NINGUNA ruta lo publique; esta sección es
+          contenido, no una señal estructurada. Reabrir esa puerta es una
+          decisión aparte. */}
+      <section id="preguntas" aria-labelledby="t-preguntas" className="bg-white border-y border-mist scroll-mt-20">
+        <div className="mx-auto max-w-6xl px-6 md:px-10 py-16 md:py-20">
+          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Preguntas</p>
+          <h2 id="t-preguntas" className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
+            Lo que se suele preguntar antes de escribirnos.
+          </h2>
+          <Faq />
+        </div>
+      </section>
+
+      {/* ═══ 9 · CIERRE · CORTE OSCURO 2 ══════════════════════════════════
           Una acción. Sin formulario embebido, sin segundo botón, sin «o si
           prefieres…». Quien ha llegado hasta aquí ya ha decidido si quiere
           hablar; lo único que hace falta es no ponérselo difícil. */}

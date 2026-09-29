@@ -346,6 +346,19 @@ a.btn:active, button.btn:active {
 }
 .rail::-webkit-scrollbar { display: none; }
 
+/* Entrada del panel de la FAQ (29-sep-2026).
+   Sólo `opacity` y `transform`: la altura del acordeón cambia de golpe a
+   propósito —animarla obligaría a recalcular el layout en cada fotograma— y
+   lo único que se acompaña es la aparición del texto. 220 ms es la duración
+   de «cambio de estado de un control» del sistema.
+   No lleva guarda de `prefers-reduced-motion` aquí porque la clase se aplica
+   con el modificador `motion-safe:` de Tailwind, que ya es esa consulta: con
+   movimiento reducido la animación no llega a declararse. */
+@keyframes faq-entra {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: none; }
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    «Un día con VELIA» — baraja que se apila al hacer scroll
    ───────────────────────────────────────────────────────────────────────────

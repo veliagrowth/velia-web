@@ -17,7 +17,8 @@
     "check:claims": "node scripts/check-claims-publicados.mjs",
     "test:claims": "node --test lib/verified-claims.test.ts",
     "test:rutas": "node --test lib/rutas-retiradas.test.ts",
-    "check:email": "node scripts/check-email.mjs"
+    "check:email": "node scripts/check-email.mjs",
+    "qa:faq": "node scripts/qa-faq.mjs"
   },
   "dependencies": {
     "next": "14.2.30",

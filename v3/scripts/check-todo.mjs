@@ -96,6 +96,12 @@ const GUARDAS = [
   { id: 'qa:home', servidor: true },
   { id: 'qa:paginas', servidor: true },
   { id: 'qa:identidad', servidor: true },
+  /* La FAQ de la Home (29-sep-2026). Entra con guarda propia y no dentro de
+     `qa:home` porque es lo único de la web con ESTADO: las demás guardas miden
+     la página en reposo, y un acordeón en reposo está cerrado — su contenido,
+     que es el que más puede desbordar, no lo veía ninguna. Aquí se pulsa de
+     verdad, se navega con teclado y se mide con los once paneles abiertos. */
+  { id: 'qa:faq', servidor: true },
 ]
 
 // ── utilidades ─────────────────────────────────────────────────────────────
