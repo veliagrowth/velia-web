@@ -40,3 +40,16 @@ automático funcionando, ya no es el camino normal.
 
 ⛔ Lo que **no** vale como prueba: «push realizado» · «deployment creado» · `uptime_s` cambió ·
 el último despliegue de la lista (eso es recencia, no identidad).
+
+## Historial medido
+
+**2-oct-2026 · el trigger no existía, y se comprobó empujando.** Base: la preview servía
+`6693721` (`/api/health`, `commit_fuente = SOURCE_COMMIT`). Se empujó `7af2862` a la rama de
+preview y se observaron los despliegues de Coolify durante **240 s sin llamar a la API de
+deploy**: **cero despliegues nuevos**. El webhook no disparaba. A continuación se activó el
+auto-deploy de la app de preview.
+
+⚠️ La API de Coolify (v4.1.x) **no expone** `is_auto_deploy_enabled` ni en
+`GET /applications` ni en `GET /applications/{uuid}`, así que el flag **no se puede leer**:
+«PATCH aceptado» no demuestra «PATCH aplicado». La única verificación válida es volver a
+empujar y mirar si aparece el despliegue.
