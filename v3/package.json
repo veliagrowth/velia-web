@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start -H 0.0.0.0",
     "lint": "next lint",
+    "typecheck": "tsc --noEmit",
     "qa:hero": "node scripts/qa-hero.mjs",
     "check:analytics": "node scripts/check-analytics-catalog.mjs",
     "qa:home": "node scripts/qa-home.mjs",

@@ -120,8 +120,14 @@ test('toda atadura del código está declarada en usedIn — y al revés', () =>
     for (const m of codigo.matchAll(/claim:\s*'([a-zA-Z]+)'/g)) {
       const key = m[1] as keyof typeof CLAIMS
       assert.ok(CLAIMS[key], `${ruta} ata un claim «${key}» que no existe en el registro`)
+      /* `CLAIMS` es `as const`, asi que un `usedIn: []` literal se estrecha a
+         `readonly []` y su elemento es `never`: `.includes(ruta)` no tipa. Se
+         ensancha con una ASIGNACION al tipo que el propio registro declara
+         (`Claim.usedIn: string[]`), no con un cast: `readonly []` es asignable a
+         `readonly string[]`, luego no se esconde ningun contrato roto. */
+      const declaradas: readonly string[] = CLAIMS[key].usedIn
       assert.ok(
-        CLAIMS[key].usedIn.includes(ruta),
+        declaradas.includes(ruta),
         `${ruta} ata «${key}» y el registro no lo declara en su usedIn`,
       )
     }
