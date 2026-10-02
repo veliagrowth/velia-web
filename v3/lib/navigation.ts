@@ -88,5 +88,7 @@ export const FOOTER_NAV = {
   },
 } as const
 
-/** Cierre de marca del pie. Los dos verbos que separan a VELIA de una agencia. */
-export const FOOTER_CLAIM = 'Construimos infraestructura. Y la operamos.'
+/* FOOTER_CLAIM retirado el 2-oct-2026 por decision de producto: la frase
+   «Construimos infraestructura. Y la operamos.» sale del pie. No se sustituye
+   por otra: el pie cierra con la marca, el mapa y lo legal, y el enunciado de
+   posicionamiento ya vive en el cierre de la Home, que esta justo encima. */

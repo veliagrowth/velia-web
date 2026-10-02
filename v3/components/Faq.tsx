@@ -16,41 +16,39 @@ import { FAQ } from '@/lib/faq'
  * fuera del esquema de titulares de la página. Con `<h3><button>` cada
  * pregunta es un titular navegable y el estado es explícito.
  *
- * ── LO QUE SE ANIMA, Y LO QUE NO ──────────────────────────────────────────
- * El panel NO anima su altura. Animar `height` o `grid-template-rows` obliga
- * al navegador a recalcular el layout en cada fotograma, y es justo lo que el
- * sistema de esta web prohíbe: sólo `transform` y `opacity`.
+ * ── UNA SOLA ABIERTA · CAMBIADO EL 2-oct-2026 ─────────────────────────────
+ * Antes podían quedarse varias abiertas, y estaba razonado: cerrar la que
+ * alguien está leyendo porque abre otra es decidir por él. Lo cambia una
+ * petición explícita de producto, y el motivo que la sostiene es de forma, no
+ * de función: con once preguntas y varias abiertas el bloque de cierre crece
+ * hasta tres pantallas y deja de ser un cierre.
  *
- * Así que al abrir, el panel aparece y su contenido entra con un fundido
- * corto; el signo gira. Nada más. La altura cambia de golpe, que es lo que
- * hace un acordeón, y no arrastra a nada de arriba porque cada pregunta está
- * en su propia fila con su hairline.
+ * Así que ahora se cierra la anterior — pero **animada**, que es la mitad que
+ * importa. Abrir una y ver desaparecer otra de golpe es peor que no cerrarla.
+ * El cómo está en `app/globals.css` (`.faq-panel`), y ahí está escrito por qué
+ * este acordeón sí anima su altura cuando el sistema de movimiento lo prohíbe
+ * en general.
  *
- * Con `prefers-reduced-motion` no se mueve ni el fundido ni el signo. Abrir y
- * cerrar sigue funcionando igual: el movimiento nunca es el que informa.
- *
- * ── VARIAS ABIERTAS A LA VEZ ──────────────────────────────────────────────
- * A propósito. Cerrar la que el visitante estaba leyendo porque abre otra es
- * una decisión del componente sobre algo que no es asunto suyo, y obliga a
- * volver atrás para comparar dos respuestas. Un `Set` y cada una a lo suyo.
+ * ── SOBRE NIGHT, Y CENTRADA ───────────────────────────────────────────────
+ * El bloque pasó de blanco a `bg-void` para formar un solo cierre con el pie.
+ * La columna va centrada en la página; el texto de cada pregunta y su
+ * respuesta, NO: una respuesta de cuatro líneas centrada se lee peor, y aquí
+ * la jerarquía la da el aire, no la simetría del párrafo.
  */
 export default function Faq() {
-  const [abiertas, setAbiertas] = useState<ReadonlySet<string>>(new Set())
+  /* `null` y no un `Set`: una sola abierta. Guardar el id —y no el índice—
+     porque el orden de `FAQ` puede cambiar y un índice recordaría la posición
+     de otra pregunta. */
+  const [abierta, setAbierta] = useState<string | null>(null)
 
-  const alternar = (id: string) =>
-    setAbiertas(prev => {
-      const s = new Set(prev)
-      if (s.has(id)) s.delete(id)
-      else s.add(id)
-      return s
-    })
+  const alternar = (id: string) => setAbierta(prev => (prev === id ? null : id))
 
   return (
-    <ul className="mt-12 md:mt-16 max-w-[68ch]">
+    <ul className="mt-12 md:mt-16 mx-auto max-w-[68ch] text-left">
       {FAQ.map(p => {
-        const abierta = abiertas.has(p.id)
+        const esta = abierta === p.id
         return (
-          <li key={p.id} className="border-t border-mist last:border-b">
+          <li key={p.id} className="border-t border-white/10 last:border-b">
             {/* El encabezado lleva el botón dentro, y no al revés: así la
                 pregunta es un titular de nivel 3 dentro de la sección y quien
                 navega por titulares recorre las once. */}
@@ -58,12 +56,16 @@ export default function Faq() {
               <button
                 type="button"
                 id={`faq-b-${p.id}`}
-                aria-expanded={abierta}
+                aria-expanded={esta}
                 aria-controls={`faq-p-${p.id}`}
                 onClick={() => alternar(p.id)}
-                className="group w-full flex items-start justify-between gap-5 py-5 md:py-6 text-left"
+                className="group w-full flex items-start justify-between gap-5 py-5 md:py-6 text-left rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-iris-focus focus-visible:ring-offset-2 focus-visible:ring-offset-void"
               >
-                <span className="text-base md:text-lg font-600 tracking-[-0.01em] text-void">
+                <span
+                  className={`text-base md:text-lg font-600 tracking-[-0.01em] transition-colors duration-control ${
+                    esta ? 'text-cream' : 'text-cream/85 group-hover:text-cream'
+                  }`}
+                >
                   {p.q}
                 </span>
                 {/* El signo, no un icono: dos trazos que pasan de «+» a «−»
@@ -71,50 +73,57 @@ export default function Faq() {
                     decirlo dos veces obliga a oírlo dos veces. */}
                 <span
                   aria-hidden="true"
-                  className="relative mt-1.5 h-4 w-4 shrink-0 text-void/65 group-hover:text-void transition-colors duration-control"
+                  className="relative mt-1.5 h-4 w-4 shrink-0 text-cream/55 group-hover:text-cream transition-colors duration-control"
                 >
                   <span className="absolute left-0 top-1/2 h-px w-4 -translate-y-1/2 bg-current" />
                   <span
                     className={`absolute left-0 top-1/2 h-px w-4 -translate-y-1/2 bg-current motion-safe:transition-transform motion-safe:duration-panel motion-safe:ease-velia ${
-                      abierta ? 'rotate-0' : 'rotate-90'
+                      esta ? 'rotate-0' : 'rotate-90'
                     }`}
                   />
                 </span>
               </button>
             </h3>
 
-            {/* `hidden` y no una clase: el contenido cerrado no debe estar en
-                el árbol de accesibilidad ni ser alcanzable con el tabulador.
-                Un panel «oculto» con opacidad sigue ahí para un lector de
-                pantalla y para la búsqueda del navegador. */}
+            {/* El panel se queda SIEMPRE en el DOM —si no, no hay nada que
+                animar al cerrar— y se colapsa con `grid-template-rows`. Cerrado
+                queda en `visibility: hidden`, que lo saca del árbol de
+                accesibilidad y del tabulador igual que `hidden`, y además se
+                puede transicionar. Ver `.faq-panel` en `globals.css`. */}
             <div
               id={`faq-p-${p.id}`}
               role="region"
               aria-labelledby={`faq-b-${p.id}`}
-              hidden={!abierta}
-              className="motion-safe:animate-[faq-entra_220ms_cubic-bezier(0.22,1,0.36,1)_both] pb-6 md:pb-7 pr-9"
+              className="faq-panel"
+              data-abierta={esta ? 'true' : 'false'}
             >
-              {p.a.map((parrafo, i) => (
-                <p key={i} className={`${i === 0 ? '' : 'mt-3'} text-[15px] leading-[1.6] text-void/70`}>
-                  {parrafo}
-                </p>
-              ))}
-              {/* Donde la respuesta resume algo que otra superficie desarrolla
-                  —hoy, los términos del servicio—, se enlaza. Una FAQ que
-                  explica una condición y no dice dónde está escrita obliga a
-                  creérsela. Mismo gesto de flecha que el resto de la web: «→»
-                  lleva a otro sitio de este dominio. */}
-              {p.enlace && (
-                <p className="mt-4">
-                  <Link
-                    href={p.enlace.href}
-                    className="enlace-flecha text-[15px] font-600 text-gold-ink underline decoration-gold-ink/30 underline-offset-4 hover:decoration-gold-ink transition-colors"
-                  >
-                    {p.enlace.texto}
-                    <span className="enlace-flecha__flecha ml-1 no-underline" aria-hidden="true">→</span>
-                  </Link>
-                </p>
-              )}
+              <div className="faq-panel__in">
+                <div className="pb-6 md:pb-7 pr-9">
+                  {p.a.map((parrafo, i) => (
+                    <p key={i} className={`${i === 0 ? '' : 'mt-3'} text-[15px] leading-[1.6] text-cream/70`}>
+                      {parrafo}
+                    </p>
+                  ))}
+                  {/* Donde la respuesta resume algo que otra superficie
+                      desarrolla —hoy, los términos del servicio—, se enlaza. Una
+                      FAQ que explica una condición y no dice dónde está escrita
+                      obliga a creérsela. Mismo gesto de flecha que el resto de la
+                      web: «→» lleva a otro sitio de este dominio.
+                      Sobre Night el acento es `gold` = Iris 400 (6,80:1); el
+                      `gold-ink` de antes es Iris 700 y es para fondo claro. */}
+                  {p.enlace && (
+                    <p className="mt-4">
+                      <Link
+                        href={p.enlace.href}
+                        className="enlace-flecha text-[15px] font-600 text-gold underline decoration-gold/30 underline-offset-4 hover:decoration-gold transition-colors"
+                      >
+                        {p.enlace.texto}
+                        <span className="enlace-flecha__flecha ml-1 no-underline" aria-hidden="true">→</span>
+                      </Link>
+                    </p>
+                  )}
+                </div>
+              </div>
             </div>
           </li>
         )

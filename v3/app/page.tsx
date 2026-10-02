@@ -8,6 +8,7 @@ import Casos from '@/components/Casos'
 import Entorno from '@/components/Entorno'
 import ModeloOperativo from '@/components/ModeloOperativo'
 import Faq from '@/components/Faq'
+import FaqAtmosfera from '@/components/FaqAtmosfera'
 import RevealRect from '@/components/motion/RevealRect'
 import HeroSalida from '@/components/motion/HeroSalida'
 import DemoEmbed from '@/components/DemoEmbed'
@@ -386,22 +387,40 @@ export default function Home() {
         </p>
       </section>
 
-      {/* ═══ 8 · PREGUNTAS ════════════════════════════════════════════════
-          Va AQUÍ, entre «por qué VELIA» y el cierre, y el sitio no es casual:
-          son las dudas que quedan justo antes de decidir si escribir. Ponerla
-          después del cierre sería contestarlas cuando ya se ha ido.
+      {/* ═══ 8 · PREGUNTAS · DONDE EMPIEZA EL CIERRE ══════════════════════
+          Sigue AQUÍ, entre «por qué VELIA» y el cierre, y el sitio no es
+          casual: son las dudas que quedan justo antes de decidir si escribir.
+          Ponerla después del cierre sería contestarlas cuando ya se ha ido.
 
-          Blanco sobre Pearl Cloud, como «cómo trabajamos»: la alternancia
-          Pearl → blanco → Night marca el último tramo de la página.
+          ── LO QUE CAMBIA EL 2-oct-2026 ES LA ATMÓSFERA, NO EL SITIO ──────
+          Era blanca sobre Pearl Cloud, una franja más de la alternancia. Pasa
+          a Night, el mismo del pie, y con eso las tres últimas franjas
+          —preguntas · cierre · pie— dejan de ser tres bloques y se leen como
+          un solo cierre de página. El contenido va centrado; el texto de cada
+          respuesta no, que se lee peor.
+
+          ⚠️ SIN `velia-dark-stage`, y es deliberado. Esa clase trae su propia
+          veladura radial, y sumarla a la anomalía daría exactamente el fondo
+          de plantilla que había que evitar. Aquí el telón es `FaqAtmosfera`:
+          malla de infraestructura con una lente que sigue al puntero. El
+          `isolate` contiene su `mix-blend-mode` dentro de la sección.
 
           ⚠️ Sin JSON-LD `FAQPage`. La Fase 0 lo retiró a propósito y
           `qa:identidad` exige que NINGUNA ruta lo publique; esta sección es
           contenido, no una señal estructurada. Reabrir esa puerta es una
           decisión aparte. */}
-      <section id="preguntas" aria-labelledby="t-preguntas" className="bg-white border-y border-mist scroll-mt-20">
-        <div className="mx-auto max-w-6xl px-6 md:px-10 py-16 md:py-20">
-          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-void/65">Preguntas</p>
-          <h2 id="t-preguntas" className="mt-5 text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-void max-w-[20ch]">
+      <section
+        id="preguntas"
+        aria-labelledby="t-preguntas"
+        className="relative isolate overflow-hidden bg-void text-cream scroll-mt-20"
+      >
+        <FaqAtmosfera />
+        <div className="relative mx-auto max-w-6xl px-6 md:px-10 py-20 md:py-24 text-center">
+          <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-cream/70">Preguntas</p>
+          <h2
+            id="t-preguntas"
+            className="mt-5 mx-auto text-[clamp(1.9rem,3.5vw,2.75rem)] font-600 tracking-[-0.03em] leading-[1.1] text-cream max-w-[20ch]"
+          >
             Lo que se suele preguntar antes de escribirnos.
           </h2>
           <Faq />

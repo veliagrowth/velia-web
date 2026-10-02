@@ -3,7 +3,7 @@ import BotonAccion from '@/components/BotonAccion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { APP_URL } from '@/lib/constants'
-import { FOOTER_NAV, FOOTER_CLAIM } from '@/lib/navigation'
+import { FOOTER_NAV } from '@/lib/navigation'
 
 /**
  * Footer.
@@ -54,9 +54,6 @@ export default function Footer() {
               height={50}
               className="h-[30px] md:h-[38px] w-auto"
             />
-            <p className="mt-5 text-[clamp(1.25rem,2.4vw,1.9rem)] font-500 tracking-[-0.02em] leading-[1.25] text-cream max-w-[18ch]">
-              {FOOTER_CLAIM}
-            </p>
           </div>
           <div className="mt-8 md:mt-0 flex flex-wrap items-center gap-3">
             <BotonAccion href={APP_URL} variante="oscura" evento="login_click" externo>

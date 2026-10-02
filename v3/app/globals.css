@@ -360,6 +360,138 @@ a.btn:active, button.btn:active {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   EL CIERRE DE LA HOME · preguntas sobre Night, y la anomalía (2-oct-2026)
+   ───────────────────────────────────────────────────────────────────────────
+   Encargo: que la FAQ deje de ser una sección blanca suelta y pase a formar
+   UN SOLO cierre con el pie. No se movió de sitio —sigue antes del cierre,
+   que es donde las dudas llegan— sino de atmósfera: el mismo Night del pie,
+   así que las tres últimas franjas (preguntas · cierre · pie) se leen como un
+   bloque y no como tres.
+
+   Y dos cosas que el sistema de movimiento tenía prohibidas y aquí se
+   declaran a propósito, con su motivo:
+
+   1 · EL ACORDEÓN SÍ ANIMA SU ALTURA.
+       El comentario de `faq-entra` decía que la altura cambia de golpe para
+       no recalcular layout por fotograma. Era la decisión correcta cuando
+       podían quedarse varias abiertas: nada se movía debajo. Al pasar a UNA
+       abierta, cerrar la anterior mientras se abre la nueva sin animar es un
+       salto de varios cientos de píxeles con el ojo puesto encima, y eso se
+       nota mucho más que un reflow de una fila.
+       Se anima con `grid-template-rows: 0fr → 1fr`, que es la única forma de
+       interpolar hacia «la altura que haga falta» sin medirla en JS, y el
+       coste queda ACOTADO a la fila: el contenido va en un hijo con
+       `overflow: hidden`, así que nada de fuera entra en el cálculo.
+
+   2 · `visibility`, NO `hidden`.
+       El panel cerrado tiene que salir del árbol de accesibilidad y del
+       tabulador —eso no se negocia—, pero `hidden` no se puede animar.
+       `visibility: hidden` hace lo mismo para lector de pantalla y foco, y
+       además transiciona: entra a 0 s al abrir y espera la duración al
+       cerrar, para no cortar la animación por la mitad.                       */
+
+.faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition:
+    grid-template-rows var(--motion-panel) var(--ease-velia),
+    visibility 0s linear var(--motion-panel);
+}
+.faq-panel[data-abierta='true'] {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition:
+    grid-template-rows var(--motion-panel) var(--ease-velia),
+    visibility 0s linear 0s;
+}
+/* El hijo es el que recorta. Sin `min-height: 0` una fila de grid se niega a
+   bajar de la altura de su contenido y el colapso no ocurre. */
+.faq-panel__in {
+  overflow: hidden;
+  min-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-panel,
+  .faq-panel[data-abierta='true'] {
+    transition: none;
+  }
+}
+
+/* ── LA ANOMALÍA ───────────────────────────────────────────────────────────
+   Estructura iluminada, no una forma inventada. Debajo hay una malla de
+   líneas de un píxel —el motivo que esta web usa para hablar de
+   infraestructura— y lo único que se mueve es la luz sobre ella.
+
+   · `::before` es la malla, y la revela una máscara radial centrada en el
+     puntero (`--fx`/`--fy`, que escribe `FaqAtmosfera`). Donde no hay lente,
+     la malla no existe: así nunca hay una cuadrícula compitiendo con la prosa.
+   · `::after` es la veladura de color. Iris 400 por debajo del 9 % y en
+     `screen`: suma luz, no pinta encima.
+   · La deriva lenta va en `transform` sobre la malla, 46 s y sin vuelta
+     exacta al origen, para que no se lea el bucle.
+
+   Un solo color de marca. Sin púrpura, sin segundo tono, sin degradado de dos
+   colores: eso es lo que convierte una atmósfera en un fondo de plantilla.   */
+
+.faq-atmosfera {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  /* Centro por defecto: si no hay puntero —móvil, o nadie ha movido el ratón—
+     la composición ya está donde la queremos, no en la esquina. */
+  --fx: 50%;
+  --fy: 42%;
+}
+
+.faq-atmosfera::before,
+.faq-atmosfera::after {
+  content: '';
+  position: absolute;
+  inset: -12%;
+}
+
+.faq-atmosfera::before {
+  background-image:
+    repeating-linear-gradient(90deg, rgba(141, 144, 250, 0.16) 0 1px, transparent 1px 72px),
+    repeating-linear-gradient(0deg, rgba(141, 144, 250, 0.16) 0 1px, transparent 1px 72px);
+  -webkit-mask-image: radial-gradient(38rem 30rem at var(--fx) var(--fy), #000 0%, rgba(0, 0, 0, 0.5) 34%, transparent 70%);
+  mask-image: radial-gradient(38rem 30rem at var(--fx) var(--fy), #000 0%, rgba(0, 0, 0, 0.5) 34%, transparent 70%);
+  animation: faq-deriva 46s var(--ease-revelado) infinite;
+  will-change: transform;
+}
+
+.faq-atmosfera::after {
+  background-image: radial-gradient(
+    32rem 26rem at var(--fx) var(--fy),
+    rgba(141, 144, 250, 0.085) 0%,
+    rgba(141, 144, 250, 0.03) 42%,
+    transparent 72%
+  );
+  mix-blend-mode: screen;
+}
+
+/* La deriva: cuatro paradas asimétricas y ninguna vuelve al 0,0 salvo al
+   cerrar el ciclo. Amplitud de ±1,4 %, que a 72 px de paso es menos de un
+   píxel de desplazamiento por segundo: se percibe como respiración, no como
+   movimiento. */
+@keyframes faq-deriva {
+  0%   { transform: translate3d(0, 0, 0); }
+  27%  { transform: translate3d(1.4%, -0.9%, 0); }
+  53%  { transform: translate3d(-0.6%, 1.3%, 0); }
+  78%  { transform: translate3d(-1.3%, -0.5%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+/* Con movimiento reducido queda la malla quieta y centrada: es la mitad que
+   informa —hay estructura debajo— sin la mitad que sólo acompaña. */
+@media (prefers-reduced-motion: reduce) {
+  .faq-atmosfera::before { animation: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    «Un día con VELIA» — baraja que se apila al hacer scroll
    ───────────────────────────────────────────────────────────────────────────
    Encargo de Joaquín (2-ago): la sección no puede ser solo scroll; las cinco
