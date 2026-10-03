@@ -11,11 +11,31 @@
  * Esa tesis quedó DEROGADA el 9-sep (VELIA_DIRECCION_2026-09.md): VELIA Legal
  * está descontinuado como producto y marca, y el vertical es una configuración.
  * Importa aquí y no es cosmética: este fichero es el que decide qué se puede
- * afirmar en público, y varios de sus claims siguen redactados en el vocabulario
- * del vertical —«la práctica jurídica española», «la revisión del abogado»—.
- * Son claims VERIFICADOS y no se reescriben de paso: reformular uno exige
- * decidir si sigue diciendo el mismo hecho, y eso es una decisión humana. Se
- * dejan como están y se declaran aquí para que no se confundan con un olvido.
+ * afirmar en público, y tres de sus claims `verified` seguían redactados en el
+ * vocabulario del vertical. El gate no los habría parado: están verificados, y
+ * basta con que una página los ate para que se publiquen.
+ *
+ * ── LA REGLA CON LA QUE SE REFORMULA UN CLAIM (4-oct-2026) ──────────────────
+ * El precedente lo fijó `tenantIsolation` el 18-sep y aquí se aplica igual: un
+ * claim se puede reescribir **si y sólo si el texto nuevo no afirma nada que su
+ * propio `source` no demuestre ya**. Entonces no es un claim nuevo, es el mismo
+ * hecho dicho sin el vocabulario de un producto retirado, y `status`, `source`,
+ * `verifiedAt` y `owner` se quedan intactos. Si para quitar el vocabulario hay
+ * que ensanchar el hecho, eso NO es reformular: es afirmar algo sin verificar.
+ *
+ *   ✅ `developedInSpain`  reformulado — el texto afirmaba ADEMÁS menos de lo
+ *                          que su fuente prueba (ver su comentario).
+ *   ✅ `humanSupervision`  reformulado — su `source` ya era genérico.
+ *   🖐️ `officialSources`   SE QUEDA. Su fuente es el motor de jurisprudencia y
+ *                          habla de citas de legislación contra BOE/EUR-Lex.
+ *                          Generalizarlo a «cita sus fuentes» sería inventar
+ *                          una capacidad que nadie ha verificado, y recortarlo
+ *                          al vertical es una decisión de producto, no de
+ *                          redacción. HUMAN_DECISION_REQUIRED. Hoy no lo ata
+ *                          ninguna página (`usedIn: []`), así que no se publica.
+ *
+ * Y `pilotMetrics` («del despacho piloto») tampoco se toca: está `disabled` y su
+ * texto es el REGISTRO de lo que se retiró. Reescribirlo falsearía el archivo.
  *
  * REGLA DURA: **solo se renderiza lo que está en `verified`.** `claim()` devuelve
  * `null` para todo lo demás, así que un claim sin verificar no se cuela por
@@ -95,7 +115,20 @@ export interface Claim {
 export const CLAIMS = {
   // ── Verificados ────────────────────────────────────────────────────────────
   developedInSpain: {
-    text: 'Diseñada para la práctica jurídica española.',
+    /* Reformulado el 4-oct-2026. Decía «Diseñada para la práctica jurídica
+       española», y ahí había DOS defectos, no uno:
+
+         · el vocabulario del vertical retirado, que es lo que vino a corregirse;
+         · y un desajuste con su propia fuente. La fuente prueba DÓNDE se
+           desarrolló el producto; el texto afirmaba PARA QUÉ práctica estaba
+           diseñado. Son hechos distintos, y el segundo no estaba verificado por
+           el primero. La clave de la entrada (`developedInSpain`) siempre dijo
+           el hecho bueno; el texto publicado, no.
+
+       El texto nuevo dice exactamente lo que la fuente demuestra y nada más, así
+       que afirma MENOS que antes. `status`, `source`, `verifiedAt` y `owner`
+       intactos: el hecho verificado no se ha movido. */
+    text: 'Diseñada y desarrollada en España.',
     status: 'verified',
     source: 'Producto desarrollado íntegramente por el equipo en España. Comprobable en el propio repositorio y en la facturación de la sociedad.',
     verifiedAt: '2026-07-29',
@@ -104,6 +137,16 @@ export const CLAIMS = {
   },
 
   officialSources: {
+    /* 🖐️ NO REFORMULADO el 4-oct-2026, a propósito. Es el único de los tres que
+       no se puede sacar del vocabulario jurídico sin cambiar el hecho: su fuente
+       es el motor de jurisprudencia, y lo que está verificado es que una cita de
+       LEGISLACIÓN se resuelve contra BOE o EUR-Lex. «Cuando cita una fuente,
+       enlaza al original» sonaría mejor y sería un claim distinto, sin verificar,
+       sobre cualquier cita de cualquier módulo.
+       Qué hacer con él —retirarlo, acotarlo a la configuración legal o verificar
+       la versión ancha— es una decisión de producto. HUMAN_DECISION_REQUIRED.
+       Riesgo hoy: ninguno publicado. `usedIn: []` y el único fichero que lo ata,
+       `components/SecurityArchitecture.tsx`, no tiene importador. */
     text: 'Cuando cita legislación, enlaza al BOE o a EUR-Lex.',
     status: 'verified',
     source: 'Implementado en el motor de jurisprudencia: toda cita normativa se resuelve contra la fuente oficial y se publica con enlace. Ver memory/project_legal_jurisprudence.md.',
@@ -133,7 +176,20 @@ export const CLAIMS = {
   },
 
   humanSupervision: {
-    text: 'Ningún borrador, plazo o decisión jurídica sustituye la revisión del abogado.',
+    /* Reformulado el 4-oct-2026. Decía «Ningún borrador, plazo o decisión
+       jurídica sustituye la revisión del abogado».
+
+       Aquí la reformulación es la más limpia de las tres porque la fuente YA era
+       genérica: «toda propuesta de VELIA requiere aprobación explícita antes de
+       aplicarse». El texto publicado era esa misma regla contada en clave de
+       despacho —«borrador, plazo, decisión jurídica» son los tres artefactos del
+       vertical, y «el abogado» su único revisor—. El principio no es del
+       vertical: es de producto, y aplica a cualquier tenant.
+
+       El texto nuevo no ensancha nada: sigue cubierto palabra por palabra por la
+       fuente, que habla de TODA propuesta y de aprobación explícita. `status`,
+       `source`, `verifiedAt` y `owner` intactos. */
+    text: 'Ninguna propuesta de VELIA se aplica sin que una persona la apruebe.',
     status: 'verified',
     source: 'Principio de producto. Toda propuesta de VELIA requiere aprobación explícita antes de aplicarse — verificable en la propia interfaz.',
     verifiedAt: '2026-07-29',

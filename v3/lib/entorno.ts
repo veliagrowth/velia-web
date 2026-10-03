@@ -88,7 +88,15 @@ export const ESCALONES: readonly Escalon[] = [
     corto: 'El negocio',
     titulo: 'El negocio por dentro',
     encadena: 'Y además',
-    cuerpo: 'Lo que no se parece a nadie: expedientes en un despacho, pedidos en una tienda.',
+    /* Los dos ejemplos eran «expedientes en un despacho, pedidos en una tienda».
+       La frase no presuponía nada —son dos sectores, no uno— pero abría por el
+       vocabulario de VELIA Legal, que está descontinuado como producto y marca
+       (VELIA_DIRECCION_2026-09). Lo que esta línea tiene que decir es «lo propio
+       de TU sector, sea cual sea», y para eso el par de ejemplos da igual: el
+       que iba primero era el del vertical retirado. Se cambia el ejemplo, no el
+       hecho. Cónsul Jurídico sigue en `lib/casos.ts` como cliente real, que es
+       donde una mención al mundo jurídico sí afirma algo comprobable. */
+    cuerpo: 'Lo que no se parece a nadie: pedidos en una tienda, citas en una clínica.',
     piezas: ['Lo propio del sector', 'Operación diaria', 'Un espacio para sus clientes'],
   },
 ]
