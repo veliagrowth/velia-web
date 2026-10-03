@@ -7,3 +7,40 @@
 #
 # Anadido en la Fase 0 de VELIA Next Era (27-ago-2026).
 .env*
+
+
+# ── ORIGINALES DE MEDIA — 4-oct-2026 ────────────────────────────────────────
+#
+# POR QUE EXISTE ESTO. `stash@{0}` (5-jun-2026, rama feat/rebrand-legal) guarda
+# 19 ficheros UNTRACKED que pesan 898,2 MB: son los ORIGINALES de media cuyas
+# versiones entregables ya estan versionadas. Ninguna de esas rutas estaba
+# ignorada, asi que si los ficheros reaparecen en el arbol un `git add -A`
+# descuidado mete 898 MB en un repositorio cuyo `.git` ya pesa 959 MB — y eso no
+# se deshace sin reescribir historia.
+#
+# El stash NO se aplica y NO se borra: pueden ser la unica copia de los
+# originales. Esto solo evita que vuelvan a entrar por descuido.
+#
+# ⚠️ REGLAS ACOTADAS A PROPOSITO. Una regla a nivel de `img/cases/` habria
+#    tapado SEIS .jpeg LEGITIMOS y ya versionados en `img/cases/krea-hogar/`.
+#    Medido antes de escribir esto: en los dos directorios de abajo lo unico
+#    versionado es `.webp`, y la correspondencia con los originales es 1:1
+#    (5 originales ↔ 5 .webp · 6 ↔ 6).
+
+# Nada versionado aqui: son los originales que consume `videos/comprimir-reels.bat`,
+# y lo entregado (`videos/reel-01.mp4`, `reel-02.mp4`) si esta en el repo.
+videos/tmp/
+
+# Originales cuyo entregable versionado es el .webp del mismo nombre base.
+img/cases/consul-juridico/*.png
+img/cases/consul-juridico/*.jpg
+img/cases/consul-juridico/*.jpeg
+img/cases/the-drop-agency/*.png
+img/cases/the-drop-agency/*.jpg
+img/cases/the-drop-agency/*.jpeg
+
+# 🖐️ HUMAN_REQUIRED — `stories_destacadas.jpeg` (raiz) NO se ignora.
+#    Es el unico de los 19 que no tiene pareja versionada: no hay un
+#    `stories_destacadas.webp` ni ninguna forma suya trackeada. No se puede
+#    afirmar que sea un original descartable en vez de un asset que falta por
+#    commitear, y ante la duda no se ignora.
