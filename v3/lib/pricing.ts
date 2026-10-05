@@ -1,11 +1,38 @@
 /**
+ * ⛔⛔ OFERTA DESCONTINUADA. NO MONTAR NADA QUE LEA DE AQUÍ. ⛔⛔
+ *
+ * ── MEDIDO EL 5-OCT-2026, ANTES DEL RELEASE ─────────────────────────────────
+ * Todo lo que declara este fichero —«VELIA Despacho» a 99 €/mes, el Programa
+ * Fundadores con 20 plazas, los 15 días de prueba gratuita— pertenece al
+ * producto que la DIRECCIÓN del 9-sep-2026 **descontinuó**. VELIA ya no lo vende.
+ *
+ * ✅ **Hoy NO se publica**: ninguna página de esta web renderiza estos valores.
+ * Se comprobó uno por uno: `PricingPlans.tsx`, `PricingSelector.tsx` y
+ * `TrialButton.tsx` **no los monta ninguna página**, `TRIAL_MICROCOPY` y
+ * `ENABLE_PUBLIC_PRICING` **no tienen un solo consumidor**, y las menciones que
+ * quedan en `app/` son **comentarios** que documentan lo ya corregido. La web
+ * nueva no miente.
+ *
+ * 🔴 **Pero esto es un arma cargada, y por eso este aviso existe.** Basta un
+ * `import` y montar uno de esos tres componentes para que veliacorp.com vuelva a
+ * ofrecer 99 €/mes y una prueba gratuita que nadie puede dar. `ENABLE_FOUNDERS_PROGRAM`
+ * sigue en `true` en `lib/feature-flags.ts`, lo que le da apariencia de vigente.
+ * No es «construido y sin usar»: es **a un import de volver a publicarse**.
+ *
+ * 🖐️ Qué hacer, y en este orden: **no montarlo**. Retirar este fichero y sus tres
+ * componentes es `POST_LAUNCH` y no bloquea el release, pero no se puede borrar sin
+ * más: `lib/constants.ts` lo reexporta y `lib/cta.ts` lee `PRICING.trialDays`, y las
+ * dos tienen partes vivas. Es un refactor, no un `rm`.
+ * ⛔ **Y los importes NO se actualizan**: el modelo nuevo no tiene precio público.
+ * Inventar uno aquí sería peor que el número viejo.
+ *
+ * ── LO QUE DECÍA ESTA CABECERA (vigente hasta el 9-sep-2026) ─────────────────
  * SSoT de precios de la web pública — modelo Axel (decidido 2026-07-21).
  * Plan único "VELIA Despacho": 99€/mes, anual con 2 meses gratis. Programa
  * Fundadores = mismo precio + web premium incluida (solo anual), 20 plazas.
- *
  * Cambiar un número aquí lo cambia en TODA la web (home, /precios, JSON-LD,
  * términos). Nunca escribir un importe a mano en un componente — importar de aquí.
- * El ahorro anual se CALCULA, no se teclea (evita el "198€" desincronizado).
+ * ⚠️ `/precios` y `/fundadores` **ya no existen** como rutas en esta web.
  */
 export const PRICING = {
   monthly: 99,           // €/mes + IVA · facturación mensual
