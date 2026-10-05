@@ -145,26 +145,47 @@ export default function Home() {
             <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-gold-ink">
               Transformación y operación digital
             </p>
-            {/* Mismas palabras que antes. Cambia el peso y el eje. */}
+            {/* ── EL MOTTO ES EL TITULAR (5-oct-2026) ─────────────────────
+                Antes el `h1` decía «Construimos y operamos / la infraestructura
+                digital con la que una empresa compite en la nueva era». Buen
+                copy, pero NO era el motto de la nueva dirección, y el motto no
+                aparecía en ninguna parte del sitio: cero ocurrencias en `app/`
+                y en `components/`, medido.
+
+                Ahora el orden dice lo que debe decir: el motto PROMETE y la
+                frase anterior EXPLICA EL MÉTODO. No se ha tirado una sola
+                palabra —la frase baja a subtítulo— y el eyebrow sigue fijando
+                la identidad (§16: transformación + operación digital).
+
+                ⚠️ VA EN CAJA DE FRASE, NO EN MAYÚSCULAS, y es una decisión de
+                marca, no un descuido: el display de VELIA es `tracking -0.04em`
+                y las versales exigen tracking POSITIVO (`brand/` + CLAUDE.md
+                §tipografía). «PREPARA TU NEGOCIO PARA AGENTES» a 5rem con
+                tracking negativo se cierra y se lee peor. La exigencia era que
+                el motto fuese la propuesta de valor principal y claramente
+                visible: a `clamp(2.5rem,6.4vw,5rem)` y animado al cargar lo es
+                mucho más que unas versales de 11px en el eyebrow.
+
+                ⚠️ `lineaClassName="mx-auto"` NO es un parche de centrado: es la
+                corrección de la geometría. `.rr-linea` es `display:block` con
+                `width:fit-content`, y una caja de BLOQUE con ancho propio se
+                coloca contra el borde de inicio de su contenedor —`text-center`
+                centra contenido EN LÍNEA, no cajas de bloque—. Por eso el
+                titular salía desplazado a la izquierda aunque todo lo demás de
+                la columna estuviera centrado. Lo que centra una caja de bloque
+                de ancho propio es el margen automático, y eso es lo que hace.
+                No se toca la regla global: `RevealRect` también se usa alineado
+                a la izquierda en el cierre del entorno. */}
             <h1 id="t-afirmacion" className="mt-6 text-void">
-              {/* ⚠️ `lineaClassName="mx-auto"` NO es un parche de centrado: es la
-                  corrección de la geometría. `.rr-linea` es `display:block` con
-                  `width:fit-content`, y una caja de BLOQUE con ancho propio se
-                  coloca contra el borde de inicio de su contenedor —`text-center`
-                  centra contenido EN LÍNEA, no cajas de bloque—. Por eso el
-                  titular salía desplazado a la izquierda aunque todo lo demás de
-                  la columna estuviera centrado. Lo que centra una caja de bloque
-                  de ancho propio es el margen automático, y eso es lo que hace.
-                  No se toca la regla global: `RevealRect` también se usa alineado
-                  a la izquierda en el cierre del entorno. */}
               <RevealRect
                 al="cargar"
-                lineas={['Construimos', 'y operamos']}
+                lineas={['Prepara tu negocio', 'para agentes']}
                 lineaClassName="mx-auto"
                 className="text-[clamp(2.5rem,6.4vw,5rem)] font-600 tracking-[-0.04em] leading-[0.98]"
               />{' '}
-              <span className="mt-4 md:mt-5 block text-[clamp(1.15rem,1.9vw,1.6rem)] font-500 tracking-[-0.02em] leading-[1.25] text-void/75 max-w-[24em] mx-auto">
-                la infraestructura digital con la que una empresa compite en la nueva era.
+              <span className="mt-4 md:mt-5 block text-[clamp(1.15rem,1.9vw,1.6rem)] font-500 tracking-[-0.02em] leading-[1.25] text-void/75 max-w-[26em] mx-auto">
+                Construimos y operamos la infraestructura digital con la que una empresa
+                compite en la nueva era.
               </span>
             </h1>
 
