@@ -56,17 +56,47 @@ export type Caso = {
   velia: string
   /** Rótulo corto del tipo de trabajo. */
   tipo: string
+  /** Qué es esta organización PARA VELIA. Decide si se publica. Ver `Relacion`. */
+  relacion: Relacion
   /**
    * El caso que MANDA en la composición. Sólo uno. Ocupa la fila entera y se
-   * pinta más grande; los otros tres son contrapunto.
+   * pinta más grande; el resto son contrapunto.
    *
-   * No es un capricho de maquetación: cuatro celdas iguales piden comparar
-   * cuatro proyectos que no son comparables —uno es un cliente con
-   * infraestructura operada y otro un trabajo creativo puntual—, y la web lo
-   * dice desde hace meses en un comentario mientras los pintaba iguales.
+   * No es un capricho de maquetación: celdas iguales piden comparar proyectos
+   * que no son comparables —uno es un cliente con infraestructura operada y
+   * otro un trabajo creativo puntual—, y la web lo dijo durante meses en un
+   * comentario mientras los pintaba iguales.
    */
   principal?: true
   evidencia: 'documentado' | 'parcial'
+}
+
+/**
+ * La relación REAL con VELIA. Fijada el 5-oct-2026 después de medirla contra la
+ * base de producción y el repositorio, porque la rejilla pintaba cuatro cosas
+ * distintas como si fueran la misma.
+ *
+ *   'CLIENT'     relación VELIA confirmada y operativa: tenant, fila en
+ *                `clients`, datos y portal. Hoy sólo Cónsul Jurídico.
+ *   'ECOSYSTEM'  VELIA opera o mantiene una superficie digital real para esa
+ *                organización, aunque «cliente» no sea la palabra exacta en
+ *                toda superficie. Hoy METHOD NUMBERS.
+ *   'PROJECT'    trabajo real hecho por VELIA sin cliente operativo actual.
+ *   'RELATED'    persona o empresa relacionada con VELIA, FUERA del perímetro
+ *                de cliente. Incluye los ventures propios de los socios.
+ *
+ * ⚠️ `RELATED` y `PROJECT` **no se publican**. Presentarlos en la misma rejilla
+ * que un cliente de pago afirma una relación comercial que no existe. Se quedan
+ * en este fichero porque el historial de trabajo no se borra —son encargos
+ * reales, con evidencia— pero no salen a la calle como clientes.
+ */
+export type Relacion = 'CLIENT' | 'ECOSYSTEM' | 'PROJECT' | 'RELATED'
+
+/** Las dos relaciones que la Home puede afirmar en público. */
+const PUBLICABLES: readonly Relacion[] = ['CLIENT', 'ECOSYSTEM']
+
+export function esPublicable(c: Caso): boolean {
+  return PUBLICABLES.includes(c.relacion)
 }
 
 export const CASOS: readonly Caso[] = [
@@ -77,32 +107,68 @@ export const CASOS: readonly Caso[] = [
     velia:
       'Cliente. VELIA construyó su infraestructura —captación, expedientes, documentos, agenda y un portal para sus propios clientes— y la sigue operando.',
     tipo: 'Infraestructura construida y operada',
+    relacion: 'CLIENT',
     principal: true,
     evidencia: 'documentado',
-  },
-  {
-    nombre: 'KREA HOGAR',
-    dominio: 'kreahogar.com',
-    que: 'Sofás y colchones fabricados en España. Tienda en Lleida y venta online.',
-    velia:
-      'Su infraestructura digital no es algo entregado y terminado: está viva. VELIA la mantiene, la mejora y la opera —catálogo, ofertas, contenido y la relación con sus clientes— para que el negocio no pague por sostener algo que simplemente existe.',
-    tipo: 'Presencia digital y comercio',
-    evidencia: 'parcial',
   },
   {
     nombre: 'METHOD NUMBERS',
     dominio: 'method9989.com',
     que: 'Marca y lanzamientos. Hoy su web es el teaser del próximo.',
+    /* Medido el 5-oct: tenant `method-9989`, web en producción servida por VELIA
+       (`9989-web` → `method9989.com` y `www.`), y subdominio de portal. Lo que
+       NO tiene es actividad de portal: 0 casos, 0 contactos, 0 hilos. Por eso el
+       texto habla de la web, que es lo demostrable, y no de operación. */
     velia: 'VELIA construye y mantiene la web, y despliega cada cambio.',
     tipo: 'Web construida y mantenida',
+    relacion: 'ECOSYSTEM',
     evidencia: 'documentado',
+  },
+
+  /* ── NO SE PUBLICAN ────────────────────────────────────────────────────────
+     Siguen aquí porque el trabajo fue real y el historial no se borra. No salen
+     a la Home porque la rejilla afirmaría una relación de cliente que no existe.
+     Medido el 5-oct-2026 contra `tenants`, `clients`, Coolify y GitHub. */
+  {
+    nombre: 'KREA HOGAR',
+    dominio: 'kreahogar.com',
+    que: 'Sofás y colchones fabricados en España. Tienda en Lleida y venta online.',
+    /* ⚠️ ESTE TEXTO AFIRMABA, EN PRESENTE: «Su infraestructura digital no es algo
+       entregado y terminado: está viva. VELIA la mantiene, la mejora y la opera
+       —catálogo, ofertas, contenido y la relación con sus clientes—».
+       Retirado el 5-oct-2026. No hay evidencia de nada de eso: sin tenant, sin
+       fila en `clients`, sin portal, sin app en Coolify, sin repositorio y sin
+       memoria propia. Su único rastro son capturas de la etapa agencia en
+       `img/cases/krea-hogar/`, un fixture de test en el portal, y correo de
+       `axel@kreahogar.com` — que es un socio de VELIA, no un cliente.
+       Una afirmación de operación VIVA, en presente, sostenida por eso, es
+       exactamente lo que esta lista prohíbe en su primera línea. */
+    velia: 'VELIA trabajó en su presencia digital y su comercio online.',
+    tipo: 'Presencia digital y comercio',
+    relacion: 'RELATED',
+    evidencia: 'parcial',
   },
   {
     nombre: 'THE DROP AGENCY',
     dominio: 'thedrop.agency',
     que: 'Agencia creativa y de management de artistas.',
-    velia: 'VELIA acompaña su producción creativa: piezas, campañas y el material con el que trabajan sus artistas.',
+    /* No es cliente de VELIA, y su propia memoria interna lo dice literalmente:
+       «agencia creativa propia de Joaquín, distinta de VELIA». Es un venture de
+       un socio. El trabajo existe y está documentado —storyboards del videoclip
+       SACRAMENTO, 12-jul-2026— pero publicarlo como caso de cliente es
+       presentar trabajo para uno mismo como tracción comercial. */
+    velia: 'VELIA acompañó su producción creativa: piezas, campañas y material para sus artistas.',
     tipo: 'Trabajo creativo',
+    relacion: 'RELATED',
     evidencia: 'parcial',
   },
 ]
+
+/**
+ * Lo que la Home pinta. Se DERIVA de la relación, no de un booleano a mano ni
+ * del orden del array: así nadie publica un caso nuevo por olvidarse de un flag.
+ *
+ * Hoy son dos. ⛔ No se rellena hasta cuatro para que la rejilla quede simétrica:
+ * dos casos verdaderos valen más que cuatro con dos inventados.
+ */
+export const CASOS_PUBLICOS: readonly Caso[] = CASOS.filter(esPublicable)

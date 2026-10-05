@@ -1,5 +1,5 @@
 import Reveal from '@/components/Reveal'
-import { CASOS } from '@/lib/casos'
+import { CASOS_PUBLICOS } from '@/lib/casos'
 
 /**
  * Trabajo — los cuatro proyectos, sobre el corte oscuro de la Home.
@@ -35,9 +35,24 @@ import { CASOS } from '@/lib/casos'
  * La idea que sostenía —se construye sólo el escalón que hace falta— no se ha
  * perdido: es la sección `#entorno` entera de la Home, con su claim detrás.
  */
+/**
+ * Las columnas del contrapunto SE DERIVAN de cuántos casos publicables hay.
+ * Estaban cableadas a `sm:grid-cols-3` con tres casos fijos; al quedar uno,
+ * pintaba una columna estrecha con dos tercios de hueco. Rellenar hasta tres
+ * para que cuadre es exactamente lo que esta sección no puede hacer, así que
+ * cuadra la rejilla al número real. Clases estáticas porque Tailwind no compila
+ * las que se construyen en tiempo de ejecución.
+ */
+const COLUMNAS: Record<number, string> = {
+  0: '',
+  1: '',
+  2: 'sm:grid-cols-2',
+  3: 'sm:grid-cols-3',
+}
+
 export default function Casos() {
-  const principal = CASOS.find(c => c.principal) ?? CASOS[0]
-  const resto = CASOS.filter(c => c !== principal)
+  const principal = CASOS_PUBLICOS.find(c => c.principal) ?? CASOS_PUBLICOS[0]
+  const resto = CASOS_PUBLICOS.filter(c => c !== principal)
 
   return (
     <div className="mt-10 md:mt-14 grid gap-px bg-white/10 overflow-hidden rounded-lg">
@@ -69,8 +84,8 @@ export default function Casos() {
         </Reveal>
       </article>
 
-      {/* ── El contrapunto: tres columnas estrechas ───────────────────── */}
-      <div className="grid gap-px bg-white/10 sm:grid-cols-3">
+      {/* ── El contrapunto ────────────────────────────────────────────── */}
+      <div className={`grid gap-px bg-white/10 ${COLUMNAS[Math.min(resto.length, 3)]}`}>
         {resto.map((c, i) => (
           <article key={c.dominio} className="caso bg-void px-6 py-8 md:px-7 md:py-9">
             <Reveal delay={i * 60}>
