@@ -248,9 +248,21 @@ export default function Home() {
         <div className="relative">
           <div className="mx-auto max-w-6xl px-6 md:px-10 pb-16 md:pb-20">
             <DemoEmbed heightClass="h-[62vh] min-h-[440px] md:min-h-[560px]" />
+            {/* Lo que el §8 pide que se entienda sin deducirlo: QUÉ hace VELIA y
+                QUÉ la hace distinta. Decía «configura y opera», que dejaba fuera
+                la mitad del trabajo —diseñar y construir— y la unicidad implícita
+                dentro de un «adaptado a».
+
+                ⚠️ Va AQUÍ y no dentro de la demo. El primer mensaje del iframe es
+                el parte diario de `lib/cerebro/standup.ts`, que es PRODUCTO: lo ve
+                igual un cliente de pago al abrir su portal. Poner ahí el argumento
+                de venta significaría que Cónsul Jurídico abre su parte de la
+                mañana y lee marketing. La demo enseña el producto; la web explica
+                qué es. */}
             <p className="mt-4 text-center text-[13px] leading-[1.6] text-void/70 max-w-[46em] mx-auto">
-              Una muestra del entorno digital que VELIA configura y opera para sus clientes,
-              adaptado a cada negocio, servicio y proyecto.
+              VELIA diseña, construye y opera el ecosistema digital de cada negocio.
+              Esto es una muestra real de uno: cada ecosistema VELIA es único y se adapta
+              a cómo trabaja la empresa, no al revés.
             </p>
           </div>
         </div>
