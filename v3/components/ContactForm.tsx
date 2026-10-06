@@ -199,8 +199,14 @@ export default function ContactForm({ origen = 'contacto' }: { origen?: string }
       </div>
 
       <div className="mt-6 flex gap-3 items-start">
+        {/* `w-6 h-6` = 24 px, no `w-4` = 16. Medido en producción a 430 px: era el
+            único control del formulario por debajo del mínimo de WCAG 2.2 AA
+            2.5.8. La etiqueta va asociada con `htmlFor` y también alterna la
+            casilla, pero el control en sí tiene que cumplir por su cuenta: no se
+            delega el tamaño del destino en el texto de al lado. `mt-0.5` lo
+            vuelve a alinear con la primera línea de 13 px. */}
         <input id="cf-consent" name="consent" type="checkbox" required
-          className="mt-1 w-4 h-4 shrink-0 accent-[#4C51B9]" />
+          className="mt-0.5 w-6 h-6 shrink-0 accent-[#4C51B9]" />
         <label htmlFor="cf-consent" className="text-[13px] text-void/70 leading-[1.6]">
           {CONSENT_TEXT}
         </label>

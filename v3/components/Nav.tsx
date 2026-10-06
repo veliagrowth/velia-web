@@ -143,7 +143,11 @@ export default function Nav() {
           ese contenido es texto que cambia de ancho cuando llega Geist. Se
           queda por lo estructural, no por lo que no arregla. */}
       <nav className="mx-auto max-w-6xl px-6 h-14 grid grid-cols-[1fr_auto_1fr] items-center gap-4">
-        <Link href="/" aria-label="VELIA — inicio" className="col-start-1 justify-self-start shrink-0">
+        {/* `py-1`: el destino táctil lo daba sólo la altura del logotipo —22 px
+            medidos en producción a 390 px—, por debajo de los 24 que exige WCAG
+            2.2 AA 2.5.8. Con el padding, 30. No mueve el layout: la barra es
+            `h-14` con `items-center`, así que el alto lo manda la barra. */}
+        <Link href="/" aria-label="VELIA — inicio" className="col-start-1 justify-self-start shrink-0 py-1">
           <Image src="/velia_logotipo.svg" alt="VELIA" width={120} height={30} priority className="h-[22px] w-auto" />
         </Link>
 

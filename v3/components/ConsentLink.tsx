@@ -41,9 +41,15 @@ export default function ConsentLink({ variante }: { variante: 'pie' | 'prosa' })
      tratamiento de `.legal-prose a`, que es el hermano visual que tiene al
      lado. Esa regla no se le aplica sola: es para `<a>`, y esto es un
      `<button>`. Medido sobre Pearl Cloud: `text-void/80` da 9,7:1. */
+  /* `py-1.5` SÓLO en la variante de pie, y no por estética: ahí es un control
+     SUELTO en la barra inferior, medido a 40×16 px en móvil — por debajo de los
+     24 px que exige WCAG 2.2 AA (2.5.8 Target Size Minimum). 16 + 12 = 28.
+     La variante `prosa` NO lo lleva: es una palabra dentro de una frase, y ese
+     caso está explícitamente exento por la propia 2.5.8. Darle padding ahí
+     rompería el interlineado del párrafo para cumplir una regla que no aplica. */
   const estilo =
     variante === 'pie'
-      ? 'text-[11px] text-cream/55 hover:text-cream'
+      ? 'text-[11px] py-1.5 text-cream/55 hover:text-cream'
       : 'text-void/80 hover:text-gold-dark'
 
   return (

@@ -6,38 +6,42 @@
  * que el botón principal de `/precios` decía «Solicitar una demo» y llevaba a
  * `/contacto`. Quien llegaba decidido a probar VELIA se encontraba un formulario.
  *
- * Regla: en toda la web solo existen TRES acciones. Si hace falta una cuarta,
- * casi siempre es que la sección está intentando hacer dos cosas a la vez.
- *
- *   1. PRIMARIA    Probar VELIA gratis     → el flujo real de alta
- *   2. SECUNDARIA  Ver demo interactiva    → la demo sin registro
- *   3. TERCIARIA   Hablar con el equipo    → solo bufetes grandes, migraciones,
- *                                            integraciones y compra corporativa
- *
  * Nunca escribir el texto de un CTA a mano en un componente: importarlo de aquí.
+ *
+ * ── QUÉ SE FUE EL 6-oct-2026, Y POR QUÉ ──────────────────────────────────────
+ * Este fichero declaraba TRES acciones —primaria «Probar VELIA gratis»,
+ * secundaria «Ver demo interactiva», terciaria «Hablar con el equipo»— y las
+ * conservaba con esta justificación escrita aquí mismo:
+ *
+ *     «Las tres acciones de abajo NO se borran: las páginas legacy (`/precios`,
+ *      `/demo`, `/fundadores`, `/legal`) siguen vivas y las siguen usando.»
+ *
+ * **Esa frase era falsa.** Medido: las cuatro rutas están en
+ * `rutas-retiradas.ts` y **ninguna tiene `page.tsx`**. No seguían vivas: no
+ * existían. Y sus consumidores —`PricingPlans`, `PricingSelector`,
+ * `TrialButton`— no los importaba nadie: eran una isla cerrada, a un `import`
+ * de volver a publicar una oferta descontinuada.
+ *
+ * Además `TRIAL_URL` apuntaba a `/prueba-velia`, el alta self-serve del portal
+ * que se retiró ese mismo día: era, literalmente, un enlace a un 404.
+ *
+ * 🔑 **Queda UNA acción, y es la verdad del producto:** VELIA no vende una
+ * herramienta que probar, construye y opera infraestructura. Eso empieza por una
+ * conversación, no por un alta.
  */
 import { APP_URL } from './constants'
-import { PRICING } from './pricing'
-
-/** Flujo de alta real. Es el destino de TODA acción primaria del sitio. */
-export const TRIAL_URL = `${APP_URL}/prueba-velia`
-
-/** Demo de solo lectura, sin registro. */
-export const DEMO_URL = 'https://demo.app.veliacorp.com/'
-
-/** Página propia que presenta la demo antes de abrirla. */
-export const DEMO_PAGE = '/demo'
 
 /**
- * ── REWORK 2026 ──────────────────────────────────────────────────────────────
- * La acción de la VELIA nueva. No hay prueba gratuita que ofrecer porque no hay
- * producto que probar: VELIA no vende una herramienta, construye y opera
- * infraestructura. Eso empieza por una conversación, no por un alta.
+ * La demo de solo lectura, sin registro. Vive y la usa `DemoEmbed` en el Hero.
  *
- * Las tres acciones de abajo NO se borran: las páginas legacy (`/precios`,
- * `/demo`, `/fundadores`, `/legal`) siguen vivas y las siguen usando. Dejan de
- * aparecer en la Home y en la navegación, que es distinto de dejar de existir.
+ * ⚠️ No confundir con la retirada `DEMO_PAGE = '/demo'`, que era una página
+ * intermedia para presentar la demo antes de abrirla: esa ruta ya no existe.
+ * Hoy la demo se enseña directamente, embebida, que es el requisito —«una
+ * ventana real al producto»—.
  */
+export const DEMO_URL = 'https://demo.app.veliacorp.com/'
+
+/** La única acción de la VELIA nueva. */
 export const CTA_CONTACTO = {
   label: 'Hablemos',
   href: '/contacto',
@@ -48,52 +52,8 @@ export const CTA_CONTACTO = {
  *  hay un SLA de respuesta que podamos sostener. */
 export const CONTACTO_MICROCOPY = 'Nos cuentas cómo trabajáis hoy. Te decimos qué haríamos.'
 
-export const CTA = {
-  primary: {
-    label: 'Probar VELIA gratis',
-    href: TRIAL_URL,
-  },
-  secondary: {
-    label: 'Ver demo interactiva',
-    href: DEMO_PAGE,
-  },
-  /* La terciaria llevaba al buzón interno por `mailto:`. Ahora va a
-     `/contacto`, que es donde va todo lo demás. La usa `PricingPlans`, de la
-     etapa anterior: no se rompe, deja de publicar el correo. */
-  tertiary: {
-    label: 'Hablar con el equipo',
-    href: '/contacto',
-  },
+/** Entrada al portal para quien YA es cliente. No es un alta: es una puerta. */
+export const ACCESO_CLIENTES = {
+  label: 'Acceso clientes',
+  href: APP_URL,
 } as const
-
-/** Microcopy bajo el CTA primario. Se calcula desde el SSoT de precios. */
-export const TRIAL_MICROCOPY = `${PRICING.trialDays} días gratis · Sin tarjeta · Configuración en minutos`
-
-/** Versión corta, para cuando el espacio no da (móvil, tarjetas). */
-export const TRIAL_MICROCOPY_SHORT = `${PRICING.trialDays} días gratis · Sin tarjeta`
-
-/**
- * Arrastra las UTM de la visita hasta la aplicación.
- *
- * Sin esto, el embudo se corta justo donde importa: la web sabe de qué campaña
- * vino el visitante y la aplicación, que es donde se convierte, no.
- *
- * Se resuelve en el cliente (el servidor no ve la query del navegador), así que
- * los componentes que lo usan son `'use client'`. Si algo falla, devuelve la URL
- * limpia: perder las UTM es un problema de medición, romper el alta es un
- * problema de negocio.
- */
-export function withUtm(url: string): string {
-  if (typeof window === 'undefined') return url
-  try {
-    const entrada = new URLSearchParams(window.location.search)
-    const destino = new URL(url)
-    for (const clave of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']) {
-      const valor = entrada.get(clave)
-      if (valor) destino.searchParams.set(clave, valor)
-    }
-    return destino.toString()
-  } catch {
-    return url
-  }
-}

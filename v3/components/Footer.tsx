@@ -74,8 +74,11 @@ export default function Footer() {
       {/* ── 2 · MAPA ────────────────────────────────────────────────────── */}
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-6xl px-6 md:px-10 py-12 md:py-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          {/* `space-y-0.5` en vez de `2.5`: cada enlace gana 8 px de `py-1` (abajo),
+              así que el hueco entre ellos ya no lo pone el hermano sino el propio
+              destino táctil. Mantener `2.5` separaría la lista hasta casi el doble. */}
           {Object.entries(FOOTER_NAV).map(([key, grupo]) => (
-            <div key={key} className="text-[13px] space-y-2.5">
+            <div key={key} className="text-[13px] space-y-0.5">
               {/* 11 px y peso 600, como TODOS los demás rótulos de la web. */}
               <p className="text-[11px] font-600 tracking-[0.06em] uppercase text-cream/70 mb-3">
                 {grupo.title}
@@ -84,7 +87,7 @@ export default function Footer() {
                 <Link
                   key={l.href + l.label}
                   href={l.href}
-                  className="block hover:text-cream transition-colors duration-control"
+                  className="block py-1 hover:text-cream transition-colors duration-control"
                 >
                   {l.label}
                 </Link>
@@ -97,7 +100,7 @@ export default function Footer() {
                       legales siguen dando el dato donde es obligatorio. */}
                   <a
                     href={APP_URL}
-                    className="block hover:text-cream transition-colors duration-control"
+                    className="block py-1 hover:text-cream transition-colors duration-control"
                   >
                     Acceso clientes
                   </a>

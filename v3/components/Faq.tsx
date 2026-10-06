@@ -115,7 +115,13 @@ export default function Faq() {
                     <p className="mt-4">
                       <Link
                         href={p.enlace.href}
-                        className="enlace-flecha text-[15px] font-600 text-gold underline decoration-gold/30 underline-offset-4 hover:decoration-gold transition-colors"
+                        /* `inline-block py-1` — este enlace es el ÚNICO hijo de su
+                           párrafo, así que NO es «un enlace dentro de una frase» y
+                           no le vale la exención de WCAG 2.2 AA 2.5.8. Medido en
+                           producción a 168×19 px en móvil, por debajo del mínimo de
+                           24; con el padding, 27. Mismo patrón que `Dominio` en
+                           `Casos.tsx`, que ya lo documentaba. */
+                        className="enlace-flecha inline-block py-1 text-[15px] font-600 text-gold underline decoration-gold/30 underline-offset-4 hover:decoration-gold transition-colors"
                       >
                         {p.enlace.texto}
                         <span className="enlace-flecha__flecha ml-1 no-underline" aria-hidden="true">→</span>

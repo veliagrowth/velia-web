@@ -1,12 +1,19 @@
 /**
  * Constantes compartidas de la web pública.
  *
- * Los precios y las plazas del Programa Fundadores viven en `lib/pricing.ts`
- * (SSoT única). Se re-exporta FOUNDERS_SEATS_LABEL aquí por compatibilidad con
- * los imports existentes.
+ * ── LO QUE SE FUE EL 6-oct-2026 ──────────────────────────────────────────────
+ * Este fichero re-exportaba `FOUNDERS_SEATS_LABEL`, `FOUNDERS`, `PRICING`,
+ * `ANNUAL_SAVING`, `ANNUAL_FREE_MONTHS` y `eur` desde `lib/pricing.ts`, «por
+ * compatibilidad con los imports existentes».
+ *
+ * Medido antes de quitarlo: **ninguno de los seis lo importaba nadie**. Y
+ * `lib/pricing.ts` era el SSoT de una oferta descontinuada —«VELIA Despacho» a
+ * 99 €/mes, el Programa Fundadores, 15 días de prueba— que sólo alcanzaban tres
+ * componentes que, a su vez, no importaba nadie.
+ *
+ * El riesgo nunca fue que se publicara sola: era que estaba **a un `import` de
+ * publicarse**, y esta línea era justo el atajo que lo hacía fácil.
  */
-
-export { FOUNDERS_SEATS_LABEL, FOUNDERS, PRICING, ANNUAL_SAVING, ANNUAL_FREE_MONTHS, eur } from './pricing'
 
 export const SITE_URL = 'https://veliacorp.com'
 export const APP_URL = 'https://app.veliacorp.com'
