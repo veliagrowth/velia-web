@@ -7,9 +7,21 @@ import { APP_URL } from '@/lib/constants'
 /**
  * PUERTA COMERCIAL — «quiero que alguien de VELIA me contacte».
  *
- * No es una segunda versión de `/prueba-velia`. Son dos intenciones distintas:
- *   · `/prueba-velia`  → «quiero probar VELIA ahora» (autoservicio, sale con cuenta y tenant).
- *   · este formulario  → «quiero hablar con alguien antes» (NO exige crear cuenta).
+ * ⚠️ ACTUALIZADO EL 6-oct-2026. Aquí decía que éste era una de DOS puertas:
+ *
+ *     · `/prueba-velia`  → «quiero probar VELIA ahora» (autoservicio, sale con cuenta y tenant)
+ *     · este formulario  → «quiero hablar con alguien antes»
+ *
+ * **La primera ya no existe.** `/prueba-velia` era el alta self-serve del SaaS
+ * anterior y se retiró del portal ese mismo día: creaba cuenta y tenant con plan
+ * `starter` y 15 días de prueba, de un producto descontinuado el 9-sep.
+ *
+ * Así que **este formulario es ahora la ÚNICA puerta de entrada de un lead**, y
+ * eso cambia su responsabilidad: ya no es «la opción para quien prefiere hablar
+ * antes», es la opción. Si falla, no hay otra.
+ *
+ * 🔑 Y es coherente con el producto: VELIA no tiene una herramienta que probar.
+ * Construye y opera infraestructura, y eso empieza por una conversación.
  *
  * El socio de un despacho de seis abogados no mete a su equipo en nada sin
  * hablar con una persona. Si su única opción es registrarse, se va — y hasta el
